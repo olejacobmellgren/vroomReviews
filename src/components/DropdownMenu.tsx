@@ -12,12 +12,9 @@ type CheckBoxProps = {
     onChange: () => void;
 }
 
-function CheckBox({ name, checked, onChange}: CheckBoxProps) {
+function CheckBox({ name, onChange }: CheckBoxProps) {
     return (
-        <label>
-            <input type="checkbox" checked={checked} onChange={onChange} />
-            {name}
-        </label>
+        <button className="dropdownButtonInside" onClick={onChange}>{name}</button>
     )
 }
 
