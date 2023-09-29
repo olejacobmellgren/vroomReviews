@@ -8,7 +8,6 @@ type DropdownProps = {
 
 type CheckBoxProps = {
     name: string;
-    checked: boolean;
     onChange: () => void;
 }
 
@@ -85,7 +84,6 @@ function DropdownMenu({filter, options}: DropdownProps) {
                             <CheckBox 
                                 key={option}
                                 name={option}
-                                checked={optionStates[option]}
                                 onChange={() => handleOptionClick(option)}
                             />
                         )
