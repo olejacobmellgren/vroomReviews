@@ -50,7 +50,7 @@ function DropdownMenu({filter, options}: DropdownProps) {
             {dropdown ? (
                 <div className="dropdown">
                     {options.map((option) => {
-                        if (option !== "Alle" || checkedOption !== filter) {
+                        if (option !== "Alle" || checkedOption !== filter) { // only show option "Alle" when the user has applied a filter
                             return (
                                 <ButtonInside 
                                     key={option}
