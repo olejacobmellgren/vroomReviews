@@ -8,12 +8,12 @@ type DropdownProps = {
 
 type ButtonProps = {
     name: string;
-    onChange: () => void;
+    onClick: () => void;
 }
 
-function ButtonInside({ name, onChange }: ButtonProps) {
+function ButtonInside({ name, onClick }: ButtonProps) {
     return (
-        <button className="dropdownButtonInside" onClick={onChange}>{name}</button>
+        <button className="dropdownButtonInside" onClick={onClick}>{name}</button>
     )
 }
 
@@ -55,7 +55,7 @@ function DropdownMenu({filter, options}: DropdownProps) {
                                 <ButtonInside 
                                     key={option}
                                     name={option}
-                                    onChange={() => handleOptionClick(option)}
+                                    onClick={() => handleOptionClick(option)}
                                 />
                             );
                         }
