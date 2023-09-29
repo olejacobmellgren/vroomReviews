@@ -3,7 +3,7 @@ import DropdownMenu from '../components/DropdownMenu';
 
 const Homepage = () => {
   const filter = "Year"
-  const options = ["2018", "2017", "2016", "2015"]
+  const options = ["2018", "2017", "2016", "2015", "Alle"]
 
   return (
     <div>

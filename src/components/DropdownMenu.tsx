@@ -20,12 +20,6 @@ function ButtonInside({ name, onChange }: ButtonProps) {
 function DropdownMenu({filter, options}: DropdownProps) {
 
     const [dropdown, setDropdown] = useState(false)
-    const [optionStates, setOptionStates] = useState(
-        options.reduce((acc, option) => {
-            acc[option] = false;
-            return acc;
-        }, {} as Record<string, boolean>)
-    );
     const [checkedOption, setCheckedOption] = useState(filter)
 
     useEffect(() => {
@@ -33,18 +27,8 @@ function DropdownMenu({filter, options}: DropdownProps) {
     }, [checkedOption])
 
     const handleOptionClick = (option: string) => {
-        const isChecked = optionStates[option]
 
-        setCheckedToFalse()
-
-        setOptionStates((prevOptionStates) => {
-            return {
-                ...prevOptionStates,
-                [option]: !isChecked,
-            };
-        });
-
-        if (isChecked === true) {
+        if (option === "Alle") {
             setCheckedOption(filter)
         } else {
             setCheckedOption(option)
@@ -57,36 +41,24 @@ function DropdownMenu({filter, options}: DropdownProps) {
         setDropdown(!dropdown)
     }
     
-    const setCheckedToFalse = () => {
-        setOptionStates(
-            options.reduce((acc, option) => {
-                acc[option] = false;
-                return acc;
-            }, {} as Record<string, boolean>)
-        );
-    }
-
-
-    const getCheckedOption = () => {
-        return checkedOption
-    }
-
     return (
         <div className="dropdownButtonWrapper">
             <button className="dropdownButton" onClick={handleDropdown}>
-                <label className="DdBlabel">{getCheckedOption()}</label>
+                <label className="DdBlabel">{checkedOption}</label>
                 <i className="dropdownArrow"></i>
             </button>
             {dropdown ? (
                 <div className="dropdown">
                     {options.map((option) => {
-                        return (
-                            <ButtonInside 
-                                key={option}
-                                name={option}
-                                onChange={() => handleOptionClick(option)}
-                            />
-                        )
+                        if (option !== "Alle" || checkedOption !== filter) {
+                            return (
+                                <ButtonInside 
+                                    key={option}
+                                    name={option}
+                                    onChange={() => handleOptionClick(option)}
+                                />
+                            );
+                        }
                     })}
                 </div>
             ): null}
