@@ -14,18 +14,17 @@ Prosjektet ble satt opp med Vite som tilbyr en enkel måte å sette opp et prosj
 
 #### Bruk av gode og relevante komponenter
 
-
 ## Testing, utvikling og kvalitetskontroll
 
 For å teste web-applikasjonen har vi laget tester av ulike typer. Dette er viktig for å kunne oppdage feil og problemet som kunne forblitt uoppdaget uten tester.
 
 #### Komponent-tester
 
-Vi har laget komponent-tester som tester props, state og brukerinteraksjon med komponenter. 
+Vi har laget komponent-tester som tester props, state og brukerinteraksjon med komponenter.
 
 #### Mock-tester
 
- Vi ønsker ikke å hente data fra API-et når vi skal teste og lager derfor mock-data. MSW lager mock-data for 
+Vi ønsker ikke å hente data fra API-et når vi skal teste og lager derfor mock-data. MSW lager mock-data for
 
 #### Snapshot-tester
 
@@ -38,5 +37,3 @@ I tillegg har vi gjennomført kontinuerlig manuell testing av brukergrensesnitte
 #### Automatisert end-to-end testing
 
 ## Annet
-
-
