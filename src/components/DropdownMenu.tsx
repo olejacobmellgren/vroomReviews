@@ -6,12 +6,12 @@ type DropdownProps = {
     options: string[]
 }
 
-type CheckBoxProps = {
+type ButtonProps = {
     name: string;
     onChange: () => void;
 }
 
-function CheckBox({ name, onChange }: CheckBoxProps) {
+function ButtonInside({ name, onChange }: ButtonProps) {
     return (
         <button className="dropdownButtonInside" onClick={onChange}>{name}</button>
     )
@@ -81,7 +81,7 @@ function DropdownMenu({filter, options}: DropdownProps) {
                 <div className="dropdown">
                     {options.map((option) => {
                         return (
-                            <CheckBox 
+                            <ButtonInside 
                                 key={option}
                                 name={option}
                                 onChange={() => handleOptionClick(option)}
