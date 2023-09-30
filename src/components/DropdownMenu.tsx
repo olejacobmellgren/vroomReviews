@@ -3,7 +3,9 @@ import "../assets/DropdownMenu.css";
 
 type DropdownProps = {
     filter: string;
-    options: string[]
+    options: string[];
+    isOpen: boolean;
+    toggleDropdown: () => void;
 }
 
 type ButtonProps = {
@@ -17,9 +19,8 @@ function ButtonInside({ name, onClick }: ButtonProps) {
     )
 }
 
-function DropdownMenu({filter, options}: DropdownProps) {
+function DropdownMenu({filter, options, isOpen, toggleDropdown}: DropdownProps) {
 
-    const [dropdown, setDropdown] = useState(false)
     const [checkedOption, setCheckedOption] = useState(filter)
 
     useEffect(() => {
@@ -34,11 +35,11 @@ function DropdownMenu({filter, options}: DropdownProps) {
             setCheckedOption(option)
         }
 
-        setDropdown(false)
+        toggleDropdown()
     };
     
     const handleDropdown = () => {
-        setDropdown(!dropdown)
+        toggleDropdown();
     }
     
     return (
@@ -47,7 +48,7 @@ function DropdownMenu({filter, options}: DropdownProps) {
                 <label className="DdBlabel">{checkedOption}</label>
                 <i className="dropdownArrow"></i>
             </button>
-            {dropdown ? (
+            {isOpen ? (
                 <div className="dropdown">
                     {options.map((option) => {
                         if (option !== "Alle" || checkedOption !== filter) { // only show option "Alle" when the user has applied a filter
