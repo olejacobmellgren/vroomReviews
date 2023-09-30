@@ -28,7 +28,6 @@ function DropdownMenu({filter, options, isOpen, toggleDropdown}: DropdownProps) 
     }, [checkedOption])
 
     const handleOptionClick = (option: string) => {
-
         if (option === "Alle") {
             setCheckedOption(filter)
         } else {
@@ -48,21 +47,19 @@ function DropdownMenu({filter, options, isOpen, toggleDropdown}: DropdownProps) 
                 <label className="DdBlabel">{checkedOption}</label>
                 <i className="dropdownArrow"></i>
             </button>
-            {isOpen ? (
-                <div className="dropdown">
-                    {options.map((option) => {
-                        if (option !== "Alle" || checkedOption !== filter) { // only show option "Alle" when the user has applied a filter
-                            return (
-                                <ButtonInside 
-                                    key={option}
-                                    name={option}
-                                    onClick={() => handleOptionClick(option)}
-                                />
-                            );
-                        }
-                    })}
-                </div>
-            ): null}
+            <div className={`dropdown ${isOpen ? 'active' : 'closed'}`}>
+                {options.map((option) => {
+                    if (option !== "Alle" || checkedOption !== filter) { // only show option "Alle" when the user has applied a filter
+                        return (
+                            <ButtonInside 
+                                key={option}
+                                name={option}
+                                onClick={() => handleOptionClick(option)}
+                            />
+                        );
+                    }
+                })}
+            </div>
         </div>
     )
 }
