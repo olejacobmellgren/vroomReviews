@@ -1,4 +1,3 @@
-
 const Favoritepage = () => {
   return (
     <div>
