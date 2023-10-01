@@ -4,9 +4,9 @@ import { useState } from "react";
 
 const Homepage = () => {
   const filter1 = "Model"
-  const options1 = ["Volvo", "BMW", "Volkswagen", "Mercedes", "Alle"]
+  const options1 = ["Volvo", "BMW", "Volkswagen", "Mercedes", "All"]
   const filter2 = "Year"
-  const options2 = ["2018", "2017", "2016", "2015", "Alle"]
+  const options2 = ["2018", "2017", "2016", "2015", "All"]
 
   const [dropdown1Visible, setDropdown1Visible] = useState(false);
   const [dropdown2Visible, setDropdown2Visible] = useState(false);
