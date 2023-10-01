@@ -1,0 +1,73 @@
+.header-container {
+  display: flex;
+  justify-content: center;
+}
+
+.link-flex {
+  display: flex;
+}
+
+.normal {
+  color: silver;
+  text-decoration: none;
+  border-bottom: 0.5rem solid #ff0000;
+}
+
+.grey-text {
+  opacity: 0.6;
+  border-bottom: 0.3rem solid silver;
+}
+
+.grey-text:hover {
+  opacity: 1;
+}
+
+.pages-menu {
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 1rem;
+  gap: 2rem;
+}
+
+.checkbtn {
+  margin-top: 1rem;
+  display: none;
+}
+
+.check {
+  display: none;
+}
+
+.burger-menu {
+  height: 3rem;
+}
+
+@media (orientation: portrait) {
+  .header-container {
+    justify-content: left;
+  }
+
+  .checkbtn {
+    display: block;
+  }
+
+  .pages-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    justify-content: center;
+    background-color: #202020;
+    top: 5rem;
+    left: -100%;
+    padding: 0;
+    z-index: 100;
+    text-align: center;
+    transition: all 0.5s;
+  }
+
+  .check:checked ~ .pages-menu {
+    left: 0;
+  }
+}
