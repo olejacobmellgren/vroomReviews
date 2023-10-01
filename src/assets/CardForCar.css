@@ -1,0 +1,13 @@
+.car-image {
+  width: 20rem;
+  border-radius: 1rem;
+}
+
+.card :hover {
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.car-name {
+  margin-left: 5rem;
+}
