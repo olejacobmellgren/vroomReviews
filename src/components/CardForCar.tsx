@@ -15,11 +15,11 @@ function CardForCar({
   showInfo: boolean;
 }) {
   return (
-    <div >
+    <div>
       <div className="card">
-      <Link to={`/carpage/${id}`}>
-        <img src={carIMG} className="car-image" />
-      </Link>
+        <Link to={`/carpage/${id}`}>
+          <img src={carIMG} className="car-image" />
+        </Link>
       </div>
       {showInfo ? (
         <div className="car-name">
