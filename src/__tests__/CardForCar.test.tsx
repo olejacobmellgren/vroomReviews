@@ -7,22 +7,21 @@ import { BrowserRouter } from 'react-router-dom';
 test('Check path correct when image is clicked', async () => {
   const { getByRole, asFragment } = render(
     <BrowserRouter>
-      <CardForCar 
-      id='1'
-      brand='Ferrari'
-      model='F40'
-      carIMG='https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/F40_Ferrari_20090509.jpg/1200px-F40_Ferrari_20090509.jpg'
-      showInfo={false}
+      <CardForCar
+        id="1"
+        brand="Ferrari"
+        model="F40"
+        carIMG="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/F40_Ferrari_20090509.jpg/1200px-F40_Ferrari_20090509.jpg"
+        showInfo={false}
       />
-    </BrowserRouter>
+    </BrowserRouter>,
   );
 
-  const carimg= getByRole('img');
+  const carimg = getByRole('img');
   expect(carimg).toBeTruthy(); // The text is found
   await userEvent.click(carimg);
   expect(asFragment()).toMatchSnapshot();
   const { pathname } = location;
 
   expect(pathname).toBe('/carpage/1');
-
 });
