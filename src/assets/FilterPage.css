@@ -1,0 +1,10 @@
+.filterMenu {
+    display: flex;
+    justify-content: center;
+    gap: 6rem;
+    padding: 2rem 0;
+}
+
+.dropdown-flex {
+    display: flex;
+}

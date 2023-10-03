@@ -1,40 +1,38 @@
 import DropdownMenu from '../components/DropdownMenu';
 import { useState } from 'react';
+import '../assets/FilterPage.css'
 
 const Filterpage = () => {
-  const filter1 = 'Model';
-  const options1 = ['Volvo', 'BMW', 'Volkswagen', 'Mercedes', 'All'];
-  const filter2 = 'Year';
-  const options2 = ['2018', '2017', '2016', '2015', 'All'];
+  const filters = [
+    { name: 'Brand', options: ['Volvo', 'BMW', 'Volkswagen', 'Mercedes', 'All'] },
+    { name: 'Year', options: ['2018', '2017', '2016', '2015', 'All'] },
+    { name: 'Country', options: ['Germany', 'China', 'USA', 'All'] },
+    { name: 'Sort by', options: ['Reviews', 'Rating', 'All'] }
+  ];
 
-  const [dropdown1Visible, setDropdown1Visible] = useState(false);
-  const [dropdown2Visible, setDropdown2Visible] = useState(false);
+  // initialize each dropdownMenu to be false, meaning options are not shown
+  const [dropdownVisibility, setDropdownVisibility] = useState(
+    filters.map(() => false)
+  );
 
-  const toggleDropdown1 = () => {
-    setDropdown1Visible(!dropdown1Visible);
-    setDropdown2Visible(false); // Close the other dropdown
+  // display dropdown for dropdownMenu clicked. The rest is set to false, meaning they are closed.
+  // This ensures that only 1 dropdown can be open at a time.
+  const toggleDropdown = (index: number) => {
+    setDropdownVisibility(dropdownVisibility.map((item, i) => i === index ? !item : false));
   };
 
-  const toggleDropdown2 = () => {
-    setDropdown2Visible(!dropdown2Visible);
-    setDropdown1Visible(false); // Close the other dropdown
-  };
   return (
-    <div>
-      <h1>Hello from Filterpage</h1>
-      <p>This is a basic filterpage component.</p>
-      <DropdownMenu
-        filter={filter1}
-        options={options1}
-        isOpen={dropdown1Visible}
-        toggleDropdown={toggleDropdown1}
-      />
-      <DropdownMenu
-        filter={filter2}
-        options={options2}
-        isOpen={dropdown2Visible}
-        toggleDropdown={toggleDropdown2}
-      />
+    <div className="filterMenu">
+      {filters.map((filter, index) => (
+        <div className="dropdown-flex" key={index}>
+          <DropdownMenu
+            filter={filter.name}
+            options={filter.options}
+            isOpen={dropdownVisibility[index]}
+            toggleDropdown={() => toggleDropdown(index)}
+          />
+        </div>
+      ))}
     </div>
   );
 };

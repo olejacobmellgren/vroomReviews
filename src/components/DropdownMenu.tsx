@@ -34,7 +34,7 @@ function DropdownMenu({
   }, [filter, checkedOption]);
 
   const handleOptionClick = (option: string) => {
-    if (option === 'Alle') {
+    if (option === 'All') {
       setCheckedOption(filter);
     } else {
       setCheckedOption(option);
@@ -56,7 +56,7 @@ function DropdownMenu({
       <div className={`dropdown ${isOpen ? 'active' : 'closed'}`}>
         {options.map((option) => {
           if (option !== 'Alle' || checkedOption !== filter) {
-            // only show option "Alle" when the user has applied a filter
+            // only show option "All" when the user has applied a filter
             return (
               <ButtonInside
                 key={option}
