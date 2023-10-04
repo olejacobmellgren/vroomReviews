@@ -1,0 +1,62 @@
+
+.carpage-container {
+  display: flex;
+  margin-top: 2.5rem;
+
+}
+
+.left-section {
+    display: grid;
+    margin-left: 5rem;
+    position: fixed;
+}
+
+.right-section {
+  padding-left: 50rem;
+} 
+
+.car-image {
+  border-radius: 0.5rem;
+  width: 40rem;
+}
+
+.add-to-favorites-button {
+  width: 15rem;
+}
+
+.title {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.year {
+    margin: 0; 
+    font-size: x-large;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.amount-rating {
+  display: flex;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  gap: 2rem;
+  font-size: 1.5rem;
+  color: rgb(109, 109, 109);
+}
+
+.info {
+    font-size: 1rem;
+    margin: 10px;
+    margin-left: 5px;
+    font-weight: 600;
+}
+
+.info-container {
+  display: grid;
+  margin-top: 2rem;
+  gap: 1rem;
+}
