@@ -8,3 +8,35 @@
 .dropdown-flex {
     display: flex;
 }
+
+.carList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+  
+.car {
+    flex-basis: calc(25% - 30px); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 15px 20px 15px;
+}
+
+@media (max-width: 1416px) {
+    .car {
+        flex-basis: calc(33% - 30px); 
+    }
+}
+
+@media (max-width: 1085px) {
+    .car {
+        flex-basis: calc(50% - 30px);
+    }
+}
+
+@media (max-width: 735px) {
+    .car {
+        flex-basis: calc(100% - 30px);
+    }
+}

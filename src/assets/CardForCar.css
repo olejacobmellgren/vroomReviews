@@ -3,11 +3,17 @@
   border-radius: 1rem;
 }
 
+.card {
+  display: flex;
+  justify-content: center;
+}
+
 .card :hover {
   transform: scale(1.05);
   transition: all 0.2s ease-in-out;
 }
 
 .car-name {
-  margin-left: 5rem;
+  display: flex;
+  justify-content: center;
 }

@@ -1,6 +1,8 @@
 import DropdownMenu from '../components/DropdownMenu';
 import { useState } from 'react';
 import '../assets/FilterPage.css'
+import CardForCar from '../components/CardForCar';
+import cars from '../cars/cars.json'
 
 const Filterpage = () => {
   const filters = [
@@ -22,18 +24,33 @@ const Filterpage = () => {
   };
 
   return (
-    <div className="filterMenu">
-      {filters.map((filter, index) => (
-        <div className="dropdown-flex" key={index}>
-          <DropdownMenu
-            filter={filter.name}
-            options={filter.options}
-            isOpen={dropdownVisibility[index]}
-            toggleDropdown={() => toggleDropdown(index)}
-          />
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="filterMenu">
+        {filters.map((filter, index) => (
+          <div className="dropdown-flex" key={index}>
+            <DropdownMenu
+              filter={filter.name}
+              options={filter.options}
+              isOpen={dropdownVisibility[index]}
+              toggleDropdown={() => toggleDropdown(index)}
+            />
+          </div>
+        ))}
+      </div>
+      <div className="carList">
+        {cars.map((car) => (
+          <div className="car">
+              <CardForCar
+                id={car.id.toString()}
+                brand={car.brand}
+                model={car.model}
+                carIMG={car.image}
+                showInfo={true}
+              />
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 
