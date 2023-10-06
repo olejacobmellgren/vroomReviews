@@ -55,7 +55,7 @@ function DropdownMenu({
       </button>
       <div className={`dropdown ${isOpen ? 'active' : 'closed'}`}>
         {options.map((option) => {
-          if (option !== 'Alle' || checkedOption !== filter) {
+          if (option !== 'All' || checkedOption !== filter) {
             // only show option "All" when the user has applied a filter
             return (
               <ButtonInside
