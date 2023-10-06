@@ -7,6 +7,7 @@
     "color": "red",
     "price": "100000$",
     "year": 2002,
+    "country": "Italy",
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/F40_Ferrari_20090509.jpg/1200px-F40_Ferrari_20090509.jpg"
   },
   {
@@ -17,6 +18,7 @@
     "color": "red",
     "price": "10000$",
     "year": 2010,
+    "country": "Germany",
     "image": "https://www.auto-data.net/images/f61/Mercedes-Benz-Citan-II-Panel-Van.jpg"
   },
   {
@@ -27,6 +29,7 @@
     "color": "black",
     "price": "50000$",
     "year": 2020,
+    "country": "Japan",
     "image": "https://cdn.motor1.com/images/mgl/10pjM/s3/2020-lexus-gx460-review.jpg"
   },
   {
@@ -37,6 +40,7 @@
     "color": "gray",
     "price": "15000$",
     "year": 2015,
+    "country": "Japan",
     "image": "https://www.vehiclehistory.com/uploads/2013ToyotaRAV4004-2.jpg"
   },
   {
@@ -47,6 +51,7 @@
     "color": "red",
     "price": "30000$",
     "year": 2018,
+    "country": "South Korea",
     "image": "https://cdni.autocarindia.com/Utils/ImageResizer.ashx?n=https://cdni.autocarindia.com/ExtraImages/20230131083119__BE07195.jpg"
   },
   {
@@ -57,6 +62,7 @@
     "color": "blue",
     "price": "25000$",
     "year": 2010,
+    "country": "Japan",
     "image": "https://i.pinimg.com/originals/c6/b4/8e/c6b48ee5cf28e4508a6a20d932a90535.jpg"
   },
   {
@@ -67,6 +73,7 @@
     "color": "red",
     "price": "100000$",
     "year": 2002,
+    "country": "Italy",
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/F40_Ferrari_20090509.jpg/1200px-F40_Ferrari_20090509.jpg"
   },
   {
@@ -77,6 +84,7 @@
     "color": "red",
     "price": "10000$",
     "year": 2010,
+    "country": "Germany",
     "image": "https://www.auto-data.net/images/f61/Mercedes-Benz-Citan-II-Panel-Van.jpg"
   },
   {
@@ -87,6 +95,7 @@
     "color": "black",
     "price": "50000$",
     "year": 2020,
+    "country": "Japan",
     "image": "https://cdn.motor1.com/images/mgl/10pjM/s3/2020-lexus-gx460-review.jpg"
   },
   {
@@ -97,6 +106,7 @@
     "color": "gray",
     "price": "15000$",
     "year": 2015,
+    "country": "Japan",
     "image": "https://www.vehiclehistory.com/uploads/2013ToyotaRAV4004-2.jpg"
   },
   {
@@ -107,6 +117,7 @@
     "color": "red",
     "price": "30000$",
     "year": 2018,
+    "country": "South Korea",
     "image": "https://cdni.autocarindia.com/Utils/ImageResizer.ashx?n=https://cdni.autocarindia.com/ExtraImages/20230131083119__BE07195.jpg"
   },
   {
@@ -117,6 +128,7 @@
     "color": "blue",
     "price": "25000$",
     "year": 2010,
+    "country": "Japan",
     "image": "https://i.pinimg.com/originals/c6/b4/8e/c6b48ee5cf28e4508a6a20d932a90535.jpg"
   },
   {
@@ -127,6 +139,7 @@
     "color": "red",
     "price": "100000$",
     "year": 2002,
+    "country": "Italy",
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/F40_Ferrari_20090509.jpg/1200px-F40_Ferrari_20090509.jpg"
   },
   {
@@ -137,6 +150,7 @@
     "color": "red",
     "price": "10000$",
     "year": 2010,
+    "country": "Germany",
     "image": "https://www.auto-data.net/images/f61/Mercedes-Benz-Citan-II-Panel-Van.jpg"
   },
   {
@@ -147,6 +161,7 @@
     "color": "black",
     "price": "50000$",
     "year": 2020,
+    "country": "Japan",
     "image": "https://cdn.motor1.com/images/mgl/10pjM/s3/2020-lexus-gx460-review.jpg"
   },
   {
@@ -157,6 +172,7 @@
     "color": "gray",
     "price": "15000$",
     "year": 2015,
+    "country": "Japan",
     "image": "https://www.vehiclehistory.com/uploads/2013ToyotaRAV4004-2.jpg"
   },
   {
@@ -167,6 +183,7 @@
     "color": "red",
     "price": "30000$",
     "year": 2018,
+    "country": "South Korea",
     "image": "https://cdni.autocarindia.com/Utils/ImageResizer.ashx?n=https://cdni.autocarindia.com/ExtraImages/20230131083119__BE07195.jpg"
   },
   {
@@ -177,6 +194,7 @@
     "color": "blue",
     "price": "25000$",
     "year": 2010,
+    "country": "Japan",
     "image": "https://i.pinimg.com/originals/c6/b4/8e/c6b48ee5cf28e4508a6a20d932a90535.jpg"
   }
 ]
