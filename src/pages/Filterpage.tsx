@@ -12,6 +12,7 @@ type CarInfo = {
   color: string;
   price: string;
   year: number;
+  country: string;
   image: string;
 };
 
@@ -19,7 +20,7 @@ const Filterpage = () => {
   const filters = [
     { name: 'Brand', options: ['Ferrari', 'Hyundai', 'Toyota', 'Lexus', 'All'] },
     { name: 'Year', options: ['2018', '2017', '2016', '2015', 'All'] },
-    { name: 'Country', options: ['Germany', 'China', 'USA', 'All'] },
+    { name: 'Country', options: ['Japan', 'Italy', 'Germany', 'South Korea', 'All'] },
     { name: 'Sort by', options: ['Reviews', 'Rating', 'All'] }
   ];
 
@@ -64,7 +65,7 @@ const Filterpage = () => {
           return car.year.toString() === selectedFilters.Year;
         }
         if (filter.name === 'Country' && selectedFilters.Country !== 'All') {
-          return car.carBody === selectedFilters.Country;
+          return car.country === selectedFilters.Country;
         }
         return true;
       });
