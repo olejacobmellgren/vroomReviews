@@ -1,3 +1,4 @@
+
 .popup {
   position: fixed;
   top: 0;
@@ -46,27 +47,25 @@
   background-color: #ff0000;
 }
 
+.current-user-review {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+  border-top: 0.2rem solid grey;
+  padding-top: 1rem;
+}
+
 .user-review {
   margin-top: 1rem;
   border-top: 0.2rem solid grey;
   padding-top: 1rem;
 }
 
-.edit-underline {
+.edit {
   font-size: medium;
   color: #dd7973;
   cursor: pointer;
-  margin-left: 1rem;
-}
-
-.review-section {
-  margin-top: 3rem;
-  border-top: 0.2rem solid grey;
-}
-
-.review-section text {
-  width: 75%;
-  float: right;
+  margin-top: 1rem;
 }
 
 .reviewer {

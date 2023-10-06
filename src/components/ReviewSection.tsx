@@ -66,35 +66,13 @@ const ReviewSection = ({
 
   return (
     <div>
-      {userReview ? (
-        <div className="user-review">
-          <p>
-            Your review
-            <u
-              className="edit-underline"
-              onClick={() => {
-                handleEdit();
-              }}
-            >
-              edit
-            </u>
-          </p>
-          <StarRating
-            theme={{ size: 30 }}
-            readOnly={true}
-            initialRating={userReview?.rating}
-          />
-          <p>{userReview?.comment}</p>
-        </div>
-      ) : (
-        <div>
-          {!reviewAdded ? (
-            <button onClick={() => setReviewCarPopup(true)}>
-              Review this car
-            </button>
-          ) : null}
-        </div>
-      )}
+      <div>
+        {!userReview && !reviewAdded ? (
+          <button onClick={() => setReviewCarPopup(true)}>
+            Review this car
+          </button>
+        ) : null}
+      </div>
       {reviewCarPopup ? (
         <div>
           <div className="popup" onClick={closeOrOpen}>
@@ -114,7 +92,7 @@ const ReviewSection = ({
                 style={{ height: 'auto', minHeight: '100px' }}
               />
               <div className="review-buttons">
-                <button onClick={() => handleReviewSubmit()} className="submit">
+                <button onClick={handleReviewSubmit} className="submit">
                   Submit review
                 </button>
                 {userReview ? (
@@ -145,12 +123,28 @@ const ReviewSection = ({
           </div>
         </div>
       ) : null}
-      <div className="review-section">
+      <div>
         {amountOfRatingsForBook === 0 ? (
           <p>There are currently no reviews for this book</p>
         ) : (
-          <p>Reviews</p>
+          <h1>Reviews</h1>
         )}
+        {userReview ? (
+          <div className="current-user-review">
+            <p> Your review: </p>
+            <div>
+              <StarRating
+                theme={{ size: 30 }}
+                readOnly={true}
+                initialRating={userReview?.rating}
+              />
+              <p>{userReview?.comment}</p>
+            </div>
+            <u className="edit" onClick={handleEdit}>
+              edit
+            </u>
+          </div>
+        ) : null}
         {reviews.map((review) => (
           <div key={review.userID}>
             {review.userID !== userReview?.userID ? (
