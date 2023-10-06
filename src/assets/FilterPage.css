@@ -46,19 +46,19 @@
     cursor: pointer;
 }
 
-@media (max-width: 1416px) {
+@media (max-width: 1438px) {
     .car {
         flex-basis: calc(33% - 30px); 
     }
 }
 
-@media (max-width: 1085px) {
+@media (max-width: 1089px) {
     .car {
         flex-basis: calc(50% - 30px);
     }
 }
 
-@media (max-width: 735px) {
+@media (max-width: 738px) {
     .car {
         flex-basis: calc(100% - 30px);
     }
