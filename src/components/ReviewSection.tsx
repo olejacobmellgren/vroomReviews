@@ -152,7 +152,7 @@ const ReviewSection = ({
           <p>Reviews</p>
         )}
         {reviews.map((review) => (
-          <div>
+          <div key={review.userID}>
             {review.userID !== userReview?.userID ? (
               <div className="user-review">
                 <StarRating

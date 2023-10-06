@@ -10,8 +10,6 @@ const Carpage = () => {
   const carID = typeof id === 'string' ? id : '';
   const car = cars.find((car) => car?.id === carID);
   const reviews = allreviews.filter((review) => review?.carID === carID);
-  console.log(carID);
-  console.log(reviews);
   const userReview = reviews.find((review) => review?.userID === '1');
 
   return (
