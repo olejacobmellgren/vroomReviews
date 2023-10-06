@@ -1,12 +1,32 @@
 .filterMenu {
     display: flex;
     justify-content: center;
-    gap: 6rem;
-    padding: 2rem 0;
+    align-items: center;
+    padding: 30px 0px;
+    flex-wrap: wrap;
 }
 
 .dropdown-flex {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 15px 30px 15px;
+    flex-basis: calc(15%);
+}
+
+@media (max-width: 1230px) {
+    .dropdown-flex {
+        flex-basis: calc(35%);
+        margin: 50px 15px 50px 15px;
+    }
+
+    
+}
+@media (max-width: 540px) {
+    .dropdown-flex {
+        flex-basis: calc(45%);
+        margin: 70px 15px 50px 70px;
+    }
 }
 
 .carList {
@@ -62,4 +82,5 @@
     .car {
         flex-basis: calc(100% - 30px);
     }
+}
 }
