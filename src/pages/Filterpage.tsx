@@ -56,9 +56,11 @@ const Filterpage = () => {
           </div>
         ))}
       </div>
-      {visibleCars < cars.length && (
-        <button onClick={handleViewMore}>View more</button>
-      )}
+      <div className="view-more-button">
+        {visibleCars < cars.length && (
+          <button onClick={handleViewMore}>View more</button>
+        )}
+      </div>
     </>
   );
 };

@@ -23,6 +23,29 @@
     margin: 20px 15px 20px 15px;
 }
 
+.view-more-button {
+    display: flex;
+    justify-content: center;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.view-more-button button {
+    margin-top: 1.25rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    font-family: inherit;
+    color: #54595e;
+    font-weight: 500;
+    font-size: 2vh;
+    background-color: #f4f9fe;
+}
+  
+.view-more-button button:hover {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    cursor: pointer;
+}
+
 @media (max-width: 1416px) {
     .car {
         flex-basis: calc(33% - 30px); 
