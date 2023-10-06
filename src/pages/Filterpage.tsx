@@ -4,9 +4,20 @@ import '../assets/FilterPage.css'
 import CardForCar from '../components/CardForCar';
 import cars from '../cars/cars.json'
 
+type CarInfo = {
+  id: number;
+  brand: string;
+  model: string;
+  carBody: string;
+  color: string;
+  price: string;
+  year: number;
+  image: string;
+};
+
 const Filterpage = () => {
   const filters = [
-    { name: 'Brand', options: ['Volvo', 'BMW', 'Volkswagen', 'Mercedes', 'All'] },
+    { name: 'Brand', options: ['Ferrari', 'Hyundai', 'Toyota', 'Lexus', 'All'] },
     { name: 'Year', options: ['2018', '2017', '2016', '2015', 'All'] },
     { name: 'Country', options: ['Germany', 'China', 'USA', 'All'] },
     { name: 'Sort by', options: ['Reviews', 'Rating', 'All'] }
@@ -57,9 +68,9 @@ const Filterpage = () => {
         ))}
       </div>
       <div className="view-more-button">
-        {visibleCars < cars.length && (
+        {visibleCars < cars.length ? (
           <button onClick={handleViewMore}>View more</button>
-        )}
+        ) : null}
       </div>
     </>
   );
