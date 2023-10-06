@@ -1,4 +1,4 @@
-import React, { useState, useEffect, MouseEventHandler } from 'react';
+import React, { useState, MouseEventHandler } from 'react';
 import { StarRating } from 'star-rating-react-ts';
 import '../assets/ReviewSection.css';
 
@@ -18,14 +18,13 @@ const ReviewSection = ({
   userReview: Review | undefined;
   reviews: Review[];
 }) => {
-
   const amountOfRatingsForBook = reviews.length;
 
   const [reviewCarPopup, setReviewCarPopup] = useState(false);
   const [visibleDeletePopup, setVisibleDeletePopup] = useState(false);
   const [reviewAdded, setReviewAdded] = useState(false);
   const [rating, setRating] = useState(0);
-  const [reviewText, setReviewText] = useState("");
+  const [reviewText, setReviewText] = useState('');
 
   const closeOrOpen: MouseEventHandler<HTMLDivElement> = (e) => {
     const isClose = (e.target as HTMLElement).closest('#popup');
@@ -35,17 +34,16 @@ const ReviewSection = ({
   };
 
   const handleReviewTextChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     setReviewText(event.target.value);
-    event.target.style.height = "auto";
-    event.target.style.height = event.target.scrollHeight + "px";
+    event.target.style.height = 'auto';
+    event.target.style.height = event.target.scrollHeight + 'px';
   };
 
   function handleReviewSubmit() {
     // Add review to database
     setReviewAdded(true);
-
   }
 
   function handleEdit() {
@@ -54,17 +52,17 @@ const ReviewSection = ({
       setRating(userReview.rating);
     }
     setReviewCarPopup(true);
-  };
+  }
 
   function handleDeleteConfirm(review: Review) {
-    console.log(review)
+    console.log(review);
     // Delete review from database
     setVisibleDeletePopup(false);
     setReviewCarPopup(false);
     setReviewAdded(false);
-    setReviewText("");
+    setReviewText('');
     setRating(0);
-  };
+  }
 
   return (
     <div>
@@ -91,9 +89,7 @@ const ReviewSection = ({
       ) : (
         <div>
           {!reviewAdded ? (
-            <button
-              onClick={() => setReviewCarPopup(true)}
-            >
+            <button onClick={() => setReviewCarPopup(true)}>
               Review this car
             </button>
           ) : null}
@@ -118,10 +114,7 @@ const ReviewSection = ({
                 style={{ height: 'auto', minHeight: '100px' }}
               />
               <div className="review-buttons">
-                <button
-                  onClick={() => handleReviewSubmit()}
-                  className="submit"
-                >
+                <button onClick={() => handleReviewSubmit()} className="submit">
                   Submit review
                 </button>
                 {userReview ? (
@@ -142,14 +135,10 @@ const ReviewSection = ({
           <div className="popup" onClick={closeOrOpen}>
             <div className="popup-inner" id="popup">
               <p>Are you sure you want to delete this review? </p>
-              <button
-                onClick={() => handleDeleteConfirm(userReview!)}
-              >
+              <button onClick={() => handleDeleteConfirm(userReview!)}>
                 Confirm
               </button>
-              <button
-                onClick={() => setVisibleDeletePopup(false)}
-              >
+              <button onClick={() => setVisibleDeletePopup(false)}>
                 Cancel
               </button>
             </div>
@@ -172,7 +161,9 @@ const ReviewSection = ({
                   initialRating={review.rating}
                 />
                 <p>{review.comment}</p>
-                <p className="reviewer">Reviewed by <i>{review.userName}</i> </p>
+                <p className="reviewer">
+                  Reviewed by <i>{review.userName}</i>{' '}
+                </p>
               </div>
             ) : null}
           </div>

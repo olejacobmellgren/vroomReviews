@@ -1,4 +1,3 @@
-
 .popup {
   position: fixed;
   top: 0;
@@ -20,15 +19,17 @@
   padding: 32px;
   height: 300px;
   width: 640px;
-  background-color: #F6f9FF;
+  background-color: #f6f9ff;
 }
 
 .text-area {
   padding: 0.75rem;
   margin-top: 1rem;
   border-radius: 0.5rem;
-  background-color: #FFFFFF;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  background-color: #ffffff;
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
   align-items: center;
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -43,33 +44,32 @@
 }
 
 .delete {
-  background-color: #FF0000;
+  background-color: #ff0000;
 }
 
 .user-review {
-  border: .000;
+  border: 0;
   margin-top: 20px;
   border-top: 2px solid grey;
-  margin-right:10px;
-  padding-top: 10px; 
+  margin-right: 10px;
+  padding-top: 10px;
 }
 
 .edit-underline {
   font-size: medium;
-  color: #DD7973;
+  color: #dd7973;
   cursor: pointer;
   margin-left: 1rem;
 }
 
 .review-section {
   margin-top: 40px;
-  margin-right:40px;
+  margin-right: 40px;
   padding-top: 10px;
   border-top: 2px solid grey;
-  
 }
 
-.review-section text{
+.review-section text {
   width: 75%;
   float: right;
 }

@@ -1,19 +1,17 @@
-
 .carpage-container {
   display: flex;
   margin-top: 2.5rem;
-
 }
 
 .left-section {
-    display: grid;
-    margin-left: 5rem;
-    position: fixed;
+  display: grid;
+  margin-left: 5rem;
+  position: fixed;
 }
 
 .right-section {
   padding-left: 50rem;
-} 
+}
 
 .car-image {
   border-radius: 0.5rem;
@@ -30,8 +28,8 @@
 }
 
 .year {
-    margin: 0; 
-    font-size: x-large;
+  margin: 0;
+  font-size: x-large;
 }
 
 .rating {
@@ -49,10 +47,10 @@
 }
 
 .info {
-    font-size: 1rem;
-    margin: 10px;
-    margin-left: 5px;
-    font-weight: 600;
+  font-size: 1rem;
+  margin: 10px;
+  margin-left: 5px;
+  font-weight: 600;
 }
 
 .info-container {
