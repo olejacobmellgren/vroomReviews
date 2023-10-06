@@ -17,6 +17,12 @@ const Filterpage = () => {
     filters.map(() => false)
   );
 
+  const [visibleCars, setVisibleCars] = useState(12);
+
+  const handleViewMore = () => {
+    setVisibleCars(prevVisibleCars => prevVisibleCars + 12);
+  };
+
   // display dropdown for dropdownMenu clicked. The rest is set to false, meaning they are closed.
   // This ensures that only 1 dropdown can be open at a time.
   const toggleDropdown = (index: number) => {
@@ -38,18 +44,21 @@ const Filterpage = () => {
         ))}
       </div>
       <div className="carList">
-        {cars.map((car) => (
-          <div className="car">
-              <CardForCar
-                id={car.id.toString()}
-                brand={car.brand}
-                model={car.model}
-                carIMG={car.image}
-                showInfo={true}
-              />
+        {cars.slice(0, visibleCars).map((car) => (
+          <div className="car" key={car.id}>
+            <CardForCar
+              id={car.id.toString()}
+              brand={car.brand}
+              model={car.model}
+              carIMG={car.image}
+              showInfo={true}
+            />
           </div>
         ))}
       </div>
+      {visibleCars < cars.length && (
+        <button onClick={handleViewMore}>View more</button>
+      )}
     </>
   );
 };
