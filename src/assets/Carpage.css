@@ -1,22 +1,25 @@
-
 .carpage-container {
   display: flex;
   margin-top: 2.5rem;
 }
 
-.left-section {
+.right-section {
   display: grid;
   grid-template-rows: max-content 1fr;
-  margin-left: 5rem;
+  position: fixed;
+  right: 10%;
+  width: 40%;
 }
 
-.right-section {
-  width: 100%;
+.left-section {
+  width: 42%;
+  margin-left: 5rem;
 }
 
 .car-image {
   border-radius: 0.5rem;
-  width: 80%;
+  width: 100%;
+  margin-top: 2rem;
 }
 
 .title {
@@ -54,27 +57,22 @@
 }
 
 @media (orientation: portrait) {
-
   .carpage-container {
     display: grid;
   }
 
-  .left-section {
-    margin-left: auto;
-    position: relative;
-  }
-
   .right-section {
-    padding-left: 0;
+    position: relative;
+    right: 0;
     width: 100%;
   }
 
-  .car-image {
+  .left-section {
+    margin-left: 0;
     width: 100%;
   }
 
   .amount-rating {
     gap: 2rem;
   }
-
 }

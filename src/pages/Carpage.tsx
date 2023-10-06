@@ -3,7 +3,9 @@ import cars from '../data/cars.json';
 import allreviews from '../data/reviews.json';
 import { StarRating } from 'star-rating-react-ts';
 import ReviewSection from '../components/ReviewSection';
+import Heart from 'react-animated-heart';
 import '../assets/Carpage.css';
+import { useState } from 'react';
 
 const Carpage = () => {
   const { id } = useParams();
@@ -12,15 +14,20 @@ const Carpage = () => {
   const reviews = allreviews.filter((review) => review?.carID === carID);
   const userReview = reviews.find((review) => review?.userID === '1');
 
+  const [activeHeart, setActiveHeart] = useState(false);
+
   return (
     <div className="carpage-container">
-      <div className="left-section">
-        <img className="car-image" src={car?.image} alt={car?.image} />
-        <button onClick={() => {}} className="add-to-favorites-button">
-          Add to favorites
-        </button>
-      </div>
       <div className="right-section">
+        <img className="car-image" src={car?.image} alt={car?.image} />
+        <div className="heart">
+          <Heart
+            isClick={activeHeart}
+            onClick={() => setActiveHeart(!activeHeart)}
+          />
+        </div>
+      </div>
+      <div className="left-section">
         <p className="title">
           {car?.brand} {car?.model}
         </p>
