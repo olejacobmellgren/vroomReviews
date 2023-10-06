@@ -6,6 +6,7 @@ type DropdownProps = {
   options: string[];
   isOpen: boolean;
   toggleDropdown: () => void;
+  onSelect: (option: string) => void;
 };
 
 type ButtonProps = {
@@ -26,6 +27,7 @@ function DropdownMenu({
   options,
   isOpen,
   toggleDropdown,
+  onSelect,
 }: DropdownProps) {
   const [checkedOption, setCheckedOption] = useState(filter);
 
@@ -40,6 +42,7 @@ function DropdownMenu({
       setCheckedOption(option);
     }
 
+    onSelect(option);
     toggleDropdown();
   };
 

@@ -23,6 +23,13 @@ const Filterpage = () => {
     { name: 'Sort by', options: ['Reviews', 'Rating', 'All'] }
   ];
 
+  const [selectedFilters, setSelectedFilters] = useState({
+    Brand: 'All',
+    Year: 'All',
+    Country: 'All',
+    SortBy: 'All'
+  });
+
   // initialize each dropdownMenu to be false, meaning options are not shown
   const [dropdownVisibility, setDropdownVisibility] = useState(
     filters.map(() => false)
@@ -34,10 +41,34 @@ const Filterpage = () => {
     setVisibleCars(prevVisibleCars => prevVisibleCars + 12);
   };
 
+  const handleFilterChange = (filterName: string, selectedValue: string) => {
+    setSelectedFilters(prevSelectedFilters => ({
+      ...prevSelectedFilters,
+      [filterName]: selectedValue
+    }));
+  };
+
   // display dropdown for dropdownMenu clicked. The rest is set to false, meaning they are closed.
   // This ensures that only 1 dropdown can be open at a time.
   const toggleDropdown = (index: number) => {
     setDropdownVisibility(dropdownVisibility.map((item, i) => i === index ? !item : false));
+  };
+
+  const applyFilters = (cars: CarInfo[]) => {
+    return cars.filter(car => {
+      return filters.every(filter => {
+        if (filter.name === 'Brand' && selectedFilters.Brand !== 'All') {
+          return car.brand === selectedFilters.Brand;
+        }
+        if (filter.name === 'Year' && selectedFilters.Year !== 'All') {
+          return car.year.toString() === selectedFilters.Year;
+        }
+        if (filter.name === 'Country' && selectedFilters.Country !== 'All') {
+          return car.carBody === selectedFilters.Country;
+        }
+        return true;
+      });
+    });
   };
 
   return (
@@ -50,12 +81,13 @@ const Filterpage = () => {
               options={filter.options}
               isOpen={dropdownVisibility[index]}
               toggleDropdown={() => toggleDropdown(index)}
+              onSelect={(value) => handleFilterChange(filter.name, value)}
             />
           </div>
         ))}
       </div>
       <div className="carList">
-        {cars.slice(0, visibleCars).map((car) => (
+        {applyFilters(cars).slice(0, visibleCars).map((car) => (
           <div className="car" key={car.id}>
             <CardForCar
               id={car.id.toString()}
@@ -68,7 +100,7 @@ const Filterpage = () => {
         ))}
       </div>
       <div className="view-more-button">
-        {visibleCars < cars.length ? (
+        {visibleCars < applyFilters(cars).length ? (
           <button onClick={handleViewMore}>View more</button>
         ) : null}
       </div>
