@@ -25,7 +25,7 @@
 @media (max-width: 540px) {
     .dropdown-flex {
         flex-basis: calc(45%);
-        margin: 70px 15px 50px 70px;
+        margin: 70px 15px 70px 15px;
     }
 }
 
