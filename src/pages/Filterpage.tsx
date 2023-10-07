@@ -8,12 +8,19 @@ type CarInfo = {
   id: number;
   brand: string;
   model: string;
-  carBody: string;
-  color: string;
+  image: string;
+  horsepower: string;
+  torque: string;
+  transmissionType: string;
+  drivetrain: string;
+  fuelEconomy: string;
+  numOfDoors: number;
   price: string;
   year: number;
-  country: string;
-  image: string;
+  carBody: string;
+  engineType: string;
+  numOfCylinders: number;
+  rating: number;
 };
 
 const Filterpage = () => {
