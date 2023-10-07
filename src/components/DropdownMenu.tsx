@@ -6,6 +6,7 @@ type DropdownProps = {
   options: string[];
   isOpen: boolean;
   toggleDropdown: () => void;
+  onSelect: (option: string) => void;
 };
 
 type ButtonProps = {
@@ -26,6 +27,7 @@ function DropdownMenu({
   options,
   isOpen,
   toggleDropdown,
+  onSelect,
 }: DropdownProps) {
   const [checkedOption, setCheckedOption] = useState(filter);
 
@@ -34,12 +36,13 @@ function DropdownMenu({
   }, [filter, checkedOption]);
 
   const handleOptionClick = (option: string) => {
-    if (option === 'Alle') {
+    if (option === 'All') {
       setCheckedOption(filter);
     } else {
       setCheckedOption(option);
     }
 
+    onSelect(option);
     toggleDropdown();
   };
 
@@ -55,8 +58,8 @@ function DropdownMenu({
       </button>
       <div className={`dropdown ${isOpen ? 'active' : 'closed'}`}>
         {options.map((option) => {
-          if (option !== 'Alle' || checkedOption !== filter) {
-            // only show option "Alle" when the user has applied a filter
+          if (option !== 'All' || checkedOption !== filter) {
+            // only show option "All" when the user has applied a filter
             return (
               <ButtonInside
                 key={option}
