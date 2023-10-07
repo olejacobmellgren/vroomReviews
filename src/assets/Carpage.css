@@ -8,7 +8,7 @@
   gap: 2rem;
 }
 
-.car-image {
+.carpage-image {
   border-radius: 0.5rem;
   height: 30vw;
 }
@@ -38,21 +38,30 @@
 
 .heart-info-container {
   display: flex;
-  gap: 4rem;
+  /* gap: 2rem; */
 }
 
 .heart:hover {
+  transform: scale(1.2);
 }
 
 .info-container {
-  display: grid;
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
 }
 
 .info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4vw;
+  margin-top: 2vw;
+}
+
+.info-text {
   font-size: 1rem;
   margin: 0;
-  font-weight: 600;
+  /* font-weight: 600; */
 }
 
 @media (orientation: portrait) {

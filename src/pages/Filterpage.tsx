@@ -2,7 +2,8 @@ import DropdownMenu from '../components/DropdownMenu';
 import { useState } from 'react';
 import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
-import cars from '../cars/cars.json';
+import cars from '../data/cars.json';
+import { as } from 'vitest/dist/reporters-5f784f42.js';
 
 type CarInfo = {
   id: number;
@@ -100,7 +101,7 @@ const Filterpage = () => {
         ))}
       </div>
       <div className="carList">
-        {applyFilters(cars)
+        {applyFilters(cars as CarInfo[])
           .slice(0, visibleCars)
           .map((car) => (
             <div className="car" key={car.id}>
@@ -115,7 +116,7 @@ const Filterpage = () => {
           ))}
       </div>
       <div className="view-more-button">
-        {visibleCars < applyFilters(cars).length ? (
+        {visibleCars < (applyFilters(cars as CarInfo[])).length ? (
           <button onClick={handleViewMore}>View more</button>
         ) : null}
       </div>
