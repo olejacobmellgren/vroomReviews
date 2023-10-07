@@ -1,0 +1,78 @@
+.carpage-container {
+  margin: 2.5rem 10vw;
+}
+
+.top-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.car-image {
+  border-radius: 0.5rem;
+  height: 30vw;
+}
+
+.title {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.year {
+  margin: 0;
+  font-size: x-large;
+}
+
+.rating {
+  display: grid;
+  align-items: center;
+}
+
+.amount-rating {
+  display: flex;
+  margin-left: 1rem;
+  gap: 2rem;
+  font-size: 1.5rem;
+  color: rgb(109, 109, 109);
+}
+
+.heart-info-container {
+  display: flex;
+  gap: 4rem;
+}
+
+.heart:hover {
+}
+
+.info-container {
+  display: grid;
+  gap: 2rem;
+}
+
+.info {
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+@media (orientation: portrait) {
+
+  .carpage-container {
+    margin: 0;
+  }
+
+  .car-image {
+    height: 50vw;
+  }
+
+  .top-section {
+    margin-top: 2rem;
+    justify-content: center;
+  }
+
+  .right-section {
+    width: 100%;
+  }
+
+
+}

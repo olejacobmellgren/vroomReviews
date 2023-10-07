@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "rating": 4,
+    "comment": "This car is great!",
+    "userID": "1",
+    "userName": "John",
+    "carID": "1"
+  },
+  {
+    "id": "2",
+    "rating": 3,
+    "comment": "This car is ok!",
+    "userID": "2",
+    "userName": "John",
+    "carID": "1"
+  },
+  {
+    "id": "3",
+    "rating": 5,
+    "comment": "This car is awesome!",
+    "userID": "3",
+    "userName": "Olivia",
+    "carID": "1"
+  }
+]
