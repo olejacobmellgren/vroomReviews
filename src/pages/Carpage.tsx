@@ -10,7 +10,7 @@ import { useState } from 'react';
 const Carpage = () => {
   const { id } = useParams();
   const carID = typeof id === 'string' ? id : '';
-  const car = cars.find((car) => car?.id === carID);
+  const car = cars.find((car) => car?.id.toString() === carID);
   const reviews = allreviews.filter((review) => review?.carID === carID);
   const userReview = reviews.find((review) => review?.userID === '1');
 
@@ -19,7 +19,7 @@ const Carpage = () => {
   return (
     <div className="carpage-container">
       <div className="top-section">
-        <img className="car-image" src={car?.image} alt={car?.image} />
+        <img className="carpage-image" src={car?.image} alt={car?.image} />
         <div>
           <p className="title">
             {car?.brand} {car?.model}
@@ -32,20 +32,31 @@ const Carpage = () => {
               <p> {reviews.length} ratings</p>
             </div>
           </div>
+
           <div className="heart-info-container">
             <Heart
               width={100}
+              className="heart"
               height={100}
               inactiveColor="#fff"
               active={activeHeart}
               onClick={() => setActiveHeart(!activeHeart)}
             />
-            <div className="info-container">
-              <p className="info">Price: {car?.price}</p>
-
-              <p className="info">Type: {car?.body}</p>
-            </div>
           </div>
+        </div>
+      </div>
+      <div className="info">
+        <div className="info-container">
+          <p className="info-text">Price: {car?.price}</p>
+          <p className="info-text">Drivetrain: {car?.drivetrain}</p>
+        </div>
+        <div className="info-container">
+          <p className="info-text">Type: {car?.carBody}</p>
+          <p className="info-text">Horsepower: {car?.horsepower}</p>
+        </div>
+        <div className="info-container">
+          <p className="info-text">Number of doors: {car?.numOfDoors}</p>
+          <p className="info-text">Type of engine: {car?.engineType}</p>
         </div>
       </div>
       <div>

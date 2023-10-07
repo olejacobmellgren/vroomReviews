@@ -17,7 +17,7 @@ function CardForCar({
   return (
     <div>
       <div className="card">
-        <Link to={`/carpage/${id}`}>
+        <Link to={`/project2/carpage/${id}`}>
           <img src={carIMG} className="car-image" />
         </Link>
       </div>
