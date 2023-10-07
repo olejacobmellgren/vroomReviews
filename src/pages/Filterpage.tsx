@@ -18,16 +18,16 @@ type CarInfo = {
 
 const Filterpage = () => {
   const filters = [
-    { name: 'Brand', options: ['Ferrari', 'Hyundai', 'Toyota', 'Lexus', 'All'] },
-    { name: 'Year', options: ['2018', '2017', '2016', '2015', 'All'] },
-    { name: 'Country', options: ['Japan', 'Italy', 'Germany', 'South Korea', 'All'] },
+    { name: 'Brand', options: ['Ferrari', 'Hyundai', 'Toyota', 'BMW', 'Audi', 'Volvo', 'All'] },
+    { name: 'Year', options: ['2023', '2022', '2021', '2020', '2019', 'All'] },
+    { name: 'Body', options: ['Coupe', 'SUV', 'Sedan', 'All'] },
     { name: 'Sort by', options: ['Reviews', 'Rating', 'All'] }
   ];
 
   const [selectedFilters, setSelectedFilters] = useState({
     Brand: 'All',
     Year: 'All',
-    Country: 'All',
+    Body: 'All',
     SortBy: 'All'
   });
 
@@ -64,8 +64,8 @@ const Filterpage = () => {
         if (filter.name === 'Year' && selectedFilters.Year !== 'All') {
           return car.year.toString() === selectedFilters.Year;
         }
-        if (filter.name === 'Country' && selectedFilters.Country !== 'All') {
-          return car.country === selectedFilters.Country;
+        if (filter.name === 'Body' && selectedFilters.Body !== 'All') {
+          return car.carBody === selectedFilters.Body;
         }
         return true;
       });
