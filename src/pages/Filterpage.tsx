@@ -116,7 +116,7 @@ const Filterpage = () => {
           ))}
       </div>
       <div className="view-more-button">
-        {visibleCars < (applyFilters(cars as CarInfo[])).length ? (
+        {visibleCars < applyFilters(cars as CarInfo[]).length ? (
           <button onClick={handleViewMore}>View more</button>
         ) : null}
       </div>
