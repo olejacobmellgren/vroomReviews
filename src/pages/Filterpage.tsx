@@ -3,7 +3,6 @@ import { useState } from 'react';
 import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
 import cars from '../data/cars.json';
-import { as } from 'vitest/dist/reporters-5f784f42.js';
 
 type CarInfo = {
   id: number;
