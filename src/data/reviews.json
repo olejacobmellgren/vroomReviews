@@ -5,15 +5,17 @@
     "comment": "This car is great!",
     "userID": "1",
     "userName": "John",
-    "carID": "1"
+    "carID": 1,
+    "isFavorite": true
   },
   {
     "id": "2",
     "rating": 3,
     "comment": "This car is ok!",
     "userID": "2",
-    "userName": "John",
-    "carID": "1"
+    "userName": "Max",
+    "carID": 1,
+    "isFavorite": false
   },
   {
     "id": "3",
@@ -21,6 +23,17 @@
     "comment": "This car is awesome!",
     "userID": "3",
     "userName": "Olivia",
-    "carID": "1"
+    "carID": 1,
+    "isFavorite": false
+  },
+  {
+    "id": "4",
+    "rating": 5,
+    "comment": "This car is amazing!",
+    "userID": "1",
+    "userName": "John",
+    "carID": 2,
+    "isFavorite": true
   }
+
 ]
