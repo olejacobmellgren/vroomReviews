@@ -9,8 +9,8 @@ function CardForCar({
   showInfo,
 }: {
   id: string;
-  brand: string;
-  model: string;
+  brand: string | null;
+  model: string | null;
   carIMG: string;
   showInfo: boolean;
 }) {

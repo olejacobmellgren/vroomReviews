@@ -1,0 +1,6 @@
+.scrollingMenu {
+  display:flex;
+  align-items: center;
+  overflow: auto;
+  padding: 0;
+}

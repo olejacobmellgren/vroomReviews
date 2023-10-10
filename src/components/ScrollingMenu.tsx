@@ -1,4 +1,5 @@
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
+import '../assets/ScrollingMenu.css';
 import CardForCar from '../components/CardForCar';
 import cars from '../data/cars.json';
 
@@ -7,18 +8,6 @@ type CarInfo = {
   brand: string;
   model: string;
   image: string;
-  horsepower: string;
-  torque: string;
-  transmissionType: string;
-  drivetrain: string;
-  fuelEconomy: string;
-  numOfDoors: number;
-  price: string;
-  year: number;
-  carBody: string;
-  engineType: string;
-  numOfCylinders: number;
-  rating: number;
 };
 
 const ScrollingMenu = () => {
@@ -31,8 +20,8 @@ const ScrollingMenu = () => {
             <div className="car" key={car.id}>
               <CardForCar
                 id={car.id.toString()}
-                brand={car.brand}
-                model={car.model}
+                brand={null}
+                model={null}
                 carIMG={car.image}
                 showInfo={true}
               />
