@@ -8,7 +8,7 @@ type Review = {
   comment: string;
   userID: string;
   userName: string;
-  carID: string;
+  carID: number;
 };
 
 const ReviewSection = ({
