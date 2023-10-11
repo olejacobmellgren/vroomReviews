@@ -133,20 +133,6 @@
   }
 }
 
-.carList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-
-.car {
-  flex-basis: calc(25% - 30px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 15px 20px 15px;
-}
-
 .view-more-button {
   display: flex;
   justify-content: center;
