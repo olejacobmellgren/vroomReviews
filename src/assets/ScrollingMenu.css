@@ -1,6 +1,5 @@
 .conteiner {
   padding: 100px 0;
-
 }
 
 .element {
@@ -11,14 +10,14 @@
 }
 
 .scrollingMenuHeader {
-  display:flex;
+  display: flex;
   align-items: center;
   gap: 10px;
   margin-left: 25px;
 }
 
 .scrollingMenu {
-  display:flex;
+  display: flex;
   align-items: center;
   overflow: auto;
   padding: 0;
@@ -28,12 +27,22 @@
 ::-webkit-scrollbar {
   width: 10px; /* width of the vertical scrollbar */
   height: 5px; /* height of the horizontal scrollbar */
-  background-color: rgba(0,0,0,0); /* background color of the scrollbar track */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0
+  ); /* background color of the scrollbar track */
 }
 
 /* Set the color of the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(255,0,0,0.5); /* Change this to your desired thumb color */
+  background-color: rgba(
+    255,
+    0,
+    0,
+    0.5
+  ); /* Change this to your desired thumb color */
   border-radius: 10px;
   border-right: none;
   border-left: none;
@@ -41,6 +50,5 @@
 
 /* Set the color of the scrollbar for Firefox */
 body {
-  scrollbar-color:  rgba(255,0,0,0.2) rgba(0,0,0,0); /* thumb and track color */
+  scrollbar-color: rgba(255, 0, 0, 0.2) rgba(0, 0, 0, 0); /* thumb and track color */
 }
-

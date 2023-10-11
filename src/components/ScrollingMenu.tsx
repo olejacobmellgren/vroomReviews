@@ -1,4 +1,4 @@
-import { ScrollMenu } from "react-horizontal-scrolling-menu";
+import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import '../assets/ScrollingMenu.css';
 import CardForCar from '../components/CardForCar';
 import cars from '../data/cars.json';
@@ -11,7 +11,6 @@ type CarInfo = {
 };
 
 const ScrollingMenu = () => {
-
   return (
     <div>
       <ScrollMenu>
@@ -30,7 +29,7 @@ const ScrollingMenu = () => {
         </div>
       </ScrollMenu>
     </div>
-  )
-}
+  );
+};
 
 export default ScrollingMenu;
