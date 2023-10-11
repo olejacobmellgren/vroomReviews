@@ -3,6 +3,7 @@ import { useState } from 'react';
 import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
 import cars from '../data/cars.json';
+import { Link } from 'react-router-dom';
 
 type CarInfo = {
   id: number;
@@ -46,6 +47,8 @@ const Filterpage = () => {
     filters.map(() => false),
   );
 
+  const [showSearchresults, setShowSearchresults] = useState(false)
+
   const [visibleCars, setVisibleCars] = useState(12);
 
   const handleViewMore = () => {
@@ -84,8 +87,38 @@ const Filterpage = () => {
     });
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length > 0) {
+      if (dropdownVisibility.includes(true)) {
+        setDropdownVisibility(dropdownVisibility.map(() => false))
+      }
+      setShowSearchresults(true)
+    } else {
+      setShowSearchresults(false)
+    }
+  }
+
+  const handleBlur = () => {
+    setShowSearchresults(false)
+  }
+
   return (
     <>
+      <div className="searchBar">
+        <div className="searchBar-wrapper">
+          <div className="searchBar-container">
+            <input type="text" className="searchBar-input" placeholder="Search for car" onChange={handleSearchChange} onFocus={handleSearchChange} onBlur={handleBlur} />
+          </div>
+          <div className={`searchResults ${showSearchresults ? 'active' : 'closed'}`}>
+            {cars.slice(4, 7).map((car) => (
+              <Link to={`/project2/carpage/${car.id}`}>
+                <button className="buttonInsideSearchResults">{car.brand} {car.model}</button>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
       <div className="filterMenu">
         {filters.map((filter, index) => (
           <div className="dropdown-flex" key={index}>
