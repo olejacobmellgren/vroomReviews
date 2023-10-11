@@ -159,21 +159,3 @@
     0 4px 6px -4px rgb(0 0 0 / 0.1);
   cursor: pointer;
 }
-
-@media (max-width: 1438px) {
-  .car {
-    flex-basis: calc(33% - 30px);
-  }
-}
-
-@media (max-width: 1089px) {
-  .car {
-    flex-basis: calc(50% - 30px);
-  }
-}
-
-@media (max-width: 738px) {
-  .car {
-    flex-basis: calc(100% - 30px);
-  }
-}
