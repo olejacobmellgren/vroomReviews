@@ -1,17 +1,18 @@
-import CardForCar from "../components/CardForCar";
-import cars from "../data/cars.json";
+import CardForCar from '../components/CardForCar';
+import cars from '../data/cars.json';
 import allreviews from '../data/reviews.json';
-import "../assets/Reviewpage.css";
-import { StarRating } from "star-rating-react-ts";
+import '../assets/Reviewpage.css';
+import { StarRating } from 'star-rating-react-ts';
 
 const Reviewpage = () => {
-
   // Get all reviews for user (currently hardcoded to user 1)
-  const userReviews = allreviews.filter((review) => review?.userID === "1");
+  const userReviews = allreviews.filter((review) => review?.userID === '1');
   // Get all IDs for cars that are reviewed by user
   const userReviewCarIDs = userReviews.map((review) => review?.carID);
   // Get all cars that are reviewed by user
-  const reviewCars = cars.filter((car) => car?.id && userReviewCarIDs.includes(car?.id));
+  const reviewCars = cars.filter(
+    (car) => car?.id && userReviewCarIDs.includes(car?.id),
+  );
 
   return (
     <div>
@@ -31,7 +32,9 @@ const Reviewpage = () => {
               <StarRating
                 theme={{ size: 30 }}
                 readOnly={true}
-                initialRating={userReviews.find((review) => review?.carID === car.id)?.rating}
+                initialRating={
+                  userReviews.find((review) => review?.carID === car.id)?.rating
+                }
               />
             </div>
           </div>
@@ -42,4 +45,3 @@ const Reviewpage = () => {
 };
 
 export default Reviewpage;
-

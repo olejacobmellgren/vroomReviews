@@ -11,10 +11,14 @@ const Carpage = () => {
   const { id } = useParams();
   const carID = typeof id === 'string' ? id : '';
   const car = cars.find((car) => car?.id.toString() === carID);
-  const reviews = allreviews.filter((review) => review?.carID.toString() === carID);
+  const reviews = allreviews.filter(
+    (review) => review?.carID.toString() === carID,
+  );
   const userReview = reviews.find((review) => review?.userID === '1');
 
-  const [activeHeart, setActiveHeart] = useState(userReview?.isFavorite || false);
+  const [activeHeart, setActiveHeart] = useState(
+    userReview?.isFavorite || false,
+  );
 
   return (
     <div className="carpage-container">
