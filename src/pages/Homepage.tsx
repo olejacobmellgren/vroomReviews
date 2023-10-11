@@ -1,14 +1,20 @@
-import { Link } from 'react-router-dom';
+import ScrollingMenu from '../components/ScrollingMenu';
+
+const brands = ['Ferrari', 'Hyundai', 'Toyota', 'BMW', 'Audi', 'Volvo'];
 
 const Homepage = () => {
   return (
-    <div>
-      <h1>Hello from Homepage</h1>
-      <p>This is a basic homepage component.</p>
-      <button>
-        <Link to="/project2/carpage/123">Go to Carpage</Link>
-      </button>
-    </div>
+    <>
+      {brands.map((brand) => (
+        <div className="conteiner">
+          <div className="scrollingMenuHeader">
+            <div className="element"></div>
+            <h1>{brand}</h1>
+          </div>
+          <ScrollingMenu />
+        </div>
+      ))}
+    </>
   );
 };
 

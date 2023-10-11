@@ -6,7 +6,7 @@ import '../assets/Favoritepage.css';
 const Favoritepage = () => {
   // Get all reviews for user (currently hardcoded to user 1)
   const userFavorites = allreviews
-    .filter((review) => review?.userID === '1')
+    .filter((review) => review?.userID === '1' && review?.isFavorite === true)
     .map((review) => review?.carID);
   // Get all cars that are favorited by user
   const favoriteCars = cars.filter(
