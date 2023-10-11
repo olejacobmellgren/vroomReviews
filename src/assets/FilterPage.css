@@ -16,8 +16,6 @@
   justify-content: center;
 }
 
-
-/* Style for the search input */
 .searchBar-input {
   width: 100%;
   padding: 10px;
@@ -26,6 +24,11 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 18px;
   outline: none;
+  background-image: url("../assets/images/search-icon.png");
+  background-repeat: no-repeat;
+  background-position: 2% center;
+  background-size: 20px; /* Adjust the size as needed */
+  padding-left: 60px;
 }
 
 .searchResults {
