@@ -146,7 +146,7 @@ const Filterpage = () => {
           </div>
         ))}
       </div>
-      <div className="carList">
+      <div className="car-list">
         {applyFilters(cars as CarInfo[])
           .slice(0, visibleCars)
           .map((car) => (
