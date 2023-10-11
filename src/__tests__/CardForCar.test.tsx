@@ -23,5 +23,5 @@ test('Check path correct when image is clicked', async () => {
   expect(asFragment()).toMatchSnapshot();
   const { pathname } = location;
 
-  expect(pathname).toBe('/carpage/1');
+  expect(pathname).toBe('/project2/carpage/1');
 });
