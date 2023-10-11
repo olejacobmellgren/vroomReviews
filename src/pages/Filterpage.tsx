@@ -89,10 +89,11 @@ const Filterpage = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    if (dropdownVisibility.includes(true)) {
+      setDropdownVisibility(dropdownVisibility.map(() => false))
+    }
+    
     if (value.length > 0) {
-      if (dropdownVisibility.includes(true)) {
-        setDropdownVisibility(dropdownVisibility.map(() => false))
-      }
       setShowSearchresults(true)
     } else {
       setShowSearchresults(false)
