@@ -24,8 +24,6 @@ Vi har laget komponent-tester som tester props, state og brukerinteraksjon med k
 
 #### Mock-tester
 
-Vi ønsker ikke å hente data fra API-et når vi skal teste og lager derfor mock-data. MSW lager mock-data for
-
 #### Snapshot-tester
 
 Snapshot-tester er tester som sjekker sammenligner web-applikasjonen med et "snapshot", altså et slags "bilde" av hierarkiet av komponenter, og sjekker om disse er like.
