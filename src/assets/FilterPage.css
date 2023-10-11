@@ -25,7 +25,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 18px;
   outline: none;
-  background-image: url("../assets/images/search-icon.png");
+  background-image: url('../assets/images/search-icon.png');
   background-repeat: no-repeat;
   background-position: 2% center;
   background-size: 20px; /* Adjust the size as needed */
@@ -47,8 +47,8 @@
   /* Next two lines are important for the cool effect*/
   overflow: hidden;
   transition:
-  max-height 0.3s ease,
-  opacity 0.3s ease;
+    max-height 0.3s ease,
+    opacity 0.3s ease;
   /* Fjern de to linjene under dersom dropdown ikke skal være sentrert i forhold til dropdownButton */
   left: 50%;
   transform: translateX(-50%);
@@ -86,7 +86,6 @@
   border: 1px solid transparent;
   font-weight: 500;
   font-family: inherit;
-  
 }
 
 .buttonInsideSearchResults:hover {

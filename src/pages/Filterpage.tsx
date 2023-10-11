@@ -47,7 +47,7 @@ const Filterpage = () => {
     filters.map(() => false),
   );
 
-  const [showSearchresults, setShowSearchresults] = useState(false)
+  const [showSearchresults, setShowSearchresults] = useState(false);
 
   const [visibleCars, setVisibleCars] = useState(12);
 
@@ -90,31 +90,44 @@ const Filterpage = () => {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (dropdownVisibility.includes(true)) {
-      setDropdownVisibility(dropdownVisibility.map(() => false))
+      setDropdownVisibility(dropdownVisibility.map(() => false));
     }
-    
+
     if (value.length > 0) {
-      setShowSearchresults(true)
+      setShowSearchresults(true);
     } else {
-      setShowSearchresults(false)
+      setShowSearchresults(false);
     }
-  }
+  };
 
   const handleBlur = () => {
-    setShowSearchresults(false)
-  }
+    setShowSearchresults(false);
+  };
 
   return (
     <>
       <div className="searchBar">
         <div className="searchBar-wrapper">
           <div className="searchBar-container">
-            <input type="text" className="searchBar-input" placeholder="Search for car" onChange={handleSearchChange} onFocus={handleSearchChange} onBlur={handleBlur} />
+            <input
+              type="text"
+              className="searchBar-input"
+              placeholder="Search for car"
+              onChange={handleSearchChange}
+              onFocus={handleSearchChange}
+              onBlur={handleBlur}
+            />
           </div>
-          <div className={`searchResults ${showSearchresults ? 'active' : 'closed'}`}>
+          <div
+            className={`searchResults ${
+              showSearchresults ? 'active' : 'closed'
+            }`}
+          >
             {cars.slice(4, 7).map((car) => (
               <Link to={`/project2/carpage/${car.id}`}>
-                <button className="buttonInsideSearchResults">{car.brand} {car.model}</button>
+                <button className="buttonInsideSearchResults">
+                  {car.brand} {car.model}
+                </button>
               </Link>
             ))}
           </div>
