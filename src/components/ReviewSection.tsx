@@ -68,7 +68,10 @@ const ReviewSection = ({
     <div>
       <div>
         {!userReview && !reviewAdded ? (
-          <button onClick={() => setReviewCarPopup(true)}>
+          <button
+            className="reviewButton"
+            onClick={() => setReviewCarPopup(true)}
+          >
             Review this car
           </button>
         ) : null}
