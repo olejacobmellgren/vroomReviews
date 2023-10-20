@@ -4,7 +4,7 @@ import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
 import mongoose from 'mongoose';
 
-const MONGODB = "mongodb+srv://group25:group25@cluster0.zajpvsz.mongodb.net/?retryWrites=true&w=majority"
+const MONGODB = "mongodb://admin:gruppe25@it2810-25.idi.ntnu.no:27017/"
 
 
 async function startApolloServer() {
@@ -15,7 +15,7 @@ async function startApolloServer() {
 
   mongoose.connect(MONGODB)
     .then(() => {
-      console.log("Dette gikk");
+      console.log("MongoDB connected");
     });
 
   const { url } = await startStandaloneServer(server, {
