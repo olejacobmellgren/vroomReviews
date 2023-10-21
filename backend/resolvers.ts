@@ -1,13 +1,13 @@
-import Car from './models/car';
+import Car from './models/car'
+
+interface ResolverArgs {
+  company: string;
+}
 
 export const resolvers = {
-  carByCompany: async (args: {company: string}) => {
-    try {
-      // eslint-disable-next-line no-underscore-dangle
-      const car = await Car.findOne({ company: args.company}).exec();
-      return car;
-    } catch (err) {
-      throw err;
+  Query: {
+    getCarsByCompany: async (_: any, { company}: ResolverArgs) => {
+      return await Car.findOne({ company})
     }
-  },
-};
+  }
+}

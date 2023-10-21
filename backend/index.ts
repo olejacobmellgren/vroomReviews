@@ -4,7 +4,7 @@ import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
 import mongoose from 'mongoose';
 
-const MONGODB = "mongodb://admin:gruppe25@it2810-25.idi.ntnu.no:27017/"
+const MONGODB = "mongodb://admin:gruppe25@it2810-25.idi.ntnu.no:27017/carDatabase?authSource=admin"
 
 
 async function startApolloServer() {

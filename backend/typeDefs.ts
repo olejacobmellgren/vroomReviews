@@ -17,4 +17,8 @@ export const typeDefs = buildSchema(`
       numOfCylinders: String!
       rating: Int!
   }
+
+  type Query {
+    getCarsByCompany(company: String!): Car
+  }
 `);
