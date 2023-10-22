@@ -9,7 +9,7 @@ const carSchema = new mongoose.Schema({
     drivetrain: {type: String},
     numOfDoors: {type: String},
     price: {type: String},
-    year: {type: String},
+    year: {type: Number},
     carBody: {type: String},
     engineType: {type: String},
     numOfCylinders: {type: String},

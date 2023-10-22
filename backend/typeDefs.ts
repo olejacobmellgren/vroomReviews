@@ -11,7 +11,7 @@ export const typeDefs = buildSchema(`
       drivetrain: String!
       numOfDoors: String!
       price: String!
-      year: String!
+      year: Int!
       carBody: String!
       engineType: String!
       numOfCylinders: String!
@@ -19,6 +19,8 @@ export const typeDefs = buildSchema(`
   }
 
   type Query {
-    getCarsByCompany(company: String!): Car
+    car(company: String!, model: String!): Car
+    carsByCompany(company: String!): [Car]
+    carsByFilter(company: String, year: Int): [Car]
   }
 `);
