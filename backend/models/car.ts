@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const carSchema = new mongoose.Schema({
+    _id: {type: mongoose.Types.ObjectId},
     company: {type: String},
     model: {type: String},
     image: {type: String},

@@ -1,12 +1,11 @@
+import mongoose from 'mongoose';
 import Car from './models/car'
+import Favorite from './models/favorite'
+import Review from './models/review'
 
 interface carArgs {
   company: string;
   model: string;
-}
-
-interface carsByCompanyArgs {
-  company: string;
 }
 
 interface carsFilters {
@@ -36,7 +35,7 @@ export const resolvers = {
     car: async (_: any, { company, model }: carArgs) => {
       return await Car.findOne({ company: company, model: model })
     },
-    carsByCompany: async (_: any, { company }: carsByCompanyArgs) => {
+    carsByCompany: async (_: any, { company }: { company: string }) => {
       return await Car.find({ company: company })
     },
     cars: async (_: any, args: carsArgs) => {
@@ -73,6 +72,32 @@ export const resolvers = {
       const result = await Car.find(query).sort(sort).limit(10).skip(offset);
       return result;
     },
-    
+    favoriteCars: async (_: any, { userID }: { userID: number }) => {
+      return await Favorite.find({ userID: userID }).populate('carID').then(res=>console.log(res))
+      .catch(error=>console.log(error));
+    },
+    carReviews: async (_: any, ) => {
+      return await Review.find()
+    }
+  },
+  Mutation: {
+    addFavorite: async (_: any, { userID, carID }: { userID: string, carID: string }) => {
+      const favorite = new Favorite({
+        _id: new mongoose.Types.ObjectId(),
+        userID: userID,
+        carID: carID
+      });
+      return await favorite.save();
+    },
+    addReview: async (_: any, { rating, review, carID, userID }: { rating: number, review: string, carID: string, userID: number }) => {
+      const reviewObj = new Review({
+        _id: new mongoose.Types.ObjectId(),
+        rating: rating,
+        review: review,
+        carID: carID,
+        userID: userID
+      });
+      return await reviewObj.save();
+    }
   }
 }

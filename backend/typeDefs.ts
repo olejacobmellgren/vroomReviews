@@ -2,7 +2,7 @@ import { buildSchema } from 'graphql';
 
 export const typeDefs = buildSchema(`
   type Car {
-      _id: ID!
+      id: ID!
       company: String!
       model: String!
       image: String!
@@ -18,9 +18,18 @@ export const typeDefs = buildSchema(`
       rating: Int!
   }
 
-  type FavoriteCar {
-    user: Int!
-    car: Car!
+  type Favorite {
+    id: ID!
+    userID: Int!
+    carID: ID!
+  }
+
+  type Review {
+    id: ID!
+    rating: Int!
+    review: String!
+    carID: ID!
+    userID: Int!
   }
 
   input carsFilters {
@@ -43,5 +52,12 @@ export const typeDefs = buildSchema(`
     car(company: String!, model: String!): Car
     carsByCompany(company: String!): [Car]
     cars(filters: carsFilters, offset: Int, orderBy: orderByArg): [Car]
+    favoriteCars(userID: Int!): [Car]
+    carReviews: [Review]
+  }
+
+  type Mutation {
+    addFavorite(userID: Int!, carID: String!): Favorite
+    addReview(userID: Int!, carID: String!, rating: Int!, review: String!): Review
   }
 `);
