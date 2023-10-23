@@ -73,11 +73,12 @@ export const resolvers = {
       return result;
     },
     favoriteCars: async (_: any, { userID }: { userID: number }) => {
-      return await Favorite.find({ userID: userID }).populate('carID').then(res=>console.log(res))
+      return await Favorite.findOne().then(res=>console.log(res))
       .catch(error=>console.log(error));
     },
-    carReviews: async (_: any, ) => {
-      return await Review.find()
+    carReviews: async (_: any, { carID }: { carID: string }) => {
+      return await Review.find({carID: carID}).then(res=>console.log(res))
+      .catch(error=>console.log(error));
     }
   },
   Mutation: {

@@ -52,8 +52,8 @@ export const typeDefs = buildSchema(`
     car(company: String!, model: String!): Car
     carsByCompany(company: String!): [Car]
     cars(filters: carsFilters, offset: Int, orderBy: orderByArg): [Car]
-    favoriteCars(userID: Int!): [Car]
-    carReviews: [Review]
+    favoriteCars: [Favorite]
+    carReviews(carID: ID!): [Review]
   }
 
   type Mutation {

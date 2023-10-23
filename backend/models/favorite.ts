@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import carSchema from './car';
 
 const favoriteSchema = new mongoose.Schema({
   _id: {type: mongoose.Types.ObjectId},
