@@ -18,9 +18,30 @@ export const typeDefs = buildSchema(`
       rating: Int!
   }
 
+  type FavoriteCar {
+    user: Int!
+    car: Car!
+  }
+
+  input carsFilters {
+    company: String
+    year: Int
+    carBody: String
+  }
+
+  enum Sort {
+    asc
+    desc
+  }
+  
+  input orderByArg {
+    year: Sort
+    rating: Sort
+  }
+
   type Query {
     car(company: String!, model: String!): Car
     carsByCompany(company: String!): [Car]
-    carsByFilter(company: String, year: Int): [Car]
+    cars(filters: carsFilters, offset: Int, orderBy: orderByArg): [Car]
   }
 `);
