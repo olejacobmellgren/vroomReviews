@@ -21,7 +21,7 @@ export const typeDefs = buildSchema(`
   type Favorite {
     id: ID!
     userID: Int!
-    carID: Car!
+    car: Car!
   }
 
   type Review {
@@ -29,6 +29,8 @@ export const typeDefs = buildSchema(`
     rating: Int!
     review: String!
     userID: Int!
+    car: Car!
+    username: String!
   }
 
   input carsFilters {
@@ -52,11 +54,12 @@ export const typeDefs = buildSchema(`
     carsByCompany(company: String!): [Car]
     cars(filters: carsFilters, offset: Int, orderBy: orderByArg): [Car]
     favoriteCars(userID: Int!): [Favorite]
-    carReviews(carID: ID!): [Review]
+    carReviews(car: ID!): [Review]
+    userReviews(userID: Int!): [Review]
   }
 
   type Mutation {
-    addFavorite(userID: Int!, carID: String!): String
-    addReview(userID: Int!, carID: String!, rating: Int!, review: String!): String
+    addFavorite(userID: Int!, car: ID!): Favorite
+    addReview(userID: Int!, car: ID!, rating: Int!, review: String!, username: String!): Review
   }
 `);
