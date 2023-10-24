@@ -30,6 +30,18 @@ interface carsArgs {
   orderBy: orderByArg;
 }
 
+interface addFavoriteArgs {
+  userID: string;
+  carID: string;
+}
+
+interface addReviewArgs {
+  rating: number;
+  review: string;
+  carID: string;
+  userID: number;
+}
+
 export const resolvers = {
   Query: {
     car: async (_: any, { company, model }: carArgs) => {
@@ -73,16 +85,14 @@ export const resolvers = {
       return result;
     },
     favoriteCars: async (_: any, { userID }: { userID: number }) => {
-      return await Favorite.findOne().then(res=>console.log(res))
-      .catch(error=>console.log(error));
+      return await Favorite.find({userID: userID}).populate('carID');
     },
     carReviews: async (_: any, { carID }: { carID: string }) => {
-      return await Review.find({carID: carID}).then(res=>console.log(res))
-      .catch(error=>console.log(error));
+      return await Review.find({carID: carID});
     }
   },
   Mutation: {
-    addFavorite: async (_: any, { userID, carID }: { userID: string, carID: string }) => {
+    addFavorite: async (_: any, { userID, carID }: addFavoriteArgs) => {
       const favorite = new Favorite({
         _id: new mongoose.Types.ObjectId(),
         userID: userID,
@@ -90,7 +100,7 @@ export const resolvers = {
       });
       return await favorite.save();
     },
-    addReview: async (_: any, { rating, review, carID, userID }: { rating: number, review: string, carID: string, userID: number }) => {
+    addReview: async (_: any, { rating, review, carID, userID }: addReviewArgs) => {
       const reviewObj = new Review({
         _id: new mongoose.Types.ObjectId(),
         rating: rating,
@@ -98,7 +108,14 @@ export const resolvers = {
         carID: carID,
         userID: userID
       });
-      return await reviewObj.save();
+      const amountOfReviews = await Review.countDocuments({carID: carID});
+      console.log(amountOfReviews);
+      const car = await Car.findById(carID);
+      if (car && car.rating) {
+        await car?.updateOne({rating: Math.round((car.rating * amountOfReviews + rating) / (amountOfReviews + 1))});
+      }
+      return await reviewObj.save(), await car?.save();
+
     }
   }
 }
