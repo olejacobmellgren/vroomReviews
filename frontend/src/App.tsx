@@ -7,20 +7,21 @@ import Carpage from './pages/Carpage';
 import Favoritepage from './pages/Favoritepage';
 import Reviewpage from './pages/Reviewpage';
 import Header from './components/Header';
+import { GET_USER_COUNT } from './graphQL/queries';
 
 
 function App() {
 
-  // const { loading, error, data } = useQuery(GET_USER_COUNT);
+  const { loading, error, data } = useQuery(GET_USER_COUNT);
   // const [addUser] = useMutation(ADD_USER);
 
-  // const userID = localStorage.getItem('userID');
+  const userID = localStorage.getItem('userID');
   
 
-  // if (loading) return <p>Loading...</p>;
-  // if (error) console.log(error);
+  if (loading) return <p>Loading...</p>;
+  if (error) console.log(error);
 
-  // console.log(data);
+  console.log(data);
 
   // if (!userID) {
   //   addUser({
