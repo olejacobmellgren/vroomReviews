@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Car from './models/car';
 import Favorite from './models/favorite';
 import Review from './models/review';
+import User from './models/user';
 import {
   carArgs,
   carsArgs,
@@ -60,6 +61,9 @@ export const resolvers = {
     userReviews: async (_: any, { userID }: { userID: number }) => {
       return await Review.find({ userID: userID }).populate('car');
     },
+    users: async () => {
+      return await User.countDocuments();
+    },
   },
   Mutation: {
     addFavorite: async (_: any, { userID, car }: addFavoriteArgs) => {
@@ -99,6 +103,14 @@ export const resolvers = {
       await reviewObj.save();
       await carToUpdate?.save();
       return reviewObj.populate('car');
+    },
+    addUser: async (_: any, { userID }: { userID: number }) => {
+      const user = new User({
+        _id: new mongoose.Types.ObjectId(),
+        userID: userID,
+      });
+      await user.save();
+      return user;
     },
   },
 };
