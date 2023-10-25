@@ -25,7 +25,7 @@ export interface carsArgs {
   orderBy: orderByArg;
 }
 
-export interface addFavoriteArgs {
+export interface userAndCarArgs {
   userID: string;
   car: string;
 }
