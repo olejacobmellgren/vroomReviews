@@ -66,7 +66,9 @@ export const typeDefs = buildSchema(`
 
   type Mutation {
     addFavorite(userID: Int!, car: ID!): Favorite
+    removeFavorite(userID: Int!, car: ID!): Favorite
     addReview(userID: Int!, car: ID!, rating: Int!, review: String!, username: String!): Review
+    removeReview(userID: Int!, car: ID!): Review
     addUser(userID: Int!): User
   }
 `);

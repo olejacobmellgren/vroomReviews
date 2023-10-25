@@ -6,7 +6,7 @@ import User from './models/user';
 import {
   carArgs,
   carsArgs,
-  addFavoriteArgs,
+  userAndCarArgs,
   addReviewArgs,
 } from './interfaces';
 
@@ -66,7 +66,7 @@ export const resolvers = {
     },
   },
   Mutation: {
-    addFavorite: async (_: any, { userID, car }: addFavoriteArgs) => {
+    addFavorite: async (_: any, { userID, car }: userAndCarArgs) => {
       const favorite = new Favorite({
         _id: new mongoose.Types.ObjectId(),
         userID: userID,
@@ -74,6 +74,12 @@ export const resolvers = {
       });
       await favorite.save();
       return favorite.populate('car');
+    },
+    removeFavorite: async (_: any, { userID, car }: userAndCarArgs) => {
+      return await Favorite.findOneAndDelete({
+        userID: userID,
+        car: car,
+      }).populate('car');
     },
     addReview: async (
       _: any,
@@ -103,6 +109,9 @@ export const resolvers = {
       await reviewObj.save();
       await carToUpdate?.save();
       return reviewObj.populate('car');
+    },
+    removeReview: async (_: any, { userID, car }: userAndCarArgs) => {
+      return Review.findOneAndDelete({ userID: userID, car: car }).populate("car");
     },
     addUser: async (_: any, { userID }: { userID: number }) => {
       const user = new User({
