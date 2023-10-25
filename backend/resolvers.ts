@@ -3,12 +3,7 @@ import Car from './models/car';
 import Favorite from './models/favorite';
 import Review from './models/review';
 import User from './models/user';
-import {
-  carArgs,
-  carsArgs,
-  userAndCarArgs,
-  addReviewArgs,
-} from './interfaces';
+import { carArgs, carsArgs, userAndCarArgs, addReviewArgs } from './interfaces';
 
 export const resolvers = {
   Query: {
@@ -111,7 +106,9 @@ export const resolvers = {
       return reviewObj.populate('car');
     },
     removeReview: async (_: any, { userID, car }: userAndCarArgs) => {
-      return Review.findOneAndDelete({ userID: userID, car: car }).populate("car");
+      return Review.findOneAndDelete({ userID: userID, car: car }).populate(
+        'car',
+      );
     },
     addUser: async (_: any, { userID }: { userID: number }) => {
       const user = new User({

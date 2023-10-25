@@ -25,8 +25,20 @@ export const REMOVE_FAVORITE_CAR = gql`
 `;
 
 export const ADD_REVIEW = gql`
-  mutation AddReview($userID: Int!, $car: String!, $rating: Int!, $review: String!, $username: String!) {
-    addReview(userID: $userID, car: $car, rating: $rating, review: $review, username: $username) {
+  mutation AddReview(
+    $userID: Int!
+    $car: String!
+    $rating: Int!
+    $review: String!
+    $username: String!
+  ) {
+    addReview(
+      userID: $userID
+      car: $car
+      rating: $rating
+      review: $review
+      username: $username
+    ) {
       rating
       review
       username

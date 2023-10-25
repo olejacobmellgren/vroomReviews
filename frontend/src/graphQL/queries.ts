@@ -78,7 +78,7 @@ export const GET_USER_REVIEWS = gql`
 `;
 
 export const GET_USER_COUNT = gql`
-  query GetUserCount{
+  query GetUserCount {
     users
   }
 `;
