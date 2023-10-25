@@ -4,8 +4,8 @@ import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
 import mongoose from 'mongoose';
 
-const MONGODB = "mongodb://admin:gruppe25@it2810-25.idi.ntnu.no:27017/carDatabase?authSource=admin"
-
+const MONGODB =
+  'mongodb://admin:gruppe25@it2810-25.idi.ntnu.no:27017/carDatabase?authSource=admin';
 
 async function startApolloServer() {
   const server = new ApolloServer({
@@ -13,10 +13,9 @@ async function startApolloServer() {
     resolvers,
   });
 
-  mongoose.connect(MONGODB)
-    .then(() => {
-      console.log("MongoDB connected");
-    });
+  mongoose.connect(MONGODB).then(() => {
+    console.log('MongoDB connected');
+  });
 
   const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },

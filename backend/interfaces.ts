@@ -1,4 +1,3 @@
-
 export interface carArgs {
   company: string;
   model: string;
@@ -11,8 +10,8 @@ interface carsFilters {
 }
 
 enum SortOrder {
-  asc = "asc",
-  desc = "desc",
+  asc = 'asc',
+  desc = 'desc',
 }
 
 interface orderByArg {

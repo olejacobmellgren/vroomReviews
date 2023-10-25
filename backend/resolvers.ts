@@ -1,16 +1,21 @@
 import mongoose from 'mongoose';
-import Car from './models/car'
-import Favorite from './models/favorite'
-import Review from './models/review'
-import { carArgs, carsArgs, addFavoriteArgs, addReviewArgs } from './interfaces'
+import Car from './models/car';
+import Favorite from './models/favorite';
+import Review from './models/review';
+import {
+  carArgs,
+  carsArgs,
+  addFavoriteArgs,
+  addReviewArgs,
+} from './interfaces';
 
 export const resolvers = {
   Query: {
     car: async (_: any, { company, model }: carArgs) => {
-      return await Car.findOne({ company: company, model: model })
+      return await Car.findOne({ company: company, model: model });
     },
     carsByCompany: async (_: any, { company }: { company: string }) => {
-      return await Car.find({ company: company })
+      return await Car.find({ company: company });
     },
     cars: async (_: any, args: carsArgs) => {
       const { filters, offset, orderBy } = args;
@@ -47,47 +52,53 @@ export const resolvers = {
       return result;
     },
     favoriteCars: async (_: any, { userID }: { userID: number }) => {
-      return await Favorite.find({userID: userID}).populate('car');
+      return await Favorite.find({ userID: userID }).populate('car');
     },
     carReviews: async (_: any, { car }: { car: string }) => {
-      return await Review.find({car: car}).populate('car');
+      return await Review.find({ car: car }).populate('car');
     },
     userReviews: async (_: any, { userID }: { userID: number }) => {
-      return await Review.find({userID: userID}).populate('car');
-    }
+      return await Review.find({ userID: userID }).populate('car');
+    },
   },
   Mutation: {
     addFavorite: async (_: any, { userID, car }: addFavoriteArgs) => {
       const favorite = new Favorite({
         _id: new mongoose.Types.ObjectId(),
         userID: userID,
-        car: car
+        car: car,
       });
       await favorite.save();
       return favorite.populate('car');
     },
-    addReview: async (_: any, { rating, review, car, userID, username }: addReviewArgs) => {
+    addReview: async (
+      _: any,
+      { rating, review, car, userID, username }: addReviewArgs,
+    ) => {
       const reviewObj = new Review({
         _id: new mongoose.Types.ObjectId(),
         rating: rating,
         review: review,
         car: car,
         userID: userID,
-        username: username
+        username: username,
       });
-      const amountOfReviews = await Review.countDocuments({car: car});
+      const amountOfReviews = await Review.countDocuments({ car: car });
       const carToUpdate = await Car.findById(car);
       if (carToUpdate) {
         if (amountOfReviews === 0) {
-          await carToUpdate.updateOne({rating: rating});
-        }
-        else if (carToUpdate.rating) {
-          await carToUpdate?.updateOne({rating: (carToUpdate.rating * amountOfReviews + rating) / (amountOfReviews + 1)});
+          await carToUpdate.updateOne({ rating: rating });
+        } else if (carToUpdate.rating) {
+          await carToUpdate?.updateOne({
+            rating:
+              (carToUpdate.rating * amountOfReviews + rating) /
+              (amountOfReviews + 1),
+          });
         }
       }
-      await reviewObj.save()
+      await reviewObj.save();
       await carToUpdate?.save();
       return reviewObj.populate('car');
-    }
-  }
-}
+    },
+  },
+};
