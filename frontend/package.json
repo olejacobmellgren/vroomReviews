@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@react-sandbox/heart": "^1.0.0",
+    "graphql": "^16.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-horizontal-scrolling-menu": "^4.1.1",
