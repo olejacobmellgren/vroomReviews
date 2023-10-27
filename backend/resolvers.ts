@@ -17,7 +17,7 @@ export const resolvers = {
       const { filters, offset, orderBy } = args;
 
       if (filters === undefined || filters === null) {
-        return Car.find().limit(10).skip(offset);
+        return Car.find().limit(12).skip(offset);
       }
 
       // Create a base query object with filter conditions
@@ -44,7 +44,7 @@ export const resolvers = {
         }
       }
 
-      const result = await Car.find(query).sort(sort).limit(10).skip(offset);
+      const result = await Car.find(query).sort(sort).limit(12).skip(offset);
       return result;
     },
     favoriteCars: async (_: any, { userID }: { userID: number }) => {
