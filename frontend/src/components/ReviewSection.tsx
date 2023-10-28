@@ -18,7 +18,7 @@ const ReviewSection = ({
   userReview: Review | undefined;
   reviews: Review[];
 }) => {
-  const amountOfRatingsForBook = reviews.length;
+  const amountOfRatingsForCar = reviews.length;
 
   const [reviewCarPopup, setReviewCarPopup] = useState(false);
   const [visibleDeletePopup, setVisibleDeletePopup] = useState(false);
@@ -127,8 +127,8 @@ const ReviewSection = ({
         </div>
       ) : null}
       <div>
-        {amountOfRatingsForBook === 0 ? (
-          <p>There are currently no reviews for this book</p>
+        {amountOfRatingsForCar === 0 ? (
+          <p>There are currently no reviews for this car</p>
         ) : (
           <h1>Reviews</h1>
         )}

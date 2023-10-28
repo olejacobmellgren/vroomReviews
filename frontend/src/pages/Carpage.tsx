@@ -1,38 +1,96 @@
 import { useParams } from 'react-router-dom';
-import cars from '../data/cars.json';
 import allreviews from '../data/reviews.json';
 import { StarRating } from 'star-rating-react-ts';
 import ReviewSection from '../components/ReviewSection';
 import Heart from '@react-sandbox/heart';
 import '../assets/Carpage.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Spinner } from '@chakra-ui/spinner';
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_CAR } from '../graphQL/queries';
+import { GET_FAVORITE_CARS } from '../graphQL/queries';
+import { REMOVE_FAVORITE_CAR } from '../graphQL/mutations';
+import { ADD_FAVORITE_CAR } from '../graphQL/mutations';
+import { Favorite } from '../types/Favorite';
+import { c } from 'vitest/dist/reporters-5f784f42.js';
 
 const Carpage = () => {
-  const { id } = useParams();
+
+  let { id } = useParams();
   const carID = typeof id === 'string' ? id : '';
-  const car = cars.find((car) => car?.id.toString() === carID);
+  const company = carID?.split('-')[0];
+  const model = carID?.split('-')[1];
+  const userID = Number(localStorage.getItem('userID'));
+
+  const { loading: carLoading, error: carError, data: carData } = useQuery(GET_CAR, {
+    variables: {
+      company: company,
+      model: model,
+    },
+  });
+
+
+  const car = carData?.car.id;
+  const { data: favoriteCars, loading: favoriteLoading, error: favoriteError } = useQuery(GET_FAVORITE_CARS, {
+    variables: {
+      userID: userID,
+    },
+  });
+
+  const [removeFavoriteCar, { data: removeFavoriteData, loading: removeFavoriteLoading, error: removeFavoriteError }] = useMutation(REMOVE_FAVORITE_CAR, {
+    variables: {
+      userID: userID,
+      car: car,
+    },
+  });
+
+
+  const [addFavoriteCar, { data: favoriteData }] = useMutation(ADD_FAVORITE_CAR, {
+    variables: {
+      userID: userID,
+      carID: car,
+    },
+  });
+
+  const isCarInFavorites = favoriteCars?.favoriteCars.some((favoriteCar: Favorite) => favoriteCar?.car.id === car);
+  const [activeHeart, setActiveHeart] = useState(isCarInFavorites);
+
   const reviews = allreviews.filter(
     (review) => review?.carID.toString() === carID,
   );
   const userReview = reviews.find((review) => review?.userID === '1');
 
-  const [activeHeart, setActiveHeart] = useState(
-    userReview?.isFavorite || false,
-  );
+
+  const handleFavorite = () => {
+    setActiveHeart(!activeHeart);
+    if (activeHeart) {
+      removeFavoriteCar();
+    };
+  };
+
+
+  if (carLoading) return <Spinner color='red.500' size='xl'/>;
+  // if (carError) console.log(carError);
+
+  // if (favoriteLoading) return <Spinner color='red.500' size='xl'/>;
+  // if (favoriteError) console.log(favoriteError);
+  if (removeFavoriteLoading) return <Spinner color='red.500' size='xl'/>;
+  if (removeFavoriteError) console.log(removeFavoriteError);
+  
 
   return (
     <div className="carpage-container">
       <div className="top-section">
-        <img className="carpage-image" src={car?.image} alt={car?.image} />
+        <img className="carpage-image" src={carData?.car?.image} alt={carData?.car?.image} />
         <div>
           <p className="title">
-            {car?.brand} {car?.model}
+            {carData?.car?.company} {carData?.car?.model}
           </p>
-          <p className="year">{car?.year}</p>
+          <p className="year">{carData?.car?.year}</p>
           <div className="rating">
-            {car && <StarRating readOnly={true} initialRating={car?.rating} />}
+            {carData && <StarRating readOnly={true} initialRating={carData?.car?.rating} />}
             <div className="amount-rating">
-              <p>{car?.rating} / 5 </p> <p>|</p>
+              <p>{carData?.car?.rating} / 5 </p> <p>|</p>
               <p> {reviews.length} ratings</p>
             </div>
           </div>
@@ -44,23 +102,22 @@ const Carpage = () => {
               height={100}
               inactiveColor="#fff"
               active={activeHeart}
-              onClick={() => setActiveHeart(!activeHeart)}
-            />
+              onClick={() => handleFavorite()}/>
           </div>
         </div>
       </div>
       <div className="info">
         <div className="info-container">
-          <p className="info-text">Price: {car?.price}</p>
-          <p className="info-text">Drivetrain: {car?.drivetrain}</p>
+          <p className="info-text">Price: {carData?.car?.price}</p>
+          <p className="info-text">Drivetrain: {carData?.car?.drivetrain}</p>
         </div>
         <div className="info-container">
-          <p className="info-text">Type: {car?.carBody}</p>
-          <p className="info-text">Horsepower: {car?.horsepower}</p>
+          <p className="info-text">Type: {carData?.car?.carBody}</p>
+          <p className="info-text">Horsepower: {carData?.car?.horsepower}</p>
         </div>
         <div className="info-container">
-          <p className="info-text">Number of doors: {car?.numOfDoors}</p>
-          <p className="info-text">Type of engine: {car?.engineType}</p>
+          <p className="info-text">Number of doors: {carData?.car?.numOfDoors}</p>
+          <p className="info-text">Type of engine: {carData?.car?.engineType}</p>
         </div>
       </div>
       <div>

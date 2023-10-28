@@ -8,29 +8,27 @@ import Favoritepage from './pages/Favoritepage';
 import Reviewpage from './pages/Reviewpage';
 import Header from './components/Header';
 import { GET_USER_COUNT } from './graphQL/queries';
-
+import { ADD_USER } from './graphQL/mutations';
+import { Spinner } from '@chakra-ui/spinner';
 
 function App() {
 
   const { loading, error, data } = useQuery(GET_USER_COUNT);
-  // const [addUser] = useMutation(ADD_USER);
+  const [addUser] = useMutation(ADD_USER);
 
   const userID = localStorage.getItem('userID');
   
-
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Spinner color='red.500' size='xl'/>;
   if (error) console.log(error);
 
-  console.log(data);
-
-  // if (!userID) {
-  //   addUser({
-  //     variables: {
-  //       userID: data.userCount+1,
-  //     }
-  //   }).then((res) => { console.log(res.data.addUser._id) }).catch((err) => { console.log(err) });
-  //   localStorage.setItem('userID', data.userCount+1);
-  // }
+  if (!userID) {
+    addUser({
+      variables: {
+        userID: data.users+1,
+      }
+    }).then((res) => { console.log(res.data.addUser._id) }).catch((err) => { console.log(err) });
+    localStorage.setItem('userID', data.users+1);
+  }
 
   return (
     <>

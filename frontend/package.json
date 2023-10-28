@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.6",
+    "@chakra-ui/spinner": "^2.1.0",
     "@react-sandbox/heart": "^1.0.0",
     "graphql": "^16.8.1",
     "react": "^18.2.0",
