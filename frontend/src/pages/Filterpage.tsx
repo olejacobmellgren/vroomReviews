@@ -1,12 +1,13 @@
 import DropdownMenu from '../components/DropdownMenu';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
 import cars from '../data/cars.json';
 import { Link } from 'react-router-dom';
 import { GET_CARS } from '../graphQL/queries';
 import { useQuery } from '@apollo/client';
-import { Car } from '../interfaces/Car';
+import { CircularProgress } from '@mui/material';
+import { Car } from '../types/Car';
 
 const Filterpage = () => {
   const filters = [
@@ -35,6 +36,35 @@ const Filterpage = () => {
 
   const [visibleCars, setVisibleCars] = useState(12);
 
+  const [shownCars, setShownCars] = useState([]);
+
+  const { loading, error, data } = useQuery(GET_CARS, {
+    variables: {
+      filters: {
+        company: selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
+        year: selectedFilters.Year !== 'All' ? parseInt(selectedFilters.Year) : null,
+        carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
+      },
+      offset: visibleCars - 12,
+      orderBy: {
+        year: !selectedFilters.SortBy.includes('Years') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
+        rating: !selectedFilters.SortBy.includes('Rating') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
+      }
+    }
+  });
+  
+  
+  useEffect(() => {
+    if (data?.cars) {
+      setShownCars(prevShownCars => prevShownCars?.concat(data?.cars))
+      console.log(shownCars)
+    }
+  }, [data])
+
+  if (loading) return <CircularProgress />;
+  if (error) console.log(error);
+  
+  
   const handleViewMore = () => {
     setVisibleCars((prevVisibleCars) => prevVisibleCars + 12);
   };
@@ -44,6 +74,7 @@ const Filterpage = () => {
       ...prevSelectedFilters,
       [filterName === "Sort by" ? "SortBy" : filterName]: selectedValue,
     }));
+    setShownCars([])
   };
 
   // display dropdown for dropdownMenu clicked. The rest is set to false, meaning they are closed.
@@ -52,27 +83,6 @@ const Filterpage = () => {
     setDropdownVisibility(
       dropdownVisibility.map((item, i) => (i === index ? !item : false)),
     );
-  };
-
-  const applyFilters = (cars: Car[]) => {
-
-    const { loading, error, data } = useQuery(GET_CARS, {
-      variables: {
-        filters: {
-          company: selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
-          year: selectedFilters.Year !== 'All' ? parseInt(selectedFilters.Year) : null,
-          carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
-        },
-        offset: visibleCars - 12,
-        orderBy: {
-          year: !selectedFilters.SortBy.includes('Years') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
-          rating: !selectedFilters.SortBy.includes('Rating') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
-        }
-      }
-    });
-    console.log(data?.cars)
-    console.log(cars)
-    return data?.cars || []
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,8 +145,7 @@ const Filterpage = () => {
         ))}
       </div>
       <div className="car-list">
-        {applyFilters(cars as Car[])
-          .map((car) => (
+        {shownCars.map((car) => (
             <div className="car" key={car.company + "-" + car.model}>
               <CardForCar
                 brand={car.company}
@@ -149,7 +158,7 @@ const Filterpage = () => {
         }
       </div>
       <div className="view-more-button">
-        {visibleCars < applyFilters(cars as Car[]).length ? (
+        {data.cars.length == 12 ? (
           <button onClick={handleViewMore}>View more</button>
         ) : null}
       </div>
