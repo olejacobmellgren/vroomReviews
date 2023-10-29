@@ -32,7 +32,7 @@ export const GET_CARS_BY_COMPANY = gql`
 `;
 
 export const GET_CARS = gql`
-  query GetCars($filters: CarFilters, $offset: Int, $orderBy: CarOrderBy) {
+  query GetCars($filters: carsFilters, $offset: Int, $orderBy: orderByArg) {
     cars(filters: $filters, offset: $offset, orderBy: $orderBy) {
       company
       model

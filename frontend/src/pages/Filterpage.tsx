@@ -4,6 +4,8 @@ import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
 import cars from '../data/cars.json';
 import { Link } from 'react-router-dom';
+import { GET_CARS } from '../graphQL/queries';
+import { useQuery } from '@apollo/client';
 import { Car } from '../interfaces/Car';
 
 const Filterpage = () => {
@@ -14,7 +16,7 @@ const Filterpage = () => {
     },
     { name: 'Year', options: ['2023', '2022', '2021', '2020', '2019', 'All'] },
     { name: 'Body', options: ['Coupe', 'SUV', 'Sedan', 'All'] },
-    { name: 'Sort by', options: ['Reviews', 'Rating', 'All'] },
+    { name: 'Sort by', options: ['Years, asc', 'Years, desc', 'Rating, asc', 'Rating, desc', 'All'] },
   ];
 
   const [selectedFilters, setSelectedFilters] = useState({
@@ -53,20 +55,24 @@ const Filterpage = () => {
   };
 
   const applyFilters = (cars: Car[]) => {
-    return cars.filter((car) => {
-      return filters.every((filter) => {
-        if (filter.name === 'Brand' && selectedFilters.Brand !== 'All') {
-          return car.brand === selectedFilters.Brand;
+
+    const { loading, error, data } = useQuery(GET_CARS, {
+      variables: {
+        filters: {
+          company: selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
+          year: selectedFilters.Year !== 'All' ? parseInt(selectedFilters.Year) : null,
+          carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
+        },
+        offset: visibleCars - 12,
+        orderBy: {
+          year: !selectedFilters.SortBy.includes('Years') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
+          rating: !selectedFilters.SortBy.includes('Rating') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
         }
-        if (filter.name === 'Year' && selectedFilters.Year !== 'All') {
-          return car.year.toString() === selectedFilters.Year;
-        }
-        if (filter.name === 'Body' && selectedFilters.Body !== 'All') {
-          return car.carBody === selectedFilters.Body;
-        }
-        return true;
-      });
+      }
     });
+    console.log(data?.cars)
+    console.log(cars)
+    return data?.cars || []
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -132,16 +138,16 @@ const Filterpage = () => {
         {applyFilters(cars as Car[])
           .slice(0, visibleCars)
           .map((car) => (
-            <div className="car" key={car.id}>
+            <div className="car" key={car.company + "-" + car.model}>
               <CardForCar
-                id={car.id.toString()}
-                brand={car.brand}
+                brand={car.company}
                 model={car.model}
                 carIMG={car.image}
                 showInfo={true}
               />
             </div>
-          ))}
+          ))
+        }
       </div>
       <div className="view-more-button">
         {visibleCars < applyFilters(cars as Car[]).length ? (
