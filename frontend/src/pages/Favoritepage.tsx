@@ -1,30 +1,43 @@
 import CardForCar from '../components/CardForCar';
-import cars from '../data/cars.json';
-import allreviews from '../data/reviews.json';
 import '../assets/Favoritepage.css';
+import { useQuery } from '@apollo/client';
+import { GET_FAVORITE_CARS } from '../graphQL/queries';
+import { CircularProgress } from '@mui/material';
+import FavoriteButton from '../components/FavoriteButton';
+import { useEffect } from 'react';
+import { CarElem } from '../types/CarElem';
 
 const Favoritepage = () => {
-  // Get all reviews for user (currently hardcoded to user 1)
-  const userFavorites = allreviews
-    .filter((review) => review?.userID === '1' && review?.isFavorite === true)
-    .map((review) => review?.carID);
+  const userID = Number(localStorage.getItem('userID'));
+
   // Get all cars that are favorited by user
-  const favoriteCars = cars.filter(
-    (car) => car?.id && userFavorites.includes(car?.id),
-  );
+  const { loading, error, data, refetch } = useQuery(GET_FAVORITE_CARS, {
+    variables: { userID: userID },
+  });
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  if (loading) return <CircularProgress />;
+  if (error) console.log(error);
 
   return (
     <div>
       <div className="car-list">
-        {favoriteCars.map((car) => (
-          <div className="car" key={car.id}>
-            <CardForCar
-              id={car.id.toString()}
-              brand={car.brand}
-              model={car.model}
-              carIMG={car.image}
-              showInfo={true}
-            />
+        {data.favoriteCars.map((carElem: CarElem) => (
+          <div>
+            <div className="car" key={carElem?.car.id}>
+              <CardForCar
+                brand={carElem.car.company}
+                model={carElem.car.model}
+                carIMG={carElem.car.image}
+                showInfo={false}
+              />
+            </div>
+            <div>
+              <FavoriteButton car={carElem?.car.id} refetch={refetch} />
+            </div>
           </div>
         ))}
       </div>

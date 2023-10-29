@@ -3,12 +3,17 @@ import { CircularProgress } from '@mui/material';
 import Heart from '@react-sandbox/heart';
 import { REMOVE_FAVORITE_CAR } from '../graphQL/mutations';
 import { ADD_FAVORITE_CAR } from '../graphQL/mutations';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GET_FAVORITE_CARS } from '../graphQL/queries';
 import { Favorite } from '../types/Favorite';
 import AlertPopup from './AlertPopup';
 
-const FavoriteButton = ({ car }: { car: string }) => {
+interface FavoriteButtonProps {
+  car: string;
+  refetch?: () => void;
+}
+
+const FavoriteButton = ({ car, refetch }: FavoriteButtonProps) => {
   const userID = Number(localStorage.getItem('userID'));
   const [alertMessage, setAlertMessage] = useState('');
   const [favoriteAlert, setFavoriteAlert] = useState(false);
@@ -17,6 +22,7 @@ const FavoriteButton = ({ car }: { car: string }) => {
     data: favoriteCars,
     loading: favoriteLoading,
     error: favoriteError,
+    refetch: favoriteRefetch,
   } = useQuery(GET_FAVORITE_CARS, {
     variables: {
       userID: userID,
@@ -26,6 +32,19 @@ const FavoriteButton = ({ car }: { car: string }) => {
   const isCarInFavorites = favoriteCars?.favoriteCars.some(
     (favoriteCar: Favorite) => favoriteCar?.car.id === car,
   );
+
+  useEffect(() => {
+    const isCarInFavorites = favoriteCars?.favoriteCars.some(
+      (favoriteCar: Favorite) => favoriteCar?.car.id === car,
+    );
+
+    if (isCarInFavorites) {
+      setActiveHeart(true);
+    } else {
+      setActiveHeart(false);
+    }
+  }, [car, favoriteCars]);
+
   const [activeHeart, setActiveHeart] = useState(isCarInFavorites);
 
   const [
@@ -58,6 +77,10 @@ const FavoriteButton = ({ car }: { car: string }) => {
     }
     setFavoriteAlert(true);
     setActiveHeart(!activeHeart);
+    if (refetch) {
+      refetch();
+    }
+    favoriteRefetch();
   };
 
   if (favoriteError || removeFavoriteError || addFavoriteError)
