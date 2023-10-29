@@ -51,8 +51,6 @@ const Carpage = () => {
   if (carLoading || reviewsLoading || userReviewLoading) return <CircularProgress />;
   if (carError || reviewsError || userReviewError) console.log(carError, reviewsError, userReviewError);
 
-  console.log(reviewsData.carReviews);
-  console.log(userReviewData.userReviewForCar);
   return (
     <div className="carpage-container">
       <div className="top-section">
@@ -101,7 +99,7 @@ const Carpage = () => {
         </div>
       </div>
       <div>
-        <ReviewSection userReview={userReviewData.userReviewForCar} reviews={reviewsData.carReviews} />
+        <ReviewSection userReview={userReviewData.userReviewForCar} reviews={reviewsData.carReviews} carID={carID}/>
       </div>
     </div>
   );

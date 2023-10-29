@@ -2,7 +2,7 @@ import React, { useState, MouseEventHandler } from 'react';
 import { StarRating } from 'star-rating-react-ts';
 import '../assets/ReviewSection.css';
 import { Review } from '../types/Review';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { ADD_REVIEW } from '../graphQL/mutations';
 import { REMOVE_REVIEW } from '../graphQL/mutations';
 import { CircularProgress } from '@mui/material';
@@ -21,11 +21,10 @@ const ReviewSection = ({
   const userID = Number(localStorage.getItem('userID'));
   const [reviewCarPopup, setReviewCarPopup] = useState(false);
   const [visibleDeletePopup, setVisibleDeletePopup] = useState(false);
-  const [username, setUsername] = useState('');
-
+  const [username, setUsername] = useState(userReview?.username || '');
   const [reviewAdded, setReviewAdded] = useState(false);
-  const [rating, setRating] = useState(0);
-  const [reviewText, setReviewText] = useState('');
+  const [rating, setRating] = useState(userReview?.rating || 0);
+  const [reviewText, setReviewText] = useState(userReview?.review || '');
 
   const [addReview, { loading: addLoading, error: addError, data: addData }] = useMutation(ADD_REVIEW, {
     variables: {
@@ -53,6 +52,7 @@ const ReviewSection = ({
     const isClose = (e.target as HTMLElement).closest('#popup');
     if (!isClose) {
       setReviewCarPopup(false);
+      setVisibleDeletePopup(false);
     }
   };
 
@@ -64,6 +64,7 @@ const ReviewSection = ({
     event.target.style.height = event.target.scrollHeight + 'px';
   };
 
+  // Add review to database
   function handleReviewSubmit() {
     addReview();
     setReviewAdded(true);
@@ -71,15 +72,13 @@ const ReviewSection = ({
     amountOfRatingsForCar++;
   }
 
-  function handleDeleteConfirm(review: Review) {
-    console.log(review);
-    // Delete review from database
+  // Delete review from database
+  function handleDeleteConfirm() {
     removeReview();
     setVisibleDeletePopup(false);
-    setReviewCarPopup(false);
-    setReviewAdded(false);
-    setReviewText('');
     setRating(0);
+    setReviewAdded(false);
+    amountOfRatingsForCar--;
   }
 
 
@@ -130,7 +129,7 @@ const ReviewSection = ({
           <div className="popup" onClick={closeOrOpen}>
             <div className="popup-inner" id="popup">
               <p>Are you sure you want to delete this review? </p>
-              <button onClick={() => handleDeleteConfirm(userReview!)}>
+              <button onClick={() => handleDeleteConfirm()}>
                 Confirm
               </button>
               <button onClick={() => setVisibleDeletePopup(false)}>
@@ -146,17 +145,21 @@ const ReviewSection = ({
         ) : (
           <h1>Reviews</h1>
         )}
-        {userReview ? (
+        {userReview || reviewAdded ? (
           <div className="current-user-review">
             <p> Your review: </p>
             <div>
               <StarRating
                 theme={{ size: 30 }}
                 readOnly={true}
-                initialRating={userReview?.rating}
+                initialRating={rating}
               />
-              <p>{userReview?.review}</p>
+              <p>{reviewText}</p>
             </div>
+            <u className="delete-review" onClick={() => setVisibleDeletePopup(true)}>
+              delete
+            </u>
+
           </div>
         ) : null}
         {reviews.map((review) => (

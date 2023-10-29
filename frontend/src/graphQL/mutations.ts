@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const ADD_FAVORITE_CAR = gql`
-  mutation AddFavoriteCar($userID: Int!, $car: ID!) {
+  mutation AddFavoriteCar($userID: Int!, $car: String!) {
     addFavorite(userID: $userID, car: $car) {
       userID
       car {
@@ -27,7 +27,7 @@ export const REMOVE_FAVORITE_CAR = gql`
 export const ADD_REVIEW = gql`
   mutation AddReview(
     $userID: Int!
-    $car: String!
+    $car: ID!
     $rating: Int!
     $review: String!
     $username: String!
@@ -47,7 +47,7 @@ export const ADD_REVIEW = gql`
 `;
 
 export const REMOVE_REVIEW = gql`
-  mutation RemoveReview($userID: Int!, $car: String!) {
+  mutation RemoveReview($userID: Int!, $car: ID!) {
     removeReview(userID: $userID, car: $car) {
       rating
       review

@@ -65,10 +65,10 @@ const FavoriteButton = ({ car }: { car: string }) => {
     setFavoriteAlert(false);
   };
 
-  if (favoriteError || removeFavoriteError || addFavoriteError)
-    setAlertMessage('Something went wrong!');
-  if (favoriteLoading || removeFavoriteLoading || addFavoriteLoading)
-    return <CircularProgress />;
+  // if (favoriteError || removeFavoriteError || addFavoriteError)
+  //   setAlertMessage('Something went wrong!');
+  // if (favoriteLoading || removeFavoriteLoading || addFavoriteLoading)
+  //   return <CircularProgress />;
 
   return (
     <div className="heart-info-container">

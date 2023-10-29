@@ -85,6 +85,7 @@ export const GET_USER_REVIEW_FOR_CAR = gql`
       userID
       rating
       review
+      username
     }
   }
 `;
