@@ -4,7 +4,7 @@ import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
 import cars from '../data/cars.json';
 import { Link } from 'react-router-dom';
-import { Car } from '../types/Car';
+import { Car } from '../interfaces/Car';
 
 const Filterpage = () => {
   const filters = [

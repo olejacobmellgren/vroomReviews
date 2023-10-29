@@ -1,0 +1,8 @@
+.heart-info-container {
+  display: flex;
+  /* gap: 2rem; */
+}
+
+.heart:hover {
+  transform: scale(1.2);
+}

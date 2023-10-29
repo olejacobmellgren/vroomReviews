@@ -2,17 +2,12 @@ import { useParams } from 'react-router-dom';
 import allreviews from '../data/reviews.json';
 import { StarRating } from 'star-rating-react-ts';
 import ReviewSection from '../components/ReviewSection';
-import Heart from '@react-sandbox/heart';
+import FavoriteButton from '../components/FavoriteButton';
 import '../assets/Carpage.css';
-import { useEffect, useState } from 'react';
-import { Spinner } from '@chakra-ui/spinner';
-import { useQuery, useMutation } from '@apollo/client';
+import { CircularProgress } from '@mui/material';
+import { useQuery } from '@apollo/client';
 import { GET_CAR } from '../graphQL/queries';
-import { GET_FAVORITE_CARS } from '../graphQL/queries';
-import { REMOVE_FAVORITE_CAR } from '../graphQL/mutations';
-import { ADD_FAVORITE_CAR } from '../graphQL/mutations';
-import { Favorite } from '../types/Favorite';
-import { c } from 'vitest/dist/reporters-5f784f42.js';
+
 
 const Carpage = () => {
 
@@ -29,54 +24,15 @@ const Carpage = () => {
     },
   });
 
-
   const car = carData?.car.id;
-  const { data: favoriteCars, loading: favoriteLoading, error: favoriteError } = useQuery(GET_FAVORITE_CARS, {
-    variables: {
-      userID: userID,
-    },
-  });
-
-  const [removeFavoriteCar, { data: removeFavoriteData, loading: removeFavoriteLoading, error: removeFavoriteError }] = useMutation(REMOVE_FAVORITE_CAR, {
-    variables: {
-      userID: userID,
-      car: car,
-    },
-  });
-
-
-  const [addFavoriteCar, { data: favoriteData }] = useMutation(ADD_FAVORITE_CAR, {
-    variables: {
-      userID: userID,
-      carID: car,
-    },
-  });
-
-  const isCarInFavorites = favoriteCars?.favoriteCars.some((favoriteCar: Favorite) => favoriteCar?.car.id === car);
-  const [activeHeart, setActiveHeart] = useState(isCarInFavorites);
 
   const reviews = allreviews.filter(
     (review) => review?.carID.toString() === carID,
   );
   const userReview = reviews.find((review) => review?.userID === '1');
 
-
-  const handleFavorite = () => {
-    setActiveHeart(!activeHeart);
-    if (activeHeart) {
-      removeFavoriteCar();
-    };
-  };
-
-
-  if (carLoading) return <Spinner color='red.500' size='xl'/>;
-  // if (carError) console.log(carError);
-
-  // if (favoriteLoading) return <Spinner color='red.500' size='xl'/>;
-  // if (favoriteError) console.log(favoriteError);
-  if (removeFavoriteLoading) return <Spinner color='red.500' size='xl'/>;
-  if (removeFavoriteError) console.log(removeFavoriteError);
-  
+  if (carLoading) return <CircularProgress/>;
+  if (carError) console.log(carError);
 
   return (
     <div className="carpage-container">
@@ -95,15 +51,7 @@ const Carpage = () => {
             </div>
           </div>
 
-          <div className="heart-info-container">
-            <Heart
-              width={100}
-              className="heart"
-              height={100}
-              inactiveColor="#fff"
-              active={activeHeart}
-              onClick={() => handleFavorite()}/>
-          </div>
+          <FavoriteButton car={car}/>
         </div>
       </div>
       <div className="info">

@@ -26,7 +26,7 @@ export interface carsArgs {
 }
 
 export interface userAndCarArgs {
-  userID: string;
+  userID: number;
   car: string;
 }
 
