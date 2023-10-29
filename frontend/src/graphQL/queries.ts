@@ -55,8 +55,9 @@ export const GET_FAVORITE_CARS = gql`
 `;
 
 export const GET_CAR_REVIEWS = gql`
-  query GetCarReviews($car: String!) {
+  query GetCarReviews($car: ID!) {
     carReviews(car: $car) {
+      userID
       rating
       review
       username
@@ -74,6 +75,16 @@ export const GET_USER_REVIEWS = gql`
         model
         image
       }
+    }
+  }
+`;
+
+export const GET_USER_REVIEW_FOR_CAR = gql`
+  query GetUserReviewForCar($userID: Int!, $car: ID!) {
+    userReviewForCar(userID: $userID, car: $car) {
+      userID
+      rating
+      review
     }
   }
 `;

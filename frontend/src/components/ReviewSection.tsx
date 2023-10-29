@@ -1,30 +1,53 @@
 import React, { useState, MouseEventHandler } from 'react';
 import { StarRating } from 'star-rating-react-ts';
 import '../assets/ReviewSection.css';
-
-type Review = {
-  id: string;
-  rating: number;
-  comment: string;
-  userID: string;
-  userName: string;
-  carID: number;
-};
+import { Review } from '../types/Review';
+import { useMutation, useQuery } from '@apollo/client';
+import { ADD_REVIEW } from '../graphQL/mutations';
+import { REMOVE_REVIEW } from '../graphQL/mutations';
+import { CircularProgress } from '@mui/material';
 
 const ReviewSection = ({
   userReview,
   reviews,
+  carID,
 }: {
   userReview: Review | undefined;
   reviews: Review[];
+  carID: string;
 }) => {
-  const amountOfRatingsForCar = reviews.length;
+  let amountOfRatingsForCar = reviews.length;
 
+  const userID = Number(localStorage.getItem('userID'));
   const [reviewCarPopup, setReviewCarPopup] = useState(false);
   const [visibleDeletePopup, setVisibleDeletePopup] = useState(false);
+  const [username, setUsername] = useState('');
+
   const [reviewAdded, setReviewAdded] = useState(false);
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
+
+  const [addReview, { loading: addLoading, error: addError, data: addData }] = useMutation(ADD_REVIEW, {
+    variables: {
+      userID: userID,
+      car: carID,
+      rating: rating,
+      review: reviewText,
+      username: username,
+    },
+  });
+
+  const [removeReview, {
+    loading: removeLoading,
+    error: removeError,
+    data: removeData,
+  }
+  ] = useMutation(REMOVE_REVIEW, {
+    variables: {
+      userID: userID,
+      car: carID,
+    },
+  });
 
   const closeOrOpen: MouseEventHandler<HTMLDivElement> = (e) => {
     const isClose = (e.target as HTMLElement).closest('#popup');
@@ -42,27 +65,26 @@ const ReviewSection = ({
   };
 
   function handleReviewSubmit() {
-    // Add review to database
+    addReview();
     setReviewAdded(true);
-  }
-
-  function handleEdit() {
-    if (userReview) {
-      setReviewText(userReview.comment);
-      setRating(userReview.rating);
-    }
-    setReviewCarPopup(true);
+    setReviewCarPopup(false);
+    amountOfRatingsForCar++;
   }
 
   function handleDeleteConfirm(review: Review) {
     console.log(review);
     // Delete review from database
+    removeReview();
     setVisibleDeletePopup(false);
     setReviewCarPopup(false);
     setReviewAdded(false);
     setReviewText('');
     setRating(0);
   }
+
+
+  if (addLoading || removeLoading) return <CircularProgress />;
+  if (addError || removeError) console.log(addError, removeError);
 
   return (
     <div>
@@ -88,24 +110,16 @@ const ReviewSection = ({
               />
               <textarea
                 className="text-area"
-                value={reviewText}
                 onChange={handleReviewTextChange}
                 placeholder="Add a review to your rating"
                 cols={28}
                 style={{ height: 'auto', minHeight: '100px' }}
               />
+              <input className='text-area' placeholder="name" onChange={(e) => setUsername(e.target.value)}/>
               <div className="review-buttons">
                 <button onClick={handleReviewSubmit} className="submit">
                   Submit review
                 </button>
-                {userReview ? (
-                  <button
-                    onClick={() => setVisibleDeletePopup(true)}
-                    className="delete"
-                  >
-                    Delete review
-                  </button>
-                ) : null}
               </div>
             </div>
           </div>
@@ -141,11 +155,8 @@ const ReviewSection = ({
                 readOnly={true}
                 initialRating={userReview?.rating}
               />
-              <p>{userReview?.comment}</p>
+              <p>{userReview?.review}</p>
             </div>
-            <u className="edit" onClick={handleEdit}>
-              edit
-            </u>
           </div>
         ) : null}
         {reviews.map((review) => (
@@ -157,9 +168,9 @@ const ReviewSection = ({
                   readOnly={true}
                   initialRating={review.rating}
                 />
-                <p>{review.comment}</p>
+                <p>{review.review}</p>
                 <p className="reviewer">
-                  Reviewed by <i>{review.userName}</i>{' '}
+                  Reviewed by {review.username}
                 </p>
               </div>
             ) : null}

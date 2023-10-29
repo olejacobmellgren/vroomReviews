@@ -1,19 +1,18 @@
 import { useParams } from 'react-router-dom';
-import allreviews from '../data/reviews.json';
 import { StarRating } from 'star-rating-react-ts';
 import ReviewSection from '../components/ReviewSection';
 import FavoriteButton from '../components/FavoriteButton';
 import '../assets/Carpage.css';
 import { CircularProgress } from '@mui/material';
 import { useQuery } from '@apollo/client';
-import { GET_CAR } from '../graphQL/queries';
+import { GET_CAR, GET_USER_REVIEW_FOR_CAR, GET_CAR_REVIEWS } from '../graphQL/queries';
 
 const Carpage = () => {
   const { id } = useParams();
-  const carID = typeof id === 'string' ? id : '';
-  const company = carID?.split('-')[0];
-  const model = carID?.split('-')[1];
-  // const userID = Number(localStorage.getItem('userID'));
+  const car = typeof id === 'string' ? id : '';
+  const company = car?.split('-')[0];
+  const model = car?.split('-')[1];
+  const userID = Number(localStorage.getItem('userID'));
 
   const {
     loading: carLoading,
@@ -26,16 +25,34 @@ const Carpage = () => {
     },
   });
 
-  const car = carData?.car.id;
+  const carID = carData?.car.id;
 
-  const reviews = allreviews.filter(
-    (review) => review?.carID.toString() === carID,
-  );
-  const userReview = reviews.find((review) => review?.userID === '1');
+  const {
+    loading: reviewsLoading,
+    error: reviewsError,
+    data: reviewsData,
+  } = useQuery(GET_CAR_REVIEWS, {
+    variables: {
+      car: carID,
+    },
+  });
 
-  if (carLoading) return <CircularProgress />;
-  if (carError) console.log(carError);
+  const {
+    loading: userReviewLoading,
+    error: userReviewError,
+    data: userReviewData,
+  } = useQuery(GET_USER_REVIEW_FOR_CAR, {
+    variables: {
+      userID: userID,
+      car: carID,
+    },
+  });
 
+  if (carLoading || reviewsLoading || userReviewLoading) return <CircularProgress />;
+  if (carError || reviewsError || userReviewError) console.log(carError, reviewsError, userReviewError);
+
+  console.log(reviewsData.carReviews);
+  console.log(userReviewData.userReviewForCar);
   return (
     <div className="carpage-container">
       <div className="top-section">
@@ -58,7 +75,7 @@ const Carpage = () => {
             )}
             <div className="amount-rating">
               <p>{carData?.car?.rating} / 5 </p> <p>|</p>
-              <p> {reviews.length} ratings</p>
+              <p> {reviewsData.length} ratings</p>
             </div>
           </div>
 
@@ -84,7 +101,7 @@ const Carpage = () => {
         </div>
       </div>
       <div>
-        <ReviewSection userReview={userReview} reviews={reviews} />
+        <ReviewSection userReview={userReviewData.userReviewForCar} reviews={reviewsData.carReviews} />
       </div>
     </div>
   );

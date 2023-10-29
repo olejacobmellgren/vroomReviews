@@ -21,7 +21,6 @@ const Reviewpage = () => {
           <div>
             <div className="car" key={car.id}>
               <CardForCar
-                id={car.id.toString()}
                 brand={car.brand}
                 model={car.model}
                 carIMG={car.image}
