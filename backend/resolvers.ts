@@ -56,6 +56,9 @@ export const resolvers = {
     userReviews: async (_: any, { userID }: { userID: number }) => {
       return await Review.find({ userID: userID }).populate('car');
     },
+    userReviewForCar: async (_: any, { userID, car }: userAndCarArgs) => {
+      return await Review.findOne({ userID: userID, car: car }).populate('car');
+    },
     users: async () => {
       return await User.countDocuments();
     },

@@ -61,6 +61,7 @@ export const typeDefs = buildSchema(`
     favoriteCars(userID: Int!): [Favorite]
     carReviews(car: ID!): [Review]
     userReviews(userID: Int!): [Review]
+    userReviewForCar(userID: Int!, car: ID!): Review
     users: Int
   }
 
