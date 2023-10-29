@@ -45,6 +45,7 @@ export const GET_FAVORITE_CARS = gql`
   query GetFavoriteCars($userID: Int!) {
     favoriteCars(userID: $userID) {
       car {
+        id
         company
         model
         image

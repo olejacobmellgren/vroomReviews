@@ -4,25 +4,7 @@ import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
 import cars from '../data/cars.json';
 import { Link } from 'react-router-dom';
-
-type CarInfo = {
-  id: number;
-  brand: string;
-  model: string;
-  image: string;
-  horsepower: string;
-  torque: string;
-  transmissionType: string;
-  drivetrain: string;
-  fuelEconomy: string;
-  numOfDoors: number;
-  price: string;
-  year: number;
-  carBody: string;
-  engineType: string;
-  numOfCylinders: number;
-  rating: number;
-};
+import { Car } from '../interfaces/Car';
 
 const Filterpage = () => {
   const filters = [
@@ -70,7 +52,7 @@ const Filterpage = () => {
     );
   };
 
-  const applyFilters = (cars: CarInfo[]) => {
+  const applyFilters = (cars: Car[]) => {
     return cars.filter((car) => {
       return filters.every((filter) => {
         if (filter.name === 'Brand' && selectedFilters.Brand !== 'All') {
@@ -147,7 +129,7 @@ const Filterpage = () => {
         ))}
       </div>
       <div className="car-list">
-        {applyFilters(cars as CarInfo[])
+        {applyFilters(cars as Car[])
           .slice(0, visibleCars)
           .map((car) => (
             <div className="car" key={car.id}>
@@ -162,7 +144,7 @@ const Filterpage = () => {
           ))}
       </div>
       <div className="view-more-button">
-        {visibleCars < applyFilters(cars as CarInfo[]).length ? (
+        {visibleCars < applyFilters(cars as Car[]).length ? (
           <button onClick={handleViewMore}>View more</button>
         ) : null}
       </div>
