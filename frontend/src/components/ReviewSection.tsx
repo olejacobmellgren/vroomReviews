@@ -17,7 +17,6 @@ const ReviewSection = ({
   reviews: Review[];
   carID: string;
 }) => {
-
   let amountOfRatingsForCar = reviews.length;
   const userID = Number(localStorage.getItem('userID'));
 
@@ -30,23 +29,26 @@ const ReviewSection = ({
   const [reviewText, setReviewText] = useState(userReview?.review || '');
   const [alertVisible, setAlertVisible] = useState(false);
 
-
-  const [addReview, { loading: addLoading, error: addError }] = useMutation(ADD_REVIEW, {
-    variables: {
-      userID: userID,
-      car: carID,
-      rating: rating,
-      review: reviewText,
-      username: username,
+  const [addReview, { loading: addLoading, error: addError }] = useMutation(
+    ADD_REVIEW,
+    {
+      variables: {
+        userID: userID,
+        car: carID,
+        rating: rating,
+        review: reviewText,
+        username: username,
+      },
     },
-  });
+  );
 
-  const [removeReview, { loading: removeLoading, error: removeError }] = useMutation(REMOVE_REVIEW, {
-    variables: {
-      userID: userID,
-      car: carID,
-    },
-  });
+  const [removeReview, { loading: removeLoading, error: removeError }] =
+    useMutation(REMOVE_REVIEW, {
+      variables: {
+        userID: userID,
+        car: carID,
+      },
+    });
 
   const closeOrOpen: MouseEventHandler<HTMLDivElement> = (e) => {
     const isClose = (e.target as HTMLElement).closest('#popup');
@@ -92,10 +94,7 @@ const ReviewSection = ({
     <div>
       <div>
         {!userReview && !reviewAdded ? (
-          <button
-            className="button"
-            onClick={() => setReviewCarPopup(true)}
-          >
+          <button className="button" onClick={() => setReviewCarPopup(true)}>
             Review this car
           </button>
         ) : null}
@@ -117,7 +116,11 @@ const ReviewSection = ({
                 cols={28}
                 style={{ height: 'auto', minHeight: '100px' }}
               />
-              <input className='text-area' placeholder="name" onChange={(e) => setUsername(e.target.value)}/>
+              <input
+                className="text-area"
+                placeholder="name"
+                onChange={(e) => setUsername(e.target.value)}
+              />
               <div className="review-buttons">
                 <button onClick={handleReviewSubmit} className="button">
                   Submit review
@@ -131,18 +134,23 @@ const ReviewSection = ({
         <div>
           <div className="popup" onClick={closeOrOpen}>
             <div className="popup-inner" id="popup">
-              <p className="text">Are you sure you want to delete this review? </p>
+              <p className="text">
+                Are you sure you want to delete this review?{' '}
+              </p>
               <button className="button" onClick={() => handleDeleteConfirm()}>
                 Confirm
               </button>
-              <button className="button" onClick={() => setVisibleDeletePopup(false)}>
+              <button
+                className="button"
+                onClick={() => setVisibleDeletePopup(false)}
+              >
                 Cancel
               </button>
             </div>
           </div>
         </div>
       ) : null}
-      <div className='reviews'>
+      <div className="reviews">
         {amountOfRatingsForCar === 0 ? (
           <p>There are currently no reviews for this car</p>
         ) : (
@@ -159,10 +167,12 @@ const ReviewSection = ({
               />
               <p>{reviewText}</p>
             </div>
-            <u className="delete-review" onClick={() => setVisibleDeletePopup(true)}>
+            <u
+              className="delete-review"
+              onClick={() => setVisibleDeletePopup(true)}
+            >
               delete
             </u>
-
           </div>
         ) : null}
         {reviews.map((review) => (
@@ -175,9 +185,7 @@ const ReviewSection = ({
                   initialRating={review.rating}
                 />
                 <p>{review.review}</p>
-                <p className="reviewer">
-                  Reviewed by {review.username}
-                </p>
+                <p className="reviewer">Reviewed by {review.username}</p>
               </div>
             ) : null}
           </div>

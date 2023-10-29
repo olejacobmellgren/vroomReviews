@@ -9,11 +9,10 @@ import { Favorite } from '../types/Favorite';
 import AlertPopup from './AlertPopup';
 
 const FavoriteButton = ({ car }: { car: string }) => {
-
   const userID = Number(localStorage.getItem('userID'));
   const [alertMessage, setAlertMessage] = useState('');
   const [favoriteAlert, setFavoriteAlert] = useState(false);
-  
+
   const {
     data: favoriteCars,
     loading: favoriteLoading,

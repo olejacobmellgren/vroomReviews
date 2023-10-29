@@ -1,14 +1,18 @@
 import { Alert, Snackbar } from '@mui/material';
 import { useState } from 'react';
 
-
-const AlertPopup = ({visible, message}: {visible: boolean, message: string}) => {
-
+const AlertPopup = ({
+  visible,
+  message,
+}: {
+  visible: boolean;
+  message: string;
+}) => {
   const [alertVisible, setAlertVisible] = useState(visible);
   const alertMessage = message;
   const severity =
     alertMessage === 'Something went wrong!' ? 'error' : 'success';
-    
+
   return (
     <div>
       <Snackbar
@@ -26,7 +30,7 @@ const AlertPopup = ({visible, message}: {visible: boolean, message: string}) => 
         </Alert>
       </Snackbar>
     </div>
-  )
-}
+  );
+};
 
 export default AlertPopup;

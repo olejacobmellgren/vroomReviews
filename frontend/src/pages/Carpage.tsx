@@ -5,7 +5,11 @@ import FavoriteButton from '../components/FavoriteButton';
 import '../assets/Carpage.css';
 import { CircularProgress } from '@mui/material';
 import { useQuery } from '@apollo/client';
-import { GET_CAR, GET_USER_REVIEW_FOR_CAR, GET_CAR_REVIEWS } from '../graphQL/queries';
+import {
+  GET_CAR,
+  GET_USER_REVIEW_FOR_CAR,
+  GET_CAR_REVIEWS,
+} from '../graphQL/queries';
 
 const Carpage = () => {
   const { id } = useParams();
@@ -48,8 +52,10 @@ const Carpage = () => {
     },
   });
 
-  if (carLoading || reviewsLoading || userReviewLoading) return <CircularProgress />;
-  if (carError || reviewsError || userReviewError) console.log(carError, reviewsError, userReviewError);
+  if (carLoading || reviewsLoading || userReviewLoading)
+    return <CircularProgress />;
+  if (carError || reviewsError || userReviewError)
+    console.log(carError, reviewsError, userReviewError);
 
   return (
     <div className="carpage-container">
@@ -98,7 +104,11 @@ const Carpage = () => {
         </div>
       </div>
       <div>
-        <ReviewSection userReview={userReviewData.userReviewForCar} reviews={reviewsData.carReviews} carID={carID}/>
+        <ReviewSection
+          userReview={userReviewData.userReviewForCar}
+          reviews={reviewsData.carReviews}
+          carID={carID}
+        />
       </div>
     </div>
   );
