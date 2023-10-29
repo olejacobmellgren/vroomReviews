@@ -42,7 +42,7 @@ const Filterpage = () => {
   const handleFilterChange = (filterName: string, selectedValue: string) => {
     setSelectedFilters((prevSelectedFilters) => ({
       ...prevSelectedFilters,
-      [filterName]: selectedValue,
+      [filterName === "Sort by" ? "SortBy" : filterName]: selectedValue,
     }));
   };
 
@@ -136,7 +136,6 @@ const Filterpage = () => {
       </div>
       <div className="car-list">
         {applyFilters(cars as Car[])
-          .slice(0, visibleCars)
           .map((car) => (
             <div className="car" key={car.company + "-" + car.model}>
               <CardForCar
