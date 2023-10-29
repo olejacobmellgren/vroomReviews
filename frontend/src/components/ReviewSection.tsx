@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_REVIEW } from '../graphQL/mutations';
 import { REMOVE_REVIEW } from '../graphQL/mutations';
 import { CircularProgress } from '@mui/material';
+import AlertPopup from './AlertPopup';
 
 const ReviewSection = ({
   userReview,
@@ -16,17 +17,21 @@ const ReviewSection = ({
   reviews: Review[];
   carID: string;
 }) => {
-  let amountOfRatingsForCar = reviews.length;
 
+  let amountOfRatingsForCar = reviews.length;
   const userID = Number(localStorage.getItem('userID'));
+
+  const [alertMessage, setAlertMessage] = useState('');
   const [reviewCarPopup, setReviewCarPopup] = useState(false);
   const [visibleDeletePopup, setVisibleDeletePopup] = useState(false);
   const [username, setUsername] = useState(userReview?.username || '');
   const [reviewAdded, setReviewAdded] = useState(false);
   const [rating, setRating] = useState(userReview?.rating || 0);
   const [reviewText, setReviewText] = useState(userReview?.review || '');
+  const [alertVisible, setAlertVisible] = useState(false);
 
-  const [addReview, { loading: addLoading, error: addError, data: addData }] = useMutation(ADD_REVIEW, {
+
+  const [addReview, { loading: addLoading, error: addError }] = useMutation(ADD_REVIEW, {
     variables: {
       userID: userID,
       car: carID,
@@ -36,12 +41,7 @@ const ReviewSection = ({
     },
   });
 
-  const [removeReview, {
-    loading: removeLoading,
-    error: removeError,
-    data: removeData,
-  }
-  ] = useMutation(REMOVE_REVIEW, {
+  const [removeReview, { loading: removeLoading, error: removeError }] = useMutation(REMOVE_REVIEW, {
     variables: {
       userID: userID,
       car: carID,
@@ -69,6 +69,8 @@ const ReviewSection = ({
     addReview();
     setReviewAdded(true);
     setReviewCarPopup(false);
+    setAlertMessage('Successfully added review!');
+    setAlertVisible(true);
     amountOfRatingsForCar++;
   }
 
@@ -78,19 +80,20 @@ const ReviewSection = ({
     setVisibleDeletePopup(false);
     setRating(0);
     setReviewAdded(false);
+    setAlertMessage('Successfully deleted review!');
+    setAlertVisible(true);
     amountOfRatingsForCar--;
   }
 
-
   if (addLoading || removeLoading) return <CircularProgress />;
-  if (addError || removeError) console.log(addError, removeError);
+  if (addError || removeError) setAlertMessage('Something went wrong!');
 
   return (
     <div>
       <div>
         {!userReview && !reviewAdded ? (
           <button
-            className="reviewButton"
+            className="button"
             onClick={() => setReviewCarPopup(true)}
           >
             Review this car
@@ -116,7 +119,7 @@ const ReviewSection = ({
               />
               <input className='text-area' placeholder="name" onChange={(e) => setUsername(e.target.value)}/>
               <div className="review-buttons">
-                <button onClick={handleReviewSubmit} className="submit">
+                <button onClick={handleReviewSubmit} className="button">
                   Submit review
                 </button>
               </div>
@@ -128,18 +131,18 @@ const ReviewSection = ({
         <div>
           <div className="popup" onClick={closeOrOpen}>
             <div className="popup-inner" id="popup">
-              <p>Are you sure you want to delete this review? </p>
-              <button onClick={() => handleDeleteConfirm()}>
+              <p className="text">Are you sure you want to delete this review? </p>
+              <button className="button" onClick={() => handleDeleteConfirm()}>
                 Confirm
               </button>
-              <button onClick={() => setVisibleDeletePopup(false)}>
+              <button className="button" onClick={() => setVisibleDeletePopup(false)}>
                 Cancel
               </button>
             </div>
           </div>
         </div>
       ) : null}
-      <div>
+      <div className='reviews'>
         {amountOfRatingsForCar === 0 ? (
           <p>There are currently no reviews for this car</p>
         ) : (
@@ -179,6 +182,7 @@ const ReviewSection = ({
             ) : null}
           </div>
         ))}
+        <AlertPopup visible={alertVisible} message={alertMessage} />
       </div>
     </div>
   );

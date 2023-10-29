@@ -1,19 +1,19 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { Alert, CircularProgress, Snackbar } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import Heart from '@react-sandbox/heart';
 import { REMOVE_FAVORITE_CAR } from '../graphQL/mutations';
 import { ADD_FAVORITE_CAR } from '../graphQL/mutations';
 import { useState } from 'react';
 import { GET_FAVORITE_CARS } from '../graphQL/queries';
 import { Favorite } from '../types/Favorite';
+import AlertPopup from './AlertPopup';
 
 const FavoriteButton = ({ car }: { car: string }) => {
-  const [favoriteAlert, setFavoriteAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
-  const severity =
-    alertMessage === 'Something went wrong!' ? 'error' : 'success';
-  const userID = Number(localStorage.getItem('userID'));
 
+  const userID = Number(localStorage.getItem('userID'));
+  const [alertMessage, setAlertMessage] = useState('');
+  const [favoriteAlert, setFavoriteAlert] = useState(false);
+  
   const {
     data: favoriteCars,
     loading: favoriteLoading,
@@ -61,14 +61,10 @@ const FavoriteButton = ({ car }: { car: string }) => {
     setActiveHeart(!activeHeart);
   };
 
-  const handleClose = () => {
-    setFavoriteAlert(false);
-  };
-
-  // if (favoriteError || removeFavoriteError || addFavoriteError)
-  //   setAlertMessage('Something went wrong!');
-  // if (favoriteLoading || removeFavoriteLoading || addFavoriteLoading)
-  //   return <CircularProgress />;
+  if (favoriteError || removeFavoriteError || addFavoriteError)
+    setAlertMessage('Something went wrong!');
+  if (favoriteLoading || removeFavoriteLoading || addFavoriteLoading)
+    return <CircularProgress />;
 
   return (
     <div className="heart-info-container">
@@ -80,20 +76,7 @@ const FavoriteButton = ({ car }: { car: string }) => {
         active={activeHeart}
         onClick={() => handleFavorite()}
       />
-      <Snackbar
-        open={favoriteAlert}
-        autoHideDuration={2000}
-        onClose={handleClose}
-      >
-        <Alert
-          onClose={handleClose}
-          severity={severity}
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          {alertMessage}
-        </Alert>
-      </Snackbar>
+      <AlertPopup visible={favoriteAlert} message={alertMessage} />
     </div>
   );
 };

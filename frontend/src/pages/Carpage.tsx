@@ -73,11 +73,10 @@ const Carpage = () => {
             )}
             <div className="amount-rating">
               <p>{carData?.car?.rating} / 5 </p> <p>|</p>
-              <p> {reviewsData.length} ratings</p>
+              <p> {reviewsData.carReviews.length} ratings</p>
             </div>
           </div>
-
-          <FavoriteButton car={car} />
+          <FavoriteButton car={carID} />
         </div>
       </div>
       <div className="info">
