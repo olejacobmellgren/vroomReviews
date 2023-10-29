@@ -18,7 +18,6 @@ const ScrollingMenu = () => {
           {(cars as CarInfo[]).map((car) => (
             <div className="car" key={car.id}>
               <CardForCar
-                id={car.id.toString()}
                 brand={car.brand}
                 model={car.model}
                 carIMG={car.image}

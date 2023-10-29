@@ -8,16 +8,18 @@ import { CircularProgress } from '@mui/material';
 import { useQuery } from '@apollo/client';
 import { GET_CAR } from '../graphQL/queries';
 
-
 const Carpage = () => {
-
-  let { id } = useParams();
+  const { id } = useParams();
   const carID = typeof id === 'string' ? id : '';
   const company = carID?.split('-')[0];
   const model = carID?.split('-')[1];
-  const userID = Number(localStorage.getItem('userID'));
+  // const userID = Number(localStorage.getItem('userID'));
 
-  const { loading: carLoading, error: carError, data: carData } = useQuery(GET_CAR, {
+  const {
+    loading: carLoading,
+    error: carError,
+    data: carData,
+  } = useQuery(GET_CAR, {
     variables: {
       company: company,
       model: model,
@@ -31,27 +33,36 @@ const Carpage = () => {
   );
   const userReview = reviews.find((review) => review?.userID === '1');
 
-  if (carLoading) return <CircularProgress/>;
+  if (carLoading) return <CircularProgress />;
   if (carError) console.log(carError);
 
   return (
     <div className="carpage-container">
       <div className="top-section">
-        <img className="carpage-image" src={carData?.car?.image} alt={carData?.car?.image} />
+        <img
+          className="carpage-image"
+          src={carData?.car?.image}
+          alt={carData?.car?.image}
+        />
         <div>
           <p className="title">
             {carData?.car?.company} {carData?.car?.model}
           </p>
           <p className="year">{carData?.car?.year}</p>
           <div className="rating">
-            {carData && <StarRating readOnly={true} initialRating={carData?.car?.rating} />}
+            {carData && (
+              <StarRating
+                readOnly={true}
+                initialRating={carData?.car?.rating}
+              />
+            )}
             <div className="amount-rating">
               <p>{carData?.car?.rating} / 5 </p> <p>|</p>
               <p> {reviews.length} ratings</p>
             </div>
           </div>
 
-          <FavoriteButton car={car}/>
+          <FavoriteButton car={car} />
         </div>
       </div>
       <div className="info">
@@ -64,8 +75,12 @@ const Carpage = () => {
           <p className="info-text">Horsepower: {carData?.car?.horsepower}</p>
         </div>
         <div className="info-container">
-          <p className="info-text">Number of doors: {carData?.car?.numOfDoors}</p>
-          <p className="info-text">Type of engine: {carData?.car?.engineType}</p>
+          <p className="info-text">
+            Number of doors: {carData?.car?.numOfDoors}
+          </p>
+          <p className="info-text">
+            Type of engine: {carData?.car?.engineType}
+          </p>
         </div>
       </div>
       <div>

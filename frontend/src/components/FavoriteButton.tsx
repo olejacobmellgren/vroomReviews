@@ -7,31 +7,42 @@ import { useState } from 'react';
 import { GET_FAVORITE_CARS } from '../graphQL/queries';
 import { Favorite } from '../types/Favorite';
 
-const FavoriteButton = ({ car }: { car: String }) => {
-
-	const [favoriteAlert, setFavoriteAlert] = useState(false);
+const FavoriteButton = ({ car }: { car: string }) => {
+  const [favoriteAlert, setFavoriteAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-  const severity = alertMessage === 'Something went wrong!' ? 'error' : 'success';
+  const severity =
+    alertMessage === 'Something went wrong!' ? 'error' : 'success';
   const userID = Number(localStorage.getItem('userID'));
 
-  const { data: favoriteCars, loading: favoriteLoading, error: favoriteError } = useQuery(GET_FAVORITE_CARS, {
+  const {
+    data: favoriteCars,
+    loading: favoriteLoading,
+    error: favoriteError,
+  } = useQuery(GET_FAVORITE_CARS, {
     variables: {
       userID: userID,
     },
   });
 
-  const isCarInFavorites = favoriteCars?.favoriteCars.some((favoriteCar: Favorite) => favoriteCar?.car.id === car);
+  const isCarInFavorites = favoriteCars?.favoriteCars.some(
+    (favoriteCar: Favorite) => favoriteCar?.car.id === car,
+  );
   const [activeHeart, setActiveHeart] = useState(isCarInFavorites);
 
-  const [removeFavoriteCar, { loading: removeFavoriteLoading, error: removeFavoriteError }] = useMutation(REMOVE_FAVORITE_CAR, {
+  const [
+    removeFavoriteCar,
+    { loading: removeFavoriteLoading, error: removeFavoriteError },
+  ] = useMutation(REMOVE_FAVORITE_CAR, {
     variables: {
       userID: userID,
       car: car,
     },
   });
 
-
-  const [addFavoriteCar, { loading: addFavoriteLoading, error: addFavoriteError }] = useMutation(ADD_FAVORITE_CAR, {
+  const [
+    addFavoriteCar,
+    { loading: addFavoriteLoading, error: addFavoriteError },
+  ] = useMutation(ADD_FAVORITE_CAR, {
     variables: {
       userID: userID,
       car: car,
@@ -52,10 +63,12 @@ const FavoriteButton = ({ car }: { car: String }) => {
 
   const handleClose = () => {
     setFavoriteAlert(false);
-  }
+  };
 
-  if (favoriteError || removeFavoriteError || addFavoriteError) setAlertMessage('Something went wrong!');
-  if (favoriteLoading || removeFavoriteLoading || addFavoriteLoading) return <CircularProgress/>;
+  if (favoriteError || removeFavoriteError || addFavoriteError)
+    setAlertMessage('Something went wrong!');
+  if (favoriteLoading || removeFavoriteLoading || addFavoriteLoading)
+    return <CircularProgress />;
 
   return (
     <div className="heart-info-container">
@@ -65,14 +78,24 @@ const FavoriteButton = ({ car }: { car: String }) => {
         height={100}
         inactiveColor="#fff"
         active={activeHeart}
-        onClick={() => handleFavorite()} />
-      <Snackbar open={favoriteAlert} autoHideDuration={2000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={severity} variant='filled' sx={{ width: '100%' }}>
+        onClick={() => handleFavorite()}
+      />
+      <Snackbar
+        open={favoriteAlert}
+        autoHideDuration={2000}
+        onClose={handleClose}
+      >
+        <Alert
+          onClose={handleClose}
+          severity={severity}
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
           {alertMessage}
         </Alert>
       </Snackbar>
     </div>
   );
-}
+};
 
 export default FavoriteButton;
