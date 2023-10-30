@@ -5,7 +5,7 @@ import CardForCar from '../components/CardForCar';
 import cars from '../data/cars.json';
 import { Link } from 'react-router-dom';
 import { GET_CARS } from '../graphQL/queries';
-import { useQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
 import { CircularProgress } from '@mui/material';
 import { Car } from '../types/Car';
 
@@ -38,22 +38,25 @@ const Filterpage = () => {
 
   const [shownCars, setShownCars] = useState([]);
 
-  const { loading, error, data } = useQuery(GET_CARS, {
-    variables: {
-      filters: {
-        company: selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
-        year: selectedFilters.Year !== 'All' ? parseInt(selectedFilters.Year) : null,
-        carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
+  const [loadMoreCars, { loading, error, data }] = useLazyQuery(GET_CARS);
+
+  useEffect(() => {
+    loadMoreCars({
+      variables: {
+        filters: {
+          company: selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
+          year: selectedFilters.Year !== 'All' ? parseInt(selectedFilters.Year) : null,
+          carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
+        },
+        offset: visibleCars - 12,
+        orderBy: {
+          year: !selectedFilters.SortBy.includes('Years') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
+          rating: !selectedFilters.SortBy.includes('Rating') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
+        },
       },
-      offset: visibleCars - 12,
-      orderBy: {
-        year: !selectedFilters.SortBy.includes('Years') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
-        rating: !selectedFilters.SortBy.includes('Rating') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
-      }
-    }
-  });
-  
-  
+    });
+  }, [loadMoreCars, visibleCars, selectedFilters])
+
   useEffect(() => {
     if (data?.cars) {
       setShownCars(prevShownCars => prevShownCars?.concat(data?.cars))
@@ -61,10 +64,7 @@ const Filterpage = () => {
     }
   }, [data])
 
-  if (loading) return <CircularProgress />;
-  if (error) console.log(error);
-  
-  
+
   const handleViewMore = () => {
     setVisibleCars((prevVisibleCars) => prevVisibleCars + 12);
   };
@@ -158,7 +158,7 @@ const Filterpage = () => {
         }
       </div>
       <div className="view-more-button">
-        {data.cars.length == 12 ? (
+        {data?.cars.length == 12 ? (
           <button onClick={handleViewMore}>View more</button>
         ) : null}
       </div>
