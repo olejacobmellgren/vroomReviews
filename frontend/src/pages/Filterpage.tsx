@@ -5,7 +5,7 @@ import CardForCar from '../components/CardForCar';
 import cars from '../data/cars.json';
 import { Link } from 'react-router-dom';
 import { GET_CARS } from '../graphQL/queries';
-import { useQuery, useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { CircularProgress } from '@mui/material';
 import { Car } from '../types/Car';
 
@@ -64,7 +64,6 @@ const Filterpage = () => {
     }
   }, [data])
 
-
   const handleViewMore = () => {
     setVisibleCars((prevVisibleCars) => prevVisibleCars + 12);
   };
@@ -75,7 +74,10 @@ const Filterpage = () => {
       [filterName === "Sort by" ? "SortBy" : filterName]: selectedValue,
     }));
     setShownCars([])
+    setVisibleCars(12)
   };
+
+
 
   // display dropdown for dropdownMenu clicked. The rest is set to false, meaning they are closed.
   // This ensures that only 1 dropdown can be open at a time.
