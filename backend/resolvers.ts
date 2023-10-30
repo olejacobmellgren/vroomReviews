@@ -30,21 +30,15 @@ export const resolvers = {
             ]
           }).limit(12).skip(offset);
         } else if (argCounter == 2 && argList[1] == "") {
-          
-          return Car.find({
-            
-            company: { $regex: new RegExp(company, 'i') } // Case-insensitive company search
-            
-          }).limit(12).skip(offset);
-        } else {
           const query: any = {};
-          query.company = company
+          const newCompany = company.charAt(0).toUpperCase() + company.slice(1)
+          query.company = newCompany
+          return Car.find(query).limit(12).skip(offset);
+        } else {
           return Car.find({
             $and: [
-              query,
-              {
-                model: { $regex: new RegExp(model, 'i') } 
-              }
+              { company: { $regex: new RegExp(company, 'i') } }, // Case-insensitive company search
+              { model: { $regex: new RegExp(model, 'i') } } // Case-insensitive model search
             ]
           }).limit(12).skip(offset);
         }
