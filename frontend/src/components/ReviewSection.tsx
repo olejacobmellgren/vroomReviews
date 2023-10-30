@@ -7,6 +7,11 @@ import { ADD_REVIEW } from '../graphQL/mutations';
 import { REMOVE_REVIEW } from '../graphQL/mutations';
 import { CircularProgress } from '@mui/material';
 import AlertPopup from './AlertPopup';
+import {
+  GET_CAR_REVIEWS,
+  GET_USER_REVIEWS,
+  GET_USER_REVIEW_FOR_CAR,
+} from '../graphQL/queries';
 
 const ReviewSection = ({
   userReview,
@@ -17,7 +22,6 @@ const ReviewSection = ({
   reviews: Review[];
   carID: string;
 }) => {
-  let amountOfRatingsForCar = reviews.length;
   const userID = Number(localStorage.getItem('userID'));
 
   const [alertMessage, setAlertMessage] = useState('');
@@ -28,6 +32,7 @@ const ReviewSection = ({
   const [rating, setRating] = useState(userReview?.rating || 0);
   const [reviewText, setReviewText] = useState(userReview?.review || '');
   const [alertVisible, setAlertVisible] = useState(false);
+  const amountOfReviews = reviews.length;
 
   const [addReview, { loading: addLoading, error: addError }] = useMutation(
     ADD_REVIEW,
@@ -39,6 +44,11 @@ const ReviewSection = ({
         review: reviewText,
         username: username,
       },
+      refetchQueries: [
+        GET_USER_REVIEW_FOR_CAR,
+        GET_CAR_REVIEWS,
+        GET_USER_REVIEWS,
+      ],
     },
   );
 
@@ -48,6 +58,11 @@ const ReviewSection = ({
         userID: userID,
         car: carID,
       },
+      refetchQueries: [
+        GET_USER_REVIEW_FOR_CAR,
+        GET_CAR_REVIEWS,
+        GET_USER_REVIEWS,
+      ],
     });
 
   const closeOrOpen: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -73,18 +88,16 @@ const ReviewSection = ({
     setReviewCarPopup(false);
     setAlertMessage('Successfully added review!');
     setAlertVisible(true);
-    amountOfRatingsForCar++;
   }
 
   // Delete review from database
   function handleDeleteConfirm() {
     removeReview();
+    setReviewAdded(false);
     setVisibleDeletePopup(false);
     setRating(0);
-    setReviewAdded(false);
     setAlertMessage('Successfully deleted review!');
     setAlertVisible(true);
-    amountOfRatingsForCar--;
   }
 
   if (addLoading || removeLoading) return <CircularProgress />;
@@ -151,10 +164,10 @@ const ReviewSection = ({
         </div>
       ) : null}
       <div className="reviews">
-        {amountOfRatingsForCar === 0 ? (
-          <p>There are currently no reviews for this car</p>
+        {amountOfReviews > 0 ? (
+          <h1>Reviews ({amountOfReviews})</h1>
         ) : (
-          <h1>Reviews</h1>
+          <h2>There are no reviews yet for this car</h2>
         )}
         {userReview || reviewAdded ? (
           <div className="current-user-review">

@@ -109,9 +109,26 @@ export const resolvers = {
       return reviewObj.populate('car');
     },
     removeReview: async (_: any, { userID, car }: userAndCarArgs) => {
-      return Review.findOneAndDelete({ userID: userID, car: car }).populate(
-        'car',
-      );
+      const amountOfReviews = await Review.countDocuments({ car: car });
+      const deleteReview = await Review.findOneAndDelete({
+        userID: userID,
+        car: car,
+      }).populate('car');
+
+      const carToUpdate = await Car.findById(car);
+      if (carToUpdate) {
+        if (amountOfReviews === 1) {
+          await carToUpdate.updateOne({ rating: 0 });
+        } else if (carToUpdate.rating && deleteReview && deleteReview.rating) {
+          await carToUpdate?.updateOne({
+            rating:
+              (carToUpdate.rating * amountOfReviews - deleteReview.rating) /
+              (amountOfReviews - 1),
+          });
+        }
+      }
+      await carToUpdate?.save();
+      return deleteReview;
     },
     addUser: async (_: any, { userID }: { userID: number }) => {
       const user = new User({
