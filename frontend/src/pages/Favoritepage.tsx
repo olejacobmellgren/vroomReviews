@@ -5,7 +5,7 @@ import { GET_FAVORITE_CARS } from '../graphQL/queries';
 import { CircularProgress } from '@mui/material';
 import FavoriteButton from '../components/FavoriteButton';
 import { useEffect } from 'react';
-import { CarElem } from '../types/CarElem';
+import { CarCard } from '../types/CarCard';
 
 const Favoritepage = () => {
   const userID = Number(localStorage.getItem('userID'));
@@ -25,18 +25,18 @@ const Favoritepage = () => {
   return (
     <div>
       <div className="car-list">
-        {data.favoriteCars.map((carElem: CarElem) => (
+        {data.favoriteCars.map((data: CarCard) => (
           <div>
-            <div className="car" key={carElem?.car.id}>
+            <div className="car" key={data?.car.id}>
               <CardForCar
-                brand={carElem.car.company}
-                model={carElem.car.model}
-                carIMG={carElem.car.image}
+                brand={data.car.company}
+                model={data.car.model}
+                carIMG={data.car.image}
                 showInfo={false}
               />
             </div>
             <div>
-              <FavoriteButton car={carElem?.car.id} refetch={refetch} />
+              <FavoriteButton car={data?.car.id} refetch={refetch} />
             </div>
           </div>
         ))}

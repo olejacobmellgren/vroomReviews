@@ -59,8 +59,9 @@
 .current-user-review {
   display: flex;
   gap: 2rem;
-  margin-top: 1rem;
+  margin: 2rem 0;
   border-top: 0.2rem solid grey;
+  border-bottom: 0.2rem solid grey;
   padding-top: 1rem;
 }
 

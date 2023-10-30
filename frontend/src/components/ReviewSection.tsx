@@ -17,7 +17,6 @@ const ReviewSection = ({
   reviews: Review[];
   carID: string;
 }) => {
-  let amountOfRatingsForCar = reviews.length;
   const userID = Number(localStorage.getItem('userID'));
 
   const [alertMessage, setAlertMessage] = useState('');
@@ -73,18 +72,16 @@ const ReviewSection = ({
     setReviewCarPopup(false);
     setAlertMessage('Successfully added review!');
     setAlertVisible(true);
-    amountOfRatingsForCar++;
   }
 
   // Delete review from database
   function handleDeleteConfirm() {
     removeReview();
+    setReviewAdded(false);
     setVisibleDeletePopup(false);
     setRating(0);
-    setReviewAdded(false);
     setAlertMessage('Successfully deleted review!');
     setAlertVisible(true);
-    amountOfRatingsForCar--;
   }
 
   if (addLoading || removeLoading) return <CircularProgress />;
@@ -151,11 +148,6 @@ const ReviewSection = ({
         </div>
       ) : null}
       <div className="reviews">
-        {amountOfRatingsForCar === 0 ? (
-          <p>There are currently no reviews for this car</p>
-        ) : (
-          <h1>Reviews</h1>
-        )}
         {userReview || reviewAdded ? (
           <div className="current-user-review">
             <p> Your review: </p>
@@ -175,8 +167,9 @@ const ReviewSection = ({
             </u>
           </div>
         ) : null}
-        {reviews.map((review) => (
+        {reviews.map((review, index) => (
           <div key={review.userID}>
+            {index === 0 && review.userID !== userReview?.userID ? <h1>Other Reviews</h1> : null}
             {review.userID !== userReview?.userID ? (
               <div className="user-review">
                 <StarRating
