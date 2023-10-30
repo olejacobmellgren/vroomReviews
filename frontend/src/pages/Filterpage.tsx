@@ -40,6 +40,8 @@ const Filterpage = () => {
 
   const [loadMoreCars, { loading, error, data }] = useLazyQuery(GET_CARS);
 
+  const [searchTerm, setSearchTerm] = useState("")
+
   useEffect(() => {
     loadMoreCars({
       variables: {
@@ -89,6 +91,7 @@ const Filterpage = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    setSearchTerm(value)
     if (dropdownVisibility.includes(true)) {
       setDropdownVisibility(dropdownVisibility.map(() => false));
     }
