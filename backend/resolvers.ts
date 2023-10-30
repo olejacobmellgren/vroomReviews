@@ -14,10 +14,15 @@ export const resolvers = {
       return await Car.find({ company: company });
     },
     cars: async (_: any, args: carsArgs) => {
-      const { filters, offset, orderBy } = args;
+      const { filters, offset, orderBy, searchTerm } = args;
 
       if (filters === undefined || filters === null) {
-        return Car.find().limit(12).skip(offset);
+        return Car.find({
+          $or: [
+            { company: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive company search
+            { model: { $regex: new RegExp(searchTerm, 'i') } } // Case-insensitive model search
+          ]
+        }).limit(12).skip(offset);
       }
 
       // Create a base query object with filter conditions
@@ -44,7 +49,17 @@ export const resolvers = {
         }
       }
 
-      const result = await Car.find(query).sort(sort).limit(12).skip(offset);
+      const result = await Car.find({
+        $and: [
+          query,
+          {
+            $or: [
+              { company: { $regex: new RegExp(searchTerm, 'i') } },
+              { model: { $regex: new RegExp(searchTerm, 'i') } }
+            ]
+          }
+        ]
+      }).sort(sort).limit(12).skip(offset);
       return result;
     },
     favoriteCars: async (_: any, { userID }: { userID: number }) => {

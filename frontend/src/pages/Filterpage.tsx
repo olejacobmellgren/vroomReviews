@@ -55,9 +55,10 @@ const Filterpage = () => {
           year: !selectedFilters.SortBy.includes('Years') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
           rating: !selectedFilters.SortBy.includes('Rating') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
         },
+        searchTerm: searchTerm,
       },
     });
-  }, [loadMoreCars, visibleCars, selectedFilters])
+  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm])
 
   useEffect(() => {
     if (data?.cars) {
@@ -91,7 +92,10 @@ const Filterpage = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    console.log(value)
     setSearchTerm(value)
+    setShownCars([])
+    setVisibleCars(12)
     if (dropdownVisibility.includes(true)) {
       setDropdownVisibility(dropdownVisibility.map(() => false));
     }
@@ -117,22 +121,8 @@ const Filterpage = () => {
               className="searchBar-input"
               placeholder="Search for car"
               onChange={handleSearchChange}
-              onFocus={handleSearchChange}
               onBlur={handleBlur}
             />
-          </div>
-          <div
-            className={`searchResults ${
-              showSearchresults ? 'active' : 'closed'
-            }`}
-          >
-            {cars.slice(4, 7).map((car) => (
-              <Link to={`/project2/carpage/${car.id}`}>
-                <button className="buttonInsideSearchResults">
-                  {car.brand} {car.model}
-                </button>
-              </Link>
-            ))}
           </div>
         </div>
       </div>
