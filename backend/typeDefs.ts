@@ -15,7 +15,7 @@ export const typeDefs = buildSchema(`
       carBody: String!
       engineType: String!
       numOfCylinders: String!
-      rating: Int!
+      rating: Float!
   }
 
   type Favorite {
