@@ -7,9 +7,8 @@ import { CircularProgress } from '@mui/material';
 import { CarCard } from '../types/CarCard';
 
 const Reviewpage = () => {
-
   const userID = Number(localStorage.getItem('userID'));
-  
+
   // Get all cars that are reviewed by user
   const { loading, error, data } = useQuery(GET_USER_REVIEWS, {
     variables: {
@@ -17,7 +16,7 @@ const Reviewpage = () => {
     },
   });
 
-  if (loading) return <CircularProgress/>;
+  if (loading) return <CircularProgress />;
   if (error) console.log(error);
 
   return (
@@ -25,7 +24,7 @@ const Reviewpage = () => {
       <div className="car-list">
         {data.userReviews.map((data: CarCard, index: number) => (
           <div key={`review-${data.car.id}-${index}`}>
-            <div className="car" >
+            <div className="car">
               <CardForCar
                 brand={data.car.company}
                 model={data.car.model}
@@ -37,9 +36,7 @@ const Reviewpage = () => {
               <StarRating
                 theme={{ size: 30 }}
                 readOnly={true}
-                initialRating={
-                  data.rating
-                }
+                initialRating={data.rating}
               />
               <p>- {data.review}</p>
             </div>

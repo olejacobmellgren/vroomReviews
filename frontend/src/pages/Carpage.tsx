@@ -10,7 +10,6 @@ import {
   GET_USER_REVIEW_FOR_CAR,
   GET_CAR_REVIEWS,
 } from '../graphQL/queries';
-import { useEffect } from 'react';
 
 const Carpage = () => {
   const { id } = useParams();
@@ -18,7 +17,6 @@ const Carpage = () => {
   const company = car?.split('-')[0];
   const model = car?.split('-')[1];
   const userID = Number(localStorage.getItem('userID'));
-
 
   const {
     loading: carLoading,
@@ -47,19 +45,12 @@ const Carpage = () => {
     loading: userReviewLoading,
     error: userReviewError,
     data: userReviewData,
-    refetch: userReviewRefetch,
   } = useQuery(GET_USER_REVIEW_FOR_CAR, {
     variables: {
       userID: userID,
       car: carID,
     },
   });
-
-  useEffect(() => {
-    userReviewRefetch();
-  }, [reviewsData, userReviewData]);
-
-
 
   if (carLoading || reviewsLoading || userReviewLoading)
     return <CircularProgress />;

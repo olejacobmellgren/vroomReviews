@@ -5,6 +5,6 @@ export type CarCard = {
     model: string;
     image: string;
   };
-  rating: number
+  rating: number;
   review: string;
 };

@@ -7,6 +7,11 @@ import { ADD_REVIEW } from '../graphQL/mutations';
 import { REMOVE_REVIEW } from '../graphQL/mutations';
 import { CircularProgress } from '@mui/material';
 import AlertPopup from './AlertPopup';
+import {
+  GET_CAR_REVIEWS,
+  GET_USER_REVIEWS,
+  GET_USER_REVIEW_FOR_CAR,
+} from '../graphQL/queries';
 
 const ReviewSection = ({
   userReview,
@@ -27,6 +32,7 @@ const ReviewSection = ({
   const [rating, setRating] = useState(userReview?.rating || 0);
   const [reviewText, setReviewText] = useState(userReview?.review || '');
   const [alertVisible, setAlertVisible] = useState(false);
+  const amountOfReviews = reviews.length;
 
   const [addReview, { loading: addLoading, error: addError }] = useMutation(
     ADD_REVIEW,
@@ -38,6 +44,11 @@ const ReviewSection = ({
         review: reviewText,
         username: username,
       },
+      refetchQueries: [
+        GET_USER_REVIEW_FOR_CAR,
+        GET_CAR_REVIEWS,
+        GET_USER_REVIEWS,
+      ],
     },
   );
 
@@ -47,6 +58,11 @@ const ReviewSection = ({
         userID: userID,
         car: carID,
       },
+      refetchQueries: [
+        GET_USER_REVIEW_FOR_CAR,
+        GET_CAR_REVIEWS,
+        GET_USER_REVIEWS,
+      ],
     });
 
   const closeOrOpen: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -148,6 +164,11 @@ const ReviewSection = ({
         </div>
       ) : null}
       <div className="reviews">
+        {amountOfReviews > 0 ? (
+          <h1>Reviews ({amountOfReviews})</h1>
+        ) : (
+          <h2>There are no reviews yet for this car</h2>
+        )}
         {userReview || reviewAdded ? (
           <div className="current-user-review">
             <p> Your review: </p>
@@ -167,9 +188,8 @@ const ReviewSection = ({
             </u>
           </div>
         ) : null}
-        {reviews.map((review, index) => (
+        {reviews.map((review) => (
           <div key={review.userID}>
-            {index === 0 && review.userID !== userReview?.userID ? <h1>Other Reviews</h1> : null}
             {review.userID !== userReview?.userID ? (
               <div className="user-review">
                 <StarRating

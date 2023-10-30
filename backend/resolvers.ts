@@ -110,10 +110,11 @@ export const resolvers = {
     },
     removeReview: async (_: any, { userID, car }: userAndCarArgs) => {
       const amountOfReviews = await Review.countDocuments({ car: car });
-      const deleteReview = await Review.findOneAndDelete({ userID: userID, car: car }).populate(
-        'car',
-      );
-      
+      const deleteReview = await Review.findOneAndDelete({
+        userID: userID,
+        car: car,
+      }).populate('car');
+
       const carToUpdate = await Car.findById(car);
       if (carToUpdate) {
         if (amountOfReviews === 1) {
@@ -128,7 +129,6 @@ export const resolvers = {
       }
       await carToUpdate?.save();
       return deleteReview;
-
     },
     addUser: async (_: any, { userID }: { userID: number }) => {
       const user = new User({
