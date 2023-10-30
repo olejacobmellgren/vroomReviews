@@ -63,7 +63,6 @@ const Filterpage = () => {
   useEffect(() => {
     if (data?.cars) {
       setShownCars(prevShownCars => prevShownCars?.concat(data?.cars))
-      console.log(shownCars)
     }
   }, [data])
 
@@ -92,7 +91,6 @@ const Filterpage = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    console.log(value)
     setSearchTerm(value)
     setShownCars([])
     setVisibleCars(12)

@@ -16,13 +16,38 @@ export const resolvers = {
     cars: async (_: any, args: carsArgs) => {
       const { filters, offset, orderBy, searchTerm } = args;
 
-      if (filters === undefined || filters === null) {
-        return Car.find({
-          $or: [
-            { company: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive company search
-            { model: { $regex: new RegExp(searchTerm, 'i') } } // Case-insensitive model search
-          ]
-        }).limit(12).skip(offset);
+      const [company, ...modelParts] = searchTerm.split(' ');
+      const argList = searchTerm.split(' ')
+      const argCounter = searchTerm.split(' ').length
+      const model = modelParts.join(' ');
+      
+      if (Object.values(filters).every(value => value === null)) {
+        if (argCounter == 1) {
+          return Car.find({
+            $or: [
+              { company: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive company search
+              { model: { $regex: new RegExp(searchTerm, 'i') } } // Case-insensitive model search
+            ]
+          }).limit(12).skip(offset);
+        } else if (argCounter == 2 && argList[1] == "") {
+          
+          return Car.find({
+            
+            company: { $regex: new RegExp(company, 'i') } // Case-insensitive company search
+            
+          }).limit(12).skip(offset);
+        } else {
+          const query: any = {};
+          query.company = company
+          return Car.find({
+            $and: [
+              query,
+              {
+                model: { $regex: new RegExp(model, 'i') } 
+              }
+            ]
+          }).limit(12).skip(offset);
+        }
       }
 
       // Create a base query object with filter conditions
