@@ -2,7 +2,6 @@ import DropdownMenu from '../components/DropdownMenu';
 import { useState, useEffect } from 'react';
 import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
-import cars from '../data/cars.json';
 import { Link } from 'react-router-dom';
 import { GET_CARS } from '../graphQL/queries';
 import { useLazyQuery } from '@apollo/client';
@@ -31,8 +30,6 @@ const Filterpage = () => {
   const [dropdownVisibility, setDropdownVisibility] = useState(
     filters.map(() => false),
   );
-
-  const [showSearchresults, setShowSearchresults] = useState(false);
 
   const [visibleCars, setVisibleCars] = useState(12);
 
@@ -66,10 +63,6 @@ const Filterpage = () => {
     }
   }, [data])
 
-  const handleViewMore = () => {
-    setVisibleCars((prevVisibleCars) => prevVisibleCars + 12);
-  };
-
   const handleFilterChange = (filterName: string, selectedValue: string) => {
     setSelectedFilters((prevSelectedFilters) => ({
       ...prevSelectedFilters,
@@ -78,8 +71,6 @@ const Filterpage = () => {
     setShownCars([])
     setVisibleCars(12)
   };
-
-
 
   // display dropdown for dropdownMenu clicked. The rest is set to false, meaning they are closed.
   // This ensures that only 1 dropdown can be open at a time.
@@ -91,22 +82,19 @@ const Filterpage = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setSearchTerm(value)
     setShownCars([])
     setVisibleCars(12)
+    setSearchTerm(value)
+  };
+
+  const handleFocus = () => {
     if (dropdownVisibility.includes(true)) {
       setDropdownVisibility(dropdownVisibility.map(() => false));
     }
+  }
 
-    if (value.length > 0) {
-      setShowSearchresults(true);
-    } else {
-      setShowSearchresults(false);
-    }
-  };
-
-  const handleBlur = () => {
-    setShowSearchresults(false);
+  const handleViewMore = () => {
+    setVisibleCars((prevVisibleCars) => prevVisibleCars + 12);
   };
 
   return (
@@ -119,7 +107,7 @@ const Filterpage = () => {
               className="searchBar-input"
               placeholder="Search for car"
               onChange={handleSearchChange}
-              onBlur={handleBlur}
+              onFocus={handleFocus}
             />
           </div>
         </div>
