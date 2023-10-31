@@ -6,8 +6,6 @@ import CardForCar from '../components/CardForCar';
 import { LeftArrow, RightArrow } from './Arrows';
 import cars from '../data/cars.json';
 
-type scrollVisibilityApiType = React.ContextType<typeof VisibilityContext>;
-
 type CarInfo = {
   id: number;
   brand: string;

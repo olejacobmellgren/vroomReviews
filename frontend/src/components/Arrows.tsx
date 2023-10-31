@@ -4,16 +4,13 @@ import { VisibilityContext } from "react-horizontal-scrolling-menu";
 
 function Arrow({
   children,
-  disabled,
   onClick
 }: {
   children: React.ReactNode;
-  disabled: boolean;
   onClick: VoidFunction;
 }) {
   return (
     <button
-      disabled={disabled}
       onClick={onClick}
       style={{
         cursor: "pointer",
@@ -21,8 +18,7 @@ function Arrow({
         flexDirection: "column",
         justifyContent: "center",
         right: "1%",
-        opacity: disabled ? "0" : "1",
-        userSelect: "none"
+        userSelect: "none",
       }}
     >
       {children}
@@ -39,7 +35,7 @@ export function LeftArrow() {
   // NOTE: for scroll 1 item
   const clickHandler = () => scrollToItem(getPrevElement(), "smooth", "start");
   return (
-    <Arrow disabled={false} onClick={clickHandler}>
+    <Arrow onClick={clickHandler}>
       Left
     </Arrow>
   );
@@ -54,7 +50,7 @@ export function RightArrow() {
   // NOTE: for scroll 1 item
   const clickHandler = () => scrollToItem(getNextElement(), "smooth", "end");
   return (
-    <Arrow disabled={false} onClick={clickHandler}>
+    <Arrow onClick={clickHandler}>
       Right
     </Arrow>
   );
