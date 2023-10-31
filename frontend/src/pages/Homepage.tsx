@@ -1,6 +1,6 @@
 import ScrollingMenu from '../components/ScrollingMenu';
 
-const brands = ['Ferrari', 'Hyundai', 'BMW', 'Audi', 'Volvo'];
+const brands = ['Ferrari', 'Hyundai', 'BMW', 'Audi', 'Volvo', 'Mahindra'];
 
 const Homepage = () => {
   return (
