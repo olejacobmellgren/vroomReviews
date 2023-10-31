@@ -16,12 +16,6 @@
   margin-left: 25px;
 }
 
-.scrollingMenu {
-  display: flex;
-  align-items: center;
-  overflow: auto;
-  padding: 0;
-}
 
 /* Set the scrollbar size and background for Chrome, Safari, and Edge */
 ::-webkit-scrollbar {
@@ -52,3 +46,39 @@
 body {
   scrollbar-color: rgba(255, 0, 0, 0.2) rgba(0, 0, 0, 0); /* thumb and track color */
 }
+
+/* Vite is overwriting the CSS, so I'm adding it here */
+.react-horizontal-scrolling-menu--scroll-container  {
+  display: flex;
+  height: max-content;
+  overflow-y: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.react-horizontal-scrolling-menu--scroll-container.rtl  {
+  direction: rtl;
+}
+
+.react-horizontal-scrolling-menu--inner-wrapper {
+  display: flex;
+  overflow-y: hidden;
+}
+
+.react-horizontal-scrolling-menu--wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.react-horizontal-scrolling-menu--footer,.react-horizontal-scrolling-menu--header {
+  width: 100%;
+}
+
+.react-horizontal-scrolling-menu--arrow-left  {
+  display: flex;
+}
+
+.react-horizontal-scrolling-menu--arrow-right {
+  display: flex;
+}
+

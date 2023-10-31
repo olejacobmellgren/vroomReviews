@@ -15,13 +15,13 @@ type CarInfo = {
 };
 
 const ScrollingMenu = () => {
+
   return (
     <div>
-      <ScrollMenu 
-        LeftArrow={LeftArrow} 
-        RightArrow={RightArrow}
-      >
-        <div className="scrollingMenu">
+        <ScrollMenu 
+          LeftArrow={LeftArrow} 
+          RightArrow={RightArrow}
+        >
           {(cars as CarInfo[]).map((car) => (
             <div className="car" key={car.id}>
               <CardForCar
@@ -33,8 +33,7 @@ const ScrollingMenu = () => {
               />
             </div>
           ))}
-        </div>
-      </ScrollMenu>
+        </ScrollMenu>
     </div>
   );
 };
