@@ -80,11 +80,16 @@ const Filterpage = () => {
     );
   };
 
+  let typingTimer: NodeJS.Timeout;
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setShownCars([])
-    setVisibleCars(12)
-    setSearchTerm(value)
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+      const value = e.target.value;
+      setShownCars([]);
+      setVisibleCars(12);
+      setSearchTerm(value);
+    }, 250);
   };
 
   const handleFocus = () => {
