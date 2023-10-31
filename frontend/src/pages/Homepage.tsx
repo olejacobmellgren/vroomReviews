@@ -1,6 +1,6 @@
 import ScrollingMenu from '../components/ScrollingMenu';
 
-const brands = ['Ferrari'];
+const brands = ['Ferrari', 'Hyundai', 'BMW', 'Audi', 'Volvo'];
 
 const Homepage = () => {
   return (
@@ -11,7 +11,7 @@ const Homepage = () => {
             <div className="element"></div>
             <h1>{brand}</h1>
           </div>
-          <ScrollingMenu />
+          <ScrollingMenu brand={brand}/>
         </div>
       ))}
     </>
