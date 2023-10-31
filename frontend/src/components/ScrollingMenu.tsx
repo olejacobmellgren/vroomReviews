@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ScrollMenu } from 'react-horizontal-scrolling-menu';
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import '../assets/ScrollingMenu.css';
 import CardForCar from '../components/CardForCar';
 import { LeftArrow, RightArrow } from './Arrows';
 import cars from '../data/cars.json';
 
+type scrollVisibilityApiType = React.ContextType<typeof VisibilityContext>;
 
 type CarInfo = {
   id: number;
