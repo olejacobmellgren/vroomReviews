@@ -29,8 +29,6 @@ const Favoritepage = () => {
                 carIMG={data.car.image}
                 showInfo={false}
               />
-            </div>
-            <div>
               <FavoriteButton car={data?.car.id} />
             </div>
           </div>
