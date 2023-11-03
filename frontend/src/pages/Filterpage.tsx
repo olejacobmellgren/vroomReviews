@@ -1,10 +1,12 @@
 import DropdownMenu from '../components/DropdownMenu';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
-import cars from '../data/cars.json';
 import { Link } from 'react-router-dom';
-import { Car } from '../interfaces/Car';
+import { GET_CARS } from '../graphQL/queries';
+import { useLazyQuery } from '@apollo/client';
+import { CircularProgress } from '@mui/material';
+import { Car } from '../types/Car';
 
 const Filterpage = () => {
   const filters = [
@@ -14,7 +16,16 @@ const Filterpage = () => {
     },
     { name: 'Year', options: ['2023', '2022', '2021', '2020', '2019', 'All'] },
     { name: 'Body', options: ['Coupe', 'SUV', 'Sedan', 'All'] },
-    { name: 'Sort by', options: ['Reviews', 'Rating', 'All'] },
+    {
+      name: 'Sort by',
+      options: [
+        'Years, asc',
+        'Years, desc',
+        'Rating, asc',
+        'Rating, desc',
+        'All',
+      ],
+    },
   ];
 
   const [selectedFilters, setSelectedFilters] = useState({
@@ -29,19 +40,57 @@ const Filterpage = () => {
     filters.map(() => false),
   );
 
-  const [showSearchresults, setShowSearchresults] = useState(false);
-
   const [visibleCars, setVisibleCars] = useState(12);
 
-  const handleViewMore = () => {
-    setVisibleCars((prevVisibleCars) => prevVisibleCars + 12);
-  };
+  const [shownCars, setShownCars] = useState([]);
+
+  const [loadMoreCars, { loading, error, data }] = useLazyQuery(GET_CARS);
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    loadMoreCars({
+      variables: {
+        filters: {
+          company:
+            selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
+          year:
+            selectedFilters.Year !== 'All'
+              ? parseInt(selectedFilters.Year)
+              : null,
+          carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
+        },
+        offset: visibleCars - 12,
+        orderBy: {
+          year: !selectedFilters.SortBy.includes('Years')
+            ? null
+            : selectedFilters.SortBy.includes('asc')
+            ? 'asc'
+            : 'desc',
+          rating: !selectedFilters.SortBy.includes('Rating')
+            ? null
+            : selectedFilters.SortBy.includes('asc')
+            ? 'asc'
+            : 'desc',
+        },
+        searchTerm: searchTerm,
+      },
+    });
+  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm]);
+
+  useEffect(() => {
+    if (data?.cars) {
+      setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars));
+    }
+  }, [data]);
 
   const handleFilterChange = (filterName: string, selectedValue: string) => {
     setSelectedFilters((prevSelectedFilters) => ({
       ...prevSelectedFilters,
-      [filterName]: selectedValue,
+      [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
     }));
+    setShownCars([]);
+    setVisibleCars(12);
   };
 
   // display dropdown for dropdownMenu clicked. The rest is set to false, meaning they are closed.
@@ -52,38 +101,26 @@ const Filterpage = () => {
     );
   };
 
-  const applyFilters = (cars: Car[]) => {
-    return cars.filter((car) => {
-      return filters.every((filter) => {
-        if (filter.name === 'Brand' && selectedFilters.Brand !== 'All') {
-          return car.brand === selectedFilters.Brand;
-        }
-        if (filter.name === 'Year' && selectedFilters.Year !== 'All') {
-          return car.year.toString() === selectedFilters.Year;
-        }
-        if (filter.name === 'Body' && selectedFilters.Body !== 'All') {
-          return car.carBody === selectedFilters.Body;
-        }
-        return true;
-      });
-    });
-  };
+  let typingTimer: NodeJS.Timeout;
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+      const value = e.target.value;
+      setShownCars([]);
+      setVisibleCars(12);
+      setSearchTerm(value);
+    }, 250);
+  };
+
+  const handleFocus = () => {
     if (dropdownVisibility.includes(true)) {
       setDropdownVisibility(dropdownVisibility.map(() => false));
     }
-
-    if (value.length > 0) {
-      setShowSearchresults(true);
-    } else {
-      setShowSearchresults(false);
-    }
   };
 
-  const handleBlur = () => {
-    setShowSearchresults(false);
+  const handleViewMore = () => {
+    setVisibleCars((prevVisibleCars) => prevVisibleCars + 12);
   };
 
   return (
@@ -96,22 +133,8 @@ const Filterpage = () => {
               className="searchBar-input"
               placeholder="Search for car"
               onChange={handleSearchChange}
-              onFocus={handleSearchChange}
-              onBlur={handleBlur}
+              onFocus={handleFocus}
             />
-          </div>
-          <div
-            className={`searchResults ${
-              showSearchresults ? 'active' : 'closed'
-            }`}
-          >
-            {cars.slice(4, 7).map((car) => (
-              <Link to={`/project2/carpage/${car.id}`}>
-                <button className="buttonInsideSearchResults">
-                  {car.brand} {car.model}
-                </button>
-              </Link>
-            ))}
           </div>
         </div>
       </div>
@@ -129,22 +152,19 @@ const Filterpage = () => {
         ))}
       </div>
       <div className="car-list">
-        {applyFilters(cars as Car[])
-          .slice(0, visibleCars)
-          .map((car) => (
-            <div className="car" key={car.id}>
-              <CardForCar
-                id={car.id.toString()}
-                brand={car.brand}
-                model={car.model}
-                carIMG={car.image}
-                showInfo={true}
-              />
-            </div>
-          ))}
+        {shownCars.map((car) => (
+          <div className="car" key={car.company + '-' + car.model}>
+            <CardForCar
+              brand={car.company}
+              model={car.model}
+              carIMG={car.image}
+              showInfo={true}
+            />
+          </div>
+        ))}
       </div>
       <div className="view-more-button">
-        {visibleCars < applyFilters(cars as Car[]).length ? (
+        {data?.cars.length == 12 ? (
           <button onClick={handleViewMore}>View more</button>
         ) : null}
       </div>

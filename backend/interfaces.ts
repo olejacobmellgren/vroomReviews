@@ -23,6 +23,7 @@ export interface carsArgs {
   filters: carsFilters;
   offset: number;
   orderBy: orderByArg;
+  searchTerm: string;
 }
 
 export interface userAndCarArgs {

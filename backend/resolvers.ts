@@ -14,10 +14,34 @@ export const resolvers = {
       return await Car.find({ company: company });
     },
     cars: async (_: any, args: carsArgs) => {
-      const { filters, offset, orderBy } = args;
+      const { filters, offset, orderBy, searchTerm } = args;
 
-      if (filters === undefined || filters === null) {
-        return Car.find().limit(12).skip(offset);
+      const [company, ...modelParts] = searchTerm.split(' ');
+      const argList = searchTerm.split(' ')
+      const argCounter = searchTerm.split(' ').length
+      const model = modelParts.join(' ');
+      
+      if (Object.values(filters).every(value => value === null)) {
+        if (argCounter == 1) {
+          return Car.find({
+            $or: [
+              { company: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive company search
+              { model: { $regex: new RegExp(searchTerm, 'i') } } // Case-insensitive model search
+            ]
+          }).limit(12).skip(offset);
+        } else if (argCounter == 2 && argList[1] == "") {
+          const query: any = {};
+          const newCompany = company.charAt(0).toUpperCase() + company.slice(1)
+          query.company = newCompany
+          return Car.find(query).limit(12).skip(offset);
+        } else {
+          return Car.find({
+            $and: [
+              { company: { $regex: new RegExp(company, 'i') } }, // Case-insensitive company search
+              { model: { $regex: new RegExp(model, 'i') } } // Case-insensitive model search
+            ]
+          }).limit(12).skip(offset);
+        }
       }
 
       // Create a base query object with filter conditions
@@ -44,7 +68,17 @@ export const resolvers = {
         }
       }
 
-      const result = await Car.find(query).sort(sort).limit(12).skip(offset);
+      const result = await Car.find({
+        $and: [
+          query,
+          {
+            $or: [
+              { company: { $regex: new RegExp(searchTerm, 'i') } },
+              { model: { $regex: new RegExp(searchTerm, 'i') } }
+            ]
+          }
+        ]
+      }).sort(sort).limit(12).skip(offset);
       return result;
     },
     favoriteCars: async (_: any, { userID }: { userID: number }) => {
