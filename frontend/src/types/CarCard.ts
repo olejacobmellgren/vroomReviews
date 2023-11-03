@@ -7,10 +7,4 @@ export type CarCard = {
   };
   rating: number;
   review: string;
-  
-  //vi må fikse på dette
-  id: string;
-  company: string;
-  model: string;
-  image: string;
 };

@@ -4,7 +4,7 @@ import CardForCar from '../components/CardForCar';
 import { useQuery } from '@apollo/client';
 import { GET_CARS_BY_COMPANY } from '../graphQL/queries';
 import { CircularProgress } from '@mui/material';
-import { CarCard } from '../types/CarCard';
+import { Car } from '../types/Car';
 
 interface props {
   brand: string;
@@ -21,13 +21,13 @@ const ScrollingMenu: React.FC<props> = ({ brand }) => {
     <div>
       <ScrollMenu>
         <div className="scrollingMenu">
-          {data.carsByCompany.map((data: CarCard) => (
+          {data.carsByCompany.map((data: Car) => (
             <div className="car" key={data?.id}>
               <CardForCar
                 brand={data.company}
                 model={data.model}
                 carIMG={data.image}
-                showInfo={true}
+                showInfo={false}
               />
             </div>
           ))}
