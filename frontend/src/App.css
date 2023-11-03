@@ -7,6 +7,7 @@
 .car {
   flex-basis: calc(25% - 30px);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 20px 15px 20px 15px;
