@@ -16,7 +16,16 @@ const Filterpage = () => {
     },
     { name: 'Year', options: ['2023', '2022', '2021', '2020', '2019', 'All'] },
     { name: 'Body', options: ['Coupe', 'SUV', 'Sedan', 'All'] },
-    { name: 'Sort by', options: ['Years, asc', 'Years, desc', 'Rating, asc', 'Rating, desc', 'All'] },
+    {
+      name: 'Sort by',
+      options: [
+        'Years, asc',
+        'Years, desc',
+        'Rating, asc',
+        'Rating, desc',
+        'All',
+      ],
+    },
   ];
 
   const [selectedFilters, setSelectedFilters] = useState({
@@ -37,39 +46,51 @@ const Filterpage = () => {
 
   const [loadMoreCars, { loading, error, data }] = useLazyQuery(GET_CARS);
 
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     loadMoreCars({
       variables: {
         filters: {
-          company: selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
-          year: selectedFilters.Year !== 'All' ? parseInt(selectedFilters.Year) : null,
+          company:
+            selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
+          year:
+            selectedFilters.Year !== 'All'
+              ? parseInt(selectedFilters.Year)
+              : null,
           carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
         },
         offset: visibleCars - 12,
         orderBy: {
-          year: !selectedFilters.SortBy.includes('Years') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
-          rating: !selectedFilters.SortBy.includes('Rating') ? null : (selectedFilters.SortBy.includes('asc') ? 'asc' : 'desc'),
+          year: !selectedFilters.SortBy.includes('Years')
+            ? null
+            : selectedFilters.SortBy.includes('asc')
+            ? 'asc'
+            : 'desc',
+          rating: !selectedFilters.SortBy.includes('Rating')
+            ? null
+            : selectedFilters.SortBy.includes('asc')
+            ? 'asc'
+            : 'desc',
         },
         searchTerm: searchTerm,
       },
     });
-  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm])
+  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm]);
 
   useEffect(() => {
     if (data?.cars) {
-      setShownCars(prevShownCars => prevShownCars?.concat(data?.cars))
+      setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars));
     }
-  }, [data])
+  }, [data]);
 
   const handleFilterChange = (filterName: string, selectedValue: string) => {
     setSelectedFilters((prevSelectedFilters) => ({
       ...prevSelectedFilters,
-      [filterName === "Sort by" ? "SortBy" : filterName]: selectedValue,
+      [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
     }));
-    setShownCars([])
-    setVisibleCars(12)
+    setShownCars([]);
+    setVisibleCars(12);
   };
 
   // display dropdown for dropdownMenu clicked. The rest is set to false, meaning they are closed.
@@ -96,7 +117,7 @@ const Filterpage = () => {
     if (dropdownVisibility.includes(true)) {
       setDropdownVisibility(dropdownVisibility.map(() => false));
     }
-  }
+  };
 
   const handleViewMore = () => {
     setVisibleCars((prevVisibleCars) => prevVisibleCars + 12);
@@ -132,16 +153,15 @@ const Filterpage = () => {
       </div>
       <div className="car-list">
         {shownCars.map((car) => (
-            <div className="car" key={car.company + "-" + car.model}>
-              <CardForCar
-                brand={car.company}
-                model={car.model}
-                carIMG={car.image}
-                showInfo={true}
-              />
-            </div>
-          ))
-        }
+          <div className="car" key={car.company + '-' + car.model}>
+            <CardForCar
+              brand={car.company}
+              model={car.model}
+              carIMG={car.image}
+              showInfo={true}
+            />
+          </div>
+        ))}
       </div>
       <div className="view-more-button">
         {data?.cars.length == 12 ? (

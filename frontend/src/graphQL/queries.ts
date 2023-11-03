@@ -32,8 +32,18 @@ export const GET_CARS_BY_COMPANY = gql`
 `;
 
 export const GET_CARS = gql`
-  query GetCars($filters: carsFilters, $offset: Int, $orderBy: orderByArg, $searchTerm: String) {
-    cars(filters: $filters, offset: $offset, orderBy: $orderBy, searchTerm: $searchTerm) {
+  query GetCars(
+    $filters: carsFilters
+    $offset: Int
+    $orderBy: orderByArg
+    $searchTerm: String
+  ) {
+    cars(
+      filters: $filters
+      offset: $offset
+      orderBy: $orderBy
+      searchTerm: $searchTerm
+    ) {
       company
       model
       image
