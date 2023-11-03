@@ -24,6 +24,7 @@ export const GET_CAR = gql`
 export const GET_CARS_BY_COMPANY = gql`
   query GetCarsByCompany($company: String!) {
     carsByCompany(company: $company) {
+      id
       company
       model
       image
