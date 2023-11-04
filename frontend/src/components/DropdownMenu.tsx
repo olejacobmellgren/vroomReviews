@@ -30,10 +30,29 @@ function DropdownMenu({
   onSelect,
 }: DropdownProps) {
   const [checkedOption, setCheckedOption] = useState(filter);
+  const [initialLoad, setInitialLoad] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem(filter, checkedOption);
-  }, [filter, checkedOption]);
+    if (initialLoad) {
+      const storedFilterOption = sessionStorage.getItem(filter)
+      if (storedFilterOption !== null) {
+          if (storedFilterOption !== "All") {
+            setCheckedOption(storedFilterOption)
+            onSelect(storedFilterOption)
+          } else {
+            setCheckedOption(filter)
+            onSelect(storedFilterOption)
+          }
+      }
+      setInitialLoad(false)
+    } else {
+      if (checkedOption == filter) {
+        sessionStorage.setItem(filter, "All")
+      } else {
+        sessionStorage.setItem(filter, checkedOption);
+      }
+    }
+  }, [checkedOption, filter, initialLoad])
 
   const handleOptionClick = (option: string) => {
     if (option === 'All') {

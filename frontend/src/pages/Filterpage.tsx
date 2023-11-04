@@ -2,11 +2,10 @@ import DropdownMenu from '../components/DropdownMenu';
 import { useState, useEffect } from 'react';
 import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
-import { Link } from 'react-router-dom';
 import { GET_CARS } from '../graphQL/queries';
 import { useLazyQuery } from '@apollo/client';
 import { CircularProgress } from '@mui/material';
-import { Car } from '../types/Car';
+import { CarCard } from '../types/CarCard';
 
 const Filterpage = () => {
   const filters = [
@@ -29,10 +28,10 @@ const Filterpage = () => {
   ];
 
   const [selectedFilters, setSelectedFilters] = useState({
-    Brand: 'All',
-    Year: 'All',
-    Body: 'All',
-    SortBy: 'All',
+    Brand: sessionStorage.getItem("Brand") || "All",
+    Year: sessionStorage.getItem("Year") || "All",
+    Body: sessionStorage.getItem("Body") || "All",
+    SortBy: sessionStorage.getItem("Sort by") || "All",
   });
 
   // initialize each dropdownMenu to be false, meaning options are not shown
@@ -83,6 +82,9 @@ const Filterpage = () => {
       setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars));
     }
   }, [data]);
+
+  if (loading) return <CircularProgress />;
+  if (error) console.log(error);
 
   const handleFilterChange = (filterName: string, selectedValue: string) => {
     setSelectedFilters((prevSelectedFilters) => ({
