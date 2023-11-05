@@ -4,7 +4,6 @@ import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
 import { GET_CARS } from '../graphQL/queries';
 import { useLazyQuery } from '@apollo/client';
-import { CircularProgress } from '@mui/material';
 import { CarCard } from '../types/CarCard';
 
 const Filterpage = () => {
@@ -41,9 +40,9 @@ const Filterpage = () => {
 
   const [visibleCars, setVisibleCars] = useState(12);
 
-  const [shownCars, setShownCars] = useState([]);
+  const [shownCars, setShownCars] = useState<CarCard["car"][]>([]);
 
-  const [loadMoreCars, { loading, error, data }] = useLazyQuery(GET_CARS);
+  const [loadMoreCars, { data }] = useLazyQuery(GET_CARS);
 
   const [searchTerm, setSearchTerm] = useState(sessionStorage.getItem("searchTerm") || '');
 
