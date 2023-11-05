@@ -55,13 +55,15 @@ function DropdownMenu({
   }, [checkedOption, filter, initialLoad])
 
   const handleOptionClick = (option: string) => {
-    if (option === 'All') {
-      setCheckedOption(filter);
-    } else {
-      setCheckedOption(option);
+    if (option !== checkedOption) {
+      if (option === 'All') {
+        setCheckedOption(filter);
+      } else {
+        setCheckedOption(option);
+      }
+  
+      onSelect(option);
     }
-
-    onSelect(option);
     toggleDropdown();
   };
 
