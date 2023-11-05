@@ -16,12 +16,12 @@ export const resolvers = {
     cars: async (_: any, args: carsArgs) => {
       const { filters, offset, orderBy, searchTerm } = args;
 
-      const [company, ...modelParts] = searchTerm.split(' ');
-      const argList = searchTerm.split(' ')
-      const argCounter = searchTerm.split(' ').length
-      const model = modelParts.join(' ');
       
-      if (Object.values(filters).every(value => value === null)) {
+      if (Object.values(filters).every(value => value === null) && Object.values(orderBy).every(value => value === null)) {
+        const [company, ...modelParts] = searchTerm.split(' ');
+        const argList = searchTerm.split(' ')
+        const argCounter = searchTerm.split(' ').length
+        const model = modelParts.join(' ');
         if (argCounter == 1) {
           return Car.find({
             $or: [
