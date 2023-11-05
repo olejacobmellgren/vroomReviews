@@ -6,7 +6,7 @@ type DropdownProps = {
   options: string[];
   isOpen: boolean;
   toggleDropdown: () => void;
-  onSelect: (option: string) => void;
+  onSelect: (option: string, initialLoad: boolean) => void;
 };
 
 type ButtonProps = {
@@ -38,10 +38,10 @@ function DropdownMenu({
       if (storedFilterOption !== null) {
           if (storedFilterOption !== "All") {
             setCheckedOption(storedFilterOption)
-            onSelect(storedFilterOption)
+            onSelect(storedFilterOption, true)
           } else {
             setCheckedOption(filter)
-            onSelect(storedFilterOption)
+            onSelect(storedFilterOption, true)
           }
       }
       setInitialLoad(false)
@@ -62,7 +62,7 @@ function DropdownMenu({
         setCheckedOption(option);
       }
   
-      onSelect(option);
+      onSelect(option, false);
     }
     toggleDropdown();
   };

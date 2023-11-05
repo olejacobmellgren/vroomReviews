@@ -47,6 +47,8 @@ const Filterpage = () => {
 
   const [searchTerm, setSearchTerm] = useState(sessionStorage.getItem("searchTerm") || '');
 
+  const [limit, setLimit] = useState(parseInt(sessionStorage.getItem("visibleCars") || "12"))
+
   useEffect(() => {
     loadMoreCars({
       variables: {
@@ -73,6 +75,7 @@ const Filterpage = () => {
             : 'desc',
         },
         searchTerm: searchTerm,
+        limit: limit,
       },
     });
   }, [loadMoreCars, visibleCars, selectedFilters, searchTerm]);
@@ -87,13 +90,17 @@ const Filterpage = () => {
     sessionStorage.setItem("searchTerm", searchTerm)
   }, [searchTerm])
 
-  const handleFilterChange = (filterName: string, selectedValue: string) => {
+  const handleFilterChange = (filterName: string, selectedValue: string, initialLoad: boolean) => {
     setSelectedFilters((prevSelectedFilters) => ({
       ...prevSelectedFilters,
       [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
     }));
-    setShownCars([]);
-    setVisibleCars(12);
+    if (!initialLoad) {
+      setShownCars([]);
+      setVisibleCars(12);
+      setLimit(12)
+      sessionStorage.setItem("visibleCars", "12")
+    }
   };
 
   // display dropdown for dropdownMenu clicked. The rest is set to false, meaning they are closed.
@@ -112,6 +119,8 @@ const Filterpage = () => {
       const value = e.target.value;
       setShownCars([]);
       setVisibleCars(12);
+      setLimit(12)
+      sessionStorage.setItem("visibleCars", "12")
       setSearchTerm(value);
     }, 250);
   };
@@ -123,7 +132,10 @@ const Filterpage = () => {
   };
 
   const handleViewMore = () => {
-    setVisibleCars((prevVisibleCars) => prevVisibleCars + 12);
+    setVisibleCars((prevVisibleCars) => prevVisibleCars + limit);
+    const newVisibleCars = limit + visibleCars
+    sessionStorage.setItem("visibleCars", newVisibleCars.toString())
+    setLimit(12)
   };
 
   return (
@@ -150,7 +162,7 @@ const Filterpage = () => {
               options={filter.options}
               isOpen={dropdownVisibility[index]}
               toggleDropdown={() => toggleDropdown(index)}
-              onSelect={(value) => handleFilterChange(filter.name, value)}
+              onSelect={(value, initialLoad) => handleFilterChange(filter.name, value, initialLoad)}
             />
           </div>
         ))}
@@ -168,7 +180,7 @@ const Filterpage = () => {
         ))}
       </div>
       <div className="view-more-button">
-        {data?.cars.length == 12 ? (
+        {data?.cars.length >= 12 ? (
           <button onClick={handleViewMore}>View more</button>
         ) : null}
       </div>
