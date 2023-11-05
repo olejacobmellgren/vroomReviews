@@ -14,7 +14,7 @@ export const resolvers = {
       return await Car.find({ company: company });
     },
     cars: async (_: any, args: carsArgs) => {
-      const { filters, offset, orderBy, searchTerm } = args;
+      const { filters, offset, orderBy, searchTerm, limit } = args;
 
       
       if (Object.values(filters).every(value => value === null) && Object.values(orderBy).every(value => value === null)) {
@@ -28,19 +28,19 @@ export const resolvers = {
               { company: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive company search
               { model: { $regex: new RegExp(searchTerm, 'i') } } // Case-insensitive model search
             ]
-          }).limit(12).skip(offset);
+          }).limit(limit).skip(offset);
         } else if (argCounter == 2 && argList[1] == "") {
           const query: any = {};
           const newCompany = company.charAt(0).toUpperCase() + company.slice(1)
           query.company = newCompany
-          return Car.find(query).limit(12).skip(offset);
+          return Car.find(query).limit(limit).skip(offset);
         } else {
           return Car.find({
             $and: [
               { company: { $regex: new RegExp(company, 'i') } }, // Case-insensitive company search
               { model: { $regex: new RegExp(model, 'i') } } // Case-insensitive model search
             ]
-          }).limit(12).skip(offset);
+          }).limit(limit).skip(offset);
         }
       }
 
@@ -78,7 +78,7 @@ export const resolvers = {
             ]
           }
         ]
-      }).sort(sort).limit(12).skip(offset);
+      }).sort(sort).limit(limit).skip(offset);
       return result;
     },
     favoriteCars: async (_: any, { userID }: { userID: number }) => {
