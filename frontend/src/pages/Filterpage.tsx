@@ -45,7 +45,7 @@ const Filterpage = () => {
 
   const [loadMoreCars, { loading, error, data }] = useLazyQuery(GET_CARS);
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(sessionStorage.getItem("searchTerm") || '');
 
   useEffect(() => {
     loadMoreCars({
@@ -82,6 +82,10 @@ const Filterpage = () => {
       setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars));
     }
   }, [data]);
+
+  useEffect(() => {
+    sessionStorage.setItem("searchTerm", searchTerm)
+  }, [searchTerm])
 
   const handleFilterChange = (filterName: string, selectedValue: string) => {
     setSelectedFilters((prevSelectedFilters) => ({
@@ -131,6 +135,7 @@ const Filterpage = () => {
               type="text"
               className="searchBar-input"
               placeholder="Search for car"
+              defaultValue={searchTerm}
               onChange={handleSearchChange}
               onFocus={handleFocus}
             />
