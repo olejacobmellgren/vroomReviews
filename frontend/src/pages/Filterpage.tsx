@@ -83,9 +83,6 @@ const Filterpage = () => {
     }
   }, [data]);
 
-  if (loading) return <CircularProgress />;
-  if (error) console.log(error);
-
   const handleFilterChange = (filterName: string, selectedValue: string) => {
     setSelectedFilters((prevSelectedFilters) => ({
       ...prevSelectedFilters,
