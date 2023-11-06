@@ -38,7 +38,7 @@
   width: calc(50% - 0.25vh);
 }
 
-.dropdownButtonInside { 
+.dropdownButtonInside {
   background-color: #f4f9fe;
   font-size: 2vh;
   border-radius: 0.5vh;

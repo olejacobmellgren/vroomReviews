@@ -15,10 +15,9 @@ type ButtonProps = {
 };
 
 function ButtonInside({ name, onClick }: ButtonProps) {
-
-  const [isAll] = useState(name == "All")
+  const [isAll] = useState(name == 'All');
   return (
-    <div className='dropdownButtonInsideWrapper'>
+    <div className="dropdownButtonInsideWrapper">
       <button className="dropdownButtonInside" onClick={onClick}>
         <span style={{ color: isAll ? '#00CC00' : '' }}>{name}</span>
       </button>
