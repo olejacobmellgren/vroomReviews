@@ -10,7 +10,7 @@ const Filterpage = () => {
   const filters = [
     {
       name: 'Brand',
-      options: ['Ferrari', 'Hyundai', 'Toyota', 'BMW', 'Audi', 'Volvo', 'All'],
+      options: ['Ferrari', 'Lamborghini', 'Toyota', 'BMW', 'Audi', 'Volvo', 'All'],
     },
     { name: 'Year', options: ['2023', '2022', '2021', '2020', '2019', 'All'] },
     { name: 'Body', options: ['Coupe', 'SUV', 'Sedan', 'All'] },

@@ -32,20 +32,16 @@
   cursor: pointer;
 }
 
-.dropdownButtonInside {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 1vh;
+.dropdownButtonInsideWrapper {
+  width: calc(50% - 0.25vh);
+}
+
+.dropdownButtonInside { 
   background-color: #f4f9fe;
   font-size: 2vh;
   border-radius: 0.5vh;
   padding: 1vh;
-  padding-left: 2.5vh;
-  padding-right: 2.5vh;
   color: #54595e;
-  margin: 2vh, 0, 2vh, 0;
   width: 100%;
   text-align: center;
   border: 1px solid transparent;
@@ -68,6 +64,9 @@
 }
 
 .dropdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25vh;
   position: absolute;
   top: 100%;
   border-radius: 10px;
@@ -78,7 +77,7 @@
   border: 1px solid #d8dde2;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   color: #54595e;
-  width: max-content;
+  width: 240px;
   /* Next two lines are important for the cool effect*/
   overflow: hidden;
   transition:
@@ -97,4 +96,21 @@
 .dropdown.closed {
   max-height: 0;
   opacity: 0;
+}
+
+@media (max-width: 450px) {
+  .dropdown {
+    width: 180px;
+  }
+
+  .dropdownButtonInside {
+    padding: 0.75vh 0.25vh 0.75vh 0.25vh;
+    font-size: 1.75vh;
+    word-break: break-all;
+  }
+
+  .dropdownButtonInsideWrapper {
+    margin-top: 0.25vh;
+    margin-bottom: 0.25vh;
+  }
 }

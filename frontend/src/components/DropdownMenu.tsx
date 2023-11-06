@@ -16,9 +16,11 @@ type ButtonProps = {
 
 function ButtonInside({ name, onClick }: ButtonProps) {
   return (
-    <button className="dropdownButtonInside" onClick={onClick}>
-      {name}
-    </button>
+    <div className='dropdownButtonInsideWrapper'>
+      <button className="dropdownButtonInside" onClick={onClick}>
+        {name}
+      </button>
+    </div>
   );
 }
 
