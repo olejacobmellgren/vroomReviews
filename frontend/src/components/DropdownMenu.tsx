@@ -34,25 +34,25 @@ function DropdownMenu({
 
   useEffect(() => {
     if (initialLoad) {
-      const storedFilterOption = sessionStorage.getItem(filter)
+      const storedFilterOption = sessionStorage.getItem(filter);
       if (storedFilterOption !== null) {
-          if (storedFilterOption !== "All") {
-            setCheckedOption(storedFilterOption)
-            onSelect(storedFilterOption, true)
-          } else {
-            setCheckedOption(filter)
-            onSelect(storedFilterOption, true)
-          }
+        if (storedFilterOption !== 'All') {
+          setCheckedOption(storedFilterOption);
+          onSelect(storedFilterOption, true);
+        } else {
+          setCheckedOption(filter);
+          onSelect(storedFilterOption, true);
+        }
       }
-      setInitialLoad(false)
+      setInitialLoad(false);
     } else {
       if (checkedOption == filter) {
-        sessionStorage.setItem(filter, "All")
+        sessionStorage.setItem(filter, 'All');
       } else {
         sessionStorage.setItem(filter, checkedOption);
       }
     }
-  }, [checkedOption, filter, initialLoad])
+  }, [checkedOption, filter, initialLoad]);
 
   const handleOptionClick = (option: string) => {
     if (option !== checkedOption) {
@@ -61,7 +61,7 @@ function DropdownMenu({
       } else {
         setCheckedOption(option);
       }
-  
+
       onSelect(option, false);
     }
     toggleDropdown();

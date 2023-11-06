@@ -27,10 +27,10 @@ const Filterpage = () => {
   ];
 
   const [selectedFilters, setSelectedFilters] = useState({
-    Brand: sessionStorage.getItem("Brand") || "All",
-    Year: sessionStorage.getItem("Year") || "All",
-    Body: sessionStorage.getItem("Body") || "All",
-    SortBy: sessionStorage.getItem("Sort by") || "All",
+    Brand: sessionStorage.getItem('Brand') || 'All',
+    Year: sessionStorage.getItem('Year') || 'All',
+    Body: sessionStorage.getItem('Body') || 'All',
+    SortBy: sessionStorage.getItem('Sort by') || 'All',
   });
 
   // initialize each dropdownMenu to be false, meaning options are not shown
@@ -40,13 +40,17 @@ const Filterpage = () => {
 
   const [visibleCars, setVisibleCars] = useState(12);
 
-  const [shownCars, setShownCars] = useState<CarCard["car"][]>([]);
+  const [shownCars, setShownCars] = useState<CarCard['car'][]>([]);
 
   const [loadMoreCars, { data }] = useLazyQuery(GET_CARS);
 
-  const [searchTerm, setSearchTerm] = useState(sessionStorage.getItem("searchTerm") || '');
+  const [searchTerm, setSearchTerm] = useState(
+    sessionStorage.getItem('searchTerm') || '',
+  );
 
-  const [limit, setLimit] = useState(parseInt(sessionStorage.getItem("visibleCars") || "12"))
+  const [limit, setLimit] = useState(
+    parseInt(sessionStorage.getItem('visibleCars') || '12'),
+  );
 
   useEffect(() => {
     loadMoreCars({
@@ -86,10 +90,14 @@ const Filterpage = () => {
   }, [data]);
 
   useEffect(() => {
-    sessionStorage.setItem("searchTerm", searchTerm)
-  }, [searchTerm])
+    sessionStorage.setItem('searchTerm', searchTerm);
+  }, [searchTerm]);
 
-  const handleFilterChange = (filterName: string, selectedValue: string, initialLoad: boolean) => {
+  const handleFilterChange = (
+    filterName: string,
+    selectedValue: string,
+    initialLoad: boolean,
+  ) => {
     setSelectedFilters((prevSelectedFilters) => ({
       ...prevSelectedFilters,
       [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
@@ -97,8 +105,8 @@ const Filterpage = () => {
     if (!initialLoad) {
       setShownCars([]);
       setVisibleCars(12);
-      setLimit(12)
-      sessionStorage.setItem("visibleCars", "12")
+      setLimit(12);
+      sessionStorage.setItem('visibleCars', '12');
     }
   };
 
@@ -118,8 +126,8 @@ const Filterpage = () => {
       const value = e.target.value;
       setShownCars([]);
       setVisibleCars(12);
-      setLimit(12)
-      sessionStorage.setItem("visibleCars", "12")
+      setLimit(12);
+      sessionStorage.setItem('visibleCars', '12');
       setSearchTerm(value);
     }, 250);
   };
@@ -132,9 +140,9 @@ const Filterpage = () => {
 
   const handleViewMore = () => {
     setVisibleCars((prevVisibleCars) => prevVisibleCars + limit);
-    const newVisibleCars = limit + visibleCars
-    sessionStorage.setItem("visibleCars", newVisibleCars.toString())
-    setLimit(12)
+    const newVisibleCars = limit + visibleCars;
+    sessionStorage.setItem('visibleCars', newVisibleCars.toString());
+    setLimit(12);
   };
 
   return (
@@ -161,7 +169,9 @@ const Filterpage = () => {
               options={filter.options}
               isOpen={dropdownVisibility[index]}
               toggleDropdown={() => toggleDropdown(index)}
-              onSelect={(value, initialLoad) => handleFilterChange(filter.name, value, initialLoad)}
+              onSelect={(value, initialLoad) =>
+                handleFilterChange(filter.name, value, initialLoad)
+              }
             />
           </div>
         ))}
