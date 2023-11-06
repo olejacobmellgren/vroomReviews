@@ -10,10 +10,51 @@ const Filterpage = () => {
   const filters = [
     {
       name: 'Brand',
-      options: ['Ferrari', 'Hyundai', 'Toyota', 'BMW', 'Audi', 'Volvo', 'All'],
+      options: [
+        'Ferrari',
+        'Lamborghini',
+        'Toyota',
+        'BMW',
+        'Audi',
+        'Volvo',
+        'Koenigsegg',
+        'Ford',
+        'Nissan',
+        'Porsche',
+        'Honda',
+        'Tesla',
+        'All',
+      ],
     },
-    { name: 'Year', options: ['2023', '2022', '2021', '2020', '2019', 'All'] },
-    { name: 'Body', options: ['Coupe', 'SUV', 'Sedan', 'All'] },
+    {
+      name: 'Year',
+      options: [
+        '2023',
+        '2022',
+        '2021',
+        '2020',
+        '2019',
+        '2018',
+        '2017',
+        '2016',
+        'All',
+      ],
+    },
+    {
+      name: 'Body',
+      options: [
+        'Coupe',
+        'SUV',
+        'Sedan',
+        'Convertible',
+        'Hatchback',
+        'Truck',
+        'Wagon',
+        'Sports car',
+        'Minivan',
+        'All',
+      ],
+    },
     {
       name: 'Sort by',
       options: [
@@ -81,7 +122,7 @@ const Filterpage = () => {
         limit: limit,
       },
     });
-  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm]);
+  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm, limit]);
 
   useEffect(() => {
     if (data?.cars) {

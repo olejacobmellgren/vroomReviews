@@ -15,10 +15,13 @@ type ButtonProps = {
 };
 
 function ButtonInside({ name, onClick }: ButtonProps) {
+  const [isAll] = useState(name == 'All');
   return (
-    <button className="dropdownButtonInside" onClick={onClick}>
-      {name}
-    </button>
+    <div className="dropdownButtonInsideWrapper">
+      <button className="dropdownButtonInside" onClick={onClick}>
+        <span style={{ color: isAll ? '#00CC00' : '' }}>{name}</span>
+      </button>
+    </div>
   );
 }
 
@@ -52,7 +55,7 @@ function DropdownMenu({
         sessionStorage.setItem(filter, checkedOption);
       }
     }
-  }, [checkedOption, filter, initialLoad]);
+  }, [onSelect, checkedOption, filter, initialLoad]);
 
   const handleOptionClick = (option: string) => {
     if (option !== checkedOption) {
