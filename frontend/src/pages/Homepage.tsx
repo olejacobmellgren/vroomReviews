@@ -11,7 +11,7 @@ const Homepage = () => {
             <div className="element"></div>
             <h1>{brand}</h1>
           </div>
-          <ScrollingMenu brand={brand}/>
+          <ScrollingMenu brand={brand} />
         </div>
       ))}
     </>

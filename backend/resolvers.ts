@@ -17,30 +17,34 @@ export const resolvers = {
       const { filters, offset, orderBy, searchTerm } = args;
 
       const [company, ...modelParts] = searchTerm.split(' ');
-      const argList = searchTerm.split(' ')
-      const argCounter = searchTerm.split(' ').length
+      const argList = searchTerm.split(' ');
+      const argCounter = searchTerm.split(' ').length;
       const model = modelParts.join(' ');
-      
-      if (Object.values(filters).every(value => value === null)) {
+
+      if (Object.values(filters).every((value) => value === null)) {
         if (argCounter == 1) {
           return Car.find({
             $or: [
               { company: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive company search
-              { model: { $regex: new RegExp(searchTerm, 'i') } } // Case-insensitive model search
-            ]
-          }).limit(12).skip(offset);
-        } else if (argCounter == 2 && argList[1] == "") {
+              { model: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive model search
+            ],
+          })
+            .limit(12)
+            .skip(offset);
+        } else if (argCounter == 2 && argList[1] == '') {
           const query: any = {};
-          const newCompany = company.charAt(0).toUpperCase() + company.slice(1)
-          query.company = newCompany
+          const newCompany = company.charAt(0).toUpperCase() + company.slice(1);
+          query.company = newCompany;
           return Car.find(query).limit(12).skip(offset);
         } else {
           return Car.find({
             $and: [
               { company: { $regex: new RegExp(company, 'i') } }, // Case-insensitive company search
-              { model: { $regex: new RegExp(model, 'i') } } // Case-insensitive model search
-            ]
-          }).limit(12).skip(offset);
+              { model: { $regex: new RegExp(model, 'i') } }, // Case-insensitive model search
+            ],
+          })
+            .limit(12)
+            .skip(offset);
         }
       }
 
@@ -74,11 +78,14 @@ export const resolvers = {
           {
             $or: [
               { company: { $regex: new RegExp(searchTerm, 'i') } },
-              { model: { $regex: new RegExp(searchTerm, 'i') } }
-            ]
-          }
-        ]
-      }).sort(sort).limit(12).skip(offset);
+              { model: { $regex: new RegExp(searchTerm, 'i') } },
+            ],
+          },
+        ],
+      })
+        .sort(sort)
+        .limit(12)
+        .skip(offset);
       return result;
     },
     favoriteCars: async (_: any, { userID }: { userID: number }) => {
