@@ -56,7 +56,7 @@ function DropdownMenu({
         sessionStorage.setItem(filter, checkedOption);
       }
     }
-  }, [checkedOption, filter, initialLoad]);
+  }, [onSelect, checkedOption, filter, initialLoad]);
 
   const handleOptionClick = (option: string) => {
     if (option !== checkedOption) {

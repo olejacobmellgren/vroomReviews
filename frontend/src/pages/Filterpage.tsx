@@ -81,7 +81,7 @@ const Filterpage = () => {
         limit: limit,
       },
     });
-  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm]);
+  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm, limit]);
 
   useEffect(() => {
     if (data?.cars) {
