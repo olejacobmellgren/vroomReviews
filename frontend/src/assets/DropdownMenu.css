@@ -33,6 +33,8 @@
 }
 
 .dropdownButtonInsideWrapper {
+  display: flex;
+  align-items: center;
   width: calc(50% - 0.25vh);
 }
 
