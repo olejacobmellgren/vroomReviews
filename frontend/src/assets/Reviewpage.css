@@ -2,3 +2,15 @@
   display: grid;
   justify-content: center;
 }
+
+.no-reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40vh;
+}
+
+.explore-link {
+  color: red;
+  text-decoration-color: red;
+}

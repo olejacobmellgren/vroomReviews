@@ -1,10 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../assets/Header.css';
 
 const Header = () => {
-  const [page, setPage] = useState('home');
+  const [page, setPage] = useState('/project2');
   const [isChecked, setIsChecked] = useState(false);
+
+  const currentPathname = window.location.pathname;
+
+  useEffect(() => {
+    setPage(currentPathname);
+  }, [currentPathname]);
 
   function handlePage(page: string) {
     setPage(page);
@@ -35,8 +41,8 @@ const Header = () => {
         <div className="link-flex">
           <NavLink
             to="/project2"
-            className={page === 'home' ? 'normal' : 'normal grey-text'}
-            onClick={() => handlePage('home')}
+            className={page === '/project2' ? 'normal' : 'normal grey-text'}
+            onClick={() => handlePage('/project2')}
           >
             <h1>Home</h1>
           </NavLink>
@@ -44,8 +50,10 @@ const Header = () => {
         <div className="link-flex">
           <NavLink
             to="/project2/filtercars"
-            className={page === 'browse' ? 'normal' : 'normal grey-text'}
-            onClick={() => handlePage('browse')}
+            className={
+              page === '/project2/filtercars' ? 'normal' : 'normal grey-text'
+            }
+            onClick={() => handlePage('/project2/filtercars')}
           >
             <h1>Browse cars</h1>
           </NavLink>
@@ -53,8 +61,10 @@ const Header = () => {
         <div className="link-flex">
           <NavLink
             to="/project2/favorites"
-            className={page === 'favorites' ? 'normal' : 'normal grey-text'}
-            onClick={() => handlePage('favorites')}
+            className={
+              page === '/project2/favorites' ? 'normal' : 'normal grey-text'
+            }
+            onClick={() => handlePage('/project2/favorites')}
           >
             <h1>Favorites</h1>
           </NavLink>
@@ -62,8 +72,10 @@ const Header = () => {
         <div className="link-flex">
           <NavLink
             to="/project2/reviewedcars"
-            className={page === 'reviews' ? 'normal' : 'normal grey-text'}
-            onClick={() => handlePage('reviews')}
+            className={
+              page === '/project2/reviewedcars' ? 'normal' : 'normal grey-text'
+            }
+            onClick={() => handlePage('/project2/reviewedcars')}
           >
             <h1>Your reviews</h1>
           </NavLink>
