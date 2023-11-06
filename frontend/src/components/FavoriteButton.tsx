@@ -8,7 +8,7 @@ import { GET_FAVORITE_CARS } from '../graphQL/queries';
 import { Favorite } from '../types/Favorite';
 import AlertPopup from './AlertPopup';
 
-const FavoriteButton = ({ car }: {car: string}) => {
+const FavoriteButton = ({ car }: { car: string }) => {
   const userID = Number(localStorage.getItem('userID'));
   const [alertMessage, setAlertMessage] = useState('');
   const [favoriteAlert, setFavoriteAlert] = useState(false);

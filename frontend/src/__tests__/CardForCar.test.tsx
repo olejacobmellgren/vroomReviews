@@ -8,7 +8,6 @@ test('Check path correct when image is clicked', async () => {
   const { getByRole, asFragment } = render(
     <BrowserRouter>
       <CardForCar
-        id="1"
         brand="Ferrari"
         model="F40"
         carIMG="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/F40_Ferrari_20090509.jpg/1200px-F40_Ferrari_20090509.jpg"
@@ -23,5 +22,5 @@ test('Check path correct when image is clicked', async () => {
   expect(asFragment()).toMatchSnapshot();
   const { pathname } = location;
 
-  expect(pathname).toBe('/project2/carpage/1');
+  expect(pathname).toBe('/project2/carpage/Ferrari-F40');
 });
