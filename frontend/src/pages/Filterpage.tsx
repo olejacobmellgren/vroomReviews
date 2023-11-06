@@ -2,11 +2,9 @@ import DropdownMenu from '../components/DropdownMenu';
 import { useState, useEffect } from 'react';
 import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
-import { Link } from 'react-router-dom';
 import { GET_CARS } from '../graphQL/queries';
 import { useLazyQuery } from '@apollo/client';
-import { CircularProgress } from '@mui/material';
-import { Car } from '../types/Car';
+import { CarCard } from '../types/CarCard';
 
 const Filterpage = () => {
   const filters = [
@@ -29,10 +27,10 @@ const Filterpage = () => {
   ];
 
   const [selectedFilters, setSelectedFilters] = useState({
-    Brand: 'All',
-    Year: 'All',
-    Body: 'All',
-    SortBy: 'All',
+    Brand: sessionStorage.getItem('Brand') || 'All',
+    Year: sessionStorage.getItem('Year') || 'All',
+    Body: sessionStorage.getItem('Body') || 'All',
+    SortBy: sessionStorage.getItem('Sort by') || 'All',
   });
 
   // initialize each dropdownMenu to be false, meaning options are not shown
@@ -42,11 +40,17 @@ const Filterpage = () => {
 
   const [visibleCars, setVisibleCars] = useState(12);
 
-  const [shownCars, setShownCars] = useState([]);
+  const [shownCars, setShownCars] = useState<CarCard['car'][]>([]);
 
-  const [loadMoreCars, { loading, error, data }] = useLazyQuery(GET_CARS);
+  const [loadMoreCars, { data }] = useLazyQuery(GET_CARS);
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(
+    sessionStorage.getItem('searchTerm') || '',
+  );
+
+  const [limit, setLimit] = useState(
+    parseInt(sessionStorage.getItem('visibleCars') || '12'),
+  );
 
   useEffect(() => {
     loadMoreCars({
@@ -74,6 +78,7 @@ const Filterpage = () => {
             : 'desc',
         },
         searchTerm: searchTerm,
+        limit: limit,
       },
     });
   }, [loadMoreCars, visibleCars, selectedFilters, searchTerm]);
@@ -84,13 +89,25 @@ const Filterpage = () => {
     }
   }, [data]);
 
-  const handleFilterChange = (filterName: string, selectedValue: string) => {
+  useEffect(() => {
+    sessionStorage.setItem('searchTerm', searchTerm);
+  }, [searchTerm]);
+
+  const handleFilterChange = (
+    filterName: string,
+    selectedValue: string,
+    initialLoad: boolean,
+  ) => {
     setSelectedFilters((prevSelectedFilters) => ({
       ...prevSelectedFilters,
       [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
     }));
-    setShownCars([]);
-    setVisibleCars(12);
+    if (!initialLoad) {
+      setShownCars([]);
+      setVisibleCars(12);
+      setLimit(12);
+      sessionStorage.setItem('visibleCars', '12');
+    }
   };
 
   // display dropdown for dropdownMenu clicked. The rest is set to false, meaning they are closed.
@@ -109,6 +126,8 @@ const Filterpage = () => {
       const value = e.target.value;
       setShownCars([]);
       setVisibleCars(12);
+      setLimit(12);
+      sessionStorage.setItem('visibleCars', '12');
       setSearchTerm(value);
     }, 250);
   };
@@ -120,7 +139,10 @@ const Filterpage = () => {
   };
 
   const handleViewMore = () => {
-    setVisibleCars((prevVisibleCars) => prevVisibleCars + 12);
+    setVisibleCars((prevVisibleCars) => prevVisibleCars + limit);
+    const newVisibleCars = limit + visibleCars;
+    sessionStorage.setItem('visibleCars', newVisibleCars.toString());
+    setLimit(12);
   };
 
   return (
@@ -132,6 +154,7 @@ const Filterpage = () => {
               type="text"
               className="searchBar-input"
               placeholder="Search for car"
+              defaultValue={searchTerm}
               onChange={handleSearchChange}
               onFocus={handleFocus}
             />
@@ -146,7 +169,9 @@ const Filterpage = () => {
               options={filter.options}
               isOpen={dropdownVisibility[index]}
               toggleDropdown={() => toggleDropdown(index)}
-              onSelect={(value) => handleFilterChange(filter.name, value)}
+              onSelect={(value, initialLoad) =>
+                handleFilterChange(filter.name, value, initialLoad)
+              }
             />
           </div>
         ))}
@@ -164,7 +189,7 @@ const Filterpage = () => {
         ))}
       </div>
       <div className="view-more-button">
-        {data?.cars.length == 12 ? (
+        {data?.cars.length >= 12 ? (
           <button onClick={handleViewMore}>View more</button>
         ) : null}
       </div>

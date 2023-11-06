@@ -14,14 +14,16 @@ export const resolvers = {
       return await Car.find({ company: company });
     },
     cars: async (_: any, args: carsArgs) => {
-      const { filters, offset, orderBy, searchTerm } = args;
+      const { filters, offset, orderBy, searchTerm, limit } = args;
 
-      const [company, ...modelParts] = searchTerm.split(' ');
-      const argList = searchTerm.split(' ');
-      const argCounter = searchTerm.split(' ').length;
-      const model = modelParts.join(' ');
-
-      if (Object.values(filters).every((value) => value === null)) {
+      if (
+        Object.values(filters).every((value) => value === null) &&
+        Object.values(orderBy).every((value) => value === null)
+      ) {
+        const [company, ...modelParts] = searchTerm.split(' ');
+        const argList = searchTerm.split(' ');
+        const argCounter = searchTerm.split(' ').length;
+        const model = modelParts.join(' ');
         if (argCounter == 1) {
           return Car.find({
             $or: [
@@ -29,13 +31,13 @@ export const resolvers = {
               { model: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive model search
             ],
           })
-            .limit(12)
+            .limit(limit)
             .skip(offset);
         } else if (argCounter == 2 && argList[1] == '') {
           const query: any = {};
           const newCompany = company.charAt(0).toUpperCase() + company.slice(1);
           query.company = newCompany;
-          return Car.find(query).limit(12).skip(offset);
+          return Car.find(query).limit(limit).skip(offset);
         } else {
           return Car.find({
             $and: [
@@ -43,7 +45,7 @@ export const resolvers = {
               { model: { $regex: new RegExp(model, 'i') } }, // Case-insensitive model search
             ],
           })
-            .limit(12)
+            .limit(limit)
             .skip(offset);
         }
       }
@@ -84,7 +86,7 @@ export const resolvers = {
         ],
       })
         .sort(sort)
-        .limit(12)
+        .limit(limit)
         .skip(offset);
       return result;
     },

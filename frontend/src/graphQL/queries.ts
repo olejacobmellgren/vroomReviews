@@ -38,12 +38,14 @@ export const GET_CARS = gql`
     $offset: Int
     $orderBy: orderByArg
     $searchTerm: String
+    $limit: Int
   ) {
     cars(
       filters: $filters
       offset: $offset
       orderBy: $orderBy
       searchTerm: $searchTerm
+      limit: $limit
     ) {
       company
       model

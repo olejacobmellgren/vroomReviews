@@ -24,6 +24,7 @@ export interface carsArgs {
   offset: number;
   orderBy: orderByArg;
   searchTerm: string;
+  limit: number;
 }
 
 export interface userAndCarArgs {
