@@ -13,6 +13,10 @@
   margin: 20px 15px 20px 15px;
 }
 
+.brand-logo {
+  height: 4rem;
+}
+
 @media (max-width: 1438px) {
   .car {
     flex-basis: calc(33% - 30px);

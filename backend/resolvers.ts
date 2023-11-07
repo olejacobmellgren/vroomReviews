@@ -3,6 +3,7 @@ import Car from './models/car';
 import Favorite from './models/favorite';
 import Review from './models/review';
 import User from './models/user';
+import Company from './models/Company';
 import { carArgs, carsArgs, userAndCarArgs, addReviewArgs } from './interfaces';
 
 export const resolvers = {
@@ -105,6 +106,9 @@ export const resolvers = {
     users: async () => {
       return await User.countDocuments();
     },
+    companies: async () => {
+      return await Company.find();
+    }
   },
   Mutation: {
     addFavorite: async (_: any, { userID, car }: userAndCarArgs) => {
