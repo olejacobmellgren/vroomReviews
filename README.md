@@ -6,7 +6,6 @@ VroomReviews er en web-applikasjon for å vurdere ulike biler. På denne web-app
 
 For å kjøre prosjektet lokalt må man klone prosjektet. Dette kan gjøres ved å bruke denne kommandoen i terminalen: `git clone https://gitlab.stud.idi.ntnu.no/it2810-h23/Team-25/prosjekt-2.git`. Man bruke menyen for kloning på gitlab.
 
-
 ## Bygging
 
 For å gjøre prosjektet klart for kjøring må man åpne to terminaler. I den ene går man inn i backend med `cd backend` og i den andre inn i frontend: `cd frontend`. Prosjektet er konfigurert til å bygge med npm. I begge terminaler kjøres `npm install` for å forberede prosjektet for å kunne kjøre.
@@ -73,7 +72,6 @@ Databasen vår er i MongoDB, og vi bruker "mongoose" for å koble til denne data
 
 **`Reviewpage`**: "Reviewpage" viser hvilke biler som brukeren har vurdert. Siden viser hvor mange stjerner og hvilken kommentar brukeren ga bilen. Denne siden bruker også `CardForCar` for å vise biler.
 
-
 ### Testing, utvikling og kvalitetskontroll
 
 For å teste web-applikasjonen har vi laget tester av ulike typer. Dette er viktig for å kunne oppdage feil og problemet som kunne forblitt uoppdaget uten tester.
@@ -94,7 +92,6 @@ Coming soon...
 
 Snapshot-tester er tester som sjekker sammenligner web-applikasjonen med et "snapshot", altså et slags "bilde" av hierarkiet av komponenter, og sjekker om disse er like. Vi har tatt i bruk Snapshot-tester for `CardForCar` og `Header`. More coming soon...
 
-
 #### Manuell testing av brukergrensesnitt
 
 I tillegg har vi gjennomført kontinuerlig manuell testing av brukergrensesnittet for å oppdage mulige feil. Når vi gjør dette setter vi oss inn i scenarioet som en bruker og prøver å bruke web-applikasjonen med funksjonalitet som har blitt implementert.
@@ -108,6 +105,7 @@ Coming soon...
 Gruppen har testet backend ved å ta i bruk manuell testing av graphQL queries ved hjelp av Apollo server. Når man kjører `npm run dev` i **backend** vil det åpnes en Apollo server i localhost:4000 der man kan teste graphQL "queries" og "mutations" som man har skrevet. Dette vil teste "resolverne" som man har skrevet i `resolvers.ts` og spørringene man har definert i `typeDefs.ts`. Disse testes da live mot databasen slik at man kan forsikre seg om de fungerer etter hensikten sin. Vi har testet alle de ulike spørringene og mutasjonene, men vi føler det er lite hensiktsmessig å dokumentere alle disse. Derfor dokumenterer vi noen av de. Dette blant noen av spørringene vi har testet:
 
 **1. Hente bil basert på merke og modell**
+
 ```
 query Car($company: String!, $model: String!) {
   car(company: $company, model: $model) {
@@ -118,14 +116,18 @@ query Car($company: String!, $model: String!) {
   }
 }
 ```
+
 variabler:
+
 ```
 {
   "company": "Ferrari",
   "model": "Roma"
 }
 ```
+
 resultat:
+
 ```
 {
   "data": {
@@ -138,7 +140,9 @@ resultat:
   }
 }
 ```
+
 **2. Hente alle vurderinger som en bruker har lagt til**
+
 ```
 query UserReviews($userId: Int!) {
   userReviews(userID: $userId) {
@@ -151,13 +155,17 @@ query UserReviews($userId: Int!) {
   }
 }
 ```
+
 variabler:
+
 ```
 {
   "userId": 4
 }
 ```
+
 resultat:
+
 ```
 {
   "data": {
@@ -182,7 +190,9 @@ resultat:
   }
 }
 ```
+
 **3. Legge til en favorittbil**
+
 ```
 mutation AddFavorite($userId: Int!, $car: ID!) {
   addFavorite(userID: $userId, car: $car) {
@@ -194,14 +204,18 @@ mutation AddFavorite($userId: Int!, $car: ID!) {
   }
 }
 ```
+
 variabler:
+
 ```
 {
   "userId": 4,
   "car": "6535729549c5199c143a1088"
 }
 ```
+
 resultat:
+
 ```
 {
   "data": {
@@ -215,7 +229,9 @@ resultat:
   }
 }
 ```
+
 **4. Legge til vurdering på bil**
+
 ```
 mutation AddReview($userId: Int!, $car: ID!, $rating: Int!, $review: String!, $username: String!) {
   addReview(userID: $userId, car: $car, rating: $rating, review: $review, username: $username) {
@@ -229,7 +245,9 @@ mutation AddReview($userId: Int!, $car: ID!, $rating: Int!, $review: String!, $u
   }
 }
 ```
+
 variabler:
+
 ```
 {
   "userId": 4,
@@ -239,7 +257,9 @@ variabler:
   "username": "OJ"
 }
 ```
+
 resultat:
+
 ```
 {
   "data": {
@@ -255,4 +275,3 @@ resultat:
   }
 }
 ```
-

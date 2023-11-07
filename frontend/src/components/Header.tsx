@@ -3,11 +3,13 @@ import { NavLink } from 'react-router-dom';
 import '../assets/Header.css';
 
 const Header = () => {
-  const [page, setPage] = useState('home');
+  const currentPage = sessionStorage.getItem('currentPage');
+  const [page, setPage] = useState(currentPage ? currentPage : 'home');
   const [isChecked, setIsChecked] = useState(false);
 
   function handlePage(page: string) {
     setPage(page);
+    sessionStorage.setItem('currentPage', page);
     setIsChecked(false);
   }
 
@@ -44,8 +46,8 @@ const Header = () => {
         <div className="link-flex">
           <NavLink
             to="/project2/filtercars"
-            className={page === 'browse' ? 'normal' : 'normal grey-text'}
-            onClick={() => handlePage('browse')}
+            className={page === 'filter' ? 'normal' : 'normal grey-text'}
+            onClick={() => handlePage('filter')}
           >
             <h1>Browse cars</h1>
           </NavLink>

@@ -3,7 +3,7 @@ import { CircularProgress } from '@mui/material';
 import Heart from '@react-sandbox/heart';
 import { REMOVE_FAVORITE_CAR } from '../graphQL/mutations';
 import { ADD_FAVORITE_CAR } from '../graphQL/mutations';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GET_FAVORITE_CARS } from '../graphQL/queries';
 import { Favorite } from '../types/Favorite';
 import AlertPopup from './AlertPopup';
@@ -26,8 +26,15 @@ const FavoriteButton = ({ car }: { car: string }) => {
   const isCarInFavorites = favoriteCars?.favoriteCars.some(
     (favoriteCar: Favorite) => favoriteCar?.car.id === car,
   );
-
   const [activeHeart, setActiveHeart] = useState(isCarInFavorites);
+
+  useEffect(() => {
+    if (isCarInFavorites) {
+      setActiveHeart(true);
+    } else {
+      setActiveHeart(false);
+    }
+  }, [isCarInFavorites]);
 
   const [
     removeFavoriteCar,

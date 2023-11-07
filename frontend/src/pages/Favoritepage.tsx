@@ -5,6 +5,7 @@ import { GET_FAVORITE_CARS } from '../graphQL/queries';
 import { CircularProgress } from '@mui/material';
 import FavoriteButton from '../components/FavoriteButton';
 import { CarCard } from '../types/CarCard';
+import { NavLink } from 'react-router-dom';
 
 const Favoritepage = () => {
   const userID = Number(localStorage.getItem('userID'));
@@ -19,21 +20,30 @@ const Favoritepage = () => {
 
   return (
     <div>
-      <div className="car-list">
-        {data.favoriteCars.map((data: CarCard) => (
-          <div>
-            <div className="car" key={data?.car.id}>
-              <CardForCar
-                brand={data.car.company}
-                model={data.car.model}
-                carIMG={data.car.image}
-                showInfo={false}
-              />
-              <FavoriteButton car={data?.car.id} />
+      {data.favoriteCars.length > 0 ? (
+        <div className="car-list">
+          {data.favoriteCars.map((data: CarCard) => (
+            <div>
+              <div className="car" key={data?.car.id}>
+                <CardForCar
+                  brand={data.car.company}
+                  model={data.car.model}
+                  carIMG={data.car.image}
+                  showInfo={false}
+                />
+                <FavoriteButton car={data?.car.id} />
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="no-favorites">
+          <h1>You have no favorites yet!</h1>
+          <NavLink to="/project2" className="explore-link">
+            <h2>Explore cars</h2>
+          </NavLink>
+        </div>
+      )}
     </div>
   );
 };
