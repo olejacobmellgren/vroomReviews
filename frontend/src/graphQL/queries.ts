@@ -108,3 +108,12 @@ export const GET_USER_COUNT = gql`
     users
   }
 `;
+
+export const GET_COMPANIES = gql`
+  query GetCompanies {
+    companies {
+      name
+      logo
+    }
+  }
+`;

@@ -38,6 +38,12 @@ export const typeDefs = buildSchema(`
     userID: Int!
   }
 
+  type Company {
+    id: ID!
+    name: String!
+    logo: String!
+  }
+
   input carsFilters {
     company: String
     year: Int
@@ -63,6 +69,7 @@ export const typeDefs = buildSchema(`
     userReviews(userID: Int!): [Review]
     userReviewForCar(userID: Int!, car: ID!): Review
     users: Int
+    companies: [Company]
   }
 
   type Mutation {
