@@ -2,16 +2,22 @@ import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import '../assets/ScrollingMenu.css';
 import CardForCar from '../components/CardForCar';
 import { LeftArrow, RightArrow } from './Arrows';
-import cars from '../data/cars.json';
+import { useQuery } from '@apollo/client';
+import { GET_CARS_BY_COMPANY } from '../graphQL/queries';
+import { CircularProgress } from '@mui/material';
+import { Car } from '../types/Car';
 
-type CarInfo = {
-  id: number;
+interface props {
   brand: string;
-  model: string;
-  image: string;
-};
+}
 
-const ScrollingMenu = () => {
+const ScrollingMenu: React.FC<props> = ({ brand }) => {
+  const { loading, error, data } = useQuery(GET_CARS_BY_COMPANY, {
+    variables: { company: brand },
+  });
+  if (loading) return <CircularProgress />;
+  if (error) console.log(error);
+
   return (
     <div>
       <ScrollMenu
@@ -21,17 +27,18 @@ const ScrollingMenu = () => {
         transitionBehavior={'smooth'}
         transitionEase={(t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t)}
       >
-        {(cars as CarInfo[]).map((car) => (
-          <div className="car" key={car.id}>
-            <CardForCar
-              id={car.id.toString()}
-              brand={null}
-              model={null}
-              carIMG={car.image}
-              showInfo={true}
-            />
-          </div>
-        ))}
+        <div className="scrollingMenu">
+          {data.carsByCompany.map((data: Car) => (
+            <div className="car" key={data?.id}>
+              <CardForCar
+                brand={data.company}
+                model={data.model}
+                carIMG={data.image}
+                showInfo={false}
+              />
+            </div>
+          ))}
+        </div>
       </ScrollMenu>
     </div>
   );

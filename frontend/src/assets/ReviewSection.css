@@ -1,20 +1,13 @@
-.reviewButton {
-  margin-top: 1.25rem;
-  width: 12rem;
-  height: 3rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 0.75rem;
+.button {
   background-color: #ffffff;
-  box-shadow:
-    0 1px 3px 0 rgb(0 0 0 / 0.1),
-    0 1px 2px -1px rgb(0 0 0 / 0.1);
-}
-
-.reviewButton:hover {
-  box-shadow:
-    0 10px 15px -3px rgb(0 0 0 / 0.1),
-    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  border: 1px solid transparent;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  font-size: 2vh;
+  border-radius: 1vh;
+  padding: 1.5vh 2.5vh;
+  color: #54595e;
   cursor: pointer;
+  margin: 1rem 0rem;
 }
 
 .popup {
@@ -35,7 +28,7 @@
   position: relative;
   border-radius: 0.5rem;
   padding: 2rem;
-  height: 18rem;
+  height: 21rem;
   width: 50%;
   background-color: #f6f9ff;
 }
@@ -44,31 +37,29 @@
   padding: 0.75rem;
   margin-top: 1rem;
   border-radius: 0.5rem;
-  background-color: #ffffff;
-  box-shadow:
-    0 1px 3px 0 rgb(0 0 0 / 0.1),
-    0 1px 2px -1px rgb(0 0 0 / 0.1);
-  align-items: center;
+  border: 1px solid #d1d5db;
   font-size: 1.125rem;
   line-height: 1.75rem;
+}
+
+.text {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: #54595e;
 }
 
 .review-buttons {
   display: flex;
 }
 
-.submit {
-  margin-right: 2rem;
-}
-
-.delete {
-  background-color: #ff0000;
+.reviews {
+  margin-top: 3rem;
 }
 
 .current-user-review {
   display: flex;
   gap: 2rem;
-  margin-top: 1rem;
+  margin: 2rem 0;
   border-top: 0.2rem solid grey;
   padding-top: 1rem;
 }
@@ -79,7 +70,7 @@
   padding-top: 1rem;
 }
 
-.edit {
+.delete-review {
   font-size: medium;
   color: #dd7973;
   cursor: pointer;

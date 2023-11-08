@@ -1,10 +1,16 @@
-.car-rating-container {
-  display: flex;
-  flex-direction: column;
+.review-container {
+  display: grid;
   justify-content: center;
 }
 
-.star-rating {
+.no-reviews {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40vh;
+}
+
+.explore-link {
+  color: red;
+  text-decoration-color: red;
 }

@@ -16,6 +16,12 @@
   margin-left: 25px;
 }
 
+.scrollingMenu {
+  display: flex;
+  overflow: auto;
+  padding: 0;
+}
+
 .left-arrow-wrapper {
   background: linear-gradient(
     90deg,

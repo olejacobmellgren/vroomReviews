@@ -1,70 +1,114 @@
 import { useParams } from 'react-router-dom';
-import cars from '../data/cars.json';
-import allreviews from '../data/reviews.json';
 import { StarRating } from 'star-rating-react-ts';
 import ReviewSection from '../components/ReviewSection';
-import Heart from '@react-sandbox/heart';
+import FavoriteButton from '../components/FavoriteButton';
 import '../assets/Carpage.css';
-import { useState } from 'react';
+import { CircularProgress } from '@mui/material';
+import { useQuery } from '@apollo/client';
+import {
+  GET_CAR,
+  GET_USER_REVIEW_FOR_CAR,
+  GET_CAR_REVIEWS,
+} from '../graphQL/queries';
 
 const Carpage = () => {
   const { id } = useParams();
-  const carID = typeof id === 'string' ? id : '';
-  const car = cars.find((car) => car?.id.toString() === carID);
-  const reviews = allreviews.filter(
-    (review) => review?.carID.toString() === carID,
-  );
-  const userReview = reviews.find((review) => review?.userID === '1');
+  const car = typeof id === 'string' ? id : '';
+  const company = car?.split('-')[0];
+  const model = car?.split('-')[1];
+  const userID = Number(localStorage.getItem('userID'));
 
-  const [activeHeart, setActiveHeart] = useState(
-    userReview?.isFavorite || false,
-  );
+  const {
+    loading: carLoading,
+    error: carError,
+    data: carData,
+  } = useQuery(GET_CAR, {
+    variables: {
+      company: company,
+      model: model,
+    },
+  });
+
+  const carID = carData?.car.id;
+
+  const {
+    loading: reviewsLoading,
+    error: reviewsError,
+    data: reviewsData,
+  } = useQuery(GET_CAR_REVIEWS, {
+    variables: {
+      car: carID,
+    },
+  });
+
+  const {
+    loading: userReviewLoading,
+    error: userReviewError,
+    data: userReviewData,
+  } = useQuery(GET_USER_REVIEW_FOR_CAR, {
+    variables: {
+      userID: userID,
+      car: carID,
+    },
+  });
+
+  if (carLoading || reviewsLoading || userReviewLoading)
+    return <CircularProgress />;
+  if (carError || reviewsError || userReviewError)
+    console.log(carError, reviewsError, userReviewError);
 
   return (
     <div className="carpage-container">
       <div className="top-section">
-        <img className="carpage-image" src={car?.image} alt={car?.image} />
+        <img
+          className="carpage-image"
+          src={carData?.car?.image}
+          alt={carData?.car?.image}
+        />
         <div>
           <p className="title">
-            {car?.brand} {car?.model}
+            {carData?.car?.company} {carData?.car?.model}
           </p>
-          <p className="year">{car?.year}</p>
+          <p className="year">{carData?.car?.year}</p>
           <div className="rating">
-            {car && <StarRating readOnly={true} initialRating={car?.rating} />}
+            {carData && (
+              <StarRating
+                readOnly={true}
+                initialRating={carData?.car?.rating}
+              />
+            )}
             <div className="amount-rating">
-              <p>{car?.rating} / 5 </p> <p>|</p>
-              <p> {reviews.length} ratings</p>
+              <p>{carData?.car?.rating} / 5 </p> <p>|</p>
+              <p> {reviewsData.carReviews.length} ratings</p>
             </div>
           </div>
-
-          <div className="heart-info-container">
-            <Heart
-              width={100}
-              className="heart"
-              height={100}
-              inactiveColor="#fff"
-              active={activeHeart}
-              onClick={() => setActiveHeart(!activeHeart)}
-            />
-          </div>
+          <FavoriteButton car={carID} />
         </div>
       </div>
       <div className="info">
         <div className="info-container">
-          <p className="info-text">Price: {car?.price}</p>
-          <p className="info-text">Drivetrain: {car?.drivetrain}</p>
+          <p className="info-text">Price: {carData?.car?.price}</p>
+          <p className="info-text">Drivetrain: {carData?.car?.drivetrain}</p>
         </div>
         <div className="info-container">
-          <p className="info-text">Type: {car?.carBody}</p>
-          <p className="info-text">Horsepower: {car?.horsepower}</p>
+          <p className="info-text">Type: {carData?.car?.carBody}</p>
+          <p className="info-text">Horsepower: {carData?.car?.horsepower}</p>
         </div>
         <div className="info-container">
-          <p className="info-text">Number of doors: {car?.numOfDoors}</p>
-          <p className="info-text">Type of engine: {car?.engineType}</p>
+          <p className="info-text">
+            Number of doors: {carData?.car?.numOfDoors}
+          </p>
+          <p className="info-text">
+            Type of engine: {carData?.car?.engineType}
+          </p>
         </div>
       </div>
       <div>
-        <ReviewSection userReview={userReview} reviews={reviews} />
+        <ReviewSection
+          userReview={userReviewData.userReviewForCar}
+          reviews={reviewsData.carReviews}
+          carID={carID}
+        />
       </div>
     </div>
   );

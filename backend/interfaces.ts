@@ -23,10 +23,12 @@ export interface carsArgs {
   filters: carsFilters;
   offset: number;
   orderBy: orderByArg;
+  searchTerm: string;
+  limit: number;
 }
 
 export interface userAndCarArgs {
-  userID: string;
+  userID: number;
   car: string;
 }
 

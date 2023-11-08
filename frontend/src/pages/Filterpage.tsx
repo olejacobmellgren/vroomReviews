@@ -1,45 +1,77 @@
 import DropdownMenu from '../components/DropdownMenu';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
-import cars from '../data/cars.json';
-import { Link } from 'react-router-dom';
-
-type CarInfo = {
-  id: number;
-  brand: string;
-  model: string;
-  image: string;
-  horsepower: string;
-  torque: string;
-  transmissionType: string;
-  drivetrain: string;
-  fuelEconomy: string;
-  numOfDoors: number;
-  price: string;
-  year: number;
-  carBody: string;
-  engineType: string;
-  numOfCylinders: number;
-  rating: number;
-};
+import { GET_CARS } from '../graphQL/queries';
+import { useLazyQuery } from '@apollo/client';
+import { CarCard } from '../types/CarCard';
 
 const Filterpage = () => {
   const filters = [
     {
       name: 'Brand',
-      options: ['Ferrari', 'Hyundai', 'Toyota', 'BMW', 'Audi', 'Volvo', 'All'],
+      options: [
+        'Ferrari',
+        'Lamborghini',
+        'Toyota',
+        'BMW',
+        'Audi',
+        'Volvo',
+        'Koenigsegg',
+        'Ford',
+        'Nissan',
+        'Porsche',
+        'Honda',
+        'Tesla',
+        'All',
+      ],
     },
-    { name: 'Year', options: ['2023', '2022', '2021', '2020', '2019', 'All'] },
-    { name: 'Body', options: ['Coupe', 'SUV', 'Sedan', 'All'] },
-    { name: 'Sort by', options: ['Reviews', 'Rating', 'All'] },
+    {
+      name: 'Year',
+      options: [
+        '2023',
+        '2022',
+        '2021',
+        '2020',
+        '2019',
+        '2018',
+        '2017',
+        '2016',
+        'All',
+      ],
+    },
+    {
+      name: 'Body',
+      options: [
+        'Coupe',
+        'SUV',
+        'Sedan',
+        'Convertible',
+        'Hatchback',
+        'Truck',
+        'Wagon',
+        'Sports car',
+        'Minivan',
+        'All',
+      ],
+    },
+    {
+      name: 'Sort by',
+      options: [
+        'Years, asc',
+        'Years, desc',
+        'Rating, asc',
+        'Rating, desc',
+        'All',
+      ],
+    },
   ];
 
   const [selectedFilters, setSelectedFilters] = useState({
-    Brand: 'All',
-    Year: 'All',
-    Body: 'All',
-    SortBy: 'All',
+    Brand: sessionStorage.getItem('Brand') || 'All',
+    Year: sessionStorage.getItem('Year') || 'All',
+    Body: sessionStorage.getItem('Body') || 'All',
+    SortBy: sessionStorage.getItem('Sort by') || 'All',
   });
 
   // initialize each dropdownMenu to be false, meaning options are not shown
@@ -47,19 +79,76 @@ const Filterpage = () => {
     filters.map(() => false),
   );
 
-  const [showSearchresults, setShowSearchresults] = useState(false);
-
   const [visibleCars, setVisibleCars] = useState(12);
 
-  const handleViewMore = () => {
-    setVisibleCars((prevVisibleCars) => prevVisibleCars + 12);
-  };
+  const [shownCars, setShownCars] = useState<CarCard['car'][]>([]);
 
-  const handleFilterChange = (filterName: string, selectedValue: string) => {
+  const [loadMoreCars, { data }] = useLazyQuery(GET_CARS);
+
+  const [searchTerm, setSearchTerm] = useState(
+    sessionStorage.getItem('searchTerm') || '',
+  );
+
+  const [limit, setLimit] = useState(
+    parseInt(sessionStorage.getItem('visibleCars') || '12'),
+  );
+
+  useEffect(() => {
+    loadMoreCars({
+      variables: {
+        filters: {
+          company:
+            selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
+          year:
+            selectedFilters.Year !== 'All'
+              ? parseInt(selectedFilters.Year)
+              : null,
+          carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
+        },
+        offset: visibleCars - 12,
+        orderBy: {
+          year: !selectedFilters.SortBy.includes('Years')
+            ? null
+            : selectedFilters.SortBy.includes('asc')
+            ? 'asc'
+            : 'desc',
+          rating: !selectedFilters.SortBy.includes('Rating')
+            ? null
+            : selectedFilters.SortBy.includes('asc')
+            ? 'asc'
+            : 'desc',
+        },
+        searchTerm: searchTerm,
+        limit: limit,
+      },
+    });
+  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm, limit]);
+
+  useEffect(() => {
+    if (data?.cars) {
+      setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars));
+    }
+  }, [data]);
+
+  useEffect(() => {
+    sessionStorage.setItem('searchTerm', searchTerm);
+  }, [searchTerm]);
+
+  const handleFilterChange = (
+    filterName: string,
+    selectedValue: string,
+    initialLoad: boolean,
+  ) => {
     setSelectedFilters((prevSelectedFilters) => ({
       ...prevSelectedFilters,
-      [filterName]: selectedValue,
+      [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
     }));
+    if (!initialLoad) {
+      setShownCars([]);
+      setVisibleCars(12);
+      setLimit(12);
+      sessionStorage.setItem('visibleCars', '12');
+    }
   };
 
   // display dropdown for dropdownMenu clicked. The rest is set to false, meaning they are closed.
@@ -70,38 +159,31 @@ const Filterpage = () => {
     );
   };
 
-  const applyFilters = (cars: CarInfo[]) => {
-    return cars.filter((car) => {
-      return filters.every((filter) => {
-        if (filter.name === 'Brand' && selectedFilters.Brand !== 'All') {
-          return car.brand === selectedFilters.Brand;
-        }
-        if (filter.name === 'Year' && selectedFilters.Year !== 'All') {
-          return car.year.toString() === selectedFilters.Year;
-        }
-        if (filter.name === 'Body' && selectedFilters.Body !== 'All') {
-          return car.carBody === selectedFilters.Body;
-        }
-        return true;
-      });
-    });
-  };
+  let typingTimer: NodeJS.Timeout;
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+      const value = e.target.value;
+      setShownCars([]);
+      setVisibleCars(12);
+      setLimit(12);
+      sessionStorage.setItem('visibleCars', '12');
+      setSearchTerm(value);
+    }, 250);
+  };
+
+  const handleFocus = () => {
     if (dropdownVisibility.includes(true)) {
       setDropdownVisibility(dropdownVisibility.map(() => false));
     }
-
-    if (value.length > 0) {
-      setShowSearchresults(true);
-    } else {
-      setShowSearchresults(false);
-    }
   };
 
-  const handleBlur = () => {
-    setShowSearchresults(false);
+  const handleViewMore = () => {
+    setVisibleCars((prevVisibleCars) => prevVisibleCars + limit);
+    const newVisibleCars = limit + visibleCars;
+    sessionStorage.setItem('visibleCars', newVisibleCars.toString());
+    setLimit(12);
   };
 
   return (
@@ -113,23 +195,10 @@ const Filterpage = () => {
               type="text"
               className="searchBar-input"
               placeholder="Search for car"
+              defaultValue={searchTerm}
               onChange={handleSearchChange}
-              onFocus={handleSearchChange}
-              onBlur={handleBlur}
+              onFocus={handleFocus}
             />
-          </div>
-          <div
-            className={`searchResults ${
-              showSearchresults ? 'active' : 'closed'
-            }`}
-          >
-            {cars.slice(4, 7).map((car) => (
-              <Link to={`/project2/carpage/${car.id}`}>
-                <button className="buttonInsideSearchResults">
-                  {car.brand} {car.model}
-                </button>
-              </Link>
-            ))}
           </div>
         </div>
       </div>
@@ -141,28 +210,27 @@ const Filterpage = () => {
               options={filter.options}
               isOpen={dropdownVisibility[index]}
               toggleDropdown={() => toggleDropdown(index)}
-              onSelect={(value) => handleFilterChange(filter.name, value)}
+              onSelect={(value, initialLoad) =>
+                handleFilterChange(filter.name, value, initialLoad)
+              }
             />
           </div>
         ))}
       </div>
       <div className="car-list">
-        {applyFilters(cars as CarInfo[])
-          .slice(0, visibleCars)
-          .map((car) => (
-            <div className="car" key={car.id}>
-              <CardForCar
-                id={car.id.toString()}
-                brand={car.brand}
-                model={car.model}
-                carIMG={car.image}
-                showInfo={true}
-              />
-            </div>
-          ))}
+        {shownCars.map((car) => (
+          <div className="car" key={car.company + '-' + car.model}>
+            <CardForCar
+              brand={car.company}
+              model={car.model}
+              carIMG={car.image}
+              showInfo={true}
+            />
+          </div>
+        ))}
       </div>
       <div className="view-more-button">
-        {visibleCars < applyFilters(cars as CarInfo[]).length ? (
+        {data?.cars.length >= 12 ? (
           <button onClick={handleViewMore}>View more</button>
         ) : null}
       </div>

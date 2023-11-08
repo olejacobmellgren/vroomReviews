@@ -6,7 +6,7 @@ type DropdownProps = {
   options: string[];
   isOpen: boolean;
   toggleDropdown: () => void;
-  onSelect: (option: string) => void;
+  onSelect: (option: string, initialLoad: boolean) => void;
 };
 
 type ButtonProps = {
@@ -15,10 +15,13 @@ type ButtonProps = {
 };
 
 function ButtonInside({ name, onClick }: ButtonProps) {
+  const [isAll] = useState(name == 'All');
   return (
-    <button className="dropdownButtonInside" onClick={onClick}>
-      {name}
-    </button>
+    <div className="dropdownButtonInsideWrapper">
+      <button className="dropdownButtonInside" onClick={onClick}>
+        <span style={{ color: isAll ? '#00CC00' : '' }}>{name}</span>
+      </button>
+    </div>
   );
 }
 
@@ -30,19 +33,40 @@ function DropdownMenu({
   onSelect,
 }: DropdownProps) {
   const [checkedOption, setCheckedOption] = useState(filter);
+  const [initialLoad, setInitialLoad] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem(filter, checkedOption);
-  }, [filter, checkedOption]);
+    if (initialLoad) {
+      const storedFilterOption = sessionStorage.getItem(filter);
+      if (storedFilterOption !== null) {
+        if (storedFilterOption !== 'All') {
+          setCheckedOption(storedFilterOption);
+          onSelect(storedFilterOption, true);
+        } else {
+          setCheckedOption(filter);
+          onSelect(storedFilterOption, true);
+        }
+      }
+      setInitialLoad(false);
+    } else {
+      if (checkedOption == filter) {
+        sessionStorage.setItem(filter, 'All');
+      } else {
+        sessionStorage.setItem(filter, checkedOption);
+      }
+    }
+  }, [onSelect, checkedOption, filter, initialLoad]);
 
   const handleOptionClick = (option: string) => {
-    if (option === 'All') {
-      setCheckedOption(filter);
-    } else {
-      setCheckedOption(option);
-    }
+    if (option !== checkedOption) {
+      if (option === 'All') {
+        setCheckedOption(filter);
+      } else {
+        setCheckedOption(option);
+      }
 
-    onSelect(option);
+      onSelect(option, false);
+    }
     toggleDropdown();
   };
 

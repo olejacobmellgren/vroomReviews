@@ -15,7 +15,7 @@ export const typeDefs = buildSchema(`
       carBody: String!
       engineType: String!
       numOfCylinders: String!
-      rating: Int!
+      rating: Float!
   }
 
   type Favorite {
@@ -38,6 +38,12 @@ export const typeDefs = buildSchema(`
     userID: Int!
   }
 
+  type Company {
+    id: ID!
+    name: String!
+    logo: String!
+  }
+
   input carsFilters {
     company: String
     year: Int
@@ -57,11 +63,13 @@ export const typeDefs = buildSchema(`
   type Query {
     car(company: String!, model: String!): Car
     carsByCompany(company: String!): [Car]
-    cars(filters: carsFilters, offset: Int, orderBy: orderByArg): [Car]
+    cars(filters: carsFilters, offset: Int, orderBy: orderByArg, searchTerm: String, limit: Int): [Car]
     favoriteCars(userID: Int!): [Favorite]
     carReviews(car: ID!): [Review]
     userReviews(userID: Int!): [Review]
+    userReviewForCar(userID: Int!, car: ID!): Review
     users: Int
+    companies: [Company]
   }
 
   type Mutation {
