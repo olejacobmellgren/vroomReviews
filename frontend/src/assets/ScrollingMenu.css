@@ -16,10 +16,87 @@
   margin-left: 25px;
 }
 
-.scrollingMenu {
+.left-arrow-wrapper {
+  background: linear-gradient(
+    90deg,  rgba(32, 32, 32, 1) 0%,
+    rgba(32, 32, 32, 0.8) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  width: 175px;
+  height: 225px;
   display: flex;
-  overflow: auto;
-  padding: 0;
+  align-items: center;
+  justify-content: start;
+}
+
+.right-arrow-wrapper {
+  background: linear-gradient(
+    -90deg,
+    rgba(32, 32, 32, 1) 0%,
+    rgba(32, 32, 32, 0.8) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  width: 175px;
+  height: 225px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.arrow-button {
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.arrow {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.left {
+  transform: rotate(90deg);
+}
+
+.right {
+  transform: rotate(-90deg);
+}
+
+.arrow span {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-bottom: 5px solid rgba(255, 13, 0, 0.5);
+  border-right: 5px solid rgba(255, 13, 0, 0.5);
+  transform: rotate(45deg);
+  margin: -10px;
+  animation: animate 4s infinite;
+}
+
+.arrow span:nth-child(2) {
+  animation-delay: -0.2s;
+}
+
+.arrow span:nth-child(3) {
+  animation-delay: -0.4s;
+}
+
+@keyframes animate {
+  0% {
+    opacity: 0;
+    transform: rotate(45deg) translate(-20px, -20px);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(45deg) translate(20px, 20px);
+  }
 }
 
 /* Set the scrollbar size and background for Chrome, Safari, and Edge */
@@ -38,7 +115,7 @@
 ::-webkit-scrollbar-thumb {
   background-color: rgba(
     255,
-    0,
+    13,
     0,
     0.5
   ); /* Change this to your desired thumb color */
@@ -50,4 +127,53 @@
 /* Set the color of the scrollbar for Firefox */
 body {
   scrollbar-color: rgba(255, 0, 0, 0.2) rgba(0, 0, 0, 0); /* thumb and track color */
+}
+
+/* Vite is overwriting the CSS, so I'm adding it here */
+.react-horizontal-scrolling-menu--scroll-container {
+  display: flex;
+  height: max-content;
+  overflow-y: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.react-horizontal-scrolling-menu--scroll-container.rtl {
+  direction: rtl;
+}
+
+.react-horizontal-scrolling-menu--inner-wrapper {
+  display: flex;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+.react-horizontal-scrolling-menu--wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.react-horizontal-scrolling-menu--footer,
+.react-horizontal-scrolling-menu--header {
+  width: 100%;
+}
+
+.react-horizontal-scrolling-menu--arrow-left {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  left: 0;
+}
+
+.react-horizontal-scrolling-menu--arrow-right {
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  display: flex;
+}
+
+@media screen and (max-width: 1000px) {
+  .conteiner {
+    padding: 50px 0;
+  }
 }
