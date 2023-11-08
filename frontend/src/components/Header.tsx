@@ -3,16 +3,19 @@ import { NavLink } from 'react-router-dom';
 import '../assets/Header.css';
 
 const Header = () => {
+  // Get the current page from sessionStorage, if it exists, needed to set the correct page as active when reloading the page
   const currentPage = sessionStorage.getItem('currentPage');
   const [page, setPage] = useState(currentPage ? currentPage : 'home');
   const [isChecked, setIsChecked] = useState(false);
 
+  // Set page to the page that was selected, and store it in sessionStorage to be able to access it when reloading the page
   function handlePage(page: string) {
     setPage(page);
     sessionStorage.setItem('currentPage', page);
     setIsChecked(false);
   }
 
+  // Toggle the burger menu for mobile
   function toggleCheckbox() {
     setIsChecked(!isChecked);
   }

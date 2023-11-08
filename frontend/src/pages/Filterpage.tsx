@@ -74,7 +74,7 @@ const Filterpage = () => {
     SortBy: sessionStorage.getItem('Sort by') || 'All',
   });
 
-  // initialize each dropdownMenu to be false, meaning options are not shown
+  // Initialize each dropdownMenu to be false, meaning options are not shown
   const [dropdownVisibility, setDropdownVisibility] = useState(
     filters.map(() => false),
   );
@@ -83,8 +83,11 @@ const Filterpage = () => {
 
   const [shownCars, setShownCars] = useState<CarCard['car'][]>([]);
 
+  // Get cars using lazy query to dynamically fetch cars
   const [loadMoreCars, { data }] = useLazyQuery(GET_CARS);
 
+  // Get search term from sessionStorage, if there is one
+  // Makes sure that the search term is not lost when navigating back to the filter page
   const [searchTerm, setSearchTerm] = useState(
     sessionStorage.getItem('searchTerm') || '',
   );
@@ -93,6 +96,7 @@ const Filterpage = () => {
     parseInt(sessionStorage.getItem('visibleCars') || '12'),
   );
 
+  // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
   useEffect(() => {
     loadMoreCars({
       variables: {
@@ -124,16 +128,19 @@ const Filterpage = () => {
     });
   }, [loadMoreCars, visibleCars, selectedFilters, searchTerm, limit]);
 
+  // Add cars to shownCars when data is fetched
   useEffect(() => {
     if (data?.cars) {
       setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars));
     }
   }, [data]);
 
+  // Set search term in sessionStorage when it changes
   useEffect(() => {
     sessionStorage.setItem('searchTerm', searchTerm);
   }, [searchTerm]);
 
+  // Set selected filters and if not initial load, reset shownCars and amount of visibleCars
   const handleFilterChange = (
     filterName: string,
     selectedValue: string,
@@ -151,7 +158,7 @@ const Filterpage = () => {
     }
   };
 
-  // display dropdown for dropdownMenu clicked. The rest is set to false, meaning they are closed.
+  // Display dropdown for dropdownMenu clicked. The rest is set to false, meaning they are closed.
   // This ensures that only 1 dropdown can be open at a time.
   const toggleDropdown = (index: number) => {
     setDropdownVisibility(
@@ -161,6 +168,7 @@ const Filterpage = () => {
 
   let typingTimer: NodeJS.Timeout;
 
+  // Set search term when user types in search bar only after 250ms, to avoid unnecessary calls to the backend
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     clearTimeout(typingTimer);
     typingTimer = setTimeout(() => {
@@ -173,12 +181,14 @@ const Filterpage = () => {
     }, 250);
   };
 
+  // Close dropdowns when user clicks outside of them
   const handleFocus = () => {
     if (dropdownVisibility.includes(true)) {
       setDropdownVisibility(dropdownVisibility.map(() => false));
     }
   };
 
+  // Load more cars when user clicks "View more"
   const handleViewMore = () => {
     setVisibleCars((prevVisibleCars) => prevVisibleCars + limit);
     const newVisibleCars = limit + visibleCars;

@@ -20,10 +20,11 @@ function App() {
   if (loading) return <Spinner color="red.500" size="xl" />;
   if (error) console.log(error);
 
+  // Add userID to local storage if it doesn't exist
   if (!userID) {
     addUser({
       variables: {
-        userID: data.users + 1,
+        userID: data.userCount + 1,
       },
     })
       .then((res) => {
@@ -32,7 +33,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-    localStorage.setItem('userID', data.users + 1);
+    localStorage.setItem('userID', data.userCount + 1);
   }
 
   return (

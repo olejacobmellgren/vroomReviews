@@ -1,3 +1,6 @@
+
+// Interfaces for the GraphQL resolvers
+
 export interface carArgs {
   company: string;
   model: string;

@@ -8,12 +8,15 @@ import { carArgs, carsArgs, userAndCarArgs, addReviewArgs } from './interfaces';
 
 export const resolvers = {
   Query: {
+    // Return a single car based on company and model
     car: async (_: any, { company, model }: carArgs) => {
       return await Car.findOne({ company: company, model: model });
     },
+    // Return all cars from a single company
     carsByCompany: async (_: any, { company }: { company: string }) => {
       return await Car.find({ company: company });
     },
+    // Return all cars fulfilling the given filters
     cars: async (_: any, args: carsArgs) => {
       const { filters, offset, orderBy, searchTerm, limit } = args;
 
@@ -91,19 +94,23 @@ export const resolvers = {
         .skip(offset);
       return result;
     },
+    // Return all cars favorited by a single user, populate() is used to get the car data
     favoriteCars: async (_: any, { userID }: { userID: number }) => {
       return await Favorite.find({ userID: userID }).populate('car');
     },
+    // Return all reviews for a single car
     carReviews: async (_: any, { car }: { car: string }) => {
       return await Review.find({ car: car }).populate('car');
     },
+    // Return all reviews by a single user
     userReviews: async (_: any, { userID }: { userID: number }) => {
       return await Review.find({ userID: userID }).populate('car');
     },
+    // Return a review by a single user for a car
     userReviewForCar: async (_: any, { userID, car }: userAndCarArgs) => {
       return await Review.findOne({ userID: userID, car: car }).populate('car');
     },
-    users: async () => {
+    userCount: async () => {
       return await User.countDocuments();
     },
     companies: async () => {

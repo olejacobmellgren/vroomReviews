@@ -1,5 +1,6 @@
 import { buildSchema } from 'graphql';
 
+// GraphQL schema with type definitions, queries, and mutations
 export const typeDefs = buildSchema(`
   type Car {
       id: ID!
@@ -68,7 +69,7 @@ export const typeDefs = buildSchema(`
     carReviews(car: ID!): [Review]
     userReviews(userID: Int!): [Review]
     userReviewForCar(userID: Int!, car: ID!): Review
-    users: Int
+    userCount: Int
     companies: [Company]
   }
 

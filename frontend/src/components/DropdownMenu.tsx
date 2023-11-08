@@ -35,6 +35,7 @@ function DropdownMenu({
   const [checkedOption, setCheckedOption] = useState(filter);
   const [initialLoad, setInitialLoad] = useState(true);
 
+  // Set checked option to the option that was selected last time, if there is one, otherwise set it to "All"
   useEffect(() => {
     if (initialLoad) {
       const storedFilterOption = sessionStorage.getItem(filter);
@@ -57,6 +58,7 @@ function DropdownMenu({
     }
   }, [onSelect, checkedOption, filter, initialLoad]);
 
+  // Set checked option to the selected option and close the dropdown
   const handleOptionClick = (option: string) => {
     if (option !== checkedOption) {
       if (option === 'All') {
@@ -83,7 +85,7 @@ function DropdownMenu({
       <div className={`dropdown ${isOpen ? 'active' : 'closed'}`}>
         {options.map((option) => {
           if (option !== 'All' || checkedOption !== filter) {
-            // only show option "All" when the user has applied a filter
+            // Only show option "All" when the user has applied a filter
             return (
               <ButtonInside
                 key={option}

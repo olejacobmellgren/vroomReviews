@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// Mongoose schema for a company
 const companySchema = new mongoose.Schema({
   _id: { type: mongoose.Types.ObjectId },
   name: { type: String },

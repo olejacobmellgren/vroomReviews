@@ -23,11 +23,13 @@ const FavoriteButton = ({ car }: { car: string }) => {
     },
   });
 
+  // Check if car is in favorites
   const isCarInFavorites = favoriteCars?.favoriteCars.some(
     (favoriteCar: Favorite) => favoriteCar?.car.id === car,
   );
   const [activeHeart, setActiveHeart] = useState(isCarInFavorites);
 
+  // Set activeHeart to true if car is in favorites
   useEffect(() => {
     if (isCarInFavorites) {
       setActiveHeart(true);
@@ -35,6 +37,8 @@ const FavoriteButton = ({ car }: { car: string }) => {
       setActiveHeart(false);
     }
   }, [isCarInFavorites]);
+
+  // Add or remove car from favorites, refetch queries to update cache with favorites
 
   const [
     removeFavoriteCar,
@@ -58,6 +62,7 @@ const FavoriteButton = ({ car }: { car: string }) => {
     refetchQueries: [GET_FAVORITE_CARS],
   });
 
+  // Handle favorite button click
   const handleFavorite = () => {
     if (activeHeart) {
       removeFavoriteCar();
