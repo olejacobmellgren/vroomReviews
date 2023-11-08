@@ -104,7 +104,7 @@ const ReviewSection = ({
     setAlertVisible(true);
   }
 
-  if (addLoading || removeLoading) return <CircularProgress />;
+  if (addLoading || removeLoading) return <CircularProgress color="warning" />;
   if (addError || removeError) setAlertMessage('Something went wrong!');
 
   return (

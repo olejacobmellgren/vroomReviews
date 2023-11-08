@@ -15,7 +15,7 @@ const ScrollingMenu: React.FC<props> = ({ brand }) => {
   const { loading, error, data } = useQuery(GET_CARS_BY_COMPANY, {
     variables: { company: brand },
   });
-  if (loading) return <CircularProgress />;
+  if (loading) return <CircularProgress color="warning" />;
   if (error) console.log(error);
 
   return (
@@ -28,7 +28,7 @@ const ScrollingMenu: React.FC<props> = ({ brand }) => {
         transitionEase={(t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t)}
       >
         {data.carsByCompany.map((data: Car) => (
-          <div className="car" key={data?.id}>
+          <div className="car scroll-menu-car" key={data?.id}>
             <CardForCar
               brand={data.company}
               model={data.model}

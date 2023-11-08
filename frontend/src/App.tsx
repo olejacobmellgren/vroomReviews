@@ -10,10 +10,14 @@ import Header from './components/Header';
 import { GET_USER_COUNT } from './graphQL/queries';
 import { ADD_USER } from './graphQL/mutations';
 import { Spinner } from '@chakra-ui/spinner';
+import { useState } from 'react';
 
 function App() {
   const { loading, error, data } = useQuery(GET_USER_COUNT);
   const [addUser] = useMutation(ADD_USER);
+  const currentPage = sessionStorage.getItem('currentPage');
+
+  const [page, setPage] = useState(currentPage ? currentPage : 'home');
 
   const userID = localStorage.getItem('userID');
 
@@ -39,13 +43,19 @@ function App() {
   return (
     <>
       <div className="App">
-        <Header />
+        <Header page={page} setPage={setPage} />
         <Routes>
           <Route path="/project2" element={<Homepage />} />
           <Route path="/project2/filtercars" element={<Filterpage />} />
           <Route path="/project2/carpage/:id" element={<Carpage />} />
-          <Route path="/project2/favorites" element={<Favoritepage />} />
-          <Route path="/project2/reviewedcars" element={<Reviewpage />} />
+          <Route
+            path="/project2/favorites"
+            element={<Favoritepage setPage={setPage} />}
+          />
+          <Route
+            path="/project2/reviewedcars"
+            element={<Reviewpage setPage={setPage} />}
+          />
         </Routes>
       </div>
     </>

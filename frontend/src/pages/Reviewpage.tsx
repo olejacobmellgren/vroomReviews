@@ -7,7 +7,7 @@ import { CircularProgress } from '@mui/material';
 import { CarCard } from '../types/CarCard';
 import { NavLink } from 'react-router-dom';
 
-const Reviewpage = () => {
+const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
   const userID = Number(localStorage.getItem('userID'));
 
   // Get all cars that are reviewed by user
@@ -17,8 +17,14 @@ const Reviewpage = () => {
     },
   });
 
-  if (loading) return <CircularProgress />;
+  if (loading) return <CircularProgress color="warning" />;
   if (error) console.log(error);
+
+  // Update sessionStorage so header shows the correct page
+  const handleHome = () => {
+    setPage('home');
+    sessionStorage.setItem('currentPage', 'home');
+  };
 
   return (
     <div>
@@ -48,7 +54,11 @@ const Reviewpage = () => {
       ) : (
         <div className="no-reviews">
           <h1>You have no reviews yet!</h1>
-          <NavLink to="/project2" className="explore-link">
+          <NavLink
+            to="/project2"
+            className="explore-link"
+            onClick={() => handleHome()}
+          >
             <h2>Explore cars</h2>
           </NavLink>
         </div>

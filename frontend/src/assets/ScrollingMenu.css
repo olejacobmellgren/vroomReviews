@@ -41,6 +41,7 @@
   display: flex;
   align-items: center;
   justify-content: start;
+  transition-duration: 0.5s;
 }
 
 .right-arrow-wrapper {
@@ -55,6 +56,7 @@
   display: flex;
   align-items: center;
   justify-content: end;
+  transition-duration: 0.5s;
 }
 
 .arrow-button {
@@ -208,5 +210,8 @@ body {
   .brand-logo-wrapper {
     width: 4rem;
     height: 3rem;
+  }
+  .scroll-menu-car .car-image {
+    height: 8rem;
   }
 }

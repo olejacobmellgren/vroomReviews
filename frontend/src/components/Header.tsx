@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../assets/Header.css';
 
-const Header = () => {
-  // Get the current page from sessionStorage, if it exists, needed to set the correct page as active when reloading the page
-  const currentPage = sessionStorage.getItem('currentPage');
-  const [page, setPage] = useState(currentPage ? currentPage : 'home');
+const Header = ({
+  page,
+  setPage,
+}: {
+  page: string;
+  setPage: (page: string) => void;
+}) => {
   const [isChecked, setIsChecked] = useState(false);
 
   // Set page to the page that was selected, and store it in sessionStorage to be able to access it when reloading the page
@@ -43,7 +46,7 @@ const Header = () => {
             className={page === 'home' ? 'normal' : 'normal grey-text'}
             onClick={() => handlePage('home')}
           >
-            <h1>Home</h1>
+            <h1>Explore</h1>
           </NavLink>
         </div>
         <div className="link-flex">
@@ -52,7 +55,7 @@ const Header = () => {
             className={page === 'filter' ? 'normal' : 'normal grey-text'}
             onClick={() => handlePage('filter')}
           >
-            <h1>Browse cars</h1>
+            <h1>Search</h1>
           </NavLink>
         </div>
         <div className="link-flex">
@@ -61,7 +64,7 @@ const Header = () => {
             className={page === 'favorites' ? 'normal' : 'normal grey-text'}
             onClick={() => handlePage('favorites')}
           >
-            <h1>Favorites</h1>
+            <h1>My Favorites</h1>
           </NavLink>
         </div>
         <div className="link-flex">
@@ -70,7 +73,7 @@ const Header = () => {
             className={page === 'reviews' ? 'normal' : 'normal grey-text'}
             onClick={() => handlePage('reviews')}
           >
-            <h1>Your reviews</h1>
+            <h1>My Reviews</h1>
           </NavLink>
         </div>
       </ul>
