@@ -16,6 +16,19 @@
   margin-left: 25px;
 }
 
+.brand-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5rem;
+  height: 4rem;
+}
+
+.brand-logo {
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .left-arrow-wrapper {
   background: linear-gradient(
     90deg,  rgba(32, 32, 32, 1) 0%,
@@ -172,8 +185,27 @@ body {
   display: flex;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 800px) {
+  .left-arrow-wrapper {
+    display: none;
+  }
+  .right-arrow-wrapper {
+    display: none;
+  }
   .conteiner {
-    padding: 50px 0;
+    padding: 2.5rem 0;
+  }
+  .scrollingMenuHeader {
+    margin-left: 10px;
+    font-size: 0.8rem;
+  }
+  .element {
+    width: 0.3rem;
+    height: 2.5rem;
+  }
+
+  .brand-logo-wrapper {
+    width: 4rem;
+    height: 3rem;
   }
 }
