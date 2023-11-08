@@ -34,6 +34,8 @@ const ReviewSection = ({
   const [alertVisible, setAlertVisible] = useState(false);
   const amountOfReviews = reviews.length;
 
+  // Add or remove review from database, refetch queries to update cache with reviews
+
   const [addReview, { loading: addLoading, error: addError }] = useMutation(
     ADD_REVIEW,
     {
@@ -65,6 +67,7 @@ const ReviewSection = ({
       ],
     });
 
+  // Close popup when clicking outside of it
   const closeOrOpen: MouseEventHandler<HTMLDivElement> = (e) => {
     const isClose = (e.target as HTMLElement).closest('#popup');
     if (!isClose) {
@@ -73,6 +76,7 @@ const ReviewSection = ({
     }
   };
 
+  // Set review text to text inputed and resize textarea
   const handleReviewTextChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {

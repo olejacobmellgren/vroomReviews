@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// Mongoose schema for a review
 const reviewSchema = new mongoose.Schema({
   _id: { type: mongoose.Types.ObjectId },
   rating: { type: Number },

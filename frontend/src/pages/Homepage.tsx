@@ -11,12 +11,16 @@ interface company {
 
 const Homepage = () => {
   const [visibleBrands, setVisibleBrands] = useState([0, 3]);
-  // Get all cars that are favorited by user
+
+  // Get all companies
   const { loading, error, data } = useQuery(GET_COMPANIES, {});
+
   if (loading) return <CircularProgress />;
   if (error) console.log(error);
 
   const increment = 3;
+  
+  // View next 3 brands on next page
   const viewNext = () => {
     if (data.companies.length - visibleBrands[1] > increment) {
       setVisibleBrands([
@@ -30,6 +34,8 @@ const Homepage = () => {
       ]);
     }
   };
+
+  // View previous 3 brands on previous page
   const viewPrev = () => {
     if (visibleBrands[0] > increment) {
       setVisibleBrands([

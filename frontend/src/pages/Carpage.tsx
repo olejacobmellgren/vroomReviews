@@ -18,6 +18,7 @@ const Carpage = () => {
   const model = car?.split('-')[1];
   const userID = Number(localStorage.getItem('userID'));
 
+  // Get car information for car
   const {
     loading: carLoading,
     error: carError,
@@ -31,6 +32,7 @@ const Carpage = () => {
 
   const carID = carData?.car.id;
 
+  // Get all reviews for car
   const {
     loading: reviewsLoading,
     error: reviewsError,
@@ -41,6 +43,7 @@ const Carpage = () => {
     },
   });
 
+  // Get user review for car
   const {
     loading: userReviewLoading,
     error: userReviewError,

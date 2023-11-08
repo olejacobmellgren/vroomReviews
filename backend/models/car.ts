@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// Mongoose schema for a car
 const carSchema = new mongoose.Schema({
   _id: { type: mongoose.Types.ObjectId },
   company: { type: String },

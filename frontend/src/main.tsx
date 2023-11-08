@@ -12,6 +12,7 @@ import {
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 
+// Error handling
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) =>
@@ -24,6 +25,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 const httpLink = new HttpLink({ uri: 'http://localhost:4000/graphql' });
 
+// Apollo client set up with cache and link
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: from([errorLink, httpLink]),

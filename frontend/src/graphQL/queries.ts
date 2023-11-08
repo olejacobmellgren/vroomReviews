@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 
+// All queries used in the application are defined here
+
 export const GET_CAR = gql`
   query GetCar($company: String!, $model: String!) {
     car(company: $company, model: $model) {
@@ -105,7 +107,7 @@ export const GET_USER_REVIEW_FOR_CAR = gql`
 
 export const GET_USER_COUNT = gql`
   query GetUserCount {
-    users
+    userCount
   }
 `;
 
