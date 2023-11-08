@@ -78,7 +78,7 @@ const FavoriteButton = ({ car }: { car: string }) => {
   if (favoriteError || removeFavoriteError || addFavoriteError)
     setAlertMessage('Something went wrong!');
   if (favoriteLoading || removeFavoriteLoading || addFavoriteLoading)
-    return <CircularProgress />;
+    return <CircularProgress color="warning" />;
 
   return (
     <div className="heart-info-container">

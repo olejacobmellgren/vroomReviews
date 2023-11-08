@@ -34,7 +34,10 @@ export function LeftArrow() {
   }, [isFirstItemVisible, visibleElements]);
 
   return (
-    <div className="left-arrow-wrapper">
+    <div
+      style={{ opacity: disabled ? '0' : '1' }}
+      className="left-arrow-wrapper"
+    >
       <Arrow disabled={disabled} onClick={() => scrollPrev()}>
         <div className="arrow left">
           <span></span>
@@ -62,7 +65,10 @@ export function RightArrow() {
   }, [isLastItemVisible, visibleElements]);
 
   return (
-    <div className="right-arrow-wrapper">
+    <div
+      style={{ opacity: disabled ? '0' : '1' }}
+      className="right-arrow-wrapper"
+    >
       <Arrow disabled={disabled} onClick={() => scrollNext()}>
         <div className="arrow right">
           <span></span>

@@ -10,54 +10,66 @@ interface company {
 }
 
 const Homepage = () => {
-  const [visibleBrands, setVisibleBrands] = useState([0, 3]);
-
+  const increment = 3;
+  const [visibleBrands, setVisibleBrands] = useState(
+    parseInt(sessionStorage.getItem('visibleBrands') || '0'),
+  );
   // Get all companies
   const { loading, error, data } = useQuery(GET_COMPANIES, {});
 
-  if (loading) return <CircularProgress />;
-  if (error) console.log(error);
-
-  const increment = 3;
-  
   // View next 3 brands on next page
+  // Use sessionStorage to stay on the same page after refresh
   const viewNext = () => {
-    if (data.companies.length - visibleBrands[1] > increment) {
-      setVisibleBrands([
-        visibleBrands[0] + increment,
-        visibleBrands[1] + increment,
-      ]);
+    const VisibleBrandsEnd = visibleBrands + increment;
+    if (data.companies.length - VisibleBrandsEnd > increment) {
+      setVisibleBrands(VisibleBrandsEnd);
+      sessionStorage.setItem('visibleBrands', VisibleBrandsEnd.toString());
     } else {
-      setVisibleBrands([
-        data.companies.length - increment,
-        data.companies.length,
-      ]);
+      setVisibleBrands(data.companies.length - increment);
+      sessionStorage.setItem(
+        'visibleBrands',
+        (data.companies.length - increment).toString(),
+      );
     }
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   // View previous 3 brands on previous page
+  // Use sessionStorage to stay on the same page after refresh
   const viewPrev = () => {
-    if (visibleBrands[0] > increment) {
-      setVisibleBrands([
-        visibleBrands[0] - increment,
-        visibleBrands[1] - increment,
-      ]);
+    if (visibleBrands > increment) {
+      setVisibleBrands(visibleBrands - increment);
+      sessionStorage.setItem(
+        'visibleBrands',
+        (visibleBrands - increment).toString(),
+      );
     } else {
-      setVisibleBrands([0, increment]);
+      setVisibleBrands(0);
+      sessionStorage.setItem('visibleBrands', (0).toString());
     }
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
+
+  if (loading) return <CircularProgress color="warning" />;
+  if (error) console.log(error);
 
   return (
     <>
       {data.companies
-        .slice(visibleBrands[0], visibleBrands[1])
-        .map((data: company) => (
-          <div className="conteiner">
+        .slice(visibleBrands, visibleBrands + increment)
+        .map((data: company, index: number) => (
+          <div className="conteiner" key={index}>
             <div className="scrollingMenuHeader">
               <div className="element"></div>
               <h1>{data.name}</h1>
               <div className="brand-logo-wrapper">
-                <img className="brand-logo" src={data.logo} alt="noLogo" />
+                <img className="brand-logo" src={data.logo} />
               </div>
             </div>
             <ScrollingMenu brand={data.name} />
