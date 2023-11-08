@@ -1,10 +1,10 @@
-import React from "react";
-import { VisibilityContext } from "react-horizontal-scrolling-menu";
+import React from 'react';
+import { VisibilityContext } from 'react-horizontal-scrolling-menu';
 
 function Arrow({
   children,
   disabled,
-  onClick
+  onClick,
 }: {
   children: React.ReactNode;
   disabled: boolean;
@@ -20,15 +20,11 @@ function Arrow({
 }
 
 export function LeftArrow() {
-  const {
-    isFirstItemVisible,
-    scrollPrev,
-    visibleElements,
-    initComplete
-  } = React.useContext(VisibilityContext);
+  const { isFirstItemVisible, scrollPrev, visibleElements, initComplete } =
+    React.useContext(VisibilityContext);
 
   const [disabled, setDisabled] = React.useState(
-    !initComplete || (initComplete && isFirstItemVisible)
+    !initComplete || (initComplete && isFirstItemVisible),
   );
   React.useEffect(() => {
     // NOTE: detect if whole component visible
@@ -46,18 +42,17 @@ export function LeftArrow() {
           <span></span>
         </div>
       </Arrow>
-    </div>    
+    </div>
   );
 }
 
 export function RightArrow() {
-  const { isLastItemVisible, scrollNext, visibleElements } = React.useContext(
-    VisibilityContext
-  );
+  const { isLastItemVisible, scrollNext, visibleElements } =
+    React.useContext(VisibilityContext);
 
   // console.log({ isLastItemVisible });
   const [disabled, setDisabled] = React.useState(
-    !visibleElements.length && isLastItemVisible
+    !visibleElements.length && isLastItemVisible,
   );
 
   React.useEffect(() => {
@@ -75,6 +70,6 @@ export function RightArrow() {
           <span></span>
         </div>
       </Arrow>
-    </div>    
+    </div>
   );
 }

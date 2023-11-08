@@ -1,7 +1,5 @@
-import React from "react";
 import { Link } from 'react-router-dom';
 import '../assets/CardForCar.css';
-import { VisibilityContext } from "react-horizontal-scrolling-menu";
 
 function CardForCar({
   id,
@@ -16,7 +14,6 @@ function CardForCar({
   carIMG: string;
   showInfo: boolean;
 }) {
-
   return (
     <div>
       <div className="card">
