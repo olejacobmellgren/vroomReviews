@@ -23,7 +23,9 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-const httpLink = new HttpLink({ uri: 'http://it2810-25.idi.ntnu.no:4000/graphql' });
+const httpLink = new HttpLink({
+  uri: 'http://it2810-25.idi.ntnu.no:4000/graphql',
+});
 
 // Apollo client set up with cache and link
 const client = new ApolloClient({
