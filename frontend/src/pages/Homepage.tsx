@@ -10,24 +10,33 @@ interface company {
 }
 
 const Homepage = () => {
-  const [visibleBrands, setVisibleBrands] = useState(3);
+  const [visibleBrands, setVisibleBrands] = useState([0,3]);
   // Get all cars that are favorited by user
   const { loading, error, data } = useQuery(GET_COMPANIES, {});
   if (loading) return <CircularProgress />;
   if (error) console.log(error);
 
-  const viewMore = () => {
-    if (data.companies.length - visibleBrands > 2) {
-      setVisibleBrands(visibleBrands + 2);
+  const increment = 3;
+  const viewNext = () => {
+    if (data.companies.length - visibleBrands[1] > increment) {
+      setVisibleBrands([visibleBrands[0] + increment, visibleBrands[1] + increment]);
     }
     else {
-      setVisibleBrands(data.companies.length);
+      setVisibleBrands([data.companies.length - increment, data.companies.length]);
+    }
+  };
+  const viewPrev = () => {
+    if (visibleBrands[0] > increment) {
+      setVisibleBrands([visibleBrands[0] - increment, visibleBrands[1] - increment]);
+    }
+    else {
+      setVisibleBrands([0,increment]);
     }
   };
 
-  const getCars = (from:number, to:number) => {
-    return (
-      data.companies.slice(from,to).map((data: company) => (
+  return (
+    <>
+      {data.companies.slice(visibleBrands[0], visibleBrands[1]).map((data: company) => (
         <div className="conteiner">
           <div className="scrollingMenuHeader">
             <div className="element"></div>
@@ -38,15 +47,10 @@ const Homepage = () => {
           </div>
           <ScrollingMenu brand={data.name} />
         </div>
-      ))
-    );
-  };
-
-  return (
-    <>
-      {getCars(0, visibleBrands)}
+      ))}
       <div className="view-more-button">
-        <button onClick={viewMore}>View more</button>
+        <button onClick={viewPrev}>Prev Page</button>
+        <button onClick={viewNext}>Next Page</button>
       </div>
     </>
   );
