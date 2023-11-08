@@ -10,7 +10,7 @@ test('Go to different pages', async () => {
   }
   const { getByText, asFragment } = render(
     <BrowserRouter>
-      <Header page={"home"} setPage={setPage}/>
+      <Header page={'home'} setPage={setPage} />
     </BrowserRouter>,
   );
 
