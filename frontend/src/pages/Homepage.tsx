@@ -32,7 +32,9 @@ const Homepage = () => {
           <div className="scrollingMenuHeader">
             <div className="element"></div>
             <h1>{data.name}</h1>
-            <img className="brand-logo" src={data.logo} alt="noLogo" />
+            <div className="brand-logo-wrapper">
+              <img className="brand-logo" src={data.logo} alt="noLogo" />
+            </div>
           </div>
           <ScrollingMenu brand={data.name} />
         </div>
