@@ -73,7 +73,6 @@ const Carpage = () => {
   if (carError || reviewsError || userReviewError || companyError)
     console.log(carError, reviewsError, userReviewError, companyError);
 
-  console.log(companyData)
   return (
     <div className="carpage-container">
       <div className="top-section">
@@ -83,9 +82,12 @@ const Carpage = () => {
           alt={carData?.car?.image}
         />
         <div>
-          <p className="title">
-            {carData?.car?.company} {carData?.car?.model}
-          </p>
+          <div className="title-wrapper">
+            <img className="logo-img" src={companyData?.company?.logo} />
+            <p className="title">
+            { carData?.car?.company} {carData?.car?.model}
+            </p>
+          </div>
           <p className="year">{carData?.car?.year}</p>
           <div className="rating">
             {carData && (

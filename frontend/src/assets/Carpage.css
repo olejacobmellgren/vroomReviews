@@ -18,6 +18,18 @@
   line-height: 2.5rem;
 }
 
+.title-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo-img {
+  max-height: 4rem;
+  max-width: 5rem;
+  margin-right: 1rem;
+}
+
 .year {
   margin: 0;
   font-size: x-large;
