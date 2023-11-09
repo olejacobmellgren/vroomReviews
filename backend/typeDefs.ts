@@ -71,6 +71,7 @@ export const typeDefs = buildSchema(`
     userReviewForCar(userID: Int!, car: ID!): Review
     userCount: Int
     companies: [Company]
+    company(name: String!): Company
   }
 
   type Mutation {

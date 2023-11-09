@@ -9,7 +9,9 @@ import {
   GET_CAR,
   GET_USER_REVIEW_FOR_CAR,
   GET_CAR_REVIEWS,
+  GET_COMPANY_BY_NAME
 } from '../graphQL/queries';
+import { c } from 'vitest/dist/reporters-5f784f42.js';
 
 const Carpage = () => {
   const { id } = useParams();
@@ -55,11 +57,23 @@ const Carpage = () => {
     },
   });
 
-  if (carLoading || reviewsLoading || userReviewLoading)
-    return <CircularProgress color="warning" />;
-  if (carError || reviewsError || userReviewError)
-    console.log(carError, reviewsError, userReviewError);
+  // Get company information for car
+  const {
+    loading: companyLoading,
+    error: companyError,
+    data: companyData,
+  } = useQuery(GET_COMPANY_BY_NAME, {
+    variables: {
+      name: company,
+    },
+  });
 
+  if (carLoading || reviewsLoading || userReviewLoading || companyLoading)
+    return <CircularProgress color="warning" />;
+  if (carError || reviewsError || userReviewError || companyError)
+    console.log(carError, reviewsError, userReviewError, companyError);
+
+  console.log(companyData)
   return (
     <div className="carpage-container">
       <div className="top-section">
