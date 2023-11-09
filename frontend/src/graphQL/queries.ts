@@ -119,3 +119,11 @@ export const GET_COMPANIES = gql`
     }
   }
 `;
+
+export const GET_COMPANY_BY_NAME = gql`
+  query GetCompanyByName($name: String!) {
+    company(name: $name) {
+      logo
+    }
+  }
+`;

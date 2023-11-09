@@ -9,6 +9,7 @@ import {
   GET_CAR,
   GET_USER_REVIEW_FOR_CAR,
   GET_CAR_REVIEWS,
+  GET_COMPANY_BY_NAME,
 } from '../graphQL/queries';
 
 const Carpage = () => {
@@ -55,10 +56,21 @@ const Carpage = () => {
     },
   });
 
-  if (carLoading || reviewsLoading || userReviewLoading)
+  // Get company information for car
+  const {
+    loading: companyLoading,
+    error: companyError,
+    data: companyData,
+  } = useQuery(GET_COMPANY_BY_NAME, {
+    variables: {
+      name: company,
+    },
+  });
+
+  if (carLoading || reviewsLoading || userReviewLoading || companyLoading)
     return <CircularProgress color="warning" />;
-  if (carError || reviewsError || userReviewError)
-    console.log(carError, reviewsError, userReviewError);
+  if (carError || reviewsError || userReviewError || companyError)
+    console.log(carError, reviewsError, userReviewError, companyError);
 
   return (
     <div className="carpage-container">
@@ -69,9 +81,12 @@ const Carpage = () => {
           alt={carData?.car?.image}
         />
         <div>
-          <p className="title">
-            {carData?.car?.company} {carData?.car?.model}
-          </p>
+          <div className="title-wrapper">
+            <img className="logo-img" src={companyData?.company?.logo} />
+            <p className="title">
+              {carData?.car?.company} {carData?.car?.model}
+            </p>
+          </div>
           <p className="year">{carData?.car?.year}</p>
           <div className="rating">
             {carData && (
