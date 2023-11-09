@@ -9,9 +9,8 @@ import {
   GET_CAR,
   GET_USER_REVIEW_FOR_CAR,
   GET_CAR_REVIEWS,
-  GET_COMPANY_BY_NAME
+  GET_COMPANY_BY_NAME,
 } from '../graphQL/queries';
-import { c } from 'vitest/dist/reporters-5f784f42.js';
 
 const Carpage = () => {
   const { id } = useParams();
@@ -85,7 +84,7 @@ const Carpage = () => {
           <div className="title-wrapper">
             <img className="logo-img" src={companyData?.company?.logo} />
             <p className="title">
-            { carData?.car?.company} {carData?.car?.model}
+              {carData?.car?.company} {carData?.car?.model}
             </p>
           </div>
           <p className="year">{carData?.car?.year}</p>

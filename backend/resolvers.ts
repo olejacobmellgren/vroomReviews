@@ -117,8 +117,8 @@ export const resolvers = {
       return await Company.find();
     },
     company: async (_: any, { name }: { name: string }) => {
-      return await Company.findOne( { name: name } );
-    }
+      return await Company.findOne({ name: name });
+    },
   },
   Mutation: {
     addFavorite: async (_: any, { userID, car }: userAndCarArgs) => {
