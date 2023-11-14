@@ -41,34 +41,37 @@ const Header = ({
             alt=""
           />
         </label>
-        <NavLink
-          to="/project2"
-          onClick={() => handlePage('home')}
-        >
-          <img className={page === 'home' ?  'header-logo' : 'header-logo gray-text-logo'} src={logo} alt=""/>
-        </NavLink>        
+        <NavLink to="/project2" onClick={() => handlePage('home')}>
+          <img
+            className={
+              page === 'home' ? 'header-logo' : 'header-logo gray-text-logo'
+            }
+            src={logo}
+            alt=""
+          />
+        </NavLink>
         <ul className="pages-menu">
-            <NavLink
-              to="/project2/filtercars"
-              className={page === 'filter' ? 'normal' : 'normal grey-text'}
-              onClick={() => handlePage('filter')}
-            >
-              <h1>Search</h1>
-            </NavLink>
-            <NavLink
-              to="/project2/favorites"
-              className={page === 'favorites' ? 'normal' : 'normal grey-text'}
-              onClick={() => handlePage('favorites')}
-            >
-              <h1>My Favorites</h1>
-            </NavLink>
-            <NavLink
-              to="/project2/reviewedcars"
-              className={page === 'reviews' ? 'normal' : 'normal grey-text'}
-              onClick={() => handlePage('reviews')}
-            >
-              <h1>My Reviews</h1>
-            </NavLink>
+          <NavLink
+            to="/project2/filtercars"
+            className={page === 'filter' ? 'normal' : 'normal grey-text'}
+            onClick={() => handlePage('filter')}
+          >
+            <h1>Search</h1>
+          </NavLink>
+          <NavLink
+            to="/project2/favorites"
+            className={page === 'favorites' ? 'normal' : 'normal grey-text'}
+            onClick={() => handlePage('favorites')}
+          >
+            <h1>My Favorites</h1>
+          </NavLink>
+          <NavLink
+            to="/project2/reviewedcars"
+            className={page === 'reviews' ? 'normal' : 'normal grey-text'}
+            onClick={() => handlePage('reviews')}
+          >
+            <h1>My Reviews</h1>
+          </NavLink>
         </ul>
       </div>
     </>
