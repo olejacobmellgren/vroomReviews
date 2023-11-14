@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../assets/Header.css';
+import logo from '/public/logo.png';
 
 const Header = ({
   page,
@@ -24,32 +25,32 @@ const Header = ({
   }
 
   return (
-    <div className="header-container">
-      <input
-        className="check"
-        checked={isChecked}
-        onChange={toggleCheckbox}
-        type="checkbox"
-        id="check"
-      />
-      <label className="checkbtn" htmlFor="check">
-        <img
-          className="burger-menu"
-          src="https://www.pngkit.com/png/full/239-2394744_icon-open-nav-icon-white.png"
-          alt=""
+    <>
+      <div className="header-container">
+        <input
+          className="check"
+          checked={isChecked}
+          onChange={toggleCheckbox}
+          type="checkbox"
+          id="check"
         />
-      </label>
-      <ul className="pages-menu">
-        <div className="link-flex">
-          <NavLink
-            to="/project2"
-            className={page === 'home' ? 'normal' : 'normal grey-text'}
-            onClick={() => handlePage('home')}
-          >
-            <h1>Explore</h1>
-          </NavLink>
-        </div>
-        <div className="link-flex">
+        <label className="checkbtn" htmlFor="check">
+          <img
+            className="burger-menu"
+            src="https://www.pngkit.com/png/full/239-2394744_icon-open-nav-icon-white.png"
+            alt=""
+          />
+        </label>
+        <NavLink to="/project2" onClick={() => handlePage('home')}>
+          <img
+            className={
+              page === 'home' ? 'header-logo' : 'header-logo gray-text-logo'
+            }
+            src={logo}
+            alt=""
+          />
+        </NavLink>
+        <ul className="pages-menu">
           <NavLink
             to="/project2/filtercars"
             className={page === 'filter' ? 'normal' : 'normal grey-text'}
@@ -57,8 +58,6 @@ const Header = ({
           >
             <h1>Search</h1>
           </NavLink>
-        </div>
-        <div className="link-flex">
           <NavLink
             to="/project2/favorites"
             className={page === 'favorites' ? 'normal' : 'normal grey-text'}
@@ -66,8 +65,6 @@ const Header = ({
           >
             <h1>My Favorites</h1>
           </NavLink>
-        </div>
-        <div className="link-flex">
           <NavLink
             to="/project2/reviewedcars"
             className={page === 'reviews' ? 'normal' : 'normal grey-text'}
@@ -75,9 +72,9 @@ const Header = ({
           >
             <h1>My Reviews</h1>
           </NavLink>
-        </div>
-      </ul>
-    </div>
+        </ul>
+      </div>
+    </>
   );
 };
 
