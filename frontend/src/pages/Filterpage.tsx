@@ -130,8 +130,8 @@ const Filterpage = () => {
 
   // Add cars to shownCars when data is fetched
   useEffect(() => {
-    if (data?.cars) {
-      setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars));
+    if (data?.cars?.cars) {
+      setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars?.cars));
     }
   }, [data]);
 
@@ -240,7 +240,7 @@ const Filterpage = () => {
         ))}
       </div>
       <div className="view-more-button">
-        {data?.cars.length >= 12 ? (
+        {data?.cars?.cars.length >= 12 ? (
           <button onClick={handleViewMore}>View more</button>
         ) : null}
       </div>
