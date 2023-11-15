@@ -11,8 +11,11 @@ import {
   GET_CAR_REVIEWS,
   GET_COMPANY_BY_NAME,
 } from '../graphQL/queries';
+import { useState } from 'react';
 
 const Carpage = () => {
+  const [showInfo, setShowInfo] = useState(false);
+
   const { id } = useParams();
   const car = typeof id === 'string' ? id : '';
   const company = car?.split('-')[0];
@@ -74,20 +77,21 @@ const Carpage = () => {
 
   return (
     <div className="carpage-container">
-      <div className="top-section">
-        <img
-          className="carpage-image"
-          src={carData?.car?.image}
-          alt={carData?.car?.image}
-        />
-        <div>
+      <div className="first-section">
+        <div className="img-wrapper">
+          <img
+            className="carpage-image"
+            src={carData?.car?.image}
+            alt={carData?.car?.image}
+          />
+        </div>
+        <div className="overview-wrapper">
           <div className="title-wrapper">
             <img className="logo-img" src={companyData?.company?.logo} />
-            <p className="title">
-              {carData?.car?.company} {carData?.car?.model}
-            </p>
+            <h1 className="title"> {carData?.car?.company} </h1>
+            <p className="title"> {carData?.car?.model} </p>
+            <p className="year"> {carData?.car?.year} </p>
           </div>
-          <p className="year">{carData?.car?.year}</p>
           <div className="rating">
             {carData && (
               <StarRating
@@ -96,38 +100,45 @@ const Carpage = () => {
               />
             )}
             <div className="amount-rating">
-              <p>{carData?.car?.rating} / 5 </p> <p>|</p>
+              <p>{Math.round(carData?.car?.rating * 10)/10} / 5 </p> <p>|</p>
               <p> {reviewsData.carReviews.length} ratings</p>
             </div>
           </div>
-          <FavoriteButton car={carID} />
+          <div>
+            <FavoriteButton car={carID} />
+          </div>
         </div>
       </div>
-      <div className="info">
-        <div className="info-container">
-          <p className="info-text">Price: {carData?.car?.price}</p>
-          <p className="info-text">Drivetrain: {carData?.car?.drivetrain}</p>
+      <div className="info-section">
+        <div className="lol" style={showInfo ? {height: '200px'} : {height: '0px'}}>
+          <div className="info-button-wrapper"></div>
+          <div className="info">
+            <p className="info-text">Price: {carData?.car?.price}</p>
+            <p className="info-text">Drivetrain: {carData?.car?.drivetrain}</p>
+            <p className="info-text">Type: {carData?.car?.carBody}</p>
+            <p className="info-text">Horsepower: {carData?.car?.horsepower}</p>
+            <p className="info-text">
+              Number of doors: {carData?.car?.numOfDoors}
+            </p>
+            <p className="info-text">
+              Type of engine: {carData?.car?.engineType}
+            </p>
+          </div>
         </div>
-        <div className="info-container">
-          <p className="info-text">Type: {carData?.car?.carBody}</p>
-          <p className="info-text">Horsepower: {carData?.car?.horsepower}</p>
-        </div>
-        <div className="info-container">
-          <p className="info-text">
-            Number of doors: {carData?.car?.numOfDoors}
-          </p>
-          <p className="info-text">
-            Type of engine: {carData?.car?.engineType}
-          </p>
+        <div className="info-button-wrapper">
+          <button className="info-button" onClick={() => setShowInfo(!showInfo)}>
+            <i className="arrow-info-button" style={showInfo ? {transform: 'rotate(-135deg)'} : {  transform: 'rotate(45deg)'}}></i>
+          </button>
         </div>
       </div>
-      <div>
+  
+      {/* <div>
         <ReviewSection
           userReview={userReviewData.userReviewForCar}
           reviews={reviewsData.carReviews}
           carID={carID}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

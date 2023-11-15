@@ -2,37 +2,64 @@
   margin: 2.5rem 10vw;
 }
 
-.top-section {
+.first-section {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-wrapper {
+  display: flex;
+  justify-content: center;
+  height: 30vw;
+}
+
+.overview-wrapper {
+  display: flex; 
+  align-items: flex-end;
+  flex-direction: column;
+  min-width: 18rem;
 }
 
 .carpage-image {
   border-radius: 0.5rem;
-  height: 30vw;
+  width: 100%;
 }
 
 .title {
   font-size: 2.25rem;
-  line-height: 2.5rem;
+  text-align: end;
+  margin: 0;
+}
+
+.favbtn {
+  width: 200px;
 }
 
 .title-wrapper {
+  width: 95%;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
+  min-width: fit-content;
+  justify-content: end;
+  gap: 0 1rem;
+  margin-bottom: 7rem;
 }
 
 .logo-img {
   max-height: 4rem;
   max-width: 5rem;
-  margin-right: 1rem;
 }
 
 .year {
+  width: 100%;
   margin: 0;
   font-size: x-large;
+  text-align: end;
 }
 
 .rating {
@@ -55,33 +82,77 @@
 }
 
 .info {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 4vw;
-  margin-top: 2vw;
+  justify-content: center;
+  column-gap: 2vw;
+  margin: 5rem;
 }
 
 .info-text {
   font-size: 1rem;
   margin: 0;
+  text-align: center;
   /* font-weight: 600; */
+}
+
+.info-section {
+  margin-top: 100px;
+  background: rgb(32,32,32);
+  background: linear-gradient(90deg, rgba(32,32,32,0) 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0.2) 90%, rgba(255,255,255,0) 100%);
+}
+
+.lol {
+  transition: all 0.5s ease-out;
+  overflow: hidden;
+}
+
+.info-button-wrapper {
+  display: flex;
+  justify-content: center;
+  background-color: silver;
+  height: 0.2rem;
+  border-radius: 50%;
+}
+
+.info-button {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 0.3rem solid silver;
+  background-color: #202020;
+  cursor: pointer;
+  position: relative;
+  top: -2.4rem;
+}
+
+.arrow-info-button {
+  border: solid silver;
+  border-width: 0 0.2rem 0.2rem 0;
+  display: inline-block;
+  padding: 0.5rem;
+  transition: all 0.5s ease-out;
 }
 
 @media (orientation: portrait) {
   .carpage-container {
-    margin: 0;
+    margin: 2rem 1vw;
   }
 
-  .carpage-image {
-    height: 50vw;
+  .first-section {
+    flex-direction: column;
   }
 
-  .top-section {
-    margin-top: 2rem;
-    justify-content: center;
+  .img-wrapper {
+    height: auto;
   }
 
-  .right-section {
+  .overview-wrapper {
     width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 }
