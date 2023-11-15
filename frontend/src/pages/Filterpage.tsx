@@ -96,7 +96,7 @@ const Filterpage = () => {
     parseInt(sessionStorage.getItem('visibleCars') || '12'),
   );
 
-  const [totalCount, setTotalCount] = useState(0)
+  const [totalCount, setTotalCount] = useState(0);
 
   // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
   useEffect(() => {
@@ -134,7 +134,7 @@ const Filterpage = () => {
   useEffect(() => {
     if (data?.cars?.cars) {
       setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars?.cars));
-      setTotalCount(data?.cars?.totalCount)
+      setTotalCount(data?.cars?.totalCount);
     }
   }, [data]);
 
@@ -230,14 +230,17 @@ const Filterpage = () => {
           </div>
         ))}
       </div>
-      {
-        ((searchTerm !== ""  || (Object.values(selectedFilters).filter(filter => filter !== 'All').length !== 0 && 
-        !(Object.values(selectedFilters).filter(filter => filter !== 'All').length === 1 && selectedFilters.SortBy !== "All"))) && (
-          <div className="resultCounter">
-            <p>Found {totalCount} cars</p>
-          </div>
-        ))
-      }
+      {(searchTerm !== '' ||
+        (Object.values(selectedFilters).filter((filter) => filter !== 'All')
+          .length !== 0 &&
+          !(
+            Object.values(selectedFilters).filter((filter) => filter !== 'All')
+              .length === 1 && selectedFilters.SortBy !== 'All'
+          ))) && (
+        <div className="resultCounter">
+          <p>Found {totalCount} cars</p>
+        </div>
+      )}
       <div className="car-list">
         {shownCars.map((car) => (
           <div className="car" key={car.company + '-' + car.model}>
@@ -251,7 +254,9 @@ const Filterpage = () => {
         ))}
       </div>
       <div className="resultCounter">
-        <p>Showing {shownCars.length} of {totalCount} cars</p>
+        <p>
+          Showing {shownCars.length} of {totalCount} cars
+        </p>
       </div>
       <div className="view-more-button">
         {visibleCars < totalCount ? (
