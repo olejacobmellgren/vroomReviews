@@ -230,6 +230,9 @@ const Filterpage = () => {
           </div>
         ))}
       </div>
+      <div className="resultCounter">
+        <p>Found {totalCount} cars</p>
+      </div>
       <div className="car-list">
         {shownCars.map((car) => (
           <div className="car" key={car.company + '-' + car.model}>
@@ -241,6 +244,9 @@ const Filterpage = () => {
             />
           </div>
         ))}
+      </div>
+      <div className="resultCounter">
+        <p>Showing {shownCars.length} of {totalCount} cars</p>
       </div>
       <div className="view-more-button">
         {visibleCars < totalCount ? (
