@@ -132,6 +132,7 @@ const Filterpage = () => {
   useEffect(() => {
     if (data?.cars?.cars) {
       setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars?.cars));
+      console.log(data?.cars?.totalCount)
     }
   }, [data]);
 

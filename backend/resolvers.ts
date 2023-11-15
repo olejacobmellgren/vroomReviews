@@ -37,18 +37,26 @@ export const resolvers = {
           })
             .limit(limit)
             .skip(offset);
+          const totalCount = await Car.countDocuments({
+            $or: [
+              { company: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive company search
+              { model: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive model search
+            ],
+          })
           return {
             cars: result,
-            totalCount: 12,
+            totalCount: totalCount,
           }
         } else if (argCounter == 2 && argList[1] == '') {
           const query: any = {};
           const newCompany = company.charAt(0).toUpperCase() + company.slice(1);
           query.company = newCompany;
           const result = await Car.find(query).limit(limit).skip(offset);
+          const totalCount = await Car.countDocuments(query)
+          console.log("Count 2: " + totalCount)
           return {
             cars: result,
-            totalCount: 12,
+            totalCount: totalCount,
           }
         } else {
           const result = await Car.find({
@@ -59,9 +67,16 @@ export const resolvers = {
           })
             .limit(limit)
             .skip(offset);
+          
+          const totalCount = await Car.countDocuments({
+            $and: [
+              { company: { $regex: new RegExp(company, 'i') } }, // Case-insensitive company search
+              { model: { $regex: new RegExp(model, 'i') } }, // Case-insensitive model search
+            ],
+          })
           return {
             cars: result,
-            totalCount: 12,
+            totalCount: totalCount,
           } 
         }
       }
@@ -104,9 +119,21 @@ export const resolvers = {
         .sort(sort)
         .limit(limit)
         .skip(offset);
+
+      const totalCount = await Car.countDocuments({
+        $and: [
+          query,
+          {
+            $or: [
+              { company: { $regex: new RegExp(searchTerm, 'i') } },
+              { model: { $regex: new RegExp(searchTerm, 'i') } },
+            ],
+          },
+        ],
+      })
       return {
         cars: result,
-        totalCount: 12,
+        totalCount: totalCount,
       }
     },
     // Return all cars favorited by a single user, populate() is used to get the car data
