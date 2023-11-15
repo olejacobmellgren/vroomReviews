@@ -42,22 +42,22 @@ export const resolvers = {
               { company: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive company search
               { model: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive model search
             ],
-          })
+          });
           return {
             cars: result,
             totalCount: totalCount,
-          }
+          };
         } else if (argCounter == 2 && argList[1] == '') {
           const query: any = {};
           const newCompany = company.charAt(0).toUpperCase() + company.slice(1);
           query.company = newCompany;
           const result = await Car.find(query).limit(limit).skip(offset);
-          const totalCount = await Car.countDocuments(query)
-          console.log("Count 2: " + totalCount)
+          const totalCount = await Car.countDocuments(query);
+          console.log('Count 2: ' + totalCount);
           return {
             cars: result,
             totalCount: totalCount,
-          }
+          };
         } else {
           const result = await Car.find({
             $and: [
@@ -67,17 +67,17 @@ export const resolvers = {
           })
             .limit(limit)
             .skip(offset);
-          
+
           const totalCount = await Car.countDocuments({
             $and: [
               { company: { $regex: new RegExp(company, 'i') } }, // Case-insensitive company search
               { model: { $regex: new RegExp(model, 'i') } }, // Case-insensitive model search
             ],
-          })
+          });
           return {
             cars: result,
             totalCount: totalCount,
-          } 
+          };
         }
       }
 
@@ -130,11 +130,11 @@ export const resolvers = {
             ],
           },
         ],
-      })
+      });
       return {
         cars: result,
         totalCount: totalCount,
-      }
+      };
     },
     // Return all cars favorited by a single user, populate() is used to get the car data
     favoriteCars: async (_: any, { userID }: { userID: number }) => {
