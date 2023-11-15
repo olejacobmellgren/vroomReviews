@@ -1,4 +1,4 @@
-import { test, vi } from 'vitest';
+import { test } from 'vitest';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import FavoriteButton from '../components/FavoriteButton';
 import { MockedProvider } from '@apollo/client/testing';
@@ -20,7 +20,7 @@ const mocks = [
         car: {
           company: 'Audi',
           model: 'A4',
-        }
+        },
       },
     },
   },
@@ -31,9 +31,7 @@ const mocks = [
     },
     result: {
       data: {
-        favoriteCars: [
-          { car: { id: 'car2' } },
-        ],
+        favoriteCars: [{ car: { id: 'car2' } }],
       },
     },
   },
@@ -63,10 +61,9 @@ describe('FavoriteButton Component', () => {
         <FavoriteButton car="car1" />
       </MockedProvider>,
     );
-    
+
     // Wait for the loading state to resolve
-    await waitFor(() => {
-    });
+    await waitFor(() => {});
     // Find the heart element
     const heartElement = await getByRole('button');
     // Simulate a click event on the heart element

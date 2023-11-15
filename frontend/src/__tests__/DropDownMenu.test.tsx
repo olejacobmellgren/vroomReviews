@@ -18,7 +18,9 @@ const mockSessionStorage = () => {
     getItem: vi.fn(),
     setItem: vi.fn(),
   };
-  Object.defineProperty(global, 'sessionStorage', { value: sessionStorageMock });
+  Object.defineProperty(global, 'sessionStorage', {
+    value: sessionStorageMock,
+  });
 };
 
 // A utility function to cleanup after each test
@@ -39,9 +41,7 @@ describe('DropdownMenu Component', () => {
   });
 
   test('matches snapshot', () => {
-    const { asFragment } = render(
-      <DropdownMenu {...mockProps} />
-    );
+    const { asFragment } = render(<DropdownMenu {...mockProps} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -54,9 +54,8 @@ describe('DropdownMenu Component', () => {
         {...mockProps}
         onSelect={onSelectMock}
         toggleDropdown={toggleDropdownMock}
-      />
+      />,
     );
-
 
     const option1 = getByText('Option1');
     userEvent.click(option1);
@@ -75,7 +74,7 @@ describe('DropdownMenu Component', () => {
         {...mockProps}
         onSelect={onSelectMock}
         toggleDropdown={toggleDropdownMock}
-      />
+      />,
     );
 
     const dropdownButton = getByTestId('drop-down');

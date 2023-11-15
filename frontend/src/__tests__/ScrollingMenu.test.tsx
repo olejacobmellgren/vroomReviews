@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import ScrollingMenu from '../components/ScrollingMenu'; // Update the path accordingly
 import { GET_CARS_BY_COMPANY } from '../graphQL/queries';
@@ -29,7 +29,7 @@ describe('ScrollingMenu Component', () => {
       </MockedProvider>,
     );
 
-  expect(scrollingMenu).toBeTruthy();
+    expect(scrollingMenu).toBeTruthy();
   });
 
   test('matches snapshot', () => {

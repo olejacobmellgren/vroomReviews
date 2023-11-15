@@ -1,13 +1,12 @@
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import { test, vi } from 'vitest';
+import { test } from 'vitest';
 import ReviewSection from '../components/ReviewSection'; // Update the path accordingly
 import { MockedProvider } from '@apollo/client/testing';
 import { ADD_REVIEW } from '../graphQL/mutations';
 import userEvent from '@testing-library/user-event';
 
 const mockProps = {
-  userReview:
-  {
+  userReview: {
     id: '1',
     rating: 5,
     review: 'Test review',
@@ -45,9 +44,12 @@ describe('ReviewSection Component', () => {
   test('renders the component without errors', () => {
     const { container } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <ReviewSection userReview={mockProps.userReview} reviews={[]} carID="123" />
+        <ReviewSection
+          userReview={mockProps.userReview}
+          reviews={[]}
+          carID="123"
+        />
       </MockedProvider>,
-
     );
     expect(container).toBeTruthy();
   });
@@ -55,7 +57,11 @@ describe('ReviewSection Component', () => {
   test('matches snapshot', () => {
     const { asFragment } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <ReviewSection userReview={mockProps.userReview} reviews={[]} carID="123" />
+        <ReviewSection
+          userReview={mockProps.userReview}
+          reviews={[]}
+          carID="123"
+        />
       </MockedProvider>,
     );
     expect(asFragment()).toMatchSnapshot();
@@ -86,12 +92,11 @@ describe('ReviewSection Component', () => {
     fireEvent.click(reviewButton);
 
     const reviewTextArea = getByPlaceholderText('Add a review to your rating');
-    userEvent.type(reviewTextArea, 'Test review' );
+    userEvent.type(reviewTextArea, 'Test review');
 
     const submitButton = getByText('Submit review');
     userEvent.click(submitButton);
 
-    await waitFor(() => {
-    });
+    await waitFor(() => {});
   });
 });

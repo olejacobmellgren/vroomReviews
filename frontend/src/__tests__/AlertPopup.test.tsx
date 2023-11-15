@@ -3,11 +3,10 @@ import { test, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import AlertPopup from '../components/AlertPopup';
 
-
 describe('AlertPopup Component', () => {
   test('matches snapshot', () => {
     const { asFragment } = render(
-      <AlertPopup visible={true} message="Test message" />
+      <AlertPopup visible={true} message="Test message" />,
     );
     expect(asFragment()).toMatchSnapshot();
   });

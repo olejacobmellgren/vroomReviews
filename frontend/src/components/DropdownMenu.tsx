@@ -78,7 +78,11 @@ function DropdownMenu({
 
   return (
     <div className="dropdownButtonWrapper">
-      <button className="dropdownButton" onClick={handleDropdown} data-testId='drop-down'>
+      <button
+        className="dropdownButton"
+        onClick={handleDropdown}
+        data-testId="drop-down"
+      >
         <label className="DdBlabel">{checkedOption}</label>
         <i className="dropdownArrow"></i>
       </button>

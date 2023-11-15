@@ -12,7 +12,12 @@ export function Arrow({
 }) {
   return (
     <>
-      <button disabled={disabled} className="arrow-button" onClick={onClick} data-testid='arrow-button'>
+      <button
+        disabled={disabled}
+        className="arrow-button"
+        onClick={onClick}
+        data-testid="arrow-button"
+      >
         {children}
       </button>
     </>
@@ -38,7 +43,11 @@ export function LeftArrow() {
       style={{ opacity: disabled ? '0' : '1' }}
       className="left-arrow-wrapper"
     >
-      <Arrow disabled={disabled} onClick={() => scrollPrev()} test-id='left-arrow'>
+      <Arrow
+        disabled={disabled}
+        onClick={() => scrollPrev()}
+        test-id="left-arrow"
+      >
         <div className="arrow left">
           <span></span>
           <span></span>
@@ -69,7 +78,11 @@ export function RightArrow() {
       style={{ opacity: disabled ? '0' : '1' }}
       className="right-arrow-wrapper"
     >
-      <Arrow disabled={disabled} onClick={() => scrollNext()} test-id='right-arrow'>
+      <Arrow
+        disabled={disabled}
+        onClick={() => scrollNext()}
+        test-id="right-arrow"
+      >
         <div className="arrow right">
           <span></span>
           <span></span>
