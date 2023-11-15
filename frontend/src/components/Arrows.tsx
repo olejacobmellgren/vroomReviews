@@ -35,7 +35,7 @@ export function LeftArrow() {
 
   return (
     <div
-      style={{ opacity: disabled ? '0' : '1' }}
+      style={{ display: disabled ? 'none' : 'block' }}
       className="left-arrow-wrapper"
     >
       <Arrow disabled={disabled} onClick={() => scrollPrev()}>
@@ -66,7 +66,7 @@ export function RightArrow() {
 
   return (
     <div
-      style={{ opacity: disabled ? '0' : '1' }}
+      style={{ display: disabled ? 'none' : 'block' }}
       className="right-arrow-wrapper"
     >
       <Arrow disabled={disabled} onClick={() => scrollNext()}>
