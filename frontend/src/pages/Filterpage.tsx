@@ -96,6 +96,8 @@ const Filterpage = () => {
     parseInt(sessionStorage.getItem('visibleCars') || '12'),
   );
 
+  const [totalCount, setTotalCount] = useState(0)
+
   // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
   useEffect(() => {
     loadMoreCars({
@@ -132,7 +134,7 @@ const Filterpage = () => {
   useEffect(() => {
     if (data?.cars?.cars) {
       setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars?.cars));
-      console.log(data?.cars?.totalCount)
+      setTotalCount(data?.cars?.totalCount)
     }
   }, [data]);
 
@@ -241,7 +243,7 @@ const Filterpage = () => {
         ))}
       </div>
       <div className="view-more-button">
-        {data?.cars?.cars.length >= 12 ? (
+        {visibleCars < totalCount ? (
           <button onClick={handleViewMore}>View more</button>
         ) : null}
       </div>
