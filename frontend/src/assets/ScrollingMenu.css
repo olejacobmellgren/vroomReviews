@@ -59,6 +59,10 @@
   transition-duration: 0.5s;
 }
 
+.disabled {
+  display: none;
+}
+
 .arrow-button {
   height: 100%;
   width: 100%;
