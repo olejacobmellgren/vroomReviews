@@ -74,8 +74,6 @@ export const resolvers = {
         ],
       });
 
-      console.log(distinctCarBodies)
-
       return {
         cars: result,
         totalCount: totalCount,
