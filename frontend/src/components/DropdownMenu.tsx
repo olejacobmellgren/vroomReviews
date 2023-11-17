@@ -80,6 +80,9 @@ function DropdownMenu({
     setFilterApplied(false)
     onSelect("All", false)
     setCheckedOption(filter)
+    if (isOpen) {
+      toggleDropdown()
+    }
   }
 
   return (
