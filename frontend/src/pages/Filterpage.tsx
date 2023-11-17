@@ -7,7 +7,7 @@ import { useLazyQuery } from '@apollo/client';
 import { CarCard } from '../types/CarCard';
 
 const Filterpage = () => {
-  const filters = [
+  const [filters, setFilters] = useState([
     {
       name: 'Brand',
       options: [
@@ -61,7 +61,7 @@ const Filterpage = () => {
         'Rating, desc',
       ],
     },
-  ];
+  ]);
 
   const [selectedFilters, setSelectedFilters] = useState({
     Brand: sessionStorage.getItem('Brand') || 'All',
@@ -93,6 +93,8 @@ const Filterpage = () => {
   );
 
   const [totalCount, setTotalCount] = useState(0);
+
+  const [updateBody, setUpdateBody] = useState(false)
 
   // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
   useEffect(() => {
@@ -131,6 +133,19 @@ const Filterpage = () => {
     if (data?.cars?.cars) {
       setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars?.cars));
       setTotalCount(data?.cars?.totalCount);
+      if (updateBody) {
+        if (selectedFilters.Body !== "All") {
+          setSelectedFilters((prevSelectedFilters) => ({
+            ...prevSelectedFilters,
+            Body: 'All',
+          }));
+        }
+        const newOptions = data?.cars?.carBodies
+        setFilters((prevFilters) =>
+        prevFilters.map((filter) =>
+          filter.name === 'Body' ? { ...filter, options: newOptions } : filter
+        ))
+      }
     }
   }, [data]);
 
@@ -150,6 +165,11 @@ const Filterpage = () => {
       [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
     }));
     if (!initialLoad) {
+      if (filterName != "Body") {
+        setUpdateBody(true)
+      } else {
+        setUpdateBody(false)
+      }
       setShownCars([]);
       setVisibleCars(12);
       setLimit(12);
@@ -177,6 +197,7 @@ const Filterpage = () => {
       setLimit(12);
       sessionStorage.setItem('visibleCars', '12');
       setSearchTerm(value);
+      setUpdateBody(true)
     }, 250);
   };
 
