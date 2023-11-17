@@ -49,9 +49,12 @@ export const GET_CARS = gql`
       searchTerm: $searchTerm
       limit: $limit
     ) {
-      company
-      model
-      image
+      cars {
+        company
+        model
+        image
+      }
+      totalCount
     }
   }
 `;

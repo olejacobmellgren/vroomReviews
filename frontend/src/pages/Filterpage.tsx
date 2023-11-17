@@ -96,6 +96,8 @@ const Filterpage = () => {
     parseInt(sessionStorage.getItem('visibleCars') || '12'),
   );
 
+  const [totalCount, setTotalCount] = useState(0);
+
   // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
   useEffect(() => {
     loadMoreCars({
@@ -130,8 +132,9 @@ const Filterpage = () => {
 
   // Add cars to shownCars when data is fetched
   useEffect(() => {
-    if (data?.cars) {
-      setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars));
+    if (data?.cars?.cars) {
+      setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars?.cars));
+      setTotalCount(data?.cars?.totalCount);
     }
   }, [data]);
 
@@ -227,6 +230,17 @@ const Filterpage = () => {
           </div>
         ))}
       </div>
+      {(searchTerm !== '' ||
+        (Object.values(selectedFilters).filter((filter) => filter !== 'All')
+          .length !== 0 &&
+          !(
+            Object.values(selectedFilters).filter((filter) => filter !== 'All')
+              .length === 1 && selectedFilters.SortBy !== 'All'
+          ))) && (
+        <div className="resultCounter">
+          <p>Found {totalCount} cars</p>
+        </div>
+      )}
       <div className="car-list">
         {shownCars.map((car) => (
           <div className="car" key={car.company + '-' + car.model}>
@@ -239,8 +253,13 @@ const Filterpage = () => {
           </div>
         ))}
       </div>
+      <div className="resultCounter">
+        <p>
+          Showing {shownCars.length} of {totalCount} cars
+        </p>
+      </div>
       <div className="view-more-button">
-        {data?.cars.length >= 12 ? (
+        {visibleCars < totalCount ? (
           <button onClick={handleViewMore}>View more</button>
         ) : null}
       </div>

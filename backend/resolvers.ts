@@ -29,7 +29,7 @@ export const resolvers = {
         const argCounter = searchTerm.split(' ').length;
         const model = modelParts.join(' ');
         if (argCounter == 1) {
-          return Car.find({
+          const result = await Car.find({
             $or: [
               { company: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive company search
               { model: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive model search
@@ -37,13 +37,29 @@ export const resolvers = {
           })
             .limit(limit)
             .skip(offset);
+          const totalCount = await Car.countDocuments({
+            $or: [
+              { company: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive company search
+              { model: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive model search
+            ],
+          });
+          return {
+            cars: result,
+            totalCount: totalCount,
+          };
         } else if (argCounter == 2 && argList[1] == '') {
           const query: any = {};
           const newCompany = company.charAt(0).toUpperCase() + company.slice(1);
           query.company = newCompany;
-          return Car.find(query).limit(limit).skip(offset);
+          const result = await Car.find(query).limit(limit).skip(offset);
+          const totalCount = await Car.countDocuments(query);
+          console.log('Count 2: ' + totalCount);
+          return {
+            cars: result,
+            totalCount: totalCount,
+          };
         } else {
-          return Car.find({
+          const result = await Car.find({
             $and: [
               { company: { $regex: new RegExp(company, 'i') } }, // Case-insensitive company search
               { model: { $regex: new RegExp(model, 'i') } }, // Case-insensitive model search
@@ -51,6 +67,17 @@ export const resolvers = {
           })
             .limit(limit)
             .skip(offset);
+
+          const totalCount = await Car.countDocuments({
+            $and: [
+              { company: { $regex: new RegExp(company, 'i') } }, // Case-insensitive company search
+              { model: { $regex: new RegExp(model, 'i') } }, // Case-insensitive model search
+            ],
+          });
+          return {
+            cars: result,
+            totalCount: totalCount,
+          };
         }
       }
 
@@ -92,7 +119,22 @@ export const resolvers = {
         .sort(sort)
         .limit(limit)
         .skip(offset);
-      return result;
+
+      const totalCount = await Car.countDocuments({
+        $and: [
+          query,
+          {
+            $or: [
+              { company: { $regex: new RegExp(searchTerm, 'i') } },
+              { model: { $regex: new RegExp(searchTerm, 'i') } },
+            ],
+          },
+        ],
+      });
+      return {
+        cars: result,
+        totalCount: totalCount,
+      };
     },
     // Return all cars favorited by a single user, populate() is used to get the car data
     favoriteCars: async (_: any, { userID }: { userID: number }) => {
