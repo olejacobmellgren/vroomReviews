@@ -1,7 +1,8 @@
 import { render } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import ScrollingMenu from '../components/ScrollingMenu'; // Update the path accordingly
-import { GET_CARS_BY_COMPANY } from '../graphQL/queries';
+import { test, expect } from 'vitest';
+import ScrollingMenu from '../../components/ScrollingMenu'; // Update the path accordingly
+import { GET_CARS_BY_COMPANY } from '../../graphQL/queries';
 
 const mocks = [
   {
