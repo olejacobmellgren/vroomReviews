@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { test, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import CardForCar from '../../components/CardForCar';
+import CardForCar from '../components/CardForCar';
 import { BrowserRouter } from 'react-router-dom';
 
 test('Check path correct when image is clicked', async () => {

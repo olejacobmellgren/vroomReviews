@@ -1,7 +1,7 @@
 import { test, expect, vi } from 'vitest';
 import { render, cleanup, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import DropdownMenu from '../../components/DropdownMenu'; // Update the path accordingly
+import DropdownMenu from '../components/DropdownMenu'; // Update the path accordingly
 
 // Mock data for testing
 const mockProps = {

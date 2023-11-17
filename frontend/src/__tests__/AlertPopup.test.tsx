@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { test, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import AlertPopup from '../../components/AlertPopup';
+import AlertPopup from '../components/AlertPopup';
 
 describe('AlertPopup Component', () => {
   test('matches snapshot', () => {

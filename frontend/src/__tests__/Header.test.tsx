@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Header from '../../components/Header';
+import Header from '../components/Header';
 import { test, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
