@@ -55,6 +55,7 @@ export const GET_CARS = gql`
         image
       }
       totalCount
+      carBodies
     }
   }
 `;
