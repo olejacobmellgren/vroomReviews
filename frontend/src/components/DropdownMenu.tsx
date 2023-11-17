@@ -81,7 +81,7 @@ function DropdownMenu({
       <button
         className="dropdownButton"
         onClick={handleDropdown}
-        data-testId="drop-down"
+        data-testid="drop-down"
       >
         <label className="DdBlabel">{checkedOption}</label>
         <i className="dropdownArrow"></i>
