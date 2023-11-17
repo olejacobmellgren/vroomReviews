@@ -20,24 +20,6 @@ export const resolvers = {
     cars: async (_: any, args: carsArgs) => {
       const { filters, offset, orderBy, searchTerm, limit } = args;
 
-      if (
-        Object.values(filters).every((value) => value === null) &&
-        Object.values(orderBy).every((value) => value === null)
-      ) {
-        const result = await Car.find({
-            fullname: { $regex: new RegExp(searchTerm, 'i') } // Case-insensitive company search
-        })
-          .limit(limit)
-          .skip(offset);
-        const totalCount = await Car.countDocuments({
-          fullname: { $regex: new RegExp(searchTerm, 'i') } // Case-insensitive model search
-        });
-        return {
-          cars: result,
-          totalCount: totalCount,
-        };
-      }
-
       // Create a base query object with filter conditions
       const query: any = {};
 
@@ -82,6 +64,7 @@ export const resolvers = {
           },
         ],
       });
+      
       return {
         cars: result,
         totalCount: totalCount,
