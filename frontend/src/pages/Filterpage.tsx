@@ -249,11 +249,13 @@ const Filterpage = () => {
           </div>
         ))}
       </div>
-      <div className="resultCounter">
-        <p>
-          Showing {shownCars.length} of {totalCount} cars
-        </p>
-      </div>
+      {shownCars.length != 0 && (
+        <div className="resultCounter">
+          <p>
+            Showing {shownCars.length} of {totalCount} cars
+          </p>
+        </div>
+      )}
       <div className="view-more-button">
         {visibleCars < totalCount ? (
           <button onClick={handleViewMore}>View more</button>
