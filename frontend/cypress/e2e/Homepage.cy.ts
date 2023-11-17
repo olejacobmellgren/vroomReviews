@@ -1,45 +1,58 @@
 describe('Homepage tests', () => {
-  it('Test homepage loads correct brands and cars', () => {
+  it('homepage loads correct brands and cars', () => {
     cy.visit('http://localhost:5173/project2')
-    cy.contains('Ferrari')
-    cy.contains('Audi')
+
+    // Check if all brands are present on first page
+    cy.contains('Ferrari').should('exist')
+    cy.contains('Audi').should('exist')
     cy.scrollTo('bottom')
-    cy.contains('Mercedes Benz')
+    cy.contains('Mercedes Benz').should('exist')
     cy.get('.view-more-button').contains('Next Page').click()
 
-    cy.contains('Volvo')
-    cy.contains('Porsche')
+    // Check if all brands are present on second page
+    cy.contains('Volvo').should('exist')
+    cy.contains('Porsche').should('exist')
     cy.scrollTo('bottom')
-    cy.contains('Alfa Romeo')
+    cy.contains('Alfa Romeo').should('exist')
     cy.get('.view-more-button').contains('Next Page').click()
 
-    cy.contains('Alpina')
-    cy.contains('BMW')
+    // Check if all brands are present on third page
+    cy.contains('Alpina').should('exist')
+    cy.contains('BMW').should('exist')
     cy.scrollTo('bottom')
-    cy.contains('Bugatti')
+    cy.contains('Bugatti').should('exist')
     cy.get('.view-more-button').contains('Next Page').click()
 
-    cy.contains('Cadillac')
-    cy.contains('Caterham')
+    // Check if all brands are present on fourth page
+    cy.contains('Cadillac').should('exist')
+    cy.contains('Caterham').should('exist')
     cy.scrollTo('bottom')
-    cy.contains('Chevrolet')
+    cy.contains('Chevrolet').should('exist')
+
+    // Go back to first page
     cy.get('.view-more-button').contains('Prev Page').click()
     cy.get('.view-more-button').contains('Prev Page').click()
     cy.get('.view-more-button').contains('Prev Page').click()
-    cy.contains('Ferrari')
-    cy.contains('Audi')
-    cy.contains('Mercedes Benz')
+
+    // Check if all brands are present on first page
+    cy.contains('Ferrari').should('exist')
+    cy.contains('Audi').should('exist')
+    cy.contains('Mercedes Benz').should('exist')
   })
 
-  it('Test arrows for scrolling and click car', () => {
+  it('arrows for scrolling and click car', () => {
     cy.visit('http://localhost:5173/project2')
+
+    // Check if arrows work
     cy.get('.right').click().click().click()
+
+    // Check if carpage is loaded when click from scrollingmenu
     cy.get('[alt="Ferrari-Portofino M"]').click()
-
     cy.url().should('include', 'carpage/Ferrari-Portofino%20M')
-    cy.go('back')
-    cy.contains('Ferrari')
 
+    // Go back to homepage and check if Ferrari-812 Superfast is present
+    cy.go('back')
+    cy.contains('Ferrari').should('exist')
     cy.get('[alt="Ferrari-812 Superfast"]').click()
     cy.url().should('include', 'carpage/Ferrari-812%20Superfast')
   })
