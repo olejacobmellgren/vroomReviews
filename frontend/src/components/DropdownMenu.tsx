@@ -13,14 +13,14 @@ type DropdownProps = {
 type ButtonProps = {
   name: string;
   onClick: () => void;
+  checkedOption: string;
 };
 
-function ButtonInside({ name, onClick }: ButtonProps) {
-  const [isAll] = useState(name == 'All');
+function ButtonInside({ name, onClick, checkedOption }: ButtonProps) {
   return (
     <div className="dropdownButtonInsideWrapper">
       <button className="dropdownButtonInside" onClick={onClick}>
-        <span style={{ color: isAll ? '#00CC00' : '' }}>{name}</span>
+        <span style={{ color: name == checkedOption ? '#00CC00' : '' }}>{name}</span>
       </button>
     </div>
   );
@@ -95,16 +95,16 @@ function DropdownMenu({
       </button>
       <div className={`dropdown ${isOpen ? 'active' : 'closed'}`}>
         {options.map((option) => {
-          if (option !== 'All' || checkedOption !== filter) {
-            // Only show option "All" when the user has applied a filter
-            return (
-              <ButtonInside
-                key={option}
-                name={option}
-                onClick={() => handleOptionClick(option)}
-              />
-            );
-          }
+          
+          return (
+            <ButtonInside
+              key={option}
+              name={option}
+              checkedOption={checkedOption}
+              onClick={() => handleOptionClick(option)}
+            />
+          );
+          
         })}
       </div>
       {filterApplied && (

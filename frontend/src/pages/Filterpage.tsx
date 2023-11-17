@@ -23,7 +23,6 @@ const Filterpage = () => {
         'Porsche',
         'Honda',
         'Tesla',
-        'All',
       ],
     },
     {
@@ -37,7 +36,6 @@ const Filterpage = () => {
         '2018',
         '2017',
         '2016',
-        'All',
       ],
     },
     {
@@ -52,7 +50,6 @@ const Filterpage = () => {
         'Wagon',
         'Sports car',
         'Minivan',
-        'All',
       ],
     },
     {
@@ -62,7 +59,6 @@ const Filterpage = () => {
         'Years, desc',
         'Rating, asc',
         'Rating, desc',
-        'All',
       ],
     },
   ];
