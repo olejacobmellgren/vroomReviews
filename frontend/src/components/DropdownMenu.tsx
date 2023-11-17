@@ -65,13 +65,8 @@ function DropdownMenu({
   // Set checked option to the selected option and close the dropdown
   const handleOptionClick = (option: string) => {
     if (option !== checkedOption) {
-      if (option === 'All') {
-        setCheckedOption(filter);
-      } else {
-        setFilterApplied(true)
-        setCheckedOption(option);
-      }
-
+      setFilterApplied(true)
+      setCheckedOption(option);
       onSelect(option, false);
     }
     toggleDropdown();
