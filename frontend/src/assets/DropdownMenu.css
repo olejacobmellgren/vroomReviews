@@ -1,6 +1,6 @@
 .dropdownButtonWrapper {
   position: relative;
-  display: inline-block;
+  display: flex;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
@@ -115,4 +115,18 @@
     margin-top: 0.25vh;
     margin-bottom: 0.25vh;
   }
+}
+
+.clearButton {
+  margin-left: 1rem;
+  background-color: #202020;
+  border: none;
+}
+
+.clearButton img {
+  width: 20px;
+}
+
+.clearButton:hover {
+  cursor: pointer;
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../assets/DropdownMenu.css';
+import ClearIcon from '../assets/images/clear-icon.png'
 
 type DropdownProps = {
   filter: string;
@@ -34,6 +35,7 @@ function DropdownMenu({
 }: DropdownProps) {
   const [checkedOption, setCheckedOption] = useState(filter);
   const [initialLoad, setInitialLoad] = useState(true);
+  const [filterApplied, setFilterApplied] = useState(false);
 
   // Set checked option to the option that was selected last time, if there is one, otherwise set it to "All"
   useEffect(() => {
@@ -43,9 +45,11 @@ function DropdownMenu({
         if (storedFilterOption !== 'All') {
           setCheckedOption(storedFilterOption);
           onSelect(storedFilterOption, true);
+          setFilterApplied(true)
         } else {
           setCheckedOption(filter);
           onSelect(storedFilterOption, true);
+          setFilterApplied(false)
         }
       }
       setInitialLoad(false);
@@ -64,6 +68,7 @@ function DropdownMenu({
       if (option === 'All') {
         setCheckedOption(filter);
       } else {
+        setFilterApplied(true)
         setCheckedOption(option);
       }
 
@@ -75,6 +80,12 @@ function DropdownMenu({
   const handleDropdown = () => {
     toggleDropdown();
   };
+
+  const handleClear = () => {
+    setFilterApplied(false)
+    onSelect("All", false)
+    setCheckedOption(filter)
+  }
 
   return (
     <div className="dropdownButtonWrapper">
@@ -96,6 +107,11 @@ function DropdownMenu({
           }
         })}
       </div>
+      {filterApplied && (
+        <button className="clearButton" onClick={handleClear}>
+          <img src={ClearIcon}></img>
+        </button>
+      )}
     </div>
   );
 }
