@@ -10,6 +10,7 @@ Please review and check the following:
   - [ ] `npx prettier . --write`
   - [ ] `npm run lint`
 - [ ] **Tests**: New features and changes are covered by appropriate tests, and existing tests pass.
+  - [ ] `npm run test`
 - [ ] **Responsive**: The code is responsive to mobile devices. (if merge-request for design)
 - [ ] **Review**: Requesting a review from @mention-reviewer or the appropriate team.
 
