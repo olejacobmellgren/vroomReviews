@@ -115,10 +115,19 @@ export const GET_USER_COUNT = gql`
 `;
 
 export const GET_COMPANIES = gql`
-  query GetCompanies {
-    companies {
-      name
-      logo
+  query GetCompanies(
+    $offset: Int
+    $limit: Int
+  ) {
+    companies(
+      offset: $offset
+      limit: $limit
+    ) {
+      companies {
+        name
+        logo
+      }
+      totalCount
     }
   }
 `;

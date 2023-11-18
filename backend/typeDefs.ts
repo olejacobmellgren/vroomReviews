@@ -66,6 +66,11 @@ export const typeDefs = buildSchema(`
     totalCount: Int
   }
 
+  type companyList {
+    companies: [Company]
+    totalCount: Int
+  }
+
   type Query {
     car(company: String!, model: String!): Car
     carsByCompany(company: String!): [Car]
@@ -75,7 +80,7 @@ export const typeDefs = buildSchema(`
     userReviews(userID: Int!): [Review]
     userReviewForCar(userID: Int!, car: ID!): Review
     userCount: Int
-    companies: [Company]
+    companies(offset: Int, limit: Int): companyList
     company(name: String!): Company
   }
 

@@ -15,20 +15,25 @@ const Homepage = () => {
     parseInt(sessionStorage.getItem('visibleBrands') || '0'),
   );
   // Get all companies
-  const { loading, error, data } = useQuery(GET_COMPANIES, {});
+  const { loading, error, data } = useQuery(GET_COMPANIES, {
+    variables: {
+      offset: visibleBrands,
+      limit: increment,
+    },
+  });
 
   // View next 3 brands on next page
   // Use sessionStorage to stay on the same page after refresh
   const viewNext = () => {
     const VisibleBrandsEnd = visibleBrands + increment;
-    if (data.companies.length - VisibleBrandsEnd > increment) {
+    if (data.companies.totalCount - VisibleBrandsEnd > increment) {
       setVisibleBrands(VisibleBrandsEnd);
       sessionStorage.setItem('visibleBrands', VisibleBrandsEnd.toString());
     } else {
-      setVisibleBrands(data.companies.length - increment);
+      setVisibleBrands(data.companies.totalCount - increment);
       sessionStorage.setItem(
         'visibleBrands',
-        (data.companies.length - increment).toString(),
+        (data.companies.totalCount - increment).toString(),
       );
     }
     window.scrollTo({
@@ -61,8 +66,7 @@ const Homepage = () => {
 
   return (
     <>
-      {data.companies
-        .slice(visibleBrands, visibleBrands + increment)
+      {data.companies.companies
         .map((data: company, index: number) => (
           <div className="conteiner" key={index}>
             <div className="scrollingMenuHeader">
