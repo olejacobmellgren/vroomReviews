@@ -26,9 +26,11 @@ export const resolvers = {
       if (filters.company) {
         query.company = filters.company;
       }
+      /*
       if (filters.year) {
         query.year = filters.year;
       }
+      */
       if (filters.carBody) {
         query.carBody = filters.carBody;
       }
