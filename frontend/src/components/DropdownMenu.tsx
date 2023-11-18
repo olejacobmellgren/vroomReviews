@@ -105,20 +105,22 @@ function DropdownMenu({
             );
           })}
         </div>
-        {optionsCounter > 10 && (
-          <div className="arrowButtonWrapper">
-            <button className="arrowButton" onClick={() => setOptionsCounter((prevCounter) => prevCounter - 10)}>
-              Left
-            </button>
-          </div>
-        )}
-        {optionsCounter < options.length && (
-          <div className="arrowButtonWrapper">
-            <button className="arrowButton" onClick={() => setOptionsCounter((prevCounter) => prevCounter + 10)}>
-              Right
-            </button>
-          </div>
-        )}
+        <div className="arrowWrapper" style={{ justifyContent: optionsCounter == 10 ? 'flex-end' : 'flex-start' }}>
+          {optionsCounter > 10 && (
+            <div className="arrowButtonWrapper">
+              <button className="arrowButton" onClick={() => setOptionsCounter((prevCounter) => prevCounter - 10)}>
+                <i className='arrowLeft'></i>
+              </button>
+            </div>
+          )}
+          {optionsCounter < options.length && (
+            <div className="arrowButtonWrapper">
+              <button className="arrowButton" onClick={() => setOptionsCounter((prevCounter) => prevCounter + 10)}>
+                <i className='arrowRight'></i>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
       {filterApplied && (
         <button className="clearButton" onClick={handleClear}>
