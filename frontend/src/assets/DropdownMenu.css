@@ -84,7 +84,21 @@
   border: 1px solid transparent;
   font-weight: 500;
   font-family: inherit;
+  transition: transform 0.5s ease;
 }
+
+.arrowButton:hover {
+  cursor: pointer;
+}
+
+.arrowButtonLeft:hover {
+  transform: translateX(-10px);
+}
+
+.arrowButtonRight:hover {
+  transform: translateX(10px);
+}
+
 
 .dropdownArrow {
   border: solid #abb5be;

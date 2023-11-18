@@ -105,17 +105,17 @@ function DropdownMenu({
             );
           })}
         </div>
-        <div className="arrowWrapper" style={{ justifyContent: optionsCounter == 10 ? 'flex-end' : 'flex-start' }}>
+        <div className="arrowWrapper" style={{ justifyContent: 'center' }}>
           {optionsCounter > 10 && (
             <div className="arrowButtonWrapper">
-              <button className="arrowButton" onClick={() => setOptionsCounter((prevCounter) => prevCounter - 10)}>
+              <button className="arrowButton arrowButtonLeft" onClick={() => setOptionsCounter((prevCounter) => prevCounter - 10)}>
                 <i className='arrowLeft'></i>
               </button>
             </div>
           )}
           {optionsCounter < options.length && (
             <div className="arrowButtonWrapper">
-              <button className="arrowButton" onClick={() => setOptionsCounter((prevCounter) => prevCounter + 10)}>
+              <button className="arrowButton arrowButtonRight" onClick={() => setOptionsCounter((prevCounter) => prevCounter + 10)}>
                 <i className='arrowRight'></i>
               </button>
             </div>
