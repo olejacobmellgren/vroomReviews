@@ -6,6 +6,7 @@ type DropdownProps = {
   filter: string;
   options: string[];
   isOpen: boolean;
+  updateOptionCounter: boolean;
   toggleDropdown: () => void;
   onSelect: (option: string, initialLoad: boolean) => void;
 };
@@ -30,6 +31,7 @@ function DropdownMenu({
   filter,
   options,
   isOpen,
+  updateOptionCounter,
   toggleDropdown,
   onSelect,
 }: DropdownProps) {
@@ -64,10 +66,10 @@ function DropdownMenu({
   }, [onSelect, checkedOption, filter, initialLoad]);
 
   useEffect(() => {
-    if (!isOpen) {
+    if (updateOptionCounter) {
       setOptionsCounter(10)
     }
-  }, [isOpen])
+  }, [updateOptionCounter])
 
   // Set checked option to the selected option and close the dropdown
   const handleOptionClick = (option: string) => {

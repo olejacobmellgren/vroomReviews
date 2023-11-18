@@ -38,6 +38,12 @@ const Filterpage = () => {
     filters.map(() => false),
   );
 
+  const [updateOptionsCounter, setUpdateOptionsCounter] = useState({
+    Brand: false,
+    Body: false,
+    SortBy: false,
+  });
+
   const [visibleCars, setVisibleCars] = useState(12);
 
   const [shownCars, setShownCars] = useState<CarCard['car'][]>([]);
@@ -118,6 +124,28 @@ const Filterpage = () => {
       [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
     }));
     if (!initialLoad) {
+      if (filterName !== "Body") {
+        setUpdateOptionsCounter((prevSelectedFilters) => ({
+          ...prevSelectedFilters,
+          ["Body"]: true,
+        }));
+      } else {
+        setUpdateOptionsCounter((prevSelectedFilters) => ({
+          ...prevSelectedFilters,
+          ["Body"]: false,
+        }));
+      }
+      if (filterName !== "Brand") {
+        setUpdateOptionsCounter((prevSelectedFilters) => ({
+          ...prevSelectedFilters,
+          ["Brand"]: true,
+        }));
+      } else {
+        setUpdateOptionsCounter((prevSelectedFilters) => ({
+          ...prevSelectedFilters,
+          ["Brand"]: false,
+        }));
+      } 
       setShownCars([]);
       setVisibleCars(12);
       setLimit(12);
@@ -186,6 +214,7 @@ const Filterpage = () => {
               filter={filter.name}
               options={filter.options}
               isOpen={dropdownVisibility[index]}
+              updateOptionCounter={updateOptionsCounter[filter.name as keyof typeof updateOptionsCounter]}
               toggleDropdown={() => toggleDropdown(index)}
               onSelect={(value, initialLoad) =>
                 handleFilterChange(filter.name, value, initialLoad)
@@ -217,7 +246,7 @@ const Filterpage = () => {
           </div>
         ))}
       </div>
-      {shownCars.length != 0 && (
+      {shownCars.length != 0 && totalCount > 12 &&(
         <div className="resultCounter">
           <p>
             Showing {shownCars.length} of {totalCount} cars
