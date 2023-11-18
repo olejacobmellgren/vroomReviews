@@ -21,7 +21,7 @@ export const resolvers = {
       const { filters, offset, orderBy, searchTerm, limit } = args;
 
       // Create a base query object with filter conditions
-      const query: any = {};
+      let query: any = {};
 
       if (filters.company) {
         query.company = filters.company;
@@ -65,6 +65,10 @@ export const resolvers = {
         ],
       }); 
 
+      if ('carBody' in query) {
+        delete query.carBody;
+      }
+
       const distinctCarBodies = await Car.distinct('carBody', {
         $and: [
           query,
@@ -74,6 +78,14 @@ export const resolvers = {
         ],
       });
 
+      if (filters.carBody) {
+        query.carBody = filters.carBody;
+      }
+
+      if ('company' in query) {
+        delete query.company
+      }
+
       const distinctcarCompanies = await Car.distinct('company', {
         $and: [
           query,
@@ -82,6 +94,10 @@ export const resolvers = {
           },
         ],
       });
+
+      if (filters.company) {
+        query.company = filters.company;
+      }
 
       return {
         cars: result,

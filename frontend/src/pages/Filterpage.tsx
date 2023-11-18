@@ -10,20 +10,7 @@ const Filterpage = () => {
   const [filters, setFilters] = useState([
     {
       name: 'Brand',
-      options: [
-        'Ferrari',
-        'Lamborghini',
-        'Toyota',
-        'BMW',
-        'Audi',
-        'Volvo',
-        'Koenigsegg',
-        'Ford',
-        'Nissan',
-        'Porsche',
-        'Honda',
-        'Tesla',
-      ],
+      options: [],
     },
     {
       name: 'Year',
@@ -40,17 +27,7 @@ const Filterpage = () => {
     },
     {
       name: 'Body',
-      options: [
-        'Coupe',
-        'SUV',
-        'Sedan',
-        'Convertible',
-        'Hatchback',
-        'Truck',
-        'Wagon',
-        'Sports car',
-        'Minivan',
-      ],
+      options: [],
     },
     {
       name: 'Sort by',
@@ -94,8 +71,6 @@ const Filterpage = () => {
 
   const [totalCount, setTotalCount] = useState(0);
 
-  const [updateBody, setUpdateBody] = useState(true)
-
   // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
   useEffect(() => {
     loadMoreCars({
@@ -132,15 +107,15 @@ const Filterpage = () => {
   useEffect(() => {
     if (data?.cars?.cars) {
       setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars?.cars));
-      setTotalCount(data?.cars?.totalCount);
-      if (updateBody) {
-        const newOptions = data?.cars?.carBodies
-        console.log(newOptions)
-        setFilters((prevFilters) =>
-        prevFilters.map((filter) =>
-          filter.name === 'Body' ? { ...filter, options: newOptions } : filter
-        ))
-      }
+      setTotalCount(data?.cars?.totalCount); 
+      setFilters((prevFilters) =>
+      prevFilters.map((filter) =>
+        filter.name === 'Body' ? { ...filter, options: data?.cars?.carBodies } : filter
+      ))
+      setFilters((prevFilters) =>
+      prevFilters.map((filter) =>
+        filter.name === 'Brand' ? { ...filter, options: data?.cars?.carCompanies } : filter
+      ))
     }
   }, [data]);
 
@@ -148,12 +123,6 @@ const Filterpage = () => {
   useEffect(() => {
     sessionStorage.setItem('searchTerm', searchTerm);
   }, [searchTerm]);
-
-  useEffect(() => {
-    if (!Object.values(selectedFilters).filter((key) => key !== 'Body').every((value) => value === 'All')) {
-      setUpdateBody(true)
-    }
-  }, [selectedFilters.Year, selectedFilters.Brand, selectedFilters.SortBy])
 
   // Set selected filters and if not initial load, reset shownCars and amount of visibleCars
   const handleFilterChange = (
@@ -166,11 +135,6 @@ const Filterpage = () => {
       [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
     }));
     if (!initialLoad) {
-      if (filterName === "Body") {
-        setUpdateBody(false)
-      } else {
-        setUpdateBody(true)
-      }
       setShownCars([]);
       setVisibleCars(12);
       setLimit(12);
