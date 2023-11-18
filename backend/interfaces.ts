@@ -42,7 +42,7 @@ export interface addReviewArgs {
   username: string;
 }
 
-export interface companiesArgs { 
+export interface companiesArgs {
   offset: number;
   limit: number;
 }

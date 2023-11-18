@@ -14,7 +14,8 @@ const Homepage = () => {
   const [visibleBrands, setVisibleBrands] = useState(
     parseInt(sessionStorage.getItem('visibleBrands') || '0'),
   );
-  // Get all companies
+
+  // Get companies to show on homepage
   const { loading, error, data } = useQuery(GET_COMPANIES, {
     variables: {
       offset: visibleBrands,
@@ -66,19 +67,18 @@ const Homepage = () => {
 
   return (
     <>
-      {data.companies.companies
-        .map((data: company, index: number) => (
-          <div className="conteiner" key={index}>
-            <div className="scrollingMenuHeader">
-              <div className="element"></div>
-              <h1>{data.name}</h1>
-              <div className="brand-logo-wrapper">
-                <img className="brand-logo" src={data.logo} />
-              </div>
+      {data.companies.companies.map((data: company, index: number) => (
+        <div className="conteiner" key={index}>
+          <div className="scrollingMenuHeader">
+            <div className="element"></div>
+            <h1>{data.name}</h1>
+            <div className="brand-logo-wrapper">
+              <img className="brand-logo" src={data.logo} />
             </div>
-            <ScrollingMenu brand={data.name} />
           </div>
-        ))}
+          <ScrollingMenu brand={data.name} />
+        </div>
+      ))}
       <div className="view-more-button">
         <button onClick={viewPrev}>Prev Page</button>
         <button onClick={viewNext}>Next Page</button>

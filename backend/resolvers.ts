@@ -4,7 +4,13 @@ import Favorite from './models/favorite';
 import Review from './models/review';
 import User from './models/user';
 import Company from './models/Company';
-import { carArgs, carsArgs, userAndCarArgs, addReviewArgs, companiesArgs } from './interfaces';
+import {
+  carArgs,
+  carsArgs,
+  userAndCarArgs,
+  addReviewArgs,
+  companiesArgs,
+} from './interfaces';
 
 export const resolvers = {
   Query: {
