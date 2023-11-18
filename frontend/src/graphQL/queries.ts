@@ -56,6 +56,7 @@ export const GET_CARS = gql`
       }
       totalCount
       carBodies
+      carCompanies
     }
   }
 `;

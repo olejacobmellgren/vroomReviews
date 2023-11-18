@@ -65,6 +65,7 @@ export const typeDefs = buildSchema(`
     cars: [Car]
     totalCount: Int
     carBodies: [String]
+    carCompanies: [String]
   }
 
   type Query {

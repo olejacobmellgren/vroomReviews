@@ -74,10 +74,20 @@ export const resolvers = {
         ],
       });
 
+      const distinctcarCompanies = await Car.distinct('company', {
+        $and: [
+          query,
+          {
+            fullname: { $regex: new RegExp(searchTerm, 'i') }
+          },
+        ],
+      });
+
       return {
         cars: result,
         totalCount: totalCount,
         carBodies: distinctCarBodies,
+        carCompanies: distinctcarCompanies,
       };
     },
     // Return all cars favorited by a single user, populate() is used to get the car data
