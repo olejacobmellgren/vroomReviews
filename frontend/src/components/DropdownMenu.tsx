@@ -36,6 +36,7 @@ function DropdownMenu({
   const [checkedOption, setCheckedOption] = useState(filter);
   const [initialLoad, setInitialLoad] = useState(true);
   const [filterApplied, setFilterApplied] = useState(false);
+  const [optionsCounter, setOptionsCounter] = useState(10)
 
   // Set checked option to the option that was selected last time, if there is one, otherwise set it to "All"
   useEffect(() => {
@@ -92,18 +93,32 @@ function DropdownMenu({
         <i className="dropdownArrow"></i>
       </button>
       <div className={`dropdown ${isOpen ? 'active' : 'closed'}`}>
-        {options.map((option) => {
-          
-          return (
-            <ButtonInside
-              key={option}
-              name={option}
-              checkedOption={checkedOption}
-              onClick={() => handleOptionClick(option)}
-            />
-          );
-          
-        })}
+        <div className="optionsWrapper">
+          {options.slice(optionsCounter - 10, optionsCounter).map((option) => {
+            return (
+              <ButtonInside
+                key={option}
+                name={option}
+                checkedOption={checkedOption}
+                onClick={() => handleOptionClick(option)}
+              />
+            );
+          })}
+        </div>
+        {optionsCounter > 10 && (
+          <div className="arrowButtonWrapper">
+            <button className="arrowButton" onClick={() => setOptionsCounter((prevCounter) => prevCounter - 10)}>
+              Left
+            </button>
+          </div>
+        )}
+        {optionsCounter < options.length && (
+          <div className="arrowButtonWrapper">
+            <button className="arrowButton" onClick={() => setOptionsCounter((prevCounter) => prevCounter + 10)}>
+              Right
+            </button>
+          </div>
+        )}
       </div>
       {filterApplied && (
         <button className="clearButton" onClick={handleClear}>

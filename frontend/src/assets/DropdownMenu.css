@@ -32,6 +32,12 @@
   cursor: pointer;
 }
 
+.optionsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25vh;
+}
+
 .dropdownButtonInsideWrapper {
   display: flex;
   align-items: center;
@@ -56,6 +62,25 @@
   background-color: #e3e3e3;
 }
 
+.arrowButtonWrapper {
+  display: flex;
+  align-items: center;
+  width: calc(50% - 0.25vh);
+}
+
+.arrowButton {
+  background-color: #f4f9fe;
+  font-size: 2vh;
+  border-radius: 0.5vh;
+  padding: 1vh;
+  color: #0062c4;
+  width: 100%;
+  text-align: center;
+  border: 1px solid transparent;
+  font-weight: 500;
+  font-family: inherit;
+}
+
 .dropdownArrow {
   border: solid #abb5be;
   border-width: 0 2px 2px 0;
@@ -68,7 +93,6 @@
 .dropdown {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25vh;
   position: absolute;
   top: 100%;
   border-radius: 10px;
