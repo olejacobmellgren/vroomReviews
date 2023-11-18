@@ -63,6 +63,12 @@ function DropdownMenu({
     }
   }, [onSelect, checkedOption, filter, initialLoad]);
 
+  useEffect(() => {
+    if (!isOpen) {
+      setOptionsCounter(10)
+    }
+  }, [isOpen])
+
   // Set checked option to the selected option and close the dropdown
   const handleOptionClick = (option: string) => {
     if (option !== checkedOption) {
