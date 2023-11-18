@@ -147,7 +147,7 @@ const Filterpage = () => {
         ))
       }
     }
-  }, [data]);
+  }, [data, selectedFilters.Body, updateBody]);
 
   // Set search term in sessionStorage when it changes
   useEffect(() => {
