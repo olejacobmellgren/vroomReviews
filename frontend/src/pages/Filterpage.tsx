@@ -13,19 +13,6 @@ const Filterpage = () => {
       options: [],
     },
     {
-      name: 'Year',
-      options: [
-        '2023',
-        '2022',
-        '2021',
-        '2020',
-        '2019',
-        '2018',
-        '2017',
-        '2016',
-      ],
-    },
-    {
       name: 'Body',
       options: [],
     },
@@ -42,7 +29,6 @@ const Filterpage = () => {
 
   const [selectedFilters, setSelectedFilters] = useState({
     Brand: sessionStorage.getItem('Brand') || 'All',
-    Year: sessionStorage.getItem('Year') || 'All',
     Body: sessionStorage.getItem('Body') || 'All',
     SortBy: sessionStorage.getItem('Sort by') || 'All',
   });
@@ -78,10 +64,7 @@ const Filterpage = () => {
         filters: {
           company:
             selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
-          year:
-            selectedFilters.Year !== 'All'
-              ? parseInt(selectedFilters.Year)
-              : null,
+          year: 4, /* Skriv noe her! */
           carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
         },
         offset: visibleCars - 12,
