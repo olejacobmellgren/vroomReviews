@@ -4,7 +4,13 @@ import Favorite from './models/favorite';
 import Review from './models/review';
 import User from './models/user';
 import Company from './models/Company';
-import { carArgs, carsArgs, userAndCarArgs, addReviewArgs } from './interfaces';
+import {
+  carArgs,
+  carsArgs,
+  userAndCarArgs,
+  addReviewArgs,
+  companiesArgs,
+} from './interfaces';
 
 export const resolvers = {
   Query: {
@@ -155,8 +161,13 @@ export const resolvers = {
     userCount: async () => {
       return await User.countDocuments();
     },
-    companies: async () => {
-      return await Company.find();
+    companies: async (_: any, { offset, limit }: companiesArgs) => {
+      const companies = await Company.find().limit(limit).skip(offset);
+      const totalCount = await Company.countDocuments();
+      return {
+        companies: companies,
+        totalCount: totalCount,
+      };
     },
     company: async (_: any, { name }: { name: string }) => {
       return await Company.findOne({ name: name });

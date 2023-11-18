@@ -41,3 +41,8 @@ export interface addReviewArgs {
   userID: number;
   username: string;
 }
+
+export interface companiesArgs {
+  offset: number;
+  limit: number;
+}

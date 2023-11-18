@@ -14,21 +14,27 @@ const Homepage = () => {
   const [visibleBrands, setVisibleBrands] = useState(
     parseInt(sessionStorage.getItem('visibleBrands') || '0'),
   );
-  // Get all companies
-  const { loading, error, data } = useQuery(GET_COMPANIES, {});
+
+  // Get companies to show on homepage
+  const { loading, error, data } = useQuery(GET_COMPANIES, {
+    variables: {
+      offset: visibleBrands,
+      limit: increment,
+    },
+  });
 
   // View next 3 brands on next page
   // Use sessionStorage to stay on the same page after refresh
   const viewNext = () => {
     const VisibleBrandsEnd = visibleBrands + increment;
-    if (data.companies.length - VisibleBrandsEnd > increment) {
+    if (data.companies.totalCount - VisibleBrandsEnd > increment) {
       setVisibleBrands(VisibleBrandsEnd);
       sessionStorage.setItem('visibleBrands', VisibleBrandsEnd.toString());
     } else {
-      setVisibleBrands(data.companies.length - increment);
+      setVisibleBrands(data.companies.totalCount - increment);
       sessionStorage.setItem(
         'visibleBrands',
-        (data.companies.length - increment).toString(),
+        (data.companies.totalCount - increment).toString(),
       );
     }
     window.scrollTo({
@@ -61,20 +67,18 @@ const Homepage = () => {
 
   return (
     <>
-      {data.companies
-        .slice(visibleBrands, visibleBrands + increment)
-        .map((data: company, index: number) => (
-          <div className="conteiner" key={index}>
-            <div className="scrollingMenuHeader">
-              <div className="element"></div>
-              <h1>{data.name}</h1>
-              <div className="brand-logo-wrapper">
-                <img className="brand-logo" src={data.logo} />
-              </div>
+      {data.companies.companies.map((data: company, index: number) => (
+        <div className="conteiner" key={index}>
+          <div className="scrollingMenuHeader">
+            <div className="element"></div>
+            <h1>{data.name}</h1>
+            <div className="brand-logo-wrapper">
+              <img className="brand-logo" src={data.logo} />
             </div>
-            <ScrollingMenu brand={data.name} />
           </div>
-        ))}
+          <ScrollingMenu brand={data.name} />
+        </div>
+      ))}
       <div className="view-more-button">
         <button onClick={viewPrev}>Prev Page</button>
         <button onClick={viewNext}>Next Page</button>
