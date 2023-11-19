@@ -42,6 +42,7 @@ export const GET_CARS = gql`
     $searchTerm: String
     $limit: Int
     $priceRange: [Int]
+    $yearRange: [Int]
   ) {
     cars(
       filters: $filters
@@ -50,6 +51,7 @@ export const GET_CARS = gql`
       searchTerm: $searchTerm
       limit: $limit
       priceRange: $priceRange
+      yearRange: $yearRange
     ) {
       cars {
         company

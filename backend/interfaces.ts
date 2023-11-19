@@ -28,6 +28,7 @@ export interface carsArgs {
   searchTerm: string;
   limit: number;
   priceRange: number[];
+  yearRange: number[];
 }
 
 export interface userAndCarArgs {

@@ -64,7 +64,9 @@ const Filterpage = () => {
 
   const [totalCount, setTotalCount] = useState(0);
 
-  const [priceValue, setPriceValue] = useState<number[]>([0, 1000000]);
+  const [priceRange, setPriceRange] = useState<number[]>([0, 1000000]);
+
+  const [yearRange, setYearRange] = useState<number[]>([1943, 2023])
 
   // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
   useEffect(() => {
@@ -91,10 +93,11 @@ const Filterpage = () => {
         },
         searchTerm: searchTerm,
         limit: limit,
-        priceRange: priceValue,
+        priceRange: priceRange,
+        yearRange: yearRange,
       },
     });
-  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm, limit, priceValue]);
+  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm, limit, priceRange, yearRange]);
 
   // Add cars to shownCars when data is fetched
   useEffect(() => {
@@ -166,18 +169,40 @@ const Filterpage = () => {
     setVisibleCars(12);
     setLimit(12);
     sessionStorage.setItem('visibleCars', '12');
-    
+
     const minDistance = 100000;
     if (!Array.isArray(newValue)) {
       return;
     }
 
     if (activeThumb === 0) {
-      setPriceValue([Math.min(newValue[0], priceValue[1] - minDistance), priceValue[1]]);
+      setPriceRange([Math.min(newValue[0], priceRange[1] - minDistance), priceRange[1]]);
     } else {
-      setPriceValue([priceValue[0], Math.max(newValue[1], priceValue[0] + minDistance)]);
+      setPriceRange([priceRange[0], Math.max(newValue[1], priceRange[0] + minDistance)]);
     }
   };
+
+  const handleYearChange = (
+    event: Event,
+    newValue: number | number[],
+    activeThumb: number,
+  ) => {
+    setShownCars([]);
+    setVisibleCars(12);
+    setLimit(12);
+    sessionStorage.setItem('visibleCars', '12');
+
+    const minDistance = 5;
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    if (activeThumb === 0) {
+      setYearRange([Math.min(newValue[0], yearRange[1] - minDistance), yearRange[1]]);
+    } else {
+      setYearRange([yearRange[0], Math.max(newValue[1], yearRange[0] + minDistance)]);
+    }
+  }
 
   const valueLabelFormat = (value: number) => {
     const formatter = new Intl.NumberFormat('en-US', {
@@ -258,7 +283,7 @@ const Filterpage = () => {
           <div className="slider">
             <Slider
               getAriaLabel={() => 'Price range'}
-              value={priceValue}
+              value={priceRange}
               min={0}
               max={1000000}
               onChange={handlePriceChange}
@@ -270,9 +295,15 @@ const Filterpage = () => {
         </div>
         <div className="sliderWrapper">
           <div className="slider">
-            <Slider>
-
-            </Slider>
+            <Slider
+              getAriaLabel={() => 'Price range'}
+              value={yearRange}
+              min={1943}
+              max={2023}
+              onChange={handleYearChange}
+              valueLabelDisplay="auto"
+              disableSwap
+            />  
           </div>
         </div>
       </div>

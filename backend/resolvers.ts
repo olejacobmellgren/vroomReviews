@@ -18,7 +18,7 @@ export const resolvers = {
     },
     // Return all cars fulfilling the given filters
     cars: async (_: any, args: carsArgs) => {
-      const { filters, offset, orderBy, searchTerm, limit, priceRange } = args;
+      const { filters, offset, orderBy, searchTerm, limit, priceRange, yearRange } = args;
 
       // Create a base query object with filter conditions
       let query: any = {};
@@ -42,8 +42,14 @@ export const resolvers = {
           ...(priceRange[1] !== 1000000 ? { $lte: priceRange[1] } : {}),
         };
       }
-      
 
+      if (yearRange) {
+        query.year = {
+          $gte: yearRange[0],
+          $lte: yearRange[1],
+        };
+      }
+      
       // Apply sorting based on orderBy
       const sort: any = {};
       if (orderBy) {

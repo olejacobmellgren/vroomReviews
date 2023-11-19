@@ -72,7 +72,7 @@ export const typeDefs = buildSchema(`
   type Query {
     car(company: String!, model: String!): Car
     carsByCompany(company: String!): [Car]
-    cars(filters: carsFilters, offset: Int, orderBy: orderByArg, searchTerm: String, limit: Int, priceRange: [Int]): carList
+    cars(filters: carsFilters, offset: Int, orderBy: orderByArg, searchTerm: String, limit: Int, priceRange: [Int], yearRange: [Int]): carList
     favoriteCars(userID: Int!): [Favorite]
     carReviews(car: ID!): [Review]
     userReviews(userID: Int!): [Review]
