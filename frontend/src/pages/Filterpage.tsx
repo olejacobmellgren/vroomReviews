@@ -124,28 +124,20 @@ const Filterpage = () => {
       [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
     }));
     if (!initialLoad) {
-      if (filterName !== "Body") {
-        setUpdateOptionsCounter((prevSelectedFilters) => ({
-          ...prevSelectedFilters,
-          ["Body"]: true,
-        }));
-      } else {
-        setUpdateOptionsCounter((prevSelectedFilters) => ({
-          ...prevSelectedFilters,
-          ["Body"]: false,
-        }));
-      }
-      if (filterName !== "Brand") {
-        setUpdateOptionsCounter((prevSelectedFilters) => ({
-          ...prevSelectedFilters,
-          ["Brand"]: true,
-        }));
-      } else {
-        setUpdateOptionsCounter((prevSelectedFilters) => ({
-          ...prevSelectedFilters,
-          ["Brand"]: false,
-        }));
-      } 
+      // Create an object to map filter names to update flags
+      const updateFlags: Record<string, boolean> = {
+        Body: filterName !== 'Body',
+        Brand: filterName !== 'Brand',
+      };
+
+      // Set update flags for specified filters
+      setUpdateOptionsCounter((prevSelectedFilters) => ({
+        ...prevSelectedFilters,
+        ...Object.keys(updateFlags).reduce(
+          (acc, key) => ({ ...acc, [key]: updateFlags[key] }),
+          {}
+        ),
+      }));
       setShownCars([]);
       setVisibleCars(12);
       setLimit(12);
