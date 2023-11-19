@@ -161,7 +161,7 @@ const Filterpage = () => {
   };
 
   const handlePriceChange = (
-    event: Event,
+    _event: Event,
     newValue: number | number[],
     activeThumb: number,
   ) => {
@@ -183,7 +183,7 @@ const Filterpage = () => {
   };
 
   const handleYearChange = (
-    event: Event,
+    _event: Event,
     newValue: number | number[],
     activeThumb: number,
   ) => {
@@ -313,11 +313,13 @@ const Filterpage = () => {
           !(
             Object.values(selectedFilters).filter((filter) => filter !== 'All')
               .length === 1 && selectedFilters.SortBy !== 'All'
-          ))) && (
-        <div className="resultCounter">
-          <p>Found {totalCount} cars</p>
-        </div>
-      )}
+          ))) ||
+        (JSON.stringify(priceRange) !== JSON.stringify([0, 1000000]) ||
+          JSON.stringify(yearRange) !== JSON.stringify([1943, 2023])) && (
+          <div className="resultCounter">
+            <p>Found {totalCount} cars</p>
+          </div>
+        )}
       <div className="car-list">
         {shownCars.map((car) => (
           <div className="car" key={car.company + '-' + car.model}>
