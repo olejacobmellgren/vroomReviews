@@ -18,7 +18,15 @@ export const resolvers = {
     },
     // Return all cars fulfilling the given filters
     cars: async (_: any, args: carsArgs) => {
-      const { filters, offset, orderBy, searchTerm, limit, priceRange, yearRange } = args;
+      const {
+        filters,
+        offset,
+        orderBy,
+        searchTerm,
+        limit,
+        priceRange,
+        yearRange,
+      } = args;
 
       // Create a base query object with filter conditions
       let query: any = {};
@@ -35,7 +43,6 @@ export const resolvers = {
         query.carBody = filters.carBody;
       }
 
-      
       if (priceRange) {
         query.price = {
           $gte: priceRange[0],
@@ -49,7 +56,7 @@ export const resolvers = {
           $lte: yearRange[1],
         };
       }
-      
+
       // Apply sorting based on orderBy
       const sort: any = {};
       if (orderBy) {
@@ -68,7 +75,7 @@ export const resolvers = {
         $and: [
           query,
           {
-            fullname: { $regex: new RegExp(searchTerm, 'i') }
+            fullname: { $regex: new RegExp(searchTerm, 'i') },
           },
         ],
       })
@@ -80,10 +87,10 @@ export const resolvers = {
         $and: [
           query,
           {
-            fullname: { $regex: new RegExp(searchTerm, 'i') }
+            fullname: { $regex: new RegExp(searchTerm, 'i') },
           },
         ],
-      }); 
+      });
 
       if ('carBody' in query) {
         delete query.carBody;
@@ -93,7 +100,7 @@ export const resolvers = {
         $and: [
           query,
           {
-            fullname: { $regex: new RegExp(searchTerm, 'i') }
+            fullname: { $regex: new RegExp(searchTerm, 'i') },
           },
         ],
       });
@@ -103,14 +110,14 @@ export const resolvers = {
       }
 
       if ('company' in query) {
-        delete query.company
+        delete query.company;
       }
 
       const distinctcarCompanies = await Car.distinct('company', {
         $and: [
           query,
           {
-            fullname: { $regex: new RegExp(searchTerm, 'i') }
+            fullname: { $regex: new RegExp(searchTerm, 'i') },
           },
         ],
       });

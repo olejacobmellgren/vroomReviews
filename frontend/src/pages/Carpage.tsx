@@ -72,12 +72,14 @@ const Carpage = () => {
   if (carError || reviewsError || userReviewError || companyError)
     console.log(carError, reviewsError, userReviewError, companyError);
 
-  const formattedPrice = carData?.car ? new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(carData?.car?.price) : "";
+  const formattedPrice = carData?.car
+    ? new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(carData?.car?.price)
+    : '';
 
   return (
     <div className="carpage-container">

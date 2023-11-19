@@ -68,7 +68,7 @@ const Filterpage = () => {
 
   const [priceRange, setPriceRange] = useState<number[]>([0, 1000000]);
 
-  const [yearRange, setYearRange] = useState<number[]>([1943, 2023])
+  const [yearRange, setYearRange] = useState<number[]>([1943, 2023]);
 
   // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
   useEffect(() => {
@@ -77,7 +77,7 @@ const Filterpage = () => {
         filters: {
           company:
             selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
-          year: 4, /* Skriv noe her! */
+          year: 4 /* Skriv noe her! */,
           carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
         },
         offset: visibleCars - 12,
@@ -85,18 +85,18 @@ const Filterpage = () => {
           year: !selectedFilters.SortBy.includes('Years')
             ? null
             : selectedFilters.SortBy.includes('asc')
-            ? 'asc'
-            : 'desc',
+              ? 'asc'
+              : 'desc',
           price: !selectedFilters.SortBy.includes('Price')
-          ? null
-          : selectedFilters.SortBy.includes('asc')
-          ? 'asc'
-          : 'desc',
+            ? null
+            : selectedFilters.SortBy.includes('asc')
+              ? 'asc'
+              : 'desc',
           rating: !selectedFilters.SortBy.includes('Rating')
             ? null
             : selectedFilters.SortBy.includes('asc')
-            ? 'asc'
-            : 'desc',
+              ? 'asc'
+              : 'desc',
         },
         searchTerm: searchTerm,
         limit: limit,
@@ -104,21 +104,35 @@ const Filterpage = () => {
         yearRange: yearRange,
       },
     });
-  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm, limit, priceRange, yearRange]);
+  }, [
+    loadMoreCars,
+    visibleCars,
+    selectedFilters,
+    searchTerm,
+    limit,
+    priceRange,
+    yearRange,
+  ]);
 
   // Add cars to shownCars when data is fetched
   useEffect(() => {
     if (data?.cars?.cars) {
       setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars?.cars));
-      setTotalCount(data?.cars?.totalCount); 
+      setTotalCount(data?.cars?.totalCount);
       setFilters((prevFilters) =>
-      prevFilters.map((filter) =>
-        filter.name === 'Body' ? { ...filter, options: data?.cars?.carBodies } : filter
-      ))
+        prevFilters.map((filter) =>
+          filter.name === 'Body'
+            ? { ...filter, options: data?.cars?.carBodies }
+            : filter,
+        ),
+      );
       setFilters((prevFilters) =>
-      prevFilters.map((filter) =>
-        filter.name === 'Brand' ? { ...filter, options: data?.cars?.carCompanies } : filter
-      ))
+        prevFilters.map((filter) =>
+          filter.name === 'Brand'
+            ? { ...filter, options: data?.cars?.carCompanies }
+            : filter,
+        ),
+      );
     }
   }, [data]);
 
@@ -149,7 +163,7 @@ const Filterpage = () => {
         ...prevSelectedFilters,
         ...Object.keys(updateFlags).reduce(
           (acc, key) => ({ ...acc, [key]: updateFlags[key] }),
-          {}
+          {},
         ),
       }));
       setShownCars([]);
@@ -172,7 +186,6 @@ const Filterpage = () => {
     newValue: number | number[],
     activeThumb: number,
   ) => {
-
     if (!Array.isArray(newValue)) {
       return;
     }
@@ -182,7 +195,7 @@ const Filterpage = () => {
     setLimit(12);
     sessionStorage.setItem('visibleCars', '12');
 
-    const minDistance = 100000
+    const minDistance = 100000;
 
     if (newValue[1] - newValue[0] < minDistance) {
       if (activeThumb === 0) {
@@ -211,7 +224,7 @@ const Filterpage = () => {
     setLimit(12);
     sessionStorage.setItem('visibleCars', '12');
 
-    const minDistance = 5
+    const minDistance = 5;
 
     if (newValue[1] - newValue[0] < minDistance) {
       if (activeThumb === 0) {
@@ -224,7 +237,7 @@ const Filterpage = () => {
     } else {
       setYearRange(newValue as number[]);
     }
-  }
+  };
 
   const valueLabelFormat = (value: number) => {
     const formatter = new Intl.NumberFormat('en-US', {
@@ -233,11 +246,11 @@ const Filterpage = () => {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     });
-  
+
     const formattedValue = formatter.format(value);
     return value === 1000000 ? `${formattedValue}+` : formattedValue;
-  }
-  
+  };
+
   let typingTimer: NodeJS.Timeout;
 
   // Set search term when user types in search bar only after 250ms, to avoid unnecessary calls to the backend
@@ -291,7 +304,11 @@ const Filterpage = () => {
               filter={filter.name}
               options={filter.options}
               isOpen={dropdownVisibility[index]}
-              updateOptionCounter={updateOptionsCounter[filter.name as keyof typeof updateOptionsCounter]}
+              updateOptionCounter={
+                updateOptionsCounter[
+                  filter.name as keyof typeof updateOptionsCounter
+                ]
+              }
               toggleDropdown={() => toggleDropdown(index)}
               onSelect={(value, initialLoad) =>
                 handleFilterChange(filter.name, value, initialLoad)
@@ -326,22 +343,21 @@ const Filterpage = () => {
               onChange={handleYearChange}
               valueLabelDisplay="auto"
               disableSwap
-            />  
+            />
           </div>
           <p>Year range</p>
         </div>
       </div>
-      {totalCount !== 0 && (
+      {totalCount !== 0 &&
         (searchTerm !== '' ||
-        selectedFilters.Brand !== "All" ||
-        selectedFilters.Body !== "All" ||
-        JSON.stringify(priceRange) !== JSON.stringify([0, 1000000]) ||
-        JSON.stringify(yearRange) !== JSON.stringify([1943, 2023])) && (
+          selectedFilters.Brand !== 'All' ||
+          selectedFilters.Body !== 'All' ||
+          JSON.stringify(priceRange) !== JSON.stringify([0, 1000000]) ||
+          JSON.stringify(yearRange) !== JSON.stringify([1943, 2023])) && (
           <div className="resultCounter">
             <p>Found {totalCount} cars</p>
           </div>
-        )
-      )}
+        )}
       {totalCount !== 0 ? (
         <div className="car-list">
           {shownCars.map((car) => (
@@ -356,13 +372,24 @@ const Filterpage = () => {
           ))}
         </div>
       ) : (
-        <div className="noResults" style={{marginTop: "100px", textAlign: "center"}}>
-          {searchTerm == "" ? (
-            <div><h1>No cars found!</h1><h1> Try changing your filters</h1></div>
-          ) : <div><h1>No cars found!</h1><h1>Try changing your searchterm</h1></div>}
+        <div
+          className="noResults"
+          style={{ marginTop: '100px', textAlign: 'center' }}
+        >
+          {searchTerm == '' ? (
+            <div>
+              <h1>No cars found!</h1>
+              <h1> Try changing your filters</h1>
+            </div>
+          ) : (
+            <div>
+              <h1>No cars found!</h1>
+              <h1>Try changing your searchterm</h1>
+            </div>
+          )}
         </div>
       )}
-      {shownCars.length != 0 && totalCount > 12 &&(
+      {shownCars.length != 0 && totalCount > 12 && (
         <div className="resultCounter">
           <p>
             Showing {shownCars.length} of {totalCount} cars
