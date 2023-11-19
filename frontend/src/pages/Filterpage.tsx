@@ -172,20 +172,28 @@ const Filterpage = () => {
     newValue: number | number[],
     activeThumb: number,
   ) => {
+
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
     setShownCars([]);
     setVisibleCars(12);
     setLimit(12);
     sessionStorage.setItem('visibleCars', '12');
 
-    const minDistance = 100000;
-    if (!Array.isArray(newValue)) {
-      return;
-    }
+    const minDistance = 100000
 
-    if (activeThumb === 0) {
-      setPriceRange([Math.min(newValue[0], priceRange[1] - minDistance), priceRange[1]]);
+    if (newValue[1] - newValue[0] < minDistance) {
+      if (activeThumb === 0) {
+        const clamped = Math.min(newValue[0], 1000000 - minDistance);
+        setPriceRange([clamped, clamped + minDistance]);
+      } else {
+        const clamped = Math.max(newValue[1], minDistance);
+        setPriceRange([clamped - minDistance, clamped]);
+      }
     } else {
-      setPriceRange([priceRange[0], Math.max(newValue[1], priceRange[0] + minDistance)]);
+      setPriceRange(newValue as number[]);
     }
   };
 
@@ -194,20 +202,27 @@ const Filterpage = () => {
     newValue: number | number[],
     activeThumb: number,
   ) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
     setShownCars([]);
     setVisibleCars(12);
     setLimit(12);
     sessionStorage.setItem('visibleCars', '12');
 
-    const minDistance = 5;
-    if (!Array.isArray(newValue)) {
-      return;
-    }
+    const minDistance = 5
 
-    if (activeThumb === 0) {
-      setYearRange([Math.min(newValue[0], yearRange[1] - minDistance), yearRange[1]]);
+    if (newValue[1] - newValue[0] < minDistance) {
+      if (activeThumb === 0) {
+        const clamped = Math.min(newValue[0], 2023 - minDistance);
+        setYearRange([clamped, clamped + minDistance]);
+      } else {
+        const clamped = Math.max(newValue[1], minDistance);
+        setYearRange([clamped - minDistance, clamped]);
+      }
     } else {
-      setYearRange([yearRange[0], Math.max(newValue[1], yearRange[0] + minDistance)]);
+      setYearRange(newValue as number[]);
     }
   }
 
