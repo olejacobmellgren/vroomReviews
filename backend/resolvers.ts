@@ -34,22 +34,15 @@ export const resolvers = {
       if (filters.company) {
         query.company = filters.company;
       }
-      /*
-      if (filters.year) {
-        query.year = filters.year;
-      }
-      */
       if (filters.carBody) {
         query.carBody = filters.carBody;
       }
-
       if (priceRange) {
         query.price = {
           $gte: priceRange[0],
           ...(priceRange[1] !== 1000000 ? { $lte: priceRange[1] } : {}),
         };
       }
-
       if (yearRange) {
         query.year = {
           $gte: yearRange[0],
