@@ -314,6 +314,7 @@ const Filterpage = () => {
               disableSwap
             />
           </div>
+          <p>Price range</p>
         </div>
         <div className="sliderWrapper">
           <div className="slider">
@@ -327,21 +328,18 @@ const Filterpage = () => {
               disableSwap
             />  
           </div>
+          <p>Year range</p>
         </div>
       </div>
       {(searchTerm !== '' ||
-        (Object.values(selectedFilters).filter((filter) => filter !== 'All')
-          .length !== 0 &&
-          !(
-            Object.values(selectedFilters).filter((filter) => filter !== 'All')
-              .length === 1 && selectedFilters.SortBy !== 'All'
-          ))) ||
-        (JSON.stringify(priceRange) !== JSON.stringify([0, 1000000]) ||
-          JSON.stringify(yearRange) !== JSON.stringify([1943, 2023])) && (
-          <div className="resultCounter">
-            <p>Found {totalCount} cars</p>
-          </div>
-        )}
+        selectedFilters.Brand !== "All" ||
+        selectedFilters.Body !== "All" ||
+        JSON.stringify(priceRange) !== JSON.stringify([0, 1000000]) ||
+        JSON.stringify(yearRange) !== JSON.stringify([1943, 2023])) && (
+        <div className="resultCounter">
+          <p>Found {totalCount} cars</p>
+        </div>
+      )}
       <div className="car-list">
         {shownCars.map((car) => (
           <div className="car" key={car.company + '-' + car.model}>
