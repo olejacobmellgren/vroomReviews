@@ -331,27 +331,37 @@ const Filterpage = () => {
           <p>Year range</p>
         </div>
       </div>
-      {(searchTerm !== '' ||
+      {totalCount !== 0 && (
+        (searchTerm !== '' ||
         selectedFilters.Brand !== "All" ||
         selectedFilters.Body !== "All" ||
         JSON.stringify(priceRange) !== JSON.stringify([0, 1000000]) ||
         JSON.stringify(yearRange) !== JSON.stringify([1943, 2023])) && (
-        <div className="resultCounter">
-          <p>Found {totalCount} cars</p>
+          <div className="resultCounter">
+            <p>Found {totalCount} cars</p>
+          </div>
+        )
+      )}
+      {totalCount !== 0 ? (
+        <div className="car-list">
+          {shownCars.map((car) => (
+            <div className="car" key={car.company + '-' + car.model}>
+              <CardForCar
+                brand={car.company}
+                model={car.model}
+                carIMG={car.image}
+                showInfo={true}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="noResults" style={{marginTop: "100px", textAlign: "center"}}>
+          {searchTerm == "" ? (
+            <div><h1>No cars found!</h1><h1> Try changing your filters</h1></div>
+          ) : <div><h1>No cars found!</h1><h1>Try changing your searchterm</h1></div>}
         </div>
       )}
-      <div className="car-list">
-        {shownCars.map((car) => (
-          <div className="car" key={car.company + '-' + car.model}>
-            <CardForCar
-              brand={car.company}
-              model={car.model}
-              carIMG={car.image}
-              showInfo={true}
-            />
-          </div>
-        ))}
-      </div>
       {shownCars.length != 0 && totalCount > 12 &&(
         <div className="resultCounter">
           <p>
