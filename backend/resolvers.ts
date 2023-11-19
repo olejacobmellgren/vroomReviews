@@ -56,6 +56,9 @@ export const resolvers = {
         if (orderBy.year) {
           sort.year = orderBy.year;
         }
+        if (orderBy.price) {
+          sort.price = orderBy.price;
+        }
         if (orderBy.rating) {
           sort.rating = orderBy.rating;
         }

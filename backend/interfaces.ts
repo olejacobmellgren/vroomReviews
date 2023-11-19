@@ -18,6 +18,7 @@ enum SortOrder {
 
 interface orderByArg {
   year?: SortOrder;
+  price?: SortOrder;
   rating?: SortOrder;
 }
 

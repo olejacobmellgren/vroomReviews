@@ -22,6 +22,8 @@ const Filterpage = () => {
       options: [
         'Years, asc',
         'Years, desc',
+        'Price, asc',
+        'Price, desc',
         'Rating, asc',
         'Rating, desc',
       ],
@@ -85,6 +87,11 @@ const Filterpage = () => {
             : selectedFilters.SortBy.includes('asc')
             ? 'asc'
             : 'desc',
+          price: !selectedFilters.SortBy.includes('Price')
+          ? null
+          : selectedFilters.SortBy.includes('asc')
+          ? 'asc'
+          : 'desc',
           rating: !selectedFilters.SortBy.includes('Rating')
             ? null
             : selectedFilters.SortBy.includes('asc')

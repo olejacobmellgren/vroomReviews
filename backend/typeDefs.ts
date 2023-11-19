@@ -59,6 +59,7 @@ export const typeDefs = buildSchema(`
   
   input orderByArg {
     year: Sort
+    price: Sort
     rating: Sort
   }
 
