@@ -112,6 +112,54 @@
   flex-wrap: wrap;
 }
 
+.sliderMenu {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 25vw;
+  padding-right: 25vw;
+}
+
+.sliderWrapper {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+
+.slider {
+  width: 80%;
+}
+
+@media (max-width: 1400px) {
+  .sliderMenu {
+    padding-left: 15vw;
+    padding-right: 15vw;
+  }
+}
+
+@media (max-width: 800px) {
+  .sliderMenu {
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+    padding-left: 7.5vw;
+    padding-right: 7.5vw;
+  }
+
+  .sliderWrapper {
+    width: 65%;
+  }
+}
+
+@media (max-width: 690px) {
+  .sliderWrapper {
+    width: 90%;
+  }
+  
+  .slider {
+    width: 280px;
+  }
+}
+
 .dropdown-flex {
   display: flex;
   justify-content: center;

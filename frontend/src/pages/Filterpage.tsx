@@ -5,6 +5,7 @@ import CardForCar from '../components/CardForCar';
 import { GET_CARS } from '../graphQL/queries';
 import { useLazyQuery } from '@apollo/client';
 import { CarCard } from '../types/CarCard';
+import Slider from '@mui/material/Slider';
 
 const Filterpage = () => {
   const [filters, setFilters] = useState([
@@ -62,6 +63,8 @@ const Filterpage = () => {
   );
 
   const [totalCount, setTotalCount] = useState(0);
+
+  const [priceValue, setPriceValue] = useState<number[]>([0, 1000000]);
 
   // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
   useEffect(() => {
@@ -153,6 +156,35 @@ const Filterpage = () => {
     );
   };
 
+  const handlePriceChange = (
+    event: Event,
+    newValue: number | number[],
+    activeThumb: number,
+  ) => {
+    const minDistance = 100000;
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    if (activeThumb === 0) {
+      setPriceValue([Math.min(newValue[0], priceValue[1] - minDistance), priceValue[1]]);
+    } else {
+      setPriceValue([priceValue[0], Math.max(newValue[1], priceValue[0] + minDistance)]);
+    }
+  };
+
+  const valueLabelFormat = (value: number) => {
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+  
+    const formattedValue = formatter.format(value);
+    return value === 1000000 ? `${formattedValue}+` : formattedValue;
+  }
+  
   let typingTimer: NodeJS.Timeout;
 
   // Set search term when user types in search bar only after 250ms, to avoid unnecessary calls to the backend
@@ -214,6 +246,29 @@ const Filterpage = () => {
             />
           </div>
         ))}
+      </div>
+      <div className="sliderMenu">
+        <div className="sliderWrapper">
+          <div className="slider">
+            <Slider
+              getAriaLabel={() => 'Price range'}
+              value={priceValue}
+              min={0}
+              max={1000000}
+              onChange={handlePriceChange}
+              valueLabelDisplay="auto"
+              valueLabelFormat={valueLabelFormat}
+              disableSwap
+            />
+          </div>
+        </div>
+        <div className="sliderWrapper">
+          <div className="slider">
+            <Slider>
+
+            </Slider>
+          </div>
+        </div>
       </div>
       {(searchTerm !== '' ||
         (Object.values(selectedFilters).filter((filter) => filter !== 'All')
