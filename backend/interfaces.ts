@@ -27,6 +27,7 @@ export interface carsArgs {
   orderBy: orderByArg;
   searchTerm: string;
   limit: number;
+  priceRange: number[];
 }
 
 export interface userAndCarArgs {

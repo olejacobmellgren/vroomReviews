@@ -91,9 +91,10 @@ const Filterpage = () => {
         },
         searchTerm: searchTerm,
         limit: limit,
+        priceRange: priceValue,
       },
     });
-  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm, limit]);
+  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm, limit, priceValue]);
 
   // Add cars to shownCars when data is fetched
   useEffect(() => {
@@ -161,6 +162,11 @@ const Filterpage = () => {
     newValue: number | number[],
     activeThumb: number,
   ) => {
+    setShownCars([]);
+    setVisibleCars(12);
+    setLimit(12);
+    sessionStorage.setItem('visibleCars', '12');
+    
     const minDistance = 100000;
     if (!Array.isArray(newValue)) {
       return;

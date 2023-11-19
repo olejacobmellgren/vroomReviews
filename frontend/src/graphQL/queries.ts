@@ -41,6 +41,7 @@ export const GET_CARS = gql`
     $orderBy: orderByArg
     $searchTerm: String
     $limit: Int
+    $priceRange: [Int]
   ) {
     cars(
       filters: $filters
@@ -48,6 +49,7 @@ export const GET_CARS = gql`
       orderBy: $orderBy
       searchTerm: $searchTerm
       limit: $limit
+      priceRange: $priceRange
     ) {
       cars {
         company
