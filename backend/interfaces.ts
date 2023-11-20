@@ -18,6 +18,7 @@ enum SortOrder {
 
 interface orderByArg {
   year?: SortOrder;
+  price?: SortOrder;
   rating?: SortOrder;
 }
 
@@ -27,6 +28,8 @@ export interface carsArgs {
   orderBy: orderByArg;
   searchTerm: string;
   limit: number;
+  priceRange: number[];
+  yearRange: number[];
 }
 
 export interface userAndCarArgs {
@@ -40,4 +43,9 @@ export interface addReviewArgs {
   car: string;
   userID: number;
   username: string;
+}
+
+export interface companiesArgs {
+  offset: number;
+  limit: number;
 }

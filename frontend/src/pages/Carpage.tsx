@@ -72,6 +72,15 @@ const Carpage = () => {
   if (carError || reviewsError || userReviewError || companyError)
     console.log(carError, reviewsError, userReviewError, companyError);
 
+  const formattedPrice = carData?.car
+    ? new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(carData?.car?.price)
+    : '';
+
   return (
     <div className="carpage-container">
       <div className="top-section">
@@ -105,7 +114,7 @@ const Carpage = () => {
       </div>
       <div className="info">
         <div className="info-container">
-          <p className="info-text">Price: {carData?.car?.price}</p>
+          <p className="info-text">Price: {formattedPrice}</p>
           <p className="info-text">Drivetrain: {carData?.car?.drivetrain}</p>
         </div>
         <div className="info-container">
