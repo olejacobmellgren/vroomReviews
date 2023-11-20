@@ -28,17 +28,6 @@ describe('Filterpage', () => {
     cy.contains('Toyota Highlander').should('exist')  
     cy.contains('Toyota 4Runner').should('exist')
 
-    // Search and filter year
-    cy.get('.searchBar-input').clear().type('Lamborghini')
-    cy.contains('Year').click()
-    cy.contains('2023').click()
-    cy.contains('Lamborghini Sian').should('exist')
-    cy.contains('Lamborghini Aventador').should('not.exist')
-    cy.contains('Lamborghini Huracan').should('not.exist')
-    cy.contains('Lamborghini Urus').should('not.exist')
-    cy.contains('2023').click()
-    cy.contains('All').click() 
-
     // Search and filter car body
     cy.get('.searchBar-input').clear().type('Audi')
     cy.contains('Body').click()
@@ -48,25 +37,20 @@ describe('Filterpage', () => {
     cy.contains('Audi Q3').should('not.exist')
     cy.contains('Audi Q5').should('not.exist')
     cy.contains('Sedan').click()
-    cy.contains('All').click()
+    cy.get('.clearButton').click()
 
-    // Search and filter car year and body
-    cy.get('.searchBar-input').clear().type('Porsche')
-    cy.contains('Year').click()
-    cy.contains('2021').click()
+    // Filter car body
+    cy.get('.searchBar-input').clear()
     cy.contains('Body').click()
-    cy.contains('SUV').click()
-    cy.contains('Porsche Cayenne').should('exist')
-    cy.contains('Porsche Macan').should('exist')
-    cy.contains('Porsche 911').should('not.exist')
-    cy.contains('SUV').click()
-    cy.contains('Convertible').click()
-    cy.contains('Porsche 911').should('exist')
-    cy.contains('Porsche Cayenne').should('not.exist')
-    cy.contains('Porsche Macan').should('not.exist')
-    cy.contains('2021').click()
-    cy.contains('All').click()
-    cy.contains('Convertible').click()
-    cy.contains('All').click()
+    cy.contains('City car').click()
+    cy.contains('Smart Fortwo').should('exist')
+    cy.contains('Smart Forfour').should('exist')
+    cy.get('.clearButton').click()
+
+    // Check feedback when no cars are found
+    cy.get('.searchBar-input').clear().type('This car does not exist')
+    cy.contains('No cars found').should('exist')
+    cy.contains('Try changing your searchterm').should('exist')
+    cy.get('.searchBar-input').clear()
   })
 })

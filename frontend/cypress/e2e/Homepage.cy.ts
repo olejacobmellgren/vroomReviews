@@ -7,21 +7,21 @@ describe('Homepage tests', () => {
     cy.contains('Audi').should('exist')
     cy.scrollTo('bottom')
     cy.contains('Mercedes Benz').should('exist')
-    cy.get('.view-more-button').contains('Next Page').click()
+    cy.get('[data-testid="NavigateNextIcon"]').click()
 
     // Check if all brands are present on second page
     cy.contains('Volvo').should('exist')
     cy.contains('Porsche').should('exist')
     cy.scrollTo('bottom')
     cy.contains('Alfa Romeo').should('exist')
-    cy.get('.view-more-button').contains('Next Page').click()
+    cy.get('[data-testid="NavigateNextIcon"]').click()
 
     // Check if all brands are present on third page
     cy.contains('Alpina').should('exist')
     cy.contains('BMW').should('exist')
     cy.scrollTo('bottom')
     cy.contains('Bugatti').should('exist')
-    cy.get('.view-more-button').contains('Next Page').click()
+    cy.get('[data-testid="NavigateNextIcon"]').click()
 
     // Check if all brands are present on fourth page
     cy.contains('Cadillac').should('exist')
@@ -30,9 +30,9 @@ describe('Homepage tests', () => {
     cy.contains('Chevrolet').should('exist')
 
     // Go back to first page
-    cy.get('.view-more-button').contains('Prev Page').click()
-    cy.get('.view-more-button').contains('Prev Page').click()
-    cy.get('.view-more-button').contains('Prev Page').click()
+    cy.get('[data-testid="NavigateBeforeIcon"]').click()
+    cy.get('[data-testid="NavigateBeforeIcon"]').click()
+    cy.contains('1').click()
 
     // Check if all brands are present on first page
     cy.contains('Ferrari').should('exist')
