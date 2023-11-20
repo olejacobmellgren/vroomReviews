@@ -139,21 +139,12 @@ const Carpage = () => {
                 <td>{carData?.car?.engineType}</td>
               </tr>
             </table>
-            {/* <h1 className="info-text">Price: {carData?.car?.price}</h1>
-            <h1 className="info-text">Drivetrain: {carData?.car?.drivetrain}</h1>
-            <h1 className="info-text">Type: {carData?.car?.carBody}</h1>
-            <h1 className="info-text">Horsepower: {carData?.car?.horsepower}</h1>
-            <h1 className="info-text">
-              Number of doors: {carData?.car?.numOfDoors}
-            </h1>
-            <h1 className="info-text">
-              Type of engine: {carData?.car?.engineType}
-            </h1> */}
           </div>
         </div>
         <div className="info-line">
           <button className="info-button" onClick={() => setShowInfo(!showInfo)}>
-            <i className="arrow-info-button" style={showInfo ? {transform: 'rotate(-135deg)'} : {  transform: 'rotate(45deg)'}}></i>
+            <i className={showInfo ? "arrow-info-button open" : "arrow-info-button closed"}
+></i>
           </button>
         </div>
       </div>

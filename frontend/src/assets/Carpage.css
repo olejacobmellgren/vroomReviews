@@ -113,7 +113,7 @@ tr:nth-child(odd){
 }
 
 .info-section {
-  width: 75%;
+  width: 100%;
   margin: auto;
   margin-top: 5rem;
   margin-bottom: 5rem;
@@ -129,28 +129,44 @@ tr:nth-child(odd){
   display: flex;
   justify-content: center;
   background-color: silver;
-  height: 0.2rem;
+  height: 0.1rem;
   border-radius: 50%;
 }
 
 .info-button {
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   border: 0.2rem solid silver;
   background-color: #202020;
   cursor: pointer;
   position: relative;
-  top: -1.9rem;
+  top: -1.4rem;
+  transition: all 0.5s ease-in-out;
 }
 
 .arrow-info-button {
   border: solid silver;
-  border-radius: 2px;
-  border-width: 0 0.2rem 0.2rem 0;
+  border-width: 0 0.15rem 0.15rem 0;
   display: inline-block;
-  padding: 0.5rem;
+  padding: 0.4rem;
   transition: all 0.5s ease-out;
+  position: relative;
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.arrow-info-button.open{
+  transform: rotate(-135deg);
+  top: 0.4rem;
+}
+
+.info-button:hover .arrow-info-button.closed {
+  top: 0.5rem;
+}
+
+.info-button:hover .arrow-info-button.open {
+  top: 0rem;
 }
 
 @media (orientation: portrait) {
@@ -172,10 +188,6 @@ tr:nth-child(odd){
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-  }
-
-  .info-section {
-    width: 100%;
   }
 
   .carpage-image {
