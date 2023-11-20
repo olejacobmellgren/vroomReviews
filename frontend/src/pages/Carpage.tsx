@@ -110,32 +110,32 @@ const Carpage = () => {
         </div>
       </div>
       <div className="info-section">
-        <div className="info-wrapper" style={showInfo ? {height: '15rem'} : {height: '0'}}>
+        <div className="info-wrapper" style={showInfo ? {height: '18rem'} : {height: '0'}}>
         <div className="info-line"></div>
           <div className="info">
             <table>
               <tr>
-                <td>Price: </td>
+                <td>Price</td>
                 <td>{carData?.car?.price}</td>
               </tr>
               <tr>
-                <td>Drivetrain: </td>
+                <td>Drivetrain</td>
                 <td>{carData?.car?.drivetrain}</td>
               </tr>
               <tr>
-                <td>Type: </td>
+                <td>Type</td>
                 <td>{carData?.car?.carBody}</td>
               </tr>
               <tr>
-                <td>Horsepower: </td>
+                <td>Horsepower</td>
                 <td>{carData?.car?.horsepower}</td>
               </tr>
               <tr>
-                <td>Number of doors: </td>
+                <td>Number of doors</td>
                 <td>{carData?.car?.numOfDoors}</td>
               </tr>
               <tr>
-                <td>Type of engine: </td>
+                <td>Type of engine</td>
                 <td>{carData?.car?.engineType}</td>
               </tr>
             </table>
