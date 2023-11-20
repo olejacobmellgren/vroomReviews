@@ -41,6 +41,8 @@ export const GET_CARS = gql`
     $orderBy: orderByArg
     $searchTerm: String
     $limit: Int
+    $priceRange: [Int]
+    $yearRange: [Int]
   ) {
     cars(
       filters: $filters
@@ -48,6 +50,8 @@ export const GET_CARS = gql`
       orderBy: $orderBy
       searchTerm: $searchTerm
       limit: $limit
+      priceRange: $priceRange
+      yearRange: $yearRange
     ) {
       cars {
         company
@@ -55,6 +59,8 @@ export const GET_CARS = gql`
         image
       }
       totalCount
+      carBodies
+      carCompanies
     }
   }
 `;
@@ -115,10 +121,13 @@ export const GET_USER_COUNT = gql`
 `;
 
 export const GET_COMPANIES = gql`
-  query GetCompanies {
-    companies {
-      name
-      logo
+  query GetCompanies($offset: Int, $limit: Int) {
+    companies(offset: $offset, limit: $limit) {
+      companies {
+        name
+        logo
+      }
+      totalCount
     }
   }
 `;

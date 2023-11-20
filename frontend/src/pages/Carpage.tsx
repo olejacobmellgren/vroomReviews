@@ -35,14 +35,20 @@ const Carpage = () => {
   const carImg: string = carData?.car.image;
   const carName: string = carData?.car.model + ' ' + carData?.car.company;
   const carRating: number = carData?.car.rating;
-  console.log(carRating)
-  const carPrice: number = carData?.car.price;
   const carYear: number = carData?.car.year;
   const carBody: string = carData?.car.carBody;
   const carDrivetrain: string = carData?.car.drivetrain;
   const carHorsepower: number = carData?.car.horsepower;
   const carNumOfDoors: number = carData?.car.numOfDoors;
   const carEngineType: string = carData?.car.engineType;
+  const formattedPrice = carData?.car
+  ? new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(carData?.car?.price)
+  : '';
 
   // Get all reviews for car
   const {
@@ -116,7 +122,7 @@ const Carpage = () => {
       </div>
       <div className="info">
         <div className="info-container">
-          <p className="info-text">Price: {carPrice}</p>
+          <p className="info-text">Price: {formattedPrice}</p>
           <p className="info-text">Drivetrain: {carDrivetrain}</p>
         </div>
         <div className="info-container">

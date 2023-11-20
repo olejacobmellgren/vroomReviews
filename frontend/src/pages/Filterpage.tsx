@@ -5,71 +5,33 @@ import CardForCar from '../components/CardForCar';
 import { GET_CARS } from '../graphQL/queries';
 import { useLazyQuery } from '@apollo/client';
 import { CarCard } from '../types/CarCard';
+import Slider from '@mui/material/Slider';
 
 const Filterpage = () => {
-  const filters = [
+  const [filters, setFilters] = useState([
     {
       name: 'Brand',
-      options: [
-        'Ferrari',
-        'Lamborghini',
-        'Toyota',
-        'BMW',
-        'Audi',
-        'Volvo',
-        'Koenigsegg',
-        'Ford',
-        'Nissan',
-        'Porsche',
-        'Honda',
-        'Tesla',
-        'All',
-      ],
-    },
-    {
-      name: 'Year',
-      options: [
-        '2023',
-        '2022',
-        '2021',
-        '2020',
-        '2019',
-        '2018',
-        '2017',
-        '2016',
-        'All',
-      ],
+      options: [],
     },
     {
       name: 'Body',
-      options: [
-        'Coupe',
-        'SUV',
-        'Sedan',
-        'Convertible',
-        'Hatchback',
-        'Truck',
-        'Wagon',
-        'Sports car',
-        'Minivan',
-        'All',
-      ],
+      options: [],
     },
     {
       name: 'Sort by',
       options: [
         'Years, asc',
         'Years, desc',
+        'Price, asc',
+        'Price, desc',
         'Rating, asc',
         'Rating, desc',
-        'All',
       ],
     },
-  ];
+  ]);
 
   const [selectedFilters, setSelectedFilters] = useState({
     Brand: sessionStorage.getItem('Brand') || 'All',
-    Year: sessionStorage.getItem('Year') || 'All',
     Body: sessionStorage.getItem('Body') || 'All',
     SortBy: sessionStorage.getItem('Sort by') || 'All',
   });
@@ -78,6 +40,12 @@ const Filterpage = () => {
   const [dropdownVisibility, setDropdownVisibility] = useState(
     filters.map(() => false),
   );
+
+  const [updateOptionsCounter, setUpdateOptionsCounter] = useState({
+    Brand: false,
+    Body: false,
+    SortBy: false,
+  });
 
   const [visibleCars, setVisibleCars] = useState(12);
 
@@ -98,6 +66,10 @@ const Filterpage = () => {
 
   const [totalCount, setTotalCount] = useState(0);
 
+  const [priceRange, setPriceRange] = useState<number[]>([0, 1000000]);
+
+  const [yearRange, setYearRange] = useState<number[]>([1943, 2023]);
+
   // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
   useEffect(() => {
     loadMoreCars({
@@ -105,10 +77,7 @@ const Filterpage = () => {
         filters: {
           company:
             selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
-          year:
-            selectedFilters.Year !== 'All'
-              ? parseInt(selectedFilters.Year)
-              : null,
+          year: 4 /* Skriv noe her! */,
           carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
         },
         offset: visibleCars - 12,
@@ -116,25 +85,54 @@ const Filterpage = () => {
           year: !selectedFilters.SortBy.includes('Years')
             ? null
             : selectedFilters.SortBy.includes('asc')
-            ? 'asc'
-            : 'desc',
+              ? 'asc'
+              : 'desc',
+          price: !selectedFilters.SortBy.includes('Price')
+            ? null
+            : selectedFilters.SortBy.includes('asc')
+              ? 'asc'
+              : 'desc',
           rating: !selectedFilters.SortBy.includes('Rating')
             ? null
             : selectedFilters.SortBy.includes('asc')
-            ? 'asc'
-            : 'desc',
+              ? 'asc'
+              : 'desc',
         },
         searchTerm: searchTerm,
         limit: limit,
+        priceRange: priceRange,
+        yearRange: yearRange,
       },
     });
-  }, [loadMoreCars, visibleCars, selectedFilters, searchTerm, limit]);
+  }, [
+    loadMoreCars,
+    visibleCars,
+    selectedFilters,
+    searchTerm,
+    limit,
+    priceRange,
+    yearRange,
+  ]);
 
   // Add cars to shownCars when data is fetched
   useEffect(() => {
     if (data?.cars?.cars) {
       setShownCars((prevShownCars) => prevShownCars?.concat(data?.cars?.cars));
       setTotalCount(data?.cars?.totalCount);
+      setFilters((prevFilters) =>
+        prevFilters.map((filter) =>
+          filter.name === 'Body'
+            ? { ...filter, options: data?.cars?.carBodies }
+            : filter,
+        ),
+      );
+      setFilters((prevFilters) =>
+        prevFilters.map((filter) =>
+          filter.name === 'Brand'
+            ? { ...filter, options: data?.cars?.carCompanies }
+            : filter,
+        ),
+      );
     }
   }, [data]);
 
@@ -154,6 +152,20 @@ const Filterpage = () => {
       [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
     }));
     if (!initialLoad) {
+      // Create an object to map filter names to update flags
+      const updateFlags: Record<string, boolean> = {
+        Body: filterName !== 'Body',
+        Brand: filterName !== 'Brand',
+      };
+
+      // Set update flags for specified filters
+      setUpdateOptionsCounter((prevSelectedFilters) => ({
+        ...prevSelectedFilters,
+        ...Object.keys(updateFlags).reduce(
+          (acc, key) => ({ ...acc, [key]: updateFlags[key] }),
+          {},
+        ),
+      }));
       setShownCars([]);
       setVisibleCars(12);
       setLimit(12);
@@ -167,6 +179,76 @@ const Filterpage = () => {
     setDropdownVisibility(
       dropdownVisibility.map((item, i) => (i === index ? !item : false)),
     );
+  };
+
+  const handlePriceChange = (
+    _event: Event,
+    newValue: number | number[],
+    activeThumb: number,
+  ) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    setShownCars([]);
+    setVisibleCars(12);
+    setLimit(12);
+    sessionStorage.setItem('visibleCars', '12');
+
+    const minDistance = 100000;
+
+    if (newValue[1] - newValue[0] < minDistance) {
+      if (activeThumb === 0) {
+        const clamped = Math.min(newValue[0], 1000000 - minDistance);
+        setPriceRange([clamped, clamped + minDistance]);
+      } else {
+        const clamped = Math.max(newValue[1], minDistance);
+        setPriceRange([clamped - minDistance, clamped]);
+      }
+    } else {
+      setPriceRange(newValue as number[]);
+    }
+  };
+
+  const handleYearChange = (
+    _event: Event,
+    newValue: number | number[],
+    activeThumb: number,
+  ) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    setShownCars([]);
+    setVisibleCars(12);
+    setLimit(12);
+    sessionStorage.setItem('visibleCars', '12');
+
+    const minDistance = 5;
+
+    if (newValue[1] - newValue[0] < minDistance) {
+      if (activeThumb === 0) {
+        const clamped = Math.min(newValue[0], 2023 - minDistance);
+        setYearRange([clamped, clamped + minDistance]);
+      } else {
+        const clamped = Math.max(newValue[1], minDistance);
+        setYearRange([clamped - minDistance, clamped]);
+      }
+    } else {
+      setYearRange(newValue as number[]);
+    }
+  };
+
+  const valueLabelFormat = (value: number) => {
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+
+    const formattedValue = formatter.format(value);
+    return value === 1000000 ? `${formattedValue}+` : formattedValue;
   };
 
   let typingTimer: NodeJS.Timeout;
@@ -222,6 +304,11 @@ const Filterpage = () => {
               filter={filter.name}
               options={filter.options}
               isOpen={dropdownVisibility[index]}
+              updateOptionCounter={
+                updateOptionsCounter[
+                  filter.name as keyof typeof updateOptionsCounter
+                ]
+              }
               toggleDropdown={() => toggleDropdown(index)}
               onSelect={(value, initialLoad) =>
                 handleFilterChange(filter.name, value, initialLoad)
@@ -230,34 +317,85 @@ const Filterpage = () => {
           </div>
         ))}
       </div>
-      {(searchTerm !== '' ||
-        (Object.values(selectedFilters).filter((filter) => filter !== 'All')
-          .length !== 0 &&
-          !(
-            Object.values(selectedFilters).filter((filter) => filter !== 'All')
-              .length === 1 && selectedFilters.SortBy !== 'All'
-          ))) && (
-        <div className="resultCounter">
-          <p>Found {totalCount} cars</p>
-        </div>
-      )}
-      <div className="car-list">
-        {shownCars.map((car) => (
-          <div className="car" key={car.company + '-' + car.model}>
-            <CardForCar
-              brand={car.company}
-              model={car.model}
-              carIMG={car.image}
-              showInfo={true}
+      <div className="sliderMenu">
+        <div className="sliderWrapper">
+          <div className="slider">
+            <Slider
+              getAriaLabel={() => 'Price range'}
+              value={priceRange}
+              min={0}
+              max={1000000}
+              onChange={handlePriceChange}
+              valueLabelDisplay="auto"
+              valueLabelFormat={valueLabelFormat}
+              disableSwap
             />
           </div>
-        ))}
+          <p>Price range</p>
+        </div>
+        <div className="sliderWrapper">
+          <div className="slider">
+            <Slider
+              getAriaLabel={() => 'Price range'}
+              value={yearRange}
+              min={1943}
+              max={2023}
+              onChange={handleYearChange}
+              valueLabelDisplay="auto"
+              disableSwap
+            />
+          </div>
+          <p>Year range</p>
+        </div>
       </div>
-      <div className="resultCounter">
-        <p>
-          Showing {shownCars.length} of {totalCount} cars
-        </p>
-      </div>
+      {totalCount !== 0 &&
+        (searchTerm !== '' ||
+          selectedFilters.Brand !== 'All' ||
+          selectedFilters.Body !== 'All' ||
+          JSON.stringify(priceRange) !== JSON.stringify([0, 1000000]) ||
+          JSON.stringify(yearRange) !== JSON.stringify([1943, 2023])) && (
+          <div className="resultCounter">
+            <p>Found {totalCount} cars</p>
+          </div>
+        )}
+      {totalCount !== 0 ? (
+        <div className="car-list">
+          {shownCars.map((car) => (
+            <div className="car" key={car.company + '-' + car.model}>
+              <CardForCar
+                brand={car.company}
+                model={car.model}
+                carIMG={car.image}
+                showInfo={true}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div
+          className="noResults"
+          style={{ marginTop: '100px', textAlign: 'center' }}
+        >
+          {searchTerm == '' ? (
+            <div>
+              <h1>No cars found!</h1>
+              <h1> Try changing your filters</h1>
+            </div>
+          ) : (
+            <div>
+              <h1>No cars found!</h1>
+              <h1>Try changing your searchterm</h1>
+            </div>
+          )}
+        </div>
+      )}
+      {shownCars.length != 0 && totalCount > 12 && (
+        <div className="resultCounter">
+          <p>
+            Showing {shownCars.length} of {totalCount} cars
+          </p>
+        </div>
+      )}
       <div className="view-more-button">
         {visibleCars < totalCount ? (
           <button onClick={handleViewMore}>View more</button>

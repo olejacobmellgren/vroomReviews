@@ -1,5 +1,5 @@
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
-import '../assets/ScrollingMenu.css';
+import '../assets/Homepage.css';
 import CardForCar from './CardForCar';
 import { LeftArrow, RightArrow } from './Arrows';
 import { useQuery } from '@apollo/client';
