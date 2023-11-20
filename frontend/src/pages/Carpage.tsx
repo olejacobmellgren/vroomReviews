@@ -31,7 +31,24 @@ const Carpage = () => {
     },
   });
 
-  const carID = carData?.car.id;
+  const carID: string = carData?.car.id;
+  const carImg: string = carData?.car.image;
+  const carName: string = carData?.car.model + ' ' + carData?.car.company;
+  const carRating: number = carData?.car.rating;
+  const carYear: number = carData?.car.year;
+  const carBody: string = carData?.car.carBody;
+  const carDrivetrain: string = carData?.car.drivetrain;
+  const carHorsepower: number = carData?.car.horsepower;
+  const carNumOfDoors: number = carData?.car.numOfDoors;
+  const carEngineType: string = carData?.car.engineType;
+  const formattedPrice = carData?.car
+  ? new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(carData?.car?.price)
+  : '';
 
   // Get all reviews for car
   const {
@@ -67,45 +84,36 @@ const Carpage = () => {
     },
   });
 
+  const companyLogo: string = companyData?.company.logo;
+
   if (carLoading || reviewsLoading || userReviewLoading || companyLoading)
     return <CircularProgress color="warning" />;
   if (carError || reviewsError || userReviewError || companyError)
     console.log(carError, reviewsError, userReviewError, companyError);
-
-  const formattedPrice = carData?.car
-    ? new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      }).format(carData?.car?.price)
-    : '';
 
   return (
     <div className="carpage-container">
       <div className="top-section">
         <img
           className="carpage-image"
-          src={carData?.car?.image}
-          alt={carData?.car?.image}
+          src={carImg}
+          alt={carImg}
         />
         <div>
           <div className="title-wrapper">
-            <img className="logo-img" src={companyData?.company?.logo} />
+            <img className="logo-img" src={companyLogo} />
             <p className="title">
-              {carData?.car?.company} {carData?.car?.model}
+              {carName}
             </p>
           </div>
-          <p className="year">{carData?.car?.year}</p>
+          <p className="year">{carYear}</p>
           <div className="rating">
-            {carData && (
               <StarRating
                 readOnly={true}
-                initialRating={carData?.car?.rating}
+                initialRating={carRating}
               />
-            )}
             <div className="amount-rating">
-              <p>{carData?.car?.rating} / 5 </p> <p>|</p>
+              <p>{carRating} / 5 </p> <p>|</p>
               <p> {reviewsData.carReviews.length} ratings</p>
             </div>
           </div>
@@ -115,18 +123,18 @@ const Carpage = () => {
       <div className="info">
         <div className="info-container">
           <p className="info-text">Price: {formattedPrice}</p>
-          <p className="info-text">Drivetrain: {carData?.car?.drivetrain}</p>
+          <p className="info-text">Drivetrain: {carDrivetrain}</p>
         </div>
         <div className="info-container">
-          <p className="info-text">Type: {carData?.car?.carBody}</p>
-          <p className="info-text">Horsepower: {carData?.car?.horsepower}</p>
+          <p className="info-text">Type: {carBody}</p>
+          <p className="info-text">Horsepower: {carHorsepower}</p>
         </div>
         <div className="info-container">
           <p className="info-text">
-            Number of doors: {carData?.car?.numOfDoors}
+            Number of doors: {carNumOfDoors}
           </p>
           <p className="info-text">
-            Type of engine: {carData?.car?.engineType}
+            Type of engine: {carEngineType}
           </p>
         </div>
       </div>
