@@ -36,7 +36,8 @@ const Carpage = () => {
 
   const carID: string = carData?.car.id;
   const carImg: string = carData?.car.image;
-  const carName: string = carData?.car.model + ' ' + carData?.car.company;
+  const carName: string = carData?.car.model;
+  const carCompany: string = carData?.car.company;
   const carRating: number = carData?.car.rating;
   const carYear: number = carData?.car.year;
   const carBody: string = carData?.car.carBody;
@@ -100,16 +101,15 @@ const Carpage = () => {
         <div className="img-wrapper">
           <img
             className="carpage-image"
-            src={carData?.car?.image}
-            alt={carData?.car?.image}
+            src={carImg}
           />
         </div>
         <div className="overview-wrapper">
           <div className="title-wrapper">
-            <img className="logo-img" src={companyData?.company?.logo} />
-            <h1 className="title"> {carData?.car?.company} </h1>
-            <p className="title"> {carData?.car?.model} </p>
-            <p className="year"> {carData?.car?.year} </p>
+            <img className="logo-img" src={companyLogo} />
+            <h1 className="title"> {carCompany} </h1>
+            <p className="title"> {carName} </p>
+            <p className="year"> {carYear} </p>
           </div>
           <div className="rating">
             <StarRating readOnly={true} initialRating={carRating} />
@@ -133,27 +133,27 @@ const Carpage = () => {
             <table>
               <tr>
                 <td>Price</td>
-                <td>{carData?.car?.price}</td>
+                <td>{formattedPrice}</td>
               </tr>
               <tr>
                 <td>Drivetrain</td>
-                <td>{carData?.car?.drivetrain}</td>
+                <td>{carDrivetrain}</td>
               </tr>
               <tr>
                 <td>Type</td>
-                <td>{carData?.car?.carBody}</td>
+                <td>{carBody}</td>
               </tr>
               <tr>
                 <td>Horsepower</td>
-                <td>{carData?.car?.horsepower}</td>
+                <td>{carHorsepower}</td>
               </tr>
               <tr>
                 <td>Number of doors</td>
-                <td>{carData?.car?.numOfDoors}</td>
+                <td>{carNumOfDoors}</td>
               </tr>
               <tr>
                 <td>Type of engine</td>
-                <td>{carData?.car?.engineType}</td>
+                <td>{carEngineType}</td>
               </tr>
             </table>
           </div>
