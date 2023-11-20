@@ -110,35 +110,61 @@ const Carpage = () => {
         </div>
       </div>
       <div className="info-section">
-        <div className="lol" style={showInfo ? {height: '200px'} : {height: '0px'}}>
-          <div className="info-button-wrapper"></div>
+        <div className="info-wrapper" style={showInfo ? {height: '15rem'} : {height: '0'}}>
+        <div className="info-line"></div>
           <div className="info">
-            <p className="info-text">Price: {carData?.car?.price}</p>
-            <p className="info-text">Drivetrain: {carData?.car?.drivetrain}</p>
-            <p className="info-text">Type: {carData?.car?.carBody}</p>
-            <p className="info-text">Horsepower: {carData?.car?.horsepower}</p>
-            <p className="info-text">
+            <table>
+              <tr>
+                <td>Price: </td>
+                <td>{carData?.car?.price}</td>
+              </tr>
+              <tr>
+                <td>Drivetrain: </td>
+                <td>{carData?.car?.drivetrain}</td>
+              </tr>
+              <tr>
+                <td>Type: </td>
+                <td>{carData?.car?.carBody}</td>
+              </tr>
+              <tr>
+                <td>Horsepower: </td>
+                <td>{carData?.car?.horsepower}</td>
+              </tr>
+              <tr>
+                <td>Number of doors: </td>
+                <td>{carData?.car?.numOfDoors}</td>
+              </tr>
+              <tr>
+                <td>Type of engine: </td>
+                <td>{carData?.car?.engineType}</td>
+              </tr>
+            </table>
+            {/* <h1 className="info-text">Price: {carData?.car?.price}</h1>
+            <h1 className="info-text">Drivetrain: {carData?.car?.drivetrain}</h1>
+            <h1 className="info-text">Type: {carData?.car?.carBody}</h1>
+            <h1 className="info-text">Horsepower: {carData?.car?.horsepower}</h1>
+            <h1 className="info-text">
               Number of doors: {carData?.car?.numOfDoors}
-            </p>
-            <p className="info-text">
+            </h1>
+            <h1 className="info-text">
               Type of engine: {carData?.car?.engineType}
-            </p>
+            </h1> */}
           </div>
         </div>
-        <div className="info-button-wrapper">
+        <div className="info-line">
           <button className="info-button" onClick={() => setShowInfo(!showInfo)}>
             <i className="arrow-info-button" style={showInfo ? {transform: 'rotate(-135deg)'} : {  transform: 'rotate(45deg)'}}></i>
           </button>
         </div>
       </div>
   
-      {/* <div>
+      <div>
         <ReviewSection
           userReview={userReviewData.userReviewForCar}
           reviews={reviewsData.carReviews}
           carID={carID}
         />
-      </div> */}
+      </div>
     </div>
   );
 };
