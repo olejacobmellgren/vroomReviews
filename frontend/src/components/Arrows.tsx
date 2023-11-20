@@ -40,8 +40,9 @@ export function LeftArrow() {
 
   return (
     <div
-      style={{ display: disabled ? 'none' : 'block' }}
-      className="left-arrow-wrapper"
+      className={
+        disabled ? 'left-arrow-wrapper disabled' : 'left-arrow-wrapper'
+      }
     >
       <Arrow
         disabled={disabled}
@@ -75,8 +76,9 @@ export function RightArrow() {
 
   return (
     <div
-      style={{ display: disabled ? 'none' : 'block' }}
-      className="right-arrow-wrapper"
+      className={
+        disabled ? 'right-arrow-wrapper disabled' : 'right-arrow-wrapper'
+      }
     >
       <Arrow
         disabled={disabled}

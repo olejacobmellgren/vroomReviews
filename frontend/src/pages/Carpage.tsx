@@ -11,8 +11,11 @@ import {
   GET_CAR_REVIEWS,
   GET_COMPANY_BY_NAME,
 } from '../graphQL/queries';
+import { useState } from 'react';
 
 const Carpage = () => {
+  const [showInfo, setShowInfo] = useState(false);
+
   const { id } = useParams();
   const car = typeof id === 'string' ? id : '';
   const company = car?.split('-')[0];
@@ -33,7 +36,8 @@ const Carpage = () => {
 
   const carID: string = carData?.car.id;
   const carImg: string = carData?.car.image;
-  const carName: string = carData?.car.model + ' ' + carData?.car.company;
+  const carName: string = carData?.car.model;
+  const carCompany: string = carData?.car.company;
   const carRating: number = carData?.car.rating;
   const carYear: number = carData?.car.year;
   const carBody: string = carData?.car.carBody;
@@ -93,38 +97,81 @@ const Carpage = () => {
 
   return (
     <div className="carpage-container">
-      <div className="top-section">
-        <img className="carpage-image" src={carImg} alt={carImg} />
-        <div>
+      <div className="first-section">
+        <div className="img-wrapper">
+          <img
+            className="carpage-image"
+            src={carImg}
+          />
+        </div>
+        <div className="overview-wrapper">
           <div className="title-wrapper">
             <img className="logo-img" src={companyLogo} />
-            <p className="title">{carName}</p>
+            <h1 className="title"> {carCompany} </h1>
+            <p className="title"> {carName} </p>
+            <p className="year"> {carYear} </p>
           </div>
-          <p className="year">{carYear}</p>
           <div className="rating">
             <StarRating readOnly={true} initialRating={carRating} />
             <div className="amount-rating">
-              <p>{carRating} / 5 </p> <p>|</p>
+              <p>{Math.round(carData?.car?.rating * 10) / 10} / 5 </p> <p>|</p>
               <p> {reviewsData.carReviews.length} ratings</p>
             </div>
           </div>
-          <FavoriteButton car={carID} />
+          <div>
+            <FavoriteButton car={carID} />
+          </div>
         </div>
       </div>
-      <div className="info">
-        <div className="info-container">
-          <p className="info-text">Price: {formattedPrice}</p>
-          <p className="info-text">Drivetrain: {carDrivetrain}</p>
+      <div className="info-section">
+        <div
+          className="info-wrapper"
+          style={showInfo ? { height: '18rem' } : { height: '0' }}
+        >
+          <div className="info-line"></div>
+          <div className="info">
+            <table>
+              <tr>
+                <td>Price</td>
+                <td>{formattedPrice}</td>
+              </tr>
+              <tr>
+                <td>Drivetrain</td>
+                <td>{carDrivetrain}</td>
+              </tr>
+              <tr>
+                <td>Type</td>
+                <td>{carBody}</td>
+              </tr>
+              <tr>
+                <td>Horsepower</td>
+                <td>{carHorsepower}</td>
+              </tr>
+              <tr>
+                <td>Number of doors</td>
+                <td>{carNumOfDoors}</td>
+              </tr>
+              <tr>
+                <td>Type of engine</td>
+                <td>{carEngineType}</td>
+              </tr>
+            </table>
+          </div>
         </div>
-        <div className="info-container">
-          <p className="info-text">Type: {carBody}</p>
-          <p className="info-text">Horsepower: {carHorsepower}</p>
-        </div>
-        <div className="info-container">
-          <p className="info-text">Number of doors: {carNumOfDoors}</p>
-          <p className="info-text">Type of engine: {carEngineType}</p>
+        <div className="info-line">
+          <button
+            className="info-button"
+            onClick={() => setShowInfo(!showInfo)}
+          >
+            <i
+              className={
+                showInfo ? 'arrow-info-button open' : 'arrow-info-button closed'
+              }
+            ></i>
+          </button>
         </div>
       </div>
+
       <div>
         <ReviewSection
           userReview={userReviewData.userReviewForCar}
