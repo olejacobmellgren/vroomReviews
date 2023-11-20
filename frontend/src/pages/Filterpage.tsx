@@ -66,7 +66,7 @@ const Filterpage = () => {
 
   const [totalCount, setTotalCount] = useState(0);
 
-  const [priceRange, setPriceRange] = useState<number[]>([0, 1000000]);
+  const [priceRange, setPriceRange] = useState<number[]>([0, 100000]);
 
   const [yearRange, setYearRange] = useState<number[]>([1943, 2023]);
 
@@ -195,11 +195,11 @@ const Filterpage = () => {
     setLimit(12);
     sessionStorage.setItem('visibleCars', '12');
 
-    const minDistance = 100000;
+    const minDistance = 5000;
 
     if (newValue[1] - newValue[0] < minDistance) {
       if (activeThumb === 0) {
-        const clamped = Math.min(newValue[0], 1000000 - minDistance);
+        const clamped = Math.min(newValue[0], 100000 - minDistance);
         setPriceRange([clamped, clamped + minDistance]);
       } else {
         const clamped = Math.max(newValue[1], minDistance);
@@ -248,7 +248,7 @@ const Filterpage = () => {
     });
 
     const formattedValue = formatter.format(value);
-    return value === 1000000 ? `${formattedValue}+` : formattedValue;
+    return value === 100000 ? `${formattedValue}+` : formattedValue;
   };
 
   let typingTimer: NodeJS.Timeout;
@@ -324,7 +324,7 @@ const Filterpage = () => {
               getAriaLabel={() => 'Price range'}
               value={priceRange}
               min={0}
-              max={1000000}
+              max={100000}
               onChange={handlePriceChange}
               valueLabelDisplay="auto"
               valueLabelFormat={valueLabelFormat}
@@ -352,7 +352,7 @@ const Filterpage = () => {
         (searchTerm !== '' ||
           selectedFilters.Brand !== 'All' ||
           selectedFilters.Body !== 'All' ||
-          JSON.stringify(priceRange) !== JSON.stringify([0, 1000000]) ||
+          JSON.stringify(priceRange) !== JSON.stringify([0, 100000]) ||
           JSON.stringify(yearRange) !== JSON.stringify([1943, 2023])) && (
           <div className="resultCounter">
             <p>Found {totalCount} cars</p>
