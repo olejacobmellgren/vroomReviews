@@ -17,7 +17,7 @@
 }
 
 .overview-wrapper {
-  display: flex; 
+  display: flex;
   align-items: flex-end;
   flex-direction: column;
   min-width: 18rem;
@@ -95,15 +95,21 @@ table {
   border-collapse: collapse;
 }
 
-td{
+td {
   height: 2rem;
   padding: 0 2rem 0 2rem;
   color: silver;
   font-weight: lighter;
 }
 
-tr:nth-child(odd){
-  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(32,32,32,0.8) 20%, rgba(32,32,32,0.8) 80%, rgba(0,0,0,0) 100%);
+tr:nth-child(odd) {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(32, 32, 32, 0.8) 20%,
+    rgba(32, 32, 32, 0.8) 80%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .info-text {
@@ -122,7 +128,13 @@ tr:nth-child(odd){
 .info-wrapper {
   transition: all 1s ease;
   overflow: hidden;
-  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(10,10,10,0.4) 30%, rgba(10,10,10,0.4) 70%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(10, 10, 10, 0.4) 30%,
+    rgba(10, 10, 10, 0.4) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .info-line {
@@ -156,7 +168,7 @@ tr:nth-child(odd){
   transform: rotate(45deg);
 }
 
-.arrow-info-button.open{
+.arrow-info-button.open {
   transform: rotate(-135deg);
   top: 0.4rem;
 }

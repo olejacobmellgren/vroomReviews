@@ -100,7 +100,7 @@ const Carpage = () => {
               />
             )}
             <div className="amount-rating">
-              <p>{Math.round(carData?.car?.rating * 10)/10} / 5 </p> <p>|</p>
+              <p>{Math.round(carData?.car?.rating * 10) / 10} / 5 </p> <p>|</p>
               <p> {reviewsData.carReviews.length} ratings</p>
             </div>
           </div>
@@ -110,8 +110,11 @@ const Carpage = () => {
         </div>
       </div>
       <div className="info-section">
-        <div className="info-wrapper" style={showInfo ? {height: '18rem'} : {height: '0'}}>
-        <div className="info-line"></div>
+        <div
+          className="info-wrapper"
+          style={showInfo ? { height: '18rem' } : { height: '0' }}
+        >
+          <div className="info-line"></div>
           <div className="info">
             <table>
               <tr>
@@ -142,13 +145,19 @@ const Carpage = () => {
           </div>
         </div>
         <div className="info-line">
-          <button className="info-button" onClick={() => setShowInfo(!showInfo)}>
-            <i className={showInfo ? "arrow-info-button open" : "arrow-info-button closed"}
-></i>
+          <button
+            className="info-button"
+            onClick={() => setShowInfo(!showInfo)}
+          >
+            <i
+              className={
+                showInfo ? 'arrow-info-button open' : 'arrow-info-button closed'
+              }
+            ></i>
           </button>
         </div>
       </div>
-  
+
       <div>
         <ReviewSection
           userReview={userReviewData.userReviewForCar}
