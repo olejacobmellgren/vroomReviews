@@ -42,13 +42,13 @@ const Carpage = () => {
   const carNumOfDoors: number = carData?.car.numOfDoors;
   const carEngineType: string = carData?.car.engineType;
   const formattedPrice = carData?.car
-  ? new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(carData?.car?.price)
-  : '';
+    ? new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(carData?.car?.price)
+    : '';
 
   // Get all reviews for car
   const {
@@ -94,24 +94,15 @@ const Carpage = () => {
   return (
     <div className="carpage-container">
       <div className="top-section">
-        <img
-          className="carpage-image"
-          src={carImg}
-          alt={carImg}
-        />
+        <img className="carpage-image" src={carImg} alt={carImg} />
         <div>
           <div className="title-wrapper">
             <img className="logo-img" src={companyLogo} />
-            <p className="title">
-              {carName}
-            </p>
+            <p className="title">{carName}</p>
           </div>
           <p className="year">{carYear}</p>
           <div className="rating">
-              <StarRating
-                readOnly={true}
-                initialRating={carRating}
-              />
+            <StarRating readOnly={true} initialRating={carRating} />
             <div className="amount-rating">
               <p>{carRating} / 5 </p> <p>|</p>
               <p> {reviewsData.carReviews.length} ratings</p>
@@ -130,12 +121,8 @@ const Carpage = () => {
           <p className="info-text">Horsepower: {carHorsepower}</p>
         </div>
         <div className="info-container">
-          <p className="info-text">
-            Number of doors: {carNumOfDoors}
-          </p>
-          <p className="info-text">
-            Type of engine: {carEngineType}
-          </p>
+          <p className="info-text">Number of doors: {carNumOfDoors}</p>
+          <p className="info-text">Type of engine: {carEngineType}</p>
         </div>
       </div>
       <div>

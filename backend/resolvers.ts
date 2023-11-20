@@ -46,7 +46,7 @@ export const resolvers = {
       if (priceRange) {
         query.price = {
           $gte: priceRange[0],
-          ...(priceRange[1] !== 1000000 ? { $lte: priceRange[1] } : {}),
+          ...(priceRange[1] !== 100000 ? { $lte: priceRange[1] } : {}),
         };
       }
       if (yearRange) {
