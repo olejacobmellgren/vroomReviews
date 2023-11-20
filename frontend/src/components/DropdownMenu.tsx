@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import '../assets/DropdownMenu.css';
+import ClearIcon from '../assets/images/clear-icon.png';
 
 type DropdownProps = {
   filter: string;
   options: string[];
   isOpen: boolean;
+  updateOptionCounter: boolean;
   toggleDropdown: () => void;
   onSelect: (option: string, initialLoad: boolean) => void;
 };
@@ -12,14 +14,16 @@ type DropdownProps = {
 type ButtonProps = {
   name: string;
   onClick: () => void;
+  checkedOption: string;
 };
 
-function ButtonInside({ name, onClick }: ButtonProps) {
-  const [isAll] = useState(name == 'All');
+function ButtonInside({ name, onClick, checkedOption }: ButtonProps) {
   return (
     <div className="dropdownButtonInsideWrapper">
       <button className="dropdownButtonInside" onClick={onClick}>
-        <span style={{ color: isAll ? '#00CC00' : '' }}>{name}</span>
+        <span style={{ color: name == checkedOption ? '#00CC00' : '' }}>
+          {name}
+        </span>
       </button>
     </div>
   );
@@ -29,11 +33,14 @@ function DropdownMenu({
   filter,
   options,
   isOpen,
+  updateOptionCounter,
   toggleDropdown,
   onSelect,
 }: DropdownProps) {
   const [checkedOption, setCheckedOption] = useState(filter);
   const [initialLoad, setInitialLoad] = useState(true);
+  const [filterApplied, setFilterApplied] = useState(false);
+  const [optionsCounter, setOptionsCounter] = useState(10);
 
   // Set checked option to the option that was selected last time, if there is one, otherwise set it to "All"
   useEffect(() => {
@@ -43,9 +50,11 @@ function DropdownMenu({
         if (storedFilterOption !== 'All') {
           setCheckedOption(storedFilterOption);
           onSelect(storedFilterOption, true);
+          setFilterApplied(true);
         } else {
           setCheckedOption(filter);
           onSelect(storedFilterOption, true);
+          setFilterApplied(false);
         }
       }
       setInitialLoad(false);
@@ -58,15 +67,17 @@ function DropdownMenu({
     }
   }, [onSelect, checkedOption, filter, initialLoad]);
 
+  useEffect(() => {
+    if (updateOptionCounter) {
+      setOptionsCounter(10);
+    }
+  }, [updateOptionCounter]);
+
   // Set checked option to the selected option and close the dropdown
   const handleOptionClick = (option: string) => {
     if (option !== checkedOption) {
-      if (option === 'All') {
-        setCheckedOption(filter);
-      } else {
-        setCheckedOption(option);
-      }
-
+      setFilterApplied(true);
+      setCheckedOption(option);
       onSelect(option, false);
     }
     toggleDropdown();
@@ -76,26 +87,70 @@ function DropdownMenu({
     toggleDropdown();
   };
 
+  const handleClear = () => {
+    setFilterApplied(false);
+    onSelect('All', false);
+    setCheckedOption(filter);
+    if (isOpen) {
+      toggleDropdown();
+    }
+  };
+
   return (
     <div className="dropdownButtonWrapper">
-      <button className="dropdownButton" onClick={handleDropdown}>
+      <button
+        className="dropdownButton"
+        onClick={handleDropdown}
+        data-testid="drop-down"
+      >
         <label className="DdBlabel">{checkedOption}</label>
         <i className="dropdownArrow"></i>
       </button>
       <div className={`dropdown ${isOpen ? 'active' : 'closed'}`}>
-        {options.map((option) => {
-          if (option !== 'All' || checkedOption !== filter) {
-            // Only show option "All" when the user has applied a filter
+        <div className="optionsWrapper">
+          {options.slice(optionsCounter - 10, optionsCounter).map((option) => {
             return (
               <ButtonInside
                 key={option}
                 name={option}
+                checkedOption={checkedOption}
                 onClick={() => handleOptionClick(option)}
               />
             );
-          }
-        })}
+          })}
+        </div>
+        <div className="arrowWrapper" style={{ justifyContent: 'center' }}>
+          {optionsCounter > 10 && (
+            <div className="arrowButtonWrapper">
+              <button
+                className="arrowButton arrowButtonLeft"
+                onClick={() =>
+                  setOptionsCounter((prevCounter) => prevCounter - 10)
+                }
+              >
+                <i className="arrowLeft"></i>
+              </button>
+            </div>
+          )}
+          {optionsCounter < options.length && (
+            <div className="arrowButtonWrapper">
+              <button
+                className="arrowButton arrowButtonRight"
+                onClick={() =>
+                  setOptionsCounter((prevCounter) => prevCounter + 10)
+                }
+              >
+                <i className="arrowRight"></i>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
+      {filterApplied && (
+        <button className="clearButton" onClick={handleClear}>
+          <img src={ClearIcon}></img>
+        </button>
+      )}
     </div>
   );
 }

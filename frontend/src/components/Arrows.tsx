@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { VisibilityContext } from 'react-horizontal-scrolling-menu';
 
-function Arrow({
+export function Arrow({
   children,
   disabled,
   onClick,
@@ -12,7 +12,12 @@ function Arrow({
 }) {
   return (
     <>
-      <button disabled={disabled} className="arrow-button" onClick={onClick}>
+      <button
+        disabled={disabled}
+        className="arrow-button"
+        onClick={onClick}
+        data-testid="arrow-button"
+      >
         {children}
       </button>
     </>
@@ -39,7 +44,11 @@ export function LeftArrow() {
         disabled ? 'left-arrow-wrapper disabled' : 'left-arrow-wrapper'
       }
     >
-      <Arrow disabled={disabled} onClick={() => scrollPrev()}>
+      <Arrow
+        disabled={disabled}
+        onClick={() => scrollPrev()}
+        test-id="left-arrow"
+      >
         <div className="arrow left">
           <span></span>
           <span></span>
@@ -71,7 +80,11 @@ export function RightArrow() {
         disabled ? 'right-arrow-wrapper disabled' : 'right-arrow-wrapper'
       }
     >
-      <Arrow disabled={disabled} onClick={() => scrollNext()}>
+      <Arrow
+        disabled={disabled}
+        onClick={() => scrollNext()}
+        test-id="right-arrow"
+      >
         <div className="arrow right">
           <span></span>
           <span></span>

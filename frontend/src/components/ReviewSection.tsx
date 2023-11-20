@@ -11,6 +11,7 @@ import {
   GET_CAR_REVIEWS,
   GET_USER_REVIEWS,
   GET_USER_REVIEW_FOR_CAR,
+  GET_CAR,
 } from '../graphQL/queries';
 
 const ReviewSection = ({
@@ -50,6 +51,7 @@ const ReviewSection = ({
         GET_USER_REVIEW_FOR_CAR,
         GET_CAR_REVIEWS,
         GET_USER_REVIEWS,
+        GET_CAR,
       ],
     },
   );
@@ -64,6 +66,7 @@ const ReviewSection = ({
         GET_USER_REVIEW_FOR_CAR,
         GET_CAR_REVIEWS,
         GET_USER_REVIEWS,
+        GET_CAR,
       ],
     });
 

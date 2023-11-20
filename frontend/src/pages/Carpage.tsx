@@ -34,7 +34,24 @@ const Carpage = () => {
     },
   });
 
-  const carID = carData?.car.id;
+  const carID: string = carData?.car.id;
+  const carImg: string = carData?.car.image;
+  const carName: string = carData?.car.model + ' ' + carData?.car.company;
+  const carRating: number = carData?.car.rating;
+  const carYear: number = carData?.car.year;
+  const carBody: string = carData?.car.carBody;
+  const carDrivetrain: string = carData?.car.drivetrain;
+  const carHorsepower: number = carData?.car.horsepower;
+  const carNumOfDoors: number = carData?.car.numOfDoors;
+  const carEngineType: string = carData?.car.engineType;
+  const formattedPrice = carData?.car
+    ? new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(carData?.car?.price)
+    : '';
 
   // Get all reviews for car
   const {
@@ -70,6 +87,8 @@ const Carpage = () => {
     },
   });
 
+  const companyLogo: string = companyData?.company.logo;
+
   if (carLoading || reviewsLoading || userReviewLoading || companyLoading)
     return <CircularProgress color="warning" />;
   if (carError || reviewsError || userReviewError || companyError)
@@ -93,12 +112,7 @@ const Carpage = () => {
             <p className="year"> {carData?.car?.year} </p>
           </div>
           <div className="rating">
-            {carData && (
-              <StarRating
-                readOnly={true}
-                initialRating={carData?.car?.rating}
-              />
-            )}
+            <StarRating readOnly={true} initialRating={carRating} />
             <div className="amount-rating">
               <p>{Math.round(carData?.car?.rating * 10) / 10} / 5 </p> <p>|</p>
               <p> {reviewsData.carReviews.length} ratings</p>

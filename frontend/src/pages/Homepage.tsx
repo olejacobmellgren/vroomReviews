@@ -1,7 +1,8 @@
 import ScrollingMenu from '../components/ScrollingMenu';
 import { useQuery } from '@apollo/client';
 import { GET_COMPANIES } from '../graphQL/queries';
-import { CircularProgress } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import Pagination from '@mui/material/Pagination';
 import { useState } from 'react';
 
 interface company {
@@ -14,42 +15,23 @@ const Homepage = () => {
   const [visibleBrands, setVisibleBrands] = useState(
     parseInt(sessionStorage.getItem('visibleBrands') || '0'),
   );
-  // Get all companies
-  const { loading, error, data } = useQuery(GET_COMPANIES, {});
+  // Get companies to show on homepage
+  const { loading, error, data } = useQuery(GET_COMPANIES, {
+    variables: {
+      offset: visibleBrands,
+      limit: increment,
+    },
+  });
 
-  // View next 3 brands on next page
-  // Use sessionStorage to stay on the same page after refresh
-  const viewNext = () => {
-    const VisibleBrandsEnd = visibleBrands + increment;
-    if (data.companies.length - VisibleBrandsEnd > increment) {
-      setVisibleBrands(VisibleBrandsEnd);
-      sessionStorage.setItem('visibleBrands', VisibleBrandsEnd.toString());
-    } else {
-      setVisibleBrands(data.companies.length - increment);
-      sessionStorage.setItem(
-        'visibleBrands',
-        (data.companies.length - increment).toString(),
-      );
-    }
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
-  // View previous 3 brands on previous page
-  // Use sessionStorage to stay on the same page after refresh
-  const viewPrev = () => {
-    if (visibleBrands > increment) {
-      setVisibleBrands(visibleBrands - increment);
-      sessionStorage.setItem(
-        'visibleBrands',
-        (visibleBrands - increment).toString(),
-      );
-    } else {
-      setVisibleBrands(0);
-      sessionStorage.setItem('visibleBrands', (0).toString());
-    }
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number,
+  ) => {
+    setVisibleBrands((value - 1) * increment);
+    sessionStorage.setItem(
+      'visibleBrands',
+      ((value - 1) * increment).toString(),
+    );
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -61,23 +43,26 @@ const Homepage = () => {
 
   return (
     <>
-      {data.companies
-        .slice(visibleBrands, visibleBrands + increment)
-        .map((data: company, index: number) => (
-          <div className="conteiner" key={index}>
-            <div className="scrollingMenuHeader">
-              <div className="element"></div>
-              <h1>{data.name}</h1>
-              <div className="brand-logo-wrapper">
-                <img className="brand-logo" src={data.logo} />
-              </div>
+      {data.companies.companies.map((data: company, index: number) => (
+        <div className="conteiner" key={index}>
+          <div className="scrollingMenuHeader">
+            <div className="element"></div>
+            <h1>{data.name}</h1>
+            <div className="brand-logo-wrapper">
+              <img className="brand-logo" src={data.logo} />
             </div>
-            <ScrollingMenu brand={data.name} />
           </div>
-        ))}
-      <div className="view-more-button">
-        <button onClick={viewPrev}>Prev Page</button>
-        <button onClick={viewNext}>Next Page</button>
+          <ScrollingMenu brand={data.name} />
+        </div>
+      ))}
+      <div className="pagination">
+        <Pagination
+          count={Math.round(data.companies.totalCount / 3)}
+          defaultPage={Math.round(visibleBrands / 3) + 1}
+          size="large"
+          onChange={handlePageChange}
+          siblingCount={0}
+        />
       </div>
     </>
   );

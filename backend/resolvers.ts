@@ -4,7 +4,13 @@ import Favorite from './models/favorite';
 import Review from './models/review';
 import User from './models/user';
 import Company from './models/Company';
-import { carArgs, carsArgs, userAndCarArgs, addReviewArgs } from './interfaces';
+import {
+  carArgs,
+  carsArgs,
+  userAndCarArgs,
+  addReviewArgs,
+  companiesArgs,
+} from './interfaces';
 
 export const resolvers = {
   Query: {
@@ -18,53 +24,36 @@ export const resolvers = {
     },
     // Return all cars fulfilling the given filters
     cars: async (_: any, args: carsArgs) => {
-      const { filters, offset, orderBy, searchTerm, limit } = args;
-
-      if (
-        Object.values(filters).every((value) => value === null) &&
-        Object.values(orderBy).every((value) => value === null)
-      ) {
-        const [company, ...modelParts] = searchTerm.split(' ');
-        const argList = searchTerm.split(' ');
-        const argCounter = searchTerm.split(' ').length;
-        const model = modelParts.join(' ');
-        if (argCounter == 1) {
-          return Car.find({
-            $or: [
-              { company: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive company search
-              { model: { $regex: new RegExp(searchTerm, 'i') } }, // Case-insensitive model search
-            ],
-          })
-            .limit(limit)
-            .skip(offset);
-        } else if (argCounter == 2 && argList[1] == '') {
-          const query: any = {};
-          const newCompany = company.charAt(0).toUpperCase() + company.slice(1);
-          query.company = newCompany;
-          return Car.find(query).limit(limit).skip(offset);
-        } else {
-          return Car.find({
-            $and: [
-              { company: { $regex: new RegExp(company, 'i') } }, // Case-insensitive company search
-              { model: { $regex: new RegExp(model, 'i') } }, // Case-insensitive model search
-            ],
-          })
-            .limit(limit)
-            .skip(offset);
-        }
-      }
+      const {
+        filters,
+        offset,
+        orderBy,
+        searchTerm,
+        limit,
+        priceRange,
+        yearRange,
+      } = args;
 
       // Create a base query object with filter conditions
-      const query: any = {};
+      let query: any = {};
 
       if (filters.company) {
         query.company = filters.company;
       }
-      if (filters.year) {
-        query.year = filters.year;
-      }
       if (filters.carBody) {
         query.carBody = filters.carBody;
+      }
+      if (priceRange) {
+        query.price = {
+          $gte: priceRange[0],
+          ...(priceRange[1] !== 100000 ? { $lte: priceRange[1] } : {}),
+        };
+      }
+      if (yearRange) {
+        query.year = {
+          $gte: yearRange[0],
+          $lte: yearRange[1],
+        };
       }
 
       // Apply sorting based on orderBy
@@ -72,6 +61,9 @@ export const resolvers = {
       if (orderBy) {
         if (orderBy.year) {
           sort.year = orderBy.year;
+        }
+        if (orderBy.price) {
+          sort.price = orderBy.price;
         }
         if (orderBy.rating) {
           sort.rating = orderBy.rating;
@@ -82,17 +74,63 @@ export const resolvers = {
         $and: [
           query,
           {
-            $or: [
-              { company: { $regex: new RegExp(searchTerm, 'i') } },
-              { model: { $regex: new RegExp(searchTerm, 'i') } },
-            ],
+            fullname: { $regex: new RegExp(searchTerm, 'i') },
           },
         ],
       })
         .sort(sort)
         .limit(limit)
         .skip(offset);
-      return result;
+
+      const totalCount = await Car.countDocuments({
+        $and: [
+          query,
+          {
+            fullname: { $regex: new RegExp(searchTerm, 'i') },
+          },
+        ],
+      });
+
+      if ('carBody' in query) {
+        delete query.carBody;
+      }
+
+      const distinctCarBodies = await Car.distinct('carBody', {
+        $and: [
+          query,
+          {
+            fullname: { $regex: new RegExp(searchTerm, 'i') },
+          },
+        ],
+      });
+
+      if (filters.carBody) {
+        query.carBody = filters.carBody;
+      }
+
+      if ('company' in query) {
+        delete query.company;
+      }
+
+      const distinctcarCompanies = await Car.distinct('company', {
+        $and: [
+          query,
+          {
+            fullname: { $regex: new RegExp(searchTerm, 'i') },
+          },
+        ],
+      });
+
+      if (filters.company) {
+        query.company = filters.company;
+      }
+
+      return {
+        cars: result,
+        totalCount: totalCount,
+        carBodies: distinctCarBodies,
+        carCompanies: distinctcarCompanies,
+      };
     },
     // Return all cars favorited by a single user, populate() is used to get the car data
     favoriteCars: async (_: any, { userID }: { userID: number }) => {
@@ -113,8 +151,13 @@ export const resolvers = {
     userCount: async () => {
       return await User.countDocuments();
     },
-    companies: async () => {
-      return await Company.find();
+    companies: async (_: any, { offset, limit }: companiesArgs) => {
+      const companies = await Company.find().limit(limit).skip(offset);
+      const totalCount = await Company.countDocuments();
+      return {
+        companies: companies,
+        totalCount: totalCount,
+      };
     },
     company: async (_: any, { name }: { name: string }) => {
       return await Company.findOne({ name: name });
