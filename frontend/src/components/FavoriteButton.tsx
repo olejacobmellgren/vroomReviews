@@ -81,7 +81,7 @@ const FavoriteButton = ({ car }: { car: string }) => {
     return <CircularProgress color="warning" />;
 
   return (
-    <div className="heart-info-container">
+    <figure className="heart-info-container">
       <Heart
         width={100}
         className="heart"
@@ -91,7 +91,7 @@ const FavoriteButton = ({ car }: { car: string }) => {
         onClick={() => handleFavorite()}
       />
       <AlertPopup visible={favoriteAlert} message={alertMessage} />
-    </div>
+    </figure>
   );
 };
 

@@ -6,14 +6,10 @@
 .card {
   display: flex;
   justify-content: center;
+  margin: 0;
 }
 
 .card :hover {
   transform: scale(1.05);
   transition: all 0.2s ease-in-out;
-}
-
-.car-name {
-  display: flex;
-  justify-content: center;
 }

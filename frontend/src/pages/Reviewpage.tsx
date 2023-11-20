@@ -27,32 +27,30 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
   };
 
   return (
-    <div>
+    <main>
       {data.userReviews.length > 0 ? (
-        <div className="car-list">
+        <ul className="car-list">
           {data.userReviews.map((data: CarCard, index: number) => (
-            <div key={`review-${data.car.id}-${index}`}>
-              <div className="car">
+              <figure className="car" key={`review-${data.car.id}-${index}`}>
                 <CardForCar
                   brand={data.car.company}
                   model={data.car.model}
                   carIMG={data.car.image}
                   showInfo={true}
                 />
-              </div>
-              <div className="review-container">
-                <StarRating
-                  theme={{ size: 30 }}
-                  readOnly={true}
-                  initialRating={data.rating}
-                />
-                <p>- {data.review}</p>
-              </div>
-            </div>
+                <div className="review-container">
+                  <StarRating
+                    theme={{ size: 30 }}
+                    readOnly={true}
+                    initialRating={data.rating}
+                  />
+                  <p>- {data.review}</p>
+                </div>
+              </figure>
           ))}
-        </div>
+        </ul>
       ) : (
-        <div className="no-reviews">
+        <p className="no-reviews">
           <h1>You have no reviews yet!</h1>
           <NavLink
             to="/project2"
@@ -61,9 +59,9 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
           >
             <h2>Explore cars</h2>
           </NavLink>
-        </div>
+        </p>
       )}
-    </div>
+    </main>
   );
 };
 

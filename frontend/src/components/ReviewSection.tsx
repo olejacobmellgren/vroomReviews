@@ -108,73 +108,65 @@ const ReviewSection = ({
   if (addError || removeError) setAlertMessage('Something went wrong!');
 
   return (
-    <div>
-      <div>
-        {!userReview && !reviewAdded ? (
-          <button className="button" onClick={() => setReviewCarPopup(true)}>
-            Review this car
-          </button>
-        ) : null}
-      </div>
+    <>
+      {!userReview && !reviewAdded ? (
+        <button className="button" onClick={() => setReviewCarPopup(true)}>
+          Review this car
+        </button>
+      ) : null}
       {reviewCarPopup ? (
-        <div>
-          <div className="popup" onClick={closeOrOpen}>
-            <div className="popup-inner" id="popup">
-              <StarRating
-                initialRating={rating}
-                onClick={(rating) => {
-                  setRating(rating);
-                }}
-              />
-              <textarea
-                className="text-area"
-                onChange={handleReviewTextChange}
-                placeholder="Add a review to your rating"
-                cols={28}
-                style={{ height: 'auto', minHeight: '100px' }}
-              />
-              <input
-                className="text-area"
-                placeholder="name"
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <div className="review-buttons">
-                <button onClick={handleReviewSubmit} className="button">
-                  Submit review
-                </button>
-              </div>
-            </div>
-          </div>
+        <div className="popup" onClick={closeOrOpen}>
+          <section className="popup-inner" id="popup">
+            <StarRating
+              initialRating={rating}
+              onClick={(rating) => {
+                setRating(rating);
+              }}
+            />
+            <textarea
+              className="text-area"
+              onChange={handleReviewTextChange}
+              placeholder="Add a review to your rating"
+              cols={28}
+              style={{ height: 'auto', minHeight: '100px' }}
+            />
+            <input
+              className="text-area"
+              placeholder="name"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+              <button onClick={handleReviewSubmit} className="button">
+                Submit review
+              </button>
+          </section>
         </div>
       ) : null}
       {visibleDeletePopup ? (
-        <div>
-          <div className="popup" onClick={closeOrOpen}>
-            <div className="popup-inner" id="popup">
-              <p className="text">
-                Are you sure you want to delete this review?{' '}
-              </p>
-              <button className="button" onClick={() => handleDeleteConfirm()}>
-                Confirm
-              </button>
-              <button
-                className="button"
-                onClick={() => setVisibleDeletePopup(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
+        <div className="popup" onClick={closeOrOpen}>
+          <section className="popup-inner delete-popup" id="popup">
+            <p className="text">
+              Are you sure you want to delete this review?{' '}
+            </p>
+            <button className="button" onClick={() => handleDeleteConfirm()}>
+              Confirm
+            </button>
+            <button
+              className="button"
+              onClick={() => setVisibleDeletePopup(false)}
+            >
+              Cancel
+            </button>
+          </section>
         </div>
       ) : null}
-      <div className="reviews">
+      <section className="reviews">
         {amountOfReviews > 0 ? (
           <h1>Reviews ({amountOfReviews})</h1>
         ) : (
           <h2>There are no reviews yet for this car</h2>
         )}
         {userReview || reviewAdded ? (
-          <div className="current-user-review">
+          <section className="current-user-review">
             <p> Your review: </p>
             <div>
               <StarRating
@@ -190,10 +182,10 @@ const ReviewSection = ({
             >
               delete
             </u>
-          </div>
+          </section>
         ) : null}
         {reviews.map((review) => (
-          <div key={review.userID}>
+          <section key={review.userID}>
             {review.userID !== userReview?.userID ? (
               <div className="user-review">
                 <StarRating
@@ -205,11 +197,11 @@ const ReviewSection = ({
                 <p className="reviewer">Reviewed by {review.username}</p>
               </div>
             ) : null}
-          </div>
+          </section>
         ))}
         <AlertPopup visible={alertVisible} message={alertMessage} />
-      </div>
-    </div>
+      </section>
+    </>
   );
 };
 

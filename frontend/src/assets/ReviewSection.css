@@ -8,6 +8,7 @@
   color: #54595e;
   cursor: pointer;
   margin: 1rem 0rem;
+  width: fit-content;
 }
 
 .popup {
@@ -31,6 +32,12 @@
   height: 21rem;
   width: 50%;
   background-color: #f6f9ff;
+}
+
+.delete-popup {
+  display: flex;
+  gap: 2rem;
+  height: fit-content;
 }
 
 .text-area {

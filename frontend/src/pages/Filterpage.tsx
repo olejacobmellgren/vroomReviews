@@ -283,12 +283,12 @@ const Filterpage = () => {
 
   return (
     <>
-      <div className="searchBar">
-        <div className="searchBar-wrapper">
-          <div className="searchBar-container">
+      <div className="search-bar">
+        <div className="search-bar-wrapper">
+          <div className="search-bar-container">
             <input
               type="text"
-              className="searchBar-input"
+              className="search-bar-input"
               placeholder="Search for car"
               defaultValue={searchTerm}
               onChange={handleSearchChange}
@@ -297,7 +297,7 @@ const Filterpage = () => {
           </div>
         </div>
       </div>
-      <div className="filterMenu">
+      <div className="filter-menu">
         {filters.map((filter, index) => (
           <div className="dropdown-flex" key={index}>
             <DropdownMenu
@@ -317,8 +317,8 @@ const Filterpage = () => {
           </div>
         ))}
       </div>
-      <div className="sliderMenu">
-        <div className="sliderWrapper">
+      <div className="slider-menu">
+        <div className="slider-wrapper">
           <div className="slider">
             <Slider
               getAriaLabel={() => 'Price range'}
@@ -333,7 +333,7 @@ const Filterpage = () => {
           </div>
           <p>Price range</p>
         </div>
-        <div className="sliderWrapper">
+        <div className="slider-wrapper">
           <div className="slider">
             <Slider
               getAriaLabel={() => 'Price range'}
@@ -354,7 +354,7 @@ const Filterpage = () => {
           selectedFilters.Body !== 'All' ||
           JSON.stringify(priceRange) !== JSON.stringify([0, 1000000]) ||
           JSON.stringify(yearRange) !== JSON.stringify([1943, 2023])) && (
-          <div className="resultCounter">
+          <div className="result-counter">
             <p>Found {totalCount} cars</p>
           </div>
         )}
@@ -373,7 +373,7 @@ const Filterpage = () => {
         </div>
       ) : (
         <div
-          className="noResults"
+          className="no-results"
           style={{ marginTop: '100px', textAlign: 'center' }}
         >
           {searchTerm == '' ? (
@@ -390,7 +390,7 @@ const Filterpage = () => {
         </div>
       )}
       {shownCars.length != 0 && totalCount > 12 && (
-        <div className="resultCounter">
+        <div className="result-counter">
           <p>
             Showing {shownCars.length} of {totalCount} cars
           </p>
