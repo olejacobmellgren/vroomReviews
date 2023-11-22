@@ -145,6 +145,11 @@ const Filterpage = () => {
     sessionStorage.setItem('searchTerm', searchTerm);
   }, [searchTerm]);
 
+  useEffect(() => {
+    sessionStorage.setItem('priceRange', JSON.stringify(priceRange));
+    sessionStorage.setItem('yearRange', JSON.stringify(yearRange));
+  }, [priceRange, yearRange])
+
   // Set selected filters and if not initial load, reset shownCars and amount of visibleCars
   const handleFilterChange = (
     filterName: string,
@@ -228,7 +233,6 @@ const Filterpage = () => {
     setVisibleCars(12);
     setLimit(12);
     sessionStorage.setItem('visibleCars', '12');
-    sessionStorage.setItem('yearRange', JSON.stringify(yearRange));
 
     const minDistance = 5;
 
