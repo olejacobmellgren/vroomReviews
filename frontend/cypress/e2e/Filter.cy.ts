@@ -1,7 +1,7 @@
 describe('Filterpage', () => {
   
   it('Search and filter cars', () => {
-    cy.visit('http://localhost:5173/project2/filtercars')
+    cy.visit('http://http://it2810-25.idi.ntnu.no/project2/filtercars')
 
     // Initial loading
     cy.contains('Ferrari 812 Superfast').should('exist')
