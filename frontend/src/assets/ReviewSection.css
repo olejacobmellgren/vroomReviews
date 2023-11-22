@@ -1,16 +1,3 @@
-.button {
-  background-color: #ffffff;
-  border: 1px solid transparent;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  font-size: 2vh;
-  border-radius: 1vh;
-  padding: 1.5vh 2.5vh;
-  color: #54595e;
-  cursor: pointer;
-  margin: 1rem 0rem;
-  width: fit-content;
-}
-
 .popup {
   position: fixed;
   top: 0;
@@ -29,22 +16,29 @@
   position: relative;
   border-radius: 0.5rem;
   padding: 2rem;
-  height: 21rem;
-  width: 50%;
-  background-color: #f6f9ff;
+  height: fit-content;
+  min-width: 50%;
+  width: fit-content;
+  background-color: #252525;
 }
 
 .delete-popup {
   display: flex;
   gap: 2rem;
-  height: fit-content;
+}
+
+.review-buttons {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
 }
 
 .text-area {
+  background-color: #202020;
   padding: 0.75rem;
   margin-top: 1rem;
   border-radius: 0.5rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid silver;
   font-size: 1.125rem;
   line-height: 1.75rem;
 }
@@ -52,7 +46,7 @@
 .text {
   font-size: 1.125rem;
   line-height: 1.75rem;
-  color: #54595e;
+  color: silver;
 }
 
 .review-buttons {
@@ -79,7 +73,7 @@
 
 .delete-review {
   font-size: medium;
-  color: #dd7973;
+  color: #bd1b12;
   cursor: pointer;
   margin-top: 1rem;
 }
@@ -91,11 +85,6 @@
 }
 
 @media (orientation: portrait) {
-  .popup-inner {
-    width: 65%;
-    height: 40%;
-  }
-
   .review-buttons {
     flex-direction: column;
   }

@@ -21,7 +21,7 @@ function ButtonInside({ name, onClick, checkedOption }: ButtonProps) {
   return (
     <div className="dropdown-button-inside-wrapper">
       <button className="dropdown-button-inside" onClick={onClick}>
-        <span style={{ color: name == checkedOption ? '#00CC00' : '' }}>
+        <span style={{ color: name == checkedOption ? 'red' : '' }}>
           {name}
         </span>
       </button>
@@ -99,7 +99,7 @@ function DropdownMenu({
   return (
     <div className="dropdown-button-wrapper">
       <button
-        className="dropdown-button"
+        className={`dropdown-button ${isOpen ? 'active' : 'closed'}`}
         onClick={handleDropdown}
         data-testid="drop-down"
       >
