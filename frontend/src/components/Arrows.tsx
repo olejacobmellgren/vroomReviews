@@ -51,9 +51,9 @@ export function LeftArrow() {
         test-id="left-arrow"
       >
         <div className="arrow left">
-          <canvas/>
-          <canvas/>
-          <canvas/>
+          <canvas />
+          <canvas />
+          <canvas />
         </div>
       </Arrow>
     </div>
@@ -87,9 +87,9 @@ export function RightArrow() {
         test-id="right-arrow"
       >
         <div className="arrow right">
-          <canvas/>
-          <canvas/>
-          <canvas/>
+          <canvas />
+          <canvas />
+          <canvas />
         </div>
       </Arrow>
     </div>
