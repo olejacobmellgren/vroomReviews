@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   justify-content: center;
+  height: 9vh;
 }
 
 .header-logo {

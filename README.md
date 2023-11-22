@@ -22,6 +22,8 @@ Man kan kjøre applikasjonen lokalt ved å kjøre `npm run dev` i både **backen
 
 Testene for prosjektet kjøres ved `npm run test` i mappen **frontend**. Da vil alle testene for hver test-fil kjøres og resultatet av testene vises i terminalen.
 
+For å kjøre end-to-end testene må man åpne en ny terminal og kjøre `npx cypress open` i **frontend**. Da åpnes en "launchpad" for cypress. Her velger du "E2E Testing" and deretter "Start E2E testing in Chrome". Et nettleser vindu vil åpnes der du kan trykke inn på de forskjellige E2E testene og se disse kjøre i et mindre vindu på siden.
+
 ## Løsninger til krav for prosjekt
 
 Denne seksjonen inneholder beskrivelser av hvordan vi har valgt å oppfylle de ulike tekniske kravene som var stilt til prosjektet.
@@ -82,15 +84,15 @@ For prosjektet bruker vi lint og prettier for å sjekke kodekvalitet. "lint erro
 
 #### Komponent-tester
 
-Vi har laget komponent-tester som tester props, state og brukerinteraksjon med komponenter. Foreløpig har vi testet `CardForCar` og `Header`. More coming soon...
+Vi har laget komponent-tester som tester props, state og brukerinteraksjon med komponenter. Alle individuelle kompnenter er testet. For `AlertPopup` er tester vi om teksten vises rett og om den lukkes med krysset. `CardForCar` testen sjekker om man kan klikke på et slikt "Card" for en bil og komme til den respektive siden. For `DropDownMenu` tester vi om man kan klikke på et alternativ og om den kan lukkes og åpnes. For dette kreves mocking av data, som det kommer mer om i neste seksjon. I tillegg har vi testet `FavoriteButton`, `Header`, `ReviewSection`, og `ScrollingMenu` ved å sjekke at deres hovedfunksjonalitet fungerer slik vi ønsker.
 
 #### Mock-tester
 
-Coming soon...
+I mange av komponenttestene våre har vi implementert mocking av data for å kunne teste komponentene. Dette har vi `DropDownMenu`, `FavoriteButton`, `ReviewSection` og `ScrollingMenu`. For `DropDownMenu` mocker vi noen alternativer for å sende som props til komponenten, mens for de andre komponentene mocker vi også queries for å teste komponentene. For `ReviewSection` mocker vi blant annet en "userReview" og i tillegg mockes resultatet vi får når "ADD_REVIEW" kalles. Slik kan vi teste alle funksjonaliteter for `ReviewSection` uten å måtte ta i bruk backend eller database.
 
 #### Snapshot-tester
 
-Snapshot-tester er tester som sjekker sammenligner web-applikasjonen med et "snapshot", altså et slags "bilde" av hierarkiet av komponenter, og sjekker om disse er like. Vi har tatt i bruk Snapshot-tester for `CardForCar` og `Header`. More coming soon...
+Snapshot-tester er tester som sjekker sammenligner web-applikasjonen med et "snapshot", altså et slags "bilde" av hierarkiet av komponenter, og sjekker om disse er like. Vi har tatt i bruk Snapshot-tester for `CardForCar`, `Header`, `AlertPopup`, `DropDownMenu`, `FavoriteButton`, `ReviewSection` og `ScrollingMenu`.
 
 #### Manuell testing av brukergrensesnitt
 
@@ -98,7 +100,7 @@ I tillegg har vi gjennomført kontinuerlig manuell testing av brukergrensesnitte
 
 #### Automatisert end-to-end testing
 
-Coming soon...
+Vi har laget automatiserte end-to-end tester ved hjelp av cypress. Dette er et rammeverk som gjør det enkelt å lage E2E tester for å teste alle deler av en applikasjon. Her har vi fokusert på å teste de delene som både tar i bruk viktig funksjon i frontend som er koblet til backenden. Vi tester blant annet det å legge til favoritter og vurderinger, og i tillegg filtreing og dynamisk lasting av ressurser. Informasjon om hvordan E2E testene kjøres finnes i **[Testing](readme.md#testing)**.
 
 #### Backend testing
 
