@@ -85,18 +85,18 @@ const Filterpage = () => {
           year: !selectedFilters.SortBy.includes('Years')
             ? null
             : selectedFilters.SortBy.includes('asc')
-              ? 'asc'
-              : 'desc',
+            ? 'asc'
+            : 'desc',
           price: !selectedFilters.SortBy.includes('Price')
             ? null
             : selectedFilters.SortBy.includes('asc')
-              ? 'asc'
-              : 'desc',
+            ? 'asc'
+            : 'desc',
           rating: !selectedFilters.SortBy.includes('Rating')
             ? null
             : selectedFilters.SortBy.includes('asc')
-              ? 'asc'
-              : 'desc',
+            ? 'asc'
+            : 'desc',
         },
         searchTerm: searchTerm,
         limit: limit,
