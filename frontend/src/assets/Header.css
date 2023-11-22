@@ -9,6 +9,7 @@
   left: 0px;
   height: 5rem;
   filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+
 }
 
 .gray-text-logo {
@@ -29,7 +30,7 @@ h1 {
 
 .grey-text {
   opacity: 0.5;
-  border: none;
+  border-bottom: 0.2rem solid rgba(255, 0, 0, 0);
 }
 
 .grey-text:hover {

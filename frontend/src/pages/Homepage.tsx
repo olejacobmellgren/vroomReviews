@@ -49,7 +49,7 @@ const Homepage = () => {
             <div className="element"></div>
             <h1>{data.name}</h1>
             <figure className="brand-logo-wrapper">
-              <img className="brand-logo" src={data.logo} />
+              <img className="brand-logo" src={data.logo} alt={data.name}/>
             </figure>
           </div>
           <ScrollingMenu brand={data.name} />

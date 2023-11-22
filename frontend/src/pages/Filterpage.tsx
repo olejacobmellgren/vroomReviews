@@ -321,6 +321,7 @@ const Filterpage = () => {
         <div className="slider-wrapper">
           <div className="slider">
             <Slider
+              color="error"
               getAriaLabel={() => 'Price range'}
               value={priceRange}
               min={0}
@@ -336,6 +337,7 @@ const Filterpage = () => {
         <div className="slider-wrapper">
           <div className="slider">
             <Slider
+              color="error"
               getAriaLabel={() => 'Price range'}
               value={yearRange}
               min={1943}
