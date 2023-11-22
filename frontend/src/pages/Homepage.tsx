@@ -24,7 +24,7 @@ const Homepage = () => {
   });
 
   const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
+    _event: React.ChangeEvent<unknown>,
     value: number,
   ) => {
     setVisibleBrands((value - 1) * increment);
