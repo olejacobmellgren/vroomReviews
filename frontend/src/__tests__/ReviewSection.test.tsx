@@ -1,5 +1,5 @@
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import { test } from 'vitest';
+import { test, expect } from 'vitest';
 import ReviewSection from '../components/ReviewSection'; // Update the path accordingly
 import { MockedProvider } from '@apollo/client/testing';
 import { ADD_REVIEW } from '../graphQL/mutations';

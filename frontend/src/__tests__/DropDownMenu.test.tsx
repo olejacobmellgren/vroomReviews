@@ -1,4 +1,4 @@
-import { vi } from 'vitest';
+import { test, expect, vi } from 'vitest';
 import { render, cleanup, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DropdownMenu from '../components/DropdownMenu'; // Update the path accordingly
