@@ -25,12 +25,12 @@
 .delete-popup {
   display: flex;
   gap: 2rem;
-  height: fit-content;
 }
 
 .review-buttons {
   display: flex;
   gap: 2rem;
+  margin-top: 1rem;
 }
 
 .text-area {
@@ -85,11 +85,6 @@
 }
 
 @media (orientation: portrait) {
-  .popup-inner {
-    width: 65%;
-    height: 40%;
-  }
-
   .review-buttons {
     flex-direction: column;
   }

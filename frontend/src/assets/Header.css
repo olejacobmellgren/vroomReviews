@@ -2,7 +2,6 @@
   position: relative;
   display: flex;
   justify-content: center;
-  height: 9vh;
 }
 
 .header-logo {
@@ -80,17 +79,16 @@ h1 {
     align-items: center;
     position: fixed;
     width: 100%;
-    justify-content: center;
+    height: 100%;
+    justify-content: start;
     background-color: #202020;
-    top: 5rem;
-    left: -100%;
+    top: -100%;
     padding: 0;
     z-index: 100;
-    text-align: center;
     transition: all 0.5s;
   }
 
   .check:checked ~ .pages-menu {
-    left: 0;
+    top: 5rem;
   }
 }

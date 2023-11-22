@@ -9,14 +9,13 @@
 }
 
 .pagination button {
-  color: #54595e;
-  border: 1px solid #f4f9fe;
-  font-size: 2vh;
-  background-color: #f4f9fe;
+  border: 0.1rem solid rgba(255, 255, 255, 0.4);
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .pagination div {
-  color: white;
+  color: silver;
 }
 
 .element {

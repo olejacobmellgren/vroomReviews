@@ -135,15 +135,18 @@ const ReviewSection = ({
             />
             <input
               className="text-area"
-              placeholder="name"
+              placeholder="Name"
               onChange={(e) => setUsername(e.target.value)}
             />
             <section className="review-buttons">
               <button onClick={handleReviewSubmit} className="button">
-                Submit review
+                <p>Submit review</p>
               </button>
-              <button onClick={() => setReviewCarPopup(false)} className="button">
-                Cancel
+              <button
+                onClick={() => setReviewCarPopup(false)}
+                className="button"
+              >
+                <p>Cancel</p>
               </button>
             </section>
           </section>
@@ -155,14 +158,11 @@ const ReviewSection = ({
             <p className="text">
               Are you sure you want to delete this review?{' '}
             </p>
-            <button className="button" onClick={() => handleDeleteConfirm()}>
-              Confirm
+            <button onClick={() => handleDeleteConfirm()}>
+              <p>Confirm</p>
             </button>
-            <button
-              className="button"
-              onClick={() => setVisibleDeletePopup(false)}
-            >
-              Cancel
+            <button onClick={() => setVisibleDeletePopup(false)}>
+              <p>Cancel</p>
             </button>
           </section>
         </div>

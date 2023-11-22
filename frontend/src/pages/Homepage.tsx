@@ -4,6 +4,14 @@ import { GET_COMPANIES } from '../graphQL/queries';
 import CircularProgress from '@mui/material/CircularProgress';
 import Pagination from '@mui/material/Pagination';
 import { useState } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { red } from '@mui/material/colors';
+
+const theme = createTheme({
+  palette: {
+    primary: red,
+  },
+});
 
 interface company {
   name: string;
@@ -55,14 +63,18 @@ const Homepage = () => {
           <ScrollingMenu brand={data.name} />
         </section>
       ))}
-      <Pagination
-        className="pagination"
-        count={Math.round(data.companies.totalCount / 3)}
-        defaultPage={Math.round(visibleBrands / 3) + 1}
-        size="large"
-        onChange={handlePageChange}
-        siblingCount={0}
-      />
+      <ThemeProvider theme={theme}>
+        <Pagination
+          className="pagination"
+          count={Math.round(data.companies.totalCount / 3)}
+          defaultPage={Math.round(visibleBrands / 3) + 1}
+          size="large"
+          onChange={handlePageChange}
+          siblingCount={0}
+          variant="outlined"
+          color="primary"
+        />
+      </ThemeProvider>
     </main>
   );
 };

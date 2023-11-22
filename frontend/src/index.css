@@ -19,3 +19,36 @@ h1 {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+button {
+  background-color: #202020;
+  color: silver;
+  border: 0.1rem solid silver;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50rem;
+  transition: 0.2s ease;
+  font-size: 1.2rem;
+}
+
+button p {
+  color: white;
+  background: -webkit-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgb(255, 255, 255) 60%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+button:hover {
+  background-color: #151515;
+  cursor: pointer;
+}
+
+button:active {
+  border-color: red;
+}

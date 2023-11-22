@@ -10,17 +10,11 @@
   align-items: center;
   justify-content: space-between;
   gap: 1vh;
-  background-color: #f4f9fe;
-  border: 1px solid transparent;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  font-size: 2vh;
-  border-radius: 1vh;
-  padding: 1.5vh;
-  padding-left: 2.5vh;
-  padding-right: 2.5vh;
-  color: #54595e;
-  font-weight: 500;
-  font-family: inherit;
+  width: fit-content;
+}
+
+.dropdown-button.active {
+  border-color: red;
 }
 
 .dropdown-button:hover {
@@ -30,6 +24,7 @@
 
 .ddb-label {
   cursor: pointer;
+  width: max-content;
 }
 
 .options-wrapper {
@@ -43,15 +38,16 @@
 .dropdown-button-inside-wrapper {
   display: flex;
   align-items: center;
+  min-width: fit-content;
   width: calc(50% - 0.25vh);
 }
 
 .dropdown-button-inside {
-  background-color: #f4f9fe;
   font-size: 2vh;
   border-radius: 0.5vh;
   padding: 1vh;
-  color: #54595e;
+  background-color: #232323;
+  color: silver;
   width: 100%;
   text-align: center;
   border: 1px solid transparent;
@@ -61,7 +57,7 @@
 
 .dropdown-button-inside:hover {
   cursor: pointer;
-  background-color: #e3e3e3;
+  background-color: #181818;
 }
 
 .arrow-wrapper {
@@ -76,11 +72,11 @@
 }
 
 .dropdown-arrow-button {
-  background-color: #f4f9fe;
+  background-color: #232323;
   font-size: 2vh;
   border-radius: 0.5vh;
   padding: 1vh;
-  color: #0062c4;
+  color: red;
   width: 100%;
   text-align: center;
   border: 1px solid transparent;
@@ -91,6 +87,7 @@
 
 .dropdown-arrow-button:hover {
   cursor: pointer;
+  background-color: #232323;
 }
 
 .arrow-button-left:hover {
@@ -111,7 +108,7 @@
 }
 
 .arrow-left {
-  border: solid #0062c4;
+  border: solid red;
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 3px;
@@ -120,7 +117,7 @@
 }
 
 .arrow-right {
-  border: solid #0062c4;
+  border: solid red;
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 3px;
@@ -137,10 +134,8 @@
   margin-top: 5px;
   z-index: 1;
   padding: 0.25rem;
-  background-color: #f4f9fe;
-  border: 1px solid #d8dde2;
+  background-color: #232323;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  color: #54595e;
   width: 240px;
   /* Next two lines are important for the cool effect*/
   overflow: hidden;
@@ -161,6 +156,10 @@
   max-height: 0;
   opacity: 0;
   pointer-events: none;
+}
+
+.clear-button:hover {
+  background-color: rgba(0, 0, 0, 0);
 }
 
 @media (max-width: 450px) {

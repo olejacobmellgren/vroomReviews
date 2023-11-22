@@ -410,7 +410,9 @@ const Filterpage = () => {
       )}
       <div className="view-more-button">
         {visibleCars < totalCount ? (
-          <button onClick={handleViewMore}>View more</button>
+          <button onClick={handleViewMore}>
+            <p>View more</p>
+          </button>
         ) : null}
       </div>
     </>
