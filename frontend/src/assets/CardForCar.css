@@ -1,6 +1,9 @@
 .car-image {
-  height: 12rem;
+  height: 11rem;
   border-radius: 1rem;
+  width: 18rem;
+  object-position: 0 0;
+  object-fit: cover;
 }
 
 .card {
@@ -21,4 +24,14 @@
 .car-name {
   display: flex;
   justify-content: center;
+}
+
+.car-title-wrapper {
+  display: flex;
+  gap: 1rem;
+}
+
+.car-title {
+  margin: 0.5rem 0;
+  font-size: 1.75rem;
 }
