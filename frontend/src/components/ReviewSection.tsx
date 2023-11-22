@@ -138,9 +138,14 @@ const ReviewSection = ({
               placeholder="name"
               onChange={(e) => setUsername(e.target.value)}
             />
-            <button onClick={handleReviewSubmit} className="button">
-              Submit review
-            </button>
+            <section className="review-buttons">
+              <button onClick={handleReviewSubmit} className="button">
+                Submit review
+              </button>
+              <button onClick={() => setReviewCarPopup(false)} className="button">
+                Cancel
+              </button>
+            </section>
           </section>
         </div>
       ) : null}

@@ -136,7 +136,7 @@ resultat:
     "car": {
       "company": "Ferrari",
       "model": "Roma",
-      "price": "$218,750",
+      "price": 218750,
       "horsepower": "611 hp"
     }
   }
@@ -172,14 +172,6 @@ resultat:
 {
   "data": {
     "userReviews": [
-      {
-        "review": "LETS GOOO SUPAFAAST",
-        "rating": 5,
-        "car": {
-          "company": "Ferrari",
-          "model": "812 Superfast"
-        }
-      },
       {
         "review": "WOW, great car. Sold it yesterday",
         "rating": 5,
