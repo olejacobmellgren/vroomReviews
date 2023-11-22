@@ -22,7 +22,7 @@ function CardForCar({
       {showInfo ? (
         <div className="car-name">
           <div className="car-title-wrapper">
-            <h1 className="car-title">{brand}</h1> 
+            <h1 className="car-title">{brand}</h1>
             <p className="car-title">{model}</p>
           </div>
         </div>
