@@ -37,7 +37,7 @@ const Header = ({
         <img
           className="burger-menu"
           src="https://www.pngkit.com/png/full/239-2394744_icon-open-nav-icon-white.png"
-          alt=""
+          alt="burger-menu"
         />
       </label>
       <NavLink to="/project2" onClick={() => handlePage('home')}>
@@ -46,10 +46,10 @@ const Header = ({
             page === 'home' ? 'header-logo' : 'header-logo gray-text-logo'
           }
           src={logo}
-          alt=""
+          alt="site-logo"
         />
       </NavLink>
-      <ul className="pages-menu">
+      <nav className="pages-menu">
         <NavLink
           to="/project2/filtercars"
           className={page === 'filter' ? 'normal' : 'normal grey-text'}
@@ -71,7 +71,7 @@ const Header = ({
         >
           <h1>My Reviews</h1>
         </NavLink>
-      </ul>
+      </nav>
     </header>
   );
 };

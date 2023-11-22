@@ -27,7 +27,7 @@ const Favoritepage = ({ setPage }: { setPage: (page: string) => void }) => {
   return (
     <main>
       {data.favoriteCars.length > 0 ? (
-        <ul className="car-list">
+        <section className="car-list">
           {data.favoriteCars.map((data: CarCard) => (
             <figure className="car" key={data?.car.id}>
               <CardForCar
@@ -39,7 +39,7 @@ const Favoritepage = ({ setPage }: { setPage: (page: string) => void }) => {
               <FavoriteButton car={data?.car.id} />
             </figure>
           ))}
-        </ul>
+        </section>
       ) : (
         <p className="no-favorites">
           <h1>You have no favorites yet!</h1>

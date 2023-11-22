@@ -127,6 +127,7 @@ function DropdownMenu({
                 onClick={() =>
                   setOptionsCounter((prevCounter) => prevCounter - 10)
                 }
+                aria-label="arrow-button"
               >
                 <i className="arrow-left"></i>
               </button>
@@ -139,6 +140,7 @@ function DropdownMenu({
                 onClick={() =>
                   setOptionsCounter((prevCounter) => prevCounter + 10)
                 }
+                aria-label="arrow-button"
               >
                 <i className="arrow-right"></i>
               </button>

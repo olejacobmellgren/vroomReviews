@@ -44,7 +44,7 @@ const Homepage = () => {
   return (
     <main>
       {data.companies.companies.map((data: company, index: number) => (
-        <ul className="scroll-menu" key={index}>
+        <section className="scroll-menu" key={index}>
           <div className="scrolling-menu-header">
             <div className="element"></div>
             <h1>{data.name}</h1>
@@ -53,7 +53,7 @@ const Homepage = () => {
             </figure>
           </div>
           <ScrollingMenu brand={data.name} />
-        </ul>
+        </section>
       ))}
         <Pagination
           className='pagination'

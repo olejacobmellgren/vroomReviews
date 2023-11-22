@@ -29,7 +29,7 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
   return (
     <main>
       {data.userReviews.length > 0 ? (
-        <ul className="car-list">
+        <section className="car-list">
           {data.userReviews.map((data: CarCard, index: number) => (
               <figure className="car" key={`review-${data.car.id}-${index}`}>
                 <CardForCar
@@ -48,7 +48,7 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
                 </div>
               </figure>
           ))}
-        </ul>
+        </section>
       ) : (
         <p className="no-reviews">
           <h1>You have no reviews yet!</h1>

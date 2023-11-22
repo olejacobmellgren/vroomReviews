@@ -43,6 +43,8 @@ h1 {
   justify-content: flex-end;
   border-radius: 1rem;
   gap: 2rem;
+  padding: 1rem 0;
+  font-size: 1.3rem;
 }
 
 .checkbtn {
