@@ -31,22 +31,22 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
       {data.userReviews.length > 0 ? (
         <section className="car-list">
           {data.userReviews.map((data: CarCard, index: number) => (
-              <figure className="car" key={`review-${data.car.id}-${index}`}>
-                <CardForCar
-                  brand={data.car.company}
-                  model={data.car.model}
-                  carIMG={data.car.image}
-                  showInfo={true}
+            <figure className="car" key={`review-${data.car.id}-${index}`}>
+              <CardForCar
+                brand={data.car.company}
+                model={data.car.model}
+                carIMG={data.car.image}
+                showInfo={true}
+              />
+              <div className="review-container">
+                <StarRating
+                  theme={{ size: 30 }}
+                  readOnly={true}
+                  initialRating={data.rating}
                 />
-                <div className="review-container">
-                  <StarRating
-                    theme={{ size: 30 }}
-                    readOnly={true}
-                    initialRating={data.rating}
-                  />
-                  <p>- {data.review}</p>
-                </div>
-              </figure>
+                <p>- {data.review}</p>
+              </div>
+            </figure>
           ))}
         </section>
       ) : (

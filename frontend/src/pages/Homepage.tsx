@@ -49,20 +49,20 @@ const Homepage = () => {
             <div className="element"></div>
             <h1>{data.name}</h1>
             <figure className="brand-logo-wrapper">
-              <img className="brand-logo" src={data.logo} alt={data.name}/>
+              <img className="brand-logo" src={data.logo} alt={data.name} />
             </figure>
           </div>
           <ScrollingMenu brand={data.name} />
         </section>
       ))}
-        <Pagination
-          className='pagination'
-          count={Math.round(data.companies.totalCount / 3)}
-          defaultPage={Math.round(visibleBrands / 3) + 1}
-          size="large"
-          onChange={handlePageChange}
-          siblingCount={0}
-        />
+      <Pagination
+        className="pagination"
+        count={Math.round(data.companies.totalCount / 3)}
+        defaultPage={Math.round(visibleBrands / 3) + 1}
+        size="large"
+        onChange={handlePageChange}
+        siblingCount={0}
+      />
     </main>
   );
 };

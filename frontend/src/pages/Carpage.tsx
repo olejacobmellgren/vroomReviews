@@ -99,11 +99,11 @@ const Carpage = () => {
     <div className="carpage-container">
       <div className="first-section">
         <div className="img-wrapper">
-          <img className="carpage-image" src={carImg} alt={carName}/>
+          <img className="carpage-image" src={carImg} alt={carName} />
         </div>
         <div className="overview-wrapper">
           <div className="title-wrapper">
-            <img className="logo-img" src={companyLogo} alt={carCompany}/>
+            <img className="logo-img" src={companyLogo} alt={carCompany} />
             <h1 className="title"> {carCompany} </h1>
             <p className="title"> {carName} </p>
             <p className="year"> {carYear} </p>
