@@ -1,10 +1,10 @@
-.dropdownButtonWrapper {
+.dropdown-button-wrapper {
   position: relative;
   display: flex;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-.dropdownButton {
+.dropdown-button {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -23,28 +23,30 @@
   font-family: inherit;
 }
 
-.dropdownButton:hover {
+.dropdown-button:hover {
   cursor: pointer;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.DdBlabel {
+.ddb-label {
   cursor: pointer;
 }
 
-.optionsWrapper {
+.options-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25vh;
+  margin: 0;
+  padding: 0;
 }
 
-.dropdownButtonInsideWrapper {
+.dropdown-button-inside-wrapper {
   display: flex;
   align-items: center;
   width: calc(50% - 0.25vh);
 }
 
-.dropdownButtonInside {
+.dropdown-button-inside {
   background-color: #f4f9fe;
   font-size: 2vh;
   border-radius: 0.5vh;
@@ -57,23 +59,23 @@
   font-family: inherit;
 }
 
-.dropdownButtonInside:hover {
+.dropdown-button-inside:hover {
   cursor: pointer;
   background-color: #e3e3e3;
 }
 
-.arrowWrapper {
+.arrow-wrapper {
   display: flex;
   width: 100%;
 }
 
-.arrowButtonWrapper {
+.arrow-button-wrapper {
   display: flex;
   align-items: center;
   width: calc(50% - 0.25vh);
 }
 
-.arrowButton {
+.dropdown-arrow-button {
   background-color: #f4f9fe;
   font-size: 2vh;
   border-radius: 0.5vh;
@@ -87,19 +89,19 @@
   transition: transform 0.5s ease;
 }
 
-.arrowButton:hover {
+.dropdown-arrow-button:hover {
   cursor: pointer;
 }
 
-.arrowButtonLeft:hover {
+.arrow-button-left:hover {
   transform: translateX(-10px);
 }
 
-.arrowButtonRight:hover {
+.arrow-button-right:hover {
   transform: translateX(10px);
 }
 
-.dropdownArrow {
+.dropdown-arrow {
   border: solid #abb5be;
   border-width: 0 2px 2px 0;
   display: inline-block;
@@ -108,7 +110,7 @@
   -webkit-transform: rotate(45deg);
 }
 
-.arrowLeft {
+.arrow-left {
   border: solid #0062c4;
   border-width: 0 2px 2px 0;
   display: inline-block;
@@ -117,7 +119,7 @@
   -webkit-transform: rotate(135deg);
 }
 
-.arrowRight {
+.arrow-right {
   border: solid #0062c4;
   border-width: 0 2px 2px 0;
   display: inline-block;
@@ -166,28 +168,28 @@
     width: 180px;
   }
 
-  .dropdownButtonInside {
+  .dropdown-button-inside {
     padding: 0.75vh 0.25vh 0.75vh 0.25vh;
     font-size: 1.75vh;
     word-break: break-all;
   }
 
-  .dropdownButtonInsideWrapper {
+  .dropdown-button-insideWrapper {
     margin-top: 0.25vh;
     margin-bottom: 0.25vh;
   }
 }
 
-.clearButton {
+.clear-button {
   margin-left: 1rem;
   background-color: #202020;
   border: none;
 }
 
-.clearButton img {
+.clear-button img {
   width: 20px;
 }
 
-.clearButton:hover {
+.clear-button:hover {
   cursor: pointer;
 }

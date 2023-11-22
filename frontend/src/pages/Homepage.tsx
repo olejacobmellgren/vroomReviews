@@ -42,29 +42,28 @@ const Homepage = () => {
   if (error) console.log(error);
 
   return (
-    <>
+    <main>
       {data.companies.companies.map((data: company, index: number) => (
-        <div className="conteiner" key={index}>
-          <div className="scrollingMenuHeader">
+        <section className="scroll-menu" key={index}>
+          <div className="scrolling-menu-header">
             <div className="element"></div>
             <h1>{data.name}</h1>
-            <div className="brand-logo-wrapper">
-              <img className="brand-logo" src={data.logo} />
-            </div>
+            <figure className="brand-logo-wrapper">
+              <img className="brand-logo" src={data.logo} alt={data.name} />
+            </figure>
           </div>
           <ScrollingMenu brand={data.name} />
-        </div>
+        </section>
       ))}
-      <div className="pagination">
-        <Pagination
-          count={Math.round(data.companies.totalCount / 3)}
-          defaultPage={Math.round(visibleBrands / 3) + 1}
-          size="large"
-          onChange={handlePageChange}
-          siblingCount={0}
-        />
-      </div>
-    </>
+      <Pagination
+        className="pagination"
+        count={Math.round(data.companies.totalCount / 3)}
+        defaultPage={Math.round(visibleBrands / 3) + 1}
+        size="large"
+        onChange={handlePageChange}
+        siblingCount={0}
+      />
+    </main>
   );
 };
 

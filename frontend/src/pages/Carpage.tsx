@@ -99,11 +99,11 @@ const Carpage = () => {
     <div className="carpage-container">
       <div className="first-section">
         <div className="img-wrapper">
-          <img className="carpage-image" src={carImg} />
+          <img className="carpage-image" src={carImg} alt={carName} />
         </div>
         <div className="overview-wrapper">
           <div className="title-wrapper">
-            <img className="logo-img" src={companyLogo} />
+            <img className="logo-img" src={companyLogo} alt={carCompany} />
             <h1 className="title"> {carCompany} </h1>
             <p className="title"> {carName} </p>
             <p className="year"> {carYear} </p>
@@ -159,12 +159,13 @@ const Carpage = () => {
           <button
             className="info-button"
             onClick={() => setShowInfo(!showInfo)}
+            aria-label="show more info"
           >
             <i
               className={
                 showInfo ? 'arrow-info-button open' : 'arrow-info-button closed'
               }
-            ></i>
+            />
           </button>
         </div>
       </div>

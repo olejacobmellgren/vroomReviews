@@ -19,26 +19,24 @@ const ScrollingMenu: React.FC<props> = ({ brand }) => {
   if (error) console.log(error);
 
   return (
-    <div>
-      <ScrollMenu
-        LeftArrow={LeftArrow}
-        RightArrow={RightArrow}
-        transitionDuration={1000}
-        transitionBehavior={'smooth'}
-        transitionEase={(t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t)}
-      >
-        {data.carsByCompany.map((data: Car) => (
-          <div className="car scroll-menu-car" key={data?.id}>
-            <CardForCar
-              brand={data.company}
-              model={data.model}
-              carIMG={data.image}
-              showInfo={false}
-            />
-          </div>
-        ))}
-      </ScrollMenu>
-    </div>
+    <ScrollMenu
+      LeftArrow={LeftArrow}
+      RightArrow={RightArrow}
+      transitionDuration={1000}
+      transitionBehavior={'smooth'}
+      transitionEase={(t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t)}
+    >
+      {data.carsByCompany.map((data: Car) => (
+        <figure className="car scroll-menu-car" key={data?.id}>
+          <CardForCar
+            brand={data.company}
+            model={data.model}
+            carIMG={data.image}
+            showInfo={false}
+          />
+        </figure>
+      ))}
+    </ScrollMenu>
   );
 };
 

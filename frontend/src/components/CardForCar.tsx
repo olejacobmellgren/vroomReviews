@@ -13,20 +13,18 @@ function CardForCar({
   showInfo: boolean;
 }) {
   return (
-    <div>
-      <div className="card">
+    <>
+      <figure className="card">
         <Link to={`/project2/carpage/${brand}-${model}`}>
           <img src={carIMG} className="car-image" alt={`${brand}-${model}`} />
         </Link>
-      </div>
+      </figure>
       {showInfo ? (
-        <div className="car-name">
-          <h1>
-            {brand} {model}
-          </h1>
-        </div>
+        <h1>
+          {brand} {model}
+        </h1>
       ) : null}
-    </div>
+    </>
   );
 }
 export default CardForCar;
