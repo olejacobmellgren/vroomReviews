@@ -66,9 +66,13 @@ const Filterpage = () => {
 
   const [totalCount, setTotalCount] = useState(0);
 
-  const [priceRange, setPriceRange] = useState<number[]>(JSON.parse(sessionStorage.getItem("priceRange") || "[0, 100000]"));
+  const [priceRange, setPriceRange] = useState<number[]>(
+    JSON.parse(sessionStorage.getItem('priceRange') || '[0, 100000]'),
+  );
 
-  const [yearRange, setYearRange] = useState<number[]>(JSON.parse(sessionStorage.getItem("yearRange") || "[1943, 2023]"));
+  const [yearRange, setYearRange] = useState<number[]>(
+    JSON.parse(sessionStorage.getItem('yearRange') || '[1943, 2023]'),
+  );
 
   // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
   useEffect(() => {
@@ -85,18 +89,18 @@ const Filterpage = () => {
           year: !selectedFilters.SortBy.includes('Years')
             ? null
             : selectedFilters.SortBy.includes('asc')
-              ? 'asc'
-              : 'desc',
+            ? 'asc'
+            : 'desc',
           price: !selectedFilters.SortBy.includes('Price')
             ? null
             : selectedFilters.SortBy.includes('asc')
-              ? 'asc'
-              : 'desc',
+            ? 'asc'
+            : 'desc',
           rating: !selectedFilters.SortBy.includes('Rating')
             ? null
             : selectedFilters.SortBy.includes('asc')
-              ? 'asc'
-              : 'desc',
+            ? 'asc'
+            : 'desc',
         },
         searchTerm: searchTerm,
         limit: limit,
@@ -194,7 +198,7 @@ const Filterpage = () => {
     setVisibleCars(12);
     setLimit(12);
     sessionStorage.setItem('visibleCars', '12');
-    sessionStorage.setItem('priceRange', JSON.stringify(priceRange))
+    sessionStorage.setItem('priceRange', JSON.stringify(priceRange));
 
     const minDistance = 5000;
 
@@ -224,7 +228,7 @@ const Filterpage = () => {
     setVisibleCars(12);
     setLimit(12);
     sessionStorage.setItem('visibleCars', '12');
-    sessionStorage.setItem('yearRange', JSON.stringify(yearRange))
+    sessionStorage.setItem('yearRange', JSON.stringify(yearRange));
 
     const minDistance = 5;
 
