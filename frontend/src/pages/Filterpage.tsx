@@ -148,7 +148,7 @@ const Filterpage = () => {
   useEffect(() => {
     sessionStorage.setItem('priceRange', JSON.stringify(priceRange));
     sessionStorage.setItem('yearRange', JSON.stringify(yearRange));
-  }, [priceRange, yearRange])
+  }, [priceRange, yearRange]);
 
   // Set selected filters and if not initial load, reset shownCars and amount of visibleCars
   const handleFilterChange = (
