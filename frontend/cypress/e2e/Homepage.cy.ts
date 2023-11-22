@@ -44,7 +44,7 @@ describe('Homepage tests', () => {
     cy.visit('http://localhost:5173/project2')
 
     // Check if arrows work
-    cy.get('.right').click().click().click()
+    cy.get('.right').click({ multiple: true })
 
     // Check if carpage is loaded when click from scrollingmenu
     cy.get('[alt="Ferrari-Portofino M"]').click()
