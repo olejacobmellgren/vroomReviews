@@ -10,6 +10,7 @@ const mockProps = {
   isOpen: false,
   toggleDropdown: () => {},
   onSelect: () => {},
+  updateOptionCounter: false,
 };
 
 // A utility function to create a mock sessionStorage for testing

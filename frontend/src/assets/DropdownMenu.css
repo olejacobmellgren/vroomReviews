@@ -38,7 +38,7 @@
 .dropdown-button-inside-wrapper {
   display: flex;
   align-items: center;
-  min-width: fit-content;
+  min-width: min-content;
   width: calc(50% - 0.25vh);
 }
 
@@ -136,7 +136,7 @@
   padding: 0.25rem;
   background-color: #232323;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  width: 240px;
+  width: 280px;
   /* Next two lines are important for the cool effect*/
   overflow: hidden;
   transition:
