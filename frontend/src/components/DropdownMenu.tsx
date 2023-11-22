@@ -19,8 +19,8 @@ type ButtonProps = {
 
 function ButtonInside({ name, onClick, checkedOption }: ButtonProps) {
   return (
-    <div className="dropdownButtonInsideWrapper">
-      <button className="dropdownButtonInside" onClick={onClick}>
+    <div className="dropdown-button-inside-wrapper">
+      <button className="dropdown-button-inside" onClick={onClick}>
         <span style={{ color: name == checkedOption ? '#00CC00' : '' }}>
           {name}
         </span>
@@ -97,17 +97,17 @@ function DropdownMenu({
   };
 
   return (
-    <div className="dropdownButtonWrapper">
+    <div className="dropdown-button-wrapper">
       <button
-        className="dropdownButton"
+        className="dropdown-button"
         onClick={handleDropdown}
         data-testid="drop-down"
       >
-        <label className="DdBlabel">{checkedOption}</label>
-        <i className="dropdownArrow"></i>
+        <label className="ddb-label">{checkedOption}</label>
+        <i className="dropdown-arrow"></i>
       </button>
       <div className={`dropdown ${isOpen ? 'active' : 'closed'}`}>
-        <div className="optionsWrapper">
+        <menu className="options-wrapper">
           {options.slice(optionsCounter - 10, optionsCounter).map((option) => {
             return (
               <ButtonInside
@@ -118,36 +118,38 @@ function DropdownMenu({
               />
             );
           })}
-        </div>
-        <div className="arrowWrapper" style={{ justifyContent: 'center' }}>
+        </menu>
+        <div className="arrow-wrapper" style={{ justifyContent: 'center' }}>
           {optionsCounter > 10 && (
-            <div className="arrowButtonWrapper">
+            <div className="arrow-button-wrapper">
               <button
-                className="arrowButton arrowButtonLeft"
+                className="dropdown-arrow-button arrow-button-left"
                 onClick={() =>
                   setOptionsCounter((prevCounter) => prevCounter - 10)
                 }
+                aria-label="arrow-button"
               >
-                <i className="arrowLeft"></i>
+                <i className="arrow-left"></i>
               </button>
             </div>
           )}
           {optionsCounter < options.length && (
-            <div className="arrowButtonWrapper">
+            <div className="arrow-button-wrapper">
               <button
-                className="arrowButton arrowButtonRight"
+                className="dropdown-arrow-button arrow-button-right"
                 onClick={() =>
                   setOptionsCounter((prevCounter) => prevCounter + 10)
                 }
+                aria-label="arrow-button"
               >
-                <i className="arrowRight"></i>
+                <i className="arrow-right"></i>
               </button>
             </div>
           )}
         </div>
       </div>
       {filterApplied && (
-        <button className="clearButton" onClick={handleClear}>
+        <button className="clear-button" onClick={handleClear}>
           <img src={ClearIcon}></img>
         </button>
       )}

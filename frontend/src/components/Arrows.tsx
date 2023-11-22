@@ -13,6 +13,7 @@ export function Arrow({
   return (
     <>
       <button
+        aria-label="arrow-button"
         disabled={disabled}
         className="arrow-button"
         onClick={onClick}
@@ -50,9 +51,9 @@ export function LeftArrow() {
         test-id="left-arrow"
       >
         <div className="arrow left">
-          <span></span>
-          <span></span>
-          <span></span>
+          <figure />
+          <figure />
+          <figure />
         </div>
       </Arrow>
     </div>
@@ -86,9 +87,9 @@ export function RightArrow() {
         test-id="right-arrow"
       >
         <div className="arrow right">
-          <span></span>
-          <span></span>
-          <span></span>
+          <canvas role="none" />
+          <canvas role="none" />
+          <canvas role="none" />
         </div>
       </Arrow>
     </div>

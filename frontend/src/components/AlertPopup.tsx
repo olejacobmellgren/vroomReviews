@@ -14,22 +14,20 @@ const AlertPopup = ({
     alertMessage === 'Something went wrong!' ? 'error' : 'success';
 
   return (
-    <div>
-      <Snackbar
-        open={alertVisible}
-        autoHideDuration={2000}
+    <Snackbar
+      open={alertVisible}
+      autoHideDuration={2000}
+      onClose={() => setAlertVisible(false)}
+    >
+      <Alert
         onClose={() => setAlertVisible(false)}
+        severity={severity}
+        variant="filled"
+        sx={{ width: '100%' }}
       >
-        <Alert
-          onClose={() => setAlertVisible(false)}
-          severity={severity}
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          {alertMessage}
-        </Alert>
-      </Snackbar>
-    </div>
+        {alertMessage}
+      </Alert>
+    </Snackbar>
   );
 };
 
