@@ -86,6 +86,13 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+  color: silver;
+  padding: 0;
+  border-radius: 0;
+}
+
+.arrow-button:hover {
+  background-color: transparent;
 }
 
 .arrow {
