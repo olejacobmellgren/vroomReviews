@@ -8,7 +8,7 @@ import { CarCard } from '../types/CarCard';
 import Slider from '@mui/material/Slider';
 import ShowNameCheckbox from '../components/ShowNameCheckbox';
 import { useSelector } from 'react-redux';
-import { RootState } from "../redux/configureStore";
+import { RootState } from '../redux/configureStore';
 
 const Filterpage = () => {
   const [filters, setFilters] = useState([
@@ -374,8 +374,7 @@ const Filterpage = () => {
           <div className="result-counter">
             <p>Found {totalCount} cars</p>
           </div>
-        )
-      }
+        )}
       <div className="checkbox-container">
         <ShowNameCheckbox />
       </div>

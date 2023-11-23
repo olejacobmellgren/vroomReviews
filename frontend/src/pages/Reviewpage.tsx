@@ -8,10 +8,9 @@ import { CarCard } from '../types/CarCard';
 import { NavLink } from 'react-router-dom';
 import ShowNameCheckbox from '../components/ShowNameCheckbox';
 import { useSelector } from 'react-redux';
-import { RootState } from "../redux/configureStore";
+import { RootState } from '../redux/configureStore';
 
 const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
-
   const showCarname = useSelector((state: RootState) => state.showName.value);
   const userID = Number(localStorage.getItem('userID'));
 
@@ -33,7 +32,7 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
 
   return (
     <main>
-      <div className="checkbox-container" style={{marginTop: "80px"}}>
+      <div className="checkbox-container" style={{ marginTop: '80px' }}>
         <ShowNameCheckbox />
       </div>
       {data.userReviews.length > 0 ? (

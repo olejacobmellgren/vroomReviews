@@ -11,7 +11,7 @@ import {
   from,
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import { store } from './redux/configureStore.ts';
 
 // Error handling
