@@ -7,6 +7,8 @@ import { useLazyQuery } from '@apollo/client';
 import { CarCard } from '../types/CarCard';
 import Slider from '@mui/material/Slider';
 import ShowNameCheckbox from '../components/ShowNameCheckbox';
+import { useSelector } from 'react-redux';
+import { RootState } from "../redux/configureStore";
 
 const Filterpage = () => {
   const [filters, setFilters] = useState([
@@ -74,6 +76,8 @@ const Filterpage = () => {
   const [yearRange, setYearRange] = useState<number[]>(
     JSON.parse(sessionStorage.getItem('yearRange') || '[1943, 2023]'),
   );
+
+  const showCarname = useSelector((state: RootState) => state.showName.value);
 
   // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
   useEffect(() => {
@@ -383,7 +387,7 @@ const Filterpage = () => {
                 brand={car.company}
                 model={car.model}
                 carIMG={car.image}
-                showInfo={true}
+                showInfo={showCarname}
               />
             </div>
           ))}

@@ -7,8 +7,12 @@ import FavoriteButton from '../components/FavoriteButton';
 import { CarCard } from '../types/CarCard';
 import { NavLink } from 'react-router-dom';
 import ShowNameCheckbox from '../components/ShowNameCheckbox';
+import { useSelector } from 'react-redux';
+import { RootState } from "../redux/configureStore";
 
 const Favoritepage = ({ setPage }: { setPage: (page: string) => void }) => {
+
+  const showCarname = useSelector((state: RootState) => state.showName.value);
   const userID = Number(localStorage.getItem('userID'));
 
   // Get all cars that are favorited by user
@@ -38,7 +42,7 @@ const Favoritepage = ({ setPage }: { setPage: (page: string) => void }) => {
                 brand={data.car.company}
                 model={data.car.model}
                 carIMG={data.car.image}
-                showInfo={false}
+                showInfo={showCarname}
               />
               <FavoriteButton car={data?.car.id} />
             </figure>
