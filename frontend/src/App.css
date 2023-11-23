@@ -30,3 +30,9 @@
     flex-basis: calc(100% - 30px);
   }
 }
+
+.checkbox-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 4vw;
+}
