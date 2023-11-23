@@ -6,6 +6,7 @@ import { GET_CARS } from '../graphQL/queries';
 import { useLazyQuery } from '@apollo/client';
 import { CarCard } from '../types/CarCard';
 import Slider from '@mui/material/Slider';
+import ShowNameCheckbox from '../components/ShowNameCheckbox';
 
 const Filterpage = () => {
   const [filters, setFilters] = useState([
@@ -369,7 +370,11 @@ const Filterpage = () => {
           <div className="result-counter">
             <p>Found {totalCount} cars</p>
           </div>
-        )}
+        )
+      }
+      <div className="checkbox-container">
+        <ShowNameCheckbox />
+      </div>
       {totalCount !== 0 ? (
         <div className="car-list">
           {shownCars.map((car) => (

@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client';
 import { CircularProgress } from '@mui/material';
 import { CarCard } from '../types/CarCard';
 import { NavLink } from 'react-router-dom';
+import ShowNameCheckbox from '../components/ShowNameCheckbox';
 
 const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
   const userID = Number(localStorage.getItem('userID'));
@@ -28,6 +29,9 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
 
   return (
     <main>
+      <div className="checkbox-container" style={{marginTop: "80px"}}>
+        <ShowNameCheckbox />
+      </div>
       {data.userReviews.length > 0 ? (
         <section className="car-list">
           {data.userReviews.map((data: CarCard, index: number) => (

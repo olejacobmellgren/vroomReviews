@@ -6,6 +6,7 @@ import { CircularProgress } from '@mui/material';
 import FavoriteButton from '../components/FavoriteButton';
 import { CarCard } from '../types/CarCard';
 import { NavLink } from 'react-router-dom';
+import ShowNameCheckbox from '../components/ShowNameCheckbox';
 
 const Favoritepage = ({ setPage }: { setPage: (page: string) => void }) => {
   const userID = Number(localStorage.getItem('userID'));
@@ -26,6 +27,9 @@ const Favoritepage = ({ setPage }: { setPage: (page: string) => void }) => {
 
   return (
     <main>
+      <div className="checkbox-container" style={{marginTop: "80px"}}>
+        <ShowNameCheckbox />
+      </div>
       {data.favoriteCars.length > 0 ? (
         <section className="car-list">
           {data.favoriteCars.map((data: CarCard) => (
