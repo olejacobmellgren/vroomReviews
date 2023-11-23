@@ -36,7 +36,9 @@ Prosjektet ble satt opp med Vite som tilbyr en enkel måte å sette opp et prosj
 
 #### Bruk av state management
 
-Vi har valgt å bruke apollo local state management. Dette oppnår vi ved å bruke apollo client, som er et state management bibliotek som bruker GraphQL for å interagere med en remote server. Apollo client har en cache kalt InMemoryCache. Denne brukes for å lagre data hentet fra queries til serveren slik at man raskere får tilgang dersom man spør om samme data ved senere anledning. Ved noen tilfeller ønsker vi å hente data på nytt, blant annet når man legger til en ny vurdering på en bil. Da brukes metoden "refetchQueries" når en vurdering legges til for å hente alle vurdering til en bil inkludert den nye fra serveren. Slik blir local state i cachen til Apollo client oppdatert med den nyeste informasjonen.
+I vårt prosjekt implementerte vi state management ved hjelp av Redux, et verktøy som hjelper med å organisere og kontrollere delte data i applikasjonen vår. Redux forenkler prosessen med å håndtere og oppdatere den globale tilstanden, og gir en klar struktur som forbedrer vedlikeholdbarheten. Ved hjelp av Redux kunne vi opprette en sentralisert lagringsplass for tilstanden til applikasjonen vår, noe som gjorde det enklere å administrere og sikre konsistens på tvers av ulike komponenter.
+
+I Redux-lageret lagret vi en boolean som fungerte som en bryter. Denne bestemte om bilnavnene skulle vises eller skjules i hele applikasjonen. Når brukere samhandlet med ShowNameCheckbox-komponenten, ble det sendt en "Redux action" for å bytte denne booleanske verdien, noe som utløste en global tilstandoppdatering. Som et resultat reagerte alle tilkoblede komponenter på endringen, og sikret en konsistent visning av bilnavn basert på den sentraliserte tilstanden. Denne tilnærmingen forenklet håndteringen av visningspreferanser, fremmet vedlikeholdbarhet og en skalerbar utviklingsprosess. 
 
 #### Egendefinert GraphQL backend
 

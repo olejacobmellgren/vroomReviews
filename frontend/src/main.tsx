@@ -11,6 +11,8 @@ import {
   from,
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
+import { Provider } from 'react-redux';
+import { store } from './redux/configureStore.ts';
 
 // Error handling
 const errorLink = onError(({ graphQLErrors, networkError }) => {
@@ -37,7 +39,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <ApolloProvider client={client}>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </ApolloProvider>
     </BrowserRouter>
   </React.StrictMode>,

@@ -6,8 +6,12 @@ import { useQuery } from '@apollo/client';
 import { CircularProgress } from '@mui/material';
 import { CarCard } from '../types/CarCard';
 import { NavLink } from 'react-router-dom';
+import ShowNameCheckbox from '../components/ShowNameCheckbox';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/configureStore';
 
 const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
+  const showCarname = useSelector((state: RootState) => state.showName.value);
   const userID = Number(localStorage.getItem('userID'));
 
   // Get all cars that are reviewed by user
@@ -28,6 +32,9 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
 
   return (
     <main>
+      <div className="checkbox-container" style={{ marginTop: '80px' }}>
+        <ShowNameCheckbox />
+      </div>
       {data.userReviews.length > 0 ? (
         <section className="car-list">
           {data.userReviews.map((data: CarCard, index: number) => (
@@ -36,7 +43,7 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
                 brand={data.car.company}
                 model={data.car.model}
                 carIMG={data.car.image}
-                showInfo={true}
+                showInfo={showCarname}
               />
               <div className="review-container">
                 <StarRating
