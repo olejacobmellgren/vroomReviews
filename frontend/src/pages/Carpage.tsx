@@ -109,7 +109,15 @@ const Carpage = () => {
             <p className="year"> {carYear} </p>
           </div>
           <div className="rating">
-            <Rating precision={0.5} value={carRating} emptyIcon={<StarIcon style={{ color: "white", fontSize: "30px"}} />} size="large" readOnly/>
+            <Rating
+              precision={0.5}
+              value={carRating}
+              emptyIcon={
+                <StarIcon style={{ color: 'white', fontSize: '30px' }} />
+              }
+              size="large"
+              readOnly
+            />
             <div className="amount-rating">
               <p>{Math.round(carData?.car?.rating * 10) / 10} / 5 </p> <p>|</p>
               <p> {reviewsData.carReviews.length} ratings</p>

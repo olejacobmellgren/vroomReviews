@@ -127,8 +127,10 @@ const ReviewSection = ({
                   setRating(newRating);
                 }
               }}
-              emptyIcon={<StarIcon style={{ color: "white", fontSize: "40px"}} />} 
-              style={{fontSize: "40px"}}
+              emptyIcon={
+                <StarIcon style={{ color: 'white', fontSize: '40px' }} />
+              }
+              style={{ fontSize: '40px' }}
             />
             <textarea
               className="text-area"
@@ -181,7 +183,14 @@ const ReviewSection = ({
           <section className="current-user-review">
             <p> Your review: </p>
             <div>
-              <Rating value={rating} emptyIcon={<StarIcon style={{ color: "white", fontSize: "30px"}} />} size="large" readOnly/>
+              <Rating
+                value={rating}
+                emptyIcon={
+                  <StarIcon style={{ color: 'white', fontSize: '30px' }} />
+                }
+                size="large"
+                readOnly
+              />
               <p>{reviewText}</p>
             </div>
             <u
@@ -196,7 +205,14 @@ const ReviewSection = ({
           <section key={review.userID}>
             {review.userID !== userReview?.userID ? (
               <div className="user-review">
-                <Rating value={review.rating} emptyIcon={<StarIcon style={{ color: "white", fontSize: "30px"}} />} size="large" readOnly/>
+                <Rating
+                  value={review.rating}
+                  emptyIcon={
+                    <StarIcon style={{ color: 'white', fontSize: '30px' }} />
+                  }
+                  size="large"
+                  readOnly
+                />
                 <p>{review.review}</p>
                 <p className="reviewer">Reviewed by {review.username}</p>
               </div>
