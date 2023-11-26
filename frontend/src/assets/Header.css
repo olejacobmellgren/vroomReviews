@@ -59,6 +59,7 @@ h1 {
 .burger-menu {
   height: 2.5rem;
   margin-right: 0.5rem;
+  cursor: pointer;
 }
 
 @media (orientation: portrait) {
