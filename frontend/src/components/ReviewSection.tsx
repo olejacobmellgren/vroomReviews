@@ -139,12 +139,12 @@ const ReviewSection = ({
               onChange={(e) => setUsername(e.target.value)}
             />
             <section className="review-buttons">
-              <button onClick={handleReviewSubmit} className="button">
+              <button onClick={handleReviewSubmit} className="button green">
                 <p>Submit review</p>
               </button>
               <button
                 onClick={() => setReviewCarPopup(false)}
-                className="button"
+                className="button red"
               >
                 <p>Cancel</p>
               </button>

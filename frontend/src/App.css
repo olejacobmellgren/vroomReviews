@@ -36,3 +36,11 @@
   justify-content: flex-end;
   margin: 0 4vw;
 }
+
+.button.red {
+  border: 0.1rem solid red;
+}
+
+.button.green:active {
+  border: 0.1rem solid #00CC00;
+}
