@@ -59,7 +59,7 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
           ))}
         </section>
       ) : (
-        <p className="no-reviews" style={{marginTop: data.favoriteCars.length > 0 ? "calc(40vh - 80px)": "40vh"}}>
+        <p className="no-reviews">
           <h1>You have no reviews yet!</h1>
           <NavLink
             to="/project2"
