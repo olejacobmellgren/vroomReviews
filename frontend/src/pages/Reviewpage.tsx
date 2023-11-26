@@ -32,9 +32,11 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
 
   return (
     <main>
-      <div className="checkbox-container" style={{ marginTop: '80px' }}>
-        <ShowNameCheckbox />
-      </div>
+      {data.userReviews.length > 0 && (
+        <div className="checkbox-container" style={{ marginTop: '80px' }}>
+          <ShowNameCheckbox />
+        </div>
+      )}
       {data.userReviews.length > 0 ? (
         <section className="car-list">
           {data.userReviews.map((data: CarCard, index: number) => (
@@ -57,7 +59,7 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
           ))}
         </section>
       ) : (
-        <p className="no-reviews">
+        <p className="no-reviews" style={{marginTop: data.favoriteCars.length > 0 ? "calc(40vh - 80px)": "40vh"}}>
           <h1>You have no reviews yet!</h1>
           <NavLink
             to="/project2"

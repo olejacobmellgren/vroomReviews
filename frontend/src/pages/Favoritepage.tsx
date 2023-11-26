@@ -30,9 +30,11 @@ const Favoritepage = ({ setPage }: { setPage: (page: string) => void }) => {
 
   return (
     <main>
-      <div className="checkbox-container" style={{ marginTop: '80px' }}>
-        <ShowNameCheckbox />
-      </div>
+      {data.favoriteCars.length > 0 && (
+        <div className="checkbox-container" style={{ marginTop: '80px' }}>
+          <ShowNameCheckbox />
+        </div>
+      )}
       {data.favoriteCars.length > 0 ? (
         <section className="car-list">
           {data.favoriteCars.map((data: CarCard) => (
