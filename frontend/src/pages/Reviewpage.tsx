@@ -32,9 +32,11 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
 
   return (
     <main>
-      <div className="checkbox-container" style={{ marginTop: '80px' }}>
-        <ShowNameCheckbox />
-      </div>
+      {data.userReviews.length > 0 && (
+        <div className="checkbox-container" style={{ marginTop: '80px' }}>
+          <ShowNameCheckbox />
+        </div>
+      )}
       {data.userReviews.length > 0 ? (
         <section className="car-list">
           {data.userReviews.map((data: CarCard, index: number) => (

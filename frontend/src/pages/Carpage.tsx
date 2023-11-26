@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { StarRating } from 'star-rating-react-ts';
 import ReviewSection from '../components/ReviewSection';
 import FavoriteButton from '../components/FavoriteButton';
 import '../assets/Carpage.css';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Rating } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
 import { useQuery } from '@apollo/client';
 import {
   GET_CAR,
@@ -109,7 +109,15 @@ const Carpage = () => {
             <p className="year"> {carYear} </p>
           </div>
           <div className="rating">
-            <StarRating readOnly={true} initialRating={carRating} />
+            <Rating
+              precision={0.5}
+              value={carRating}
+              emptyIcon={
+                <StarIcon style={{ color: 'white', fontSize: '30px' }} />
+              }
+              size="large"
+              readOnly
+            />
             <div className="amount-rating">
               <p>{Math.round(carData?.car?.rating * 10) / 10} / 5 </p> <p>|</p>
               <p> {reviewsData.carReviews.length} ratings</p>

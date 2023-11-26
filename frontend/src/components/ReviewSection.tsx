@@ -1,11 +1,11 @@
 import React, { useState, MouseEventHandler } from 'react';
-import { StarRating } from 'star-rating-react-ts';
 import '../assets/ReviewSection.css';
 import { Review } from '../types/Review';
 import { useMutation } from '@apollo/client';
 import { ADD_REVIEW } from '../graphQL/mutations';
 import { REMOVE_REVIEW } from '../graphQL/mutations';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Rating } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
 import AlertPopup from './AlertPopup';
 import {
   GET_CAR_REVIEWS,
@@ -120,11 +120,17 @@ const ReviewSection = ({
       {reviewCarPopup ? (
         <div className="popup" onClick={closeOrOpen}>
           <section className="popup-inner" id="popup">
-            <StarRating
-              initialRating={rating}
-              onClick={(rating) => {
-                setRating(rating);
+            <Rating
+              value={rating}
+              onChange={(_event, newRating) => {
+                if (newRating !== null) {
+                  setRating(newRating);
+                }
               }}
+              emptyIcon={
+                <StarIcon style={{ color: 'white', fontSize: '40px' }} />
+              }
+              style={{ fontSize: '40px' }}
             />
             <textarea
               className="text-area"
@@ -177,10 +183,13 @@ const ReviewSection = ({
           <section className="current-user-review">
             <p> Your review: </p>
             <div>
-              <StarRating
-                theme={{ size: 30 }}
-                readOnly={true}
-                initialRating={rating}
+              <Rating
+                value={rating}
+                emptyIcon={
+                  <StarIcon style={{ color: 'white', fontSize: '30px' }} />
+                }
+                size="large"
+                readOnly
               />
               <p>{reviewText}</p>
             </div>
@@ -196,10 +205,13 @@ const ReviewSection = ({
           <section key={review.userID}>
             {review.userID !== userReview?.userID ? (
               <div className="user-review">
-                <StarRating
-                  theme={{ size: 30 }}
-                  readOnly={true}
-                  initialRating={review.rating}
+                <Rating
+                  value={review.rating}
+                  emptyIcon={
+                    <StarIcon style={{ color: 'white', fontSize: '30px' }} />
+                  }
+                  size="large"
+                  readOnly
                 />
                 <p>{review.review}</p>
                 <p className="reviewer">Reviewed by {review.username}</p>
