@@ -204,24 +204,44 @@ const Filterpage = () => {
       return;
     }
 
+    if (JSON.stringify(priceRange) == JSON.stringify([0, 5000])) {
+      if (activeThumb === 1 && newValue[1] > 5000 ) {
+        // do nothing
+      } else {
+        return;
+      }
+    }
+
+    if (JSON.stringify(priceRange) == JSON.stringify([95000, 100000])) {
+      if (activeThumb === 0 && newValue[0] < 95000 ) {
+        // do nothing
+      } else {
+        return;
+      }
+    }
+
     setShownCars([]);
     setVisibleCars(12);
     setLimit(12);
     sessionStorage.setItem('visibleCars', '12');
-    sessionStorage.setItem('priceRange', JSON.stringify(priceRange));
-
+    
     const minDistance = 5000;
-
+    
     if (newValue[1] - newValue[0] < minDistance) {
       if (activeThumb === 0) {
         const clamped = Math.min(newValue[0], 100000 - minDistance);
         setPriceRange([clamped, clamped + minDistance]);
+        sessionStorage.setItem('priceRange', JSON.stringify([clamped, clamped + minDistance]));
       } else {
         const clamped = Math.max(newValue[1], minDistance);
         setPriceRange([clamped - minDistance, clamped]);
+        sessionStorage.setItem('priceRange', JSON.stringify([clamped - minDistance, clamped]));
       }
     } else {
-      setPriceRange(newValue as number[]);
+      if (newValue[1] - newValue[0] != minDistance) {
+        setPriceRange(newValue as number[]);
+        sessionStorage.setItem('priceRange', JSON.stringify(newValue));
+      }
     }
   };
 
