@@ -86,7 +86,6 @@ const Filterpage = () => {
         filters: {
           company:
             selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
-          year: 4 /* Skriv noe her! */,
           carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
         },
         offset: visibleCars - 12,
@@ -231,16 +230,13 @@ const Filterpage = () => {
       if (activeThumb === 0) {
         const clamped = Math.min(newValue[0], 100000 - minDistance);
         setPriceRange([clamped, clamped + minDistance]);
-        sessionStorage.setItem('priceRange', JSON.stringify([clamped, clamped + minDistance]));
       } else {
         const clamped = Math.max(newValue[1], minDistance);
         setPriceRange([clamped - minDistance, clamped]);
-        sessionStorage.setItem('priceRange', JSON.stringify([clamped - minDistance, clamped]));
       }
     } else {
       if (newValue[1] - newValue[0] != minDistance) {
         setPriceRange(newValue as number[]);
-        sessionStorage.setItem('priceRange', JSON.stringify(newValue));
       }
     }
   };
@@ -373,7 +369,7 @@ const Filterpage = () => {
           <div className="slider">
             <Slider
               color="error"
-              getAriaLabel={() => 'Price range'}
+              getAriaLabel={() => 'Year range'}
               value={yearRange}
               min={1943}
               max={2023}

@@ -7,7 +7,6 @@ export interface carArgs {
 
 interface carsFilters {
   company: string | undefined;
-  year: number | undefined;
   carBody: string | undefined;
 }
 
