@@ -235,9 +235,7 @@ const Filterpage = () => {
         setPriceRange([clamped - minDistance, clamped]);
       }
     } else {
-      if (newValue[1] - newValue[0] != minDistance) {
-        setPriceRange(newValue as number[]);
-      }
+      setPriceRange(newValue as number[]);
     }
   };
 
@@ -248,6 +246,22 @@ const Filterpage = () => {
   ) => {
     if (!Array.isArray(newValue)) {
       return;
+    }
+
+    if (JSON.stringify(yearRange) == JSON.stringify([1943, 1948])) {
+      if (activeThumb === 1 && newValue[1] > 1948 ) {
+        // do nothing
+      } else {
+        return;
+      }
+    }
+
+    if (JSON.stringify(yearRange) == JSON.stringify([2018, 2023])) {
+      if (activeThumb === 0 && newValue[0] < 2018 ) {
+        // do nothing
+      } else {
+        return;
+      }
     }
 
     setShownCars([]);
@@ -262,8 +276,11 @@ const Filterpage = () => {
         const clamped = Math.min(newValue[0], 2023 - minDistance);
         setYearRange([clamped, clamped + minDistance]);
       } else {
-        const clamped = Math.max(newValue[1], minDistance);
-        setYearRange([clamped - minDistance, clamped]);
+        if (yearRange[0] != 1943) {
+          const clamped = Math.max(newValue[1], minDistance);
+          console.log(clamped)
+          setYearRange([clamped - minDistance, clamped]);
+        }
       }
     } else {
       setYearRange(newValue as number[]);
