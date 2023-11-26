@@ -66,13 +66,30 @@ h1 {
     height: 4rem;
   }
 
+  .header-logo.open {
+    position: fixed;
+    margin-left: 8px;
+  }
+
   .header-container {
     justify-content: right;
+  }
+
+  .header-container.open {
+    margin-bottom: 60px;
+  }
+
+  .bottom-link {
+    margin-bottom: 2rem;
   }
 
   .checkbtn {
     display: block;
     z-index: 200;
+  }
+
+  .checkbtn.open {
+    position: fixed;
   }
 
   .pages-menu {
@@ -82,7 +99,7 @@ h1 {
     position: fixed;
     left: 0;
     width: 100vw;
-    height: 85vh;
+    height: fit-content;
     border-bottom: 0.2rem solid red;
     justify-content: start;
     background-color: #202020;

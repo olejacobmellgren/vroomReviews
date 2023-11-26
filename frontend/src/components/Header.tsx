@@ -25,7 +25,7 @@ const Header = ({
   }
 
   return (
-    <header className="header-container">
+    <header className={`header-container ${isChecked ? 'open' : ''}`}>
       <input
         className="check"
         checked={isChecked}
@@ -33,7 +33,7 @@ const Header = ({
         type="checkbox"
         id="check"
       />
-      <label className="checkbtn" htmlFor="check">
+      <label className={`checkbtn ${isChecked ? 'open' : ''}`} htmlFor="check">
         <img
           className="burger-menu"
           src="https://www.pngkit.com/png/full/239-2394744_icon-open-nav-icon-white.png"
@@ -43,7 +43,9 @@ const Header = ({
       <NavLink to="/project2" onClick={() => handlePage('home')}>
         <img
           className={
-            page === 'home' ? 'header-logo' : 'header-logo gray-text-logo'
+            page === 'home'
+              ? `header-logo ${isChecked ? 'open' : ''}`
+              : `header-logo gray-text-logo ${isChecked ? 'open' : ''}`
           }
           src={logo}
           alt="site-logo"
@@ -66,7 +68,7 @@ const Header = ({
         </NavLink>
         <NavLink
           to="/project2/reviewedcars"
-          className={page === 'reviews' ? 'normal' : 'normal grey-text'}
+          className={page === 'reviews' ? 'bottom-link normal' : 'bottom-link normal grey-text'}
           onClick={() => handlePage('reviews')}
         >
           <h1>My Reviews</h1>
