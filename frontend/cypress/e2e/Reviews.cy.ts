@@ -34,9 +34,7 @@ describe('Review cars', () => {
 
     // Check if review is added
     cy.contains('Your review').should('exist');
-    cy.contains('This is a successful test review for Roma').should(
-      'exist',
-    );
+    cy.contains('This is a successful test review for Roma').should('exist');
 
     // Check if both reviews are present
     cy.contains('My Reviews').click();
@@ -46,9 +44,7 @@ describe('Review cars', () => {
     cy.contains('This is a successful test review for 812 Superfast').should(
       'exist',
     );
-    cy.contains('This is a successful test review for Roma').should(
-      'exist',
-    );
+    cy.contains('This is a successful test review for Roma').should('exist');
 
     // Delete review for Ferrari-812 Superfast and confirm
     cy.get('[alt="Ferrari-812 Superfast"]').click();
@@ -68,9 +64,7 @@ describe('Review cars', () => {
     cy.url().should('include', 'reviewedcars');
     cy.get('[alt="Ferrari-812 Superfast"]').should('not.exist');
     cy.get('[alt="Ferrari-Roma"]').should('exist');
-    cy.contains('This is a successful test review for Roma').should(
-      'exist',
-    );
+    cy.contains('This is a successful test review for Roma').should('exist');
     cy.contains('This is a successful test review for 812 Superfast').should(
       'not.exist',
     );
@@ -83,9 +77,7 @@ describe('Review cars', () => {
 
     // Check if review is still present
     cy.contains('Your review').should('exist');
-    cy.contains('This is a successful test review for Roma').should(
-      'exist',
-    );
+    cy.contains('This is a successful test review for Roma').should('exist');
 
     // Delete review for Ferrari-Roma and confirm
     cy.get('u').contains('delete').click();
