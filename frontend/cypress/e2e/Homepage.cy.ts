@@ -44,15 +44,16 @@ describe('Homepage tests', () => {
     cy.visit('http://localhost:5173/project2');
 
     // Check if arrows work
-    cy.get('.right').click({ multiple: true }).click({ multiple: true }).click({ multiple: true });
+    cy.get('.right')
+      .click({ multiple: true });
 
     // Check if carpage is loaded when click from scrollingmenu
-    cy.get('[alt="Ferrari-Portofino M"]').click();
-    cy.url().should('include', 'carpage/Ferrari-Portofino%20M');
+    cy.get('[alt="Ferrari-Roma"]').click();
+    cy.url().should('include', 'carpage/Ferrari-Roma');
 
     // Go back to homepage and check if Ferrari-812 Superfast is present
     cy.go('back');
-    cy.contains('Ferrari').should('exist');
+    cy.get('[alt="Ferrari-812 Superfast"]').should('exist');
     cy.get('[alt="Ferrari-812 Superfast"]').click();
     cy.url().should('include', 'carpage/Ferrari-812%20Superfast');
   });
