@@ -193,12 +193,12 @@ const ReviewSection = ({
               />
               <p>{reviewText}</p>
             </div>
-            <u
+            <button
               className="delete-review"
               onClick={() => setVisibleDeletePopup(true)}
             >
-              delete
-            </u>
+              <u>delete</u>
+            </button>
           </section>
         ) : null}
         {reviews.map((review) => (
