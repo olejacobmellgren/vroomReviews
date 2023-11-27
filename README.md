@@ -38,7 +38,7 @@ Prosjektet ble satt opp med Vite som tilbyr en enkel måte å sette opp et prosj
 
 I vårt prosjekt implementerte vi state management ved hjelp av Redux, et verktøy som hjelper med å organisere og kontrollere delte data i applikasjonen vår. Redux forenkler prosessen med å håndtere og oppdatere den globale tilstanden, og gir en klar struktur som forbedrer vedlikeholdbarheten. Ved hjelp av Redux kunne vi opprette en sentralisert lagringsplass for tilstanden til applikasjonen vår, noe som gjorde det enklere å administrere og sikre konsistens på tvers av ulike komponenter.
 
-I Redux-lageret lagret vi en boolean som fungerte som en bryter. Denne bestemte om bilnavnene skulle vises eller skjules i hele applikasjonen. Når brukere samhandlet med ShowNameCheckbox-komponenten, ble det sendt en "Redux action" for å bytte denne booleanske verdien, noe som utløste en global tilstandoppdatering. Som et resultat reagerte alle tilkoblede komponenter på endringen, og sikret en konsistent visning av bilnavn basert på den sentraliserte tilstanden. Denne tilnærmingen forenklet håndteringen av visningspreferanser, fremmet vedlikeholdbarhet og en skalerbar utviklingsprosess. 
+I Redux-lageret lagret vi en boolean som fungerte som en bryter. Denne bestemte om bilnavnene skulle vises eller skjules i hele applikasjonen. Når brukere samhandlet med ShowNameCheckbox-komponenten, ble det sendt en "Redux action" for å bytte denne booleanske verdien, noe som utløste en global tilstandoppdatering. Som et resultat reagerte alle tilkoblede komponenter på endringen, og sikret en konsistent visning av bilnavn basert på den sentraliserte tilstanden. Denne tilnærmingen forenklet håndteringen av visningspreferanser, fremmet vedlikeholdbarhet og en skalerbar utviklingsprosess.
 
 #### Egendefinert GraphQL backend
 
@@ -75,6 +75,20 @@ Databasen vår er i MongoDB, og vi bruker "mongoose" for å koble til denne data
 **`Favoritepage`**: Denne siden viser hvilke biler som brukeren har favorisert. Slik som Filterpage bruker den `CardForCar` for å vise biler og den bruker også `FavoriteButton` slik at man kan fjerne favoritter også på denne siden.
 
 **`Reviewpage`**: "Reviewpage" viser hvilke biler som brukeren har vurdert. Siden viser hvor mange stjerner og hvilken kommentar brukeren ga bilen. Denne siden bruker også `CardForCar` for å vise biler.
+
+#### Tilgjengelighet
+
+Tilgjengelighet og universell utforming handler om at tjenester i applikasjonen skal være tilgjengelig for alle uansett alder, funksjonsevne eller andre aspekter som gi problemer for forståelse av nettsider. For å ta hensyn til dette har vi implementert flere forskjellige tilpasninger for å gjøre applikasjonen universelt utformet. Målet er å utvikle en løsning som kan brukes av alle slik at spesialløsninger kan unngås.
+
+For å ha god tilgjengelighet har vi implementert støtte for skjermleser (testet med Mac VoiceOver-verktøy), tydelige kontraster og mulighet for å zoome inn. I forbindelse med skjermleser har vi også tatt i bruk "aria-labels" som beskriver et element og støtter opplesing. I tillegg har vi gjort all funksjonalitet tilgjengelig med tastatur for at skjermleser skal fungere med sin hensikt. Dette vil si at man kan navigere seg rundt på siden ved bruk av "tab", "enter", og "mellomrom" og få lest opp hvilke elementer man befinner seg på. Vi har også forsøkt å bruke et enkelt og forståelig språk der teksten er stor og lettlest.
+
+I koden har vi forsøkt å bruke mest mulig semantiske html-elementer for bedre tilgjengelighet. Div-taggen er blant de vanligste html-elementene, men div-taggen og span-taggen er de eneste som har null innebygget tilgjengelighet. Derfor har vi i størst mulig grad forsøkt å unngå disse.
+
+Vi har tatt i bruk verktøyet "Lighthouse" for å validere tilgjengligheten til siden. Dette verktøyet tester aspekter som tilgjengelighet og gir en score ut av 100. Vi analysert de ulike sidene av applikasjonen og fant ut av tilgjengeligheten svært god på alle sider.
+
+#### Bærekraftig
+
+Å utvikle webapplikasjoner bærekraftig vil si at man forsøker å følge prinsipper som minsker datatrafikk og energiforbruk. For å tenke bærekraftig har vi valgt et mørkt tema for nettsiden for å bruke mindre energi. I tillegg har vi forsøkt å holde oss til et få antall farger av samme grunn. For å minske datatrafikk og energibruk har vi valgt å ikke ta i bruk videoer fordi disse er lite bærekraftige i webutvikling. Vi har også valgt innebygde fonter for å unngå unødvendig dataoverføringer.
 
 ### Testing, utvikling og kvalitetskontroll
 
