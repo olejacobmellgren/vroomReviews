@@ -1,7 +1,7 @@
 describe('Review cars', () => {
   it('Review cars carpage and delete', () => {
     // Review Ferrari-812 Superfast
-    cy.visit('http://http://it2810-25.idi.ntnu.no/project2');
+    cy.visit('http://localhost:5173/project2');
     cy.get('[alt="Ferrari-812 Superfast"]').click();
     cy.url().should('include', 'carpage/Ferrari-812%20Superfast');
     cy.get('.button').contains('Review').click();
@@ -21,7 +21,7 @@ describe('Review cars', () => {
     );
 
     // Review Ferrari-Portofino M
-    cy.visit('http://http://it2810-25.idi.ntnu.no/project2');
+    cy.visit('http://localhost:5173/project2');
     cy.get('[alt="Ferrari-Portofino M"]').click();
     cy.url().should('include', 'carpage/Ferrari-Portofino%20M');
     cy.get('.button').contains('Review').click();

@@ -1,6 +1,6 @@
 describe('Favorites', () => {
   it('add and remove favorites', () => {
-    cy.visit('http://http://it2810-25.idi.ntnu.no/project2/');
+    cy.visit('http://localhost:5173/project2');
 
     // Add Ferrari-812 Superfast to favorites
     cy.get('[alt="Ferrari-812 Superfast"]').click();
@@ -11,7 +11,7 @@ describe('Favorites', () => {
     cy.contains('Successfully added to favorites!').should('exist');
 
     // Add Ferrari-Portofino M to favorites
-    cy.visit('http://http://it2810-25.idi.ntnu.no/project2/');
+    cy.visit('http://localhost:5173/project2');
     cy.get('[alt="Ferrari-Portofino M"]').click();
     cy.url().should('include', 'carpage/Ferrari-Portofino%20M');
     cy.get('.heart').click();
@@ -45,7 +45,7 @@ describe('Favorites', () => {
   });
 
   it('explore cars button when no favorites', () => {
-    cy.visit('http://http://it2810-25.idi.ntnu.no/project2/favorites');
+    cy.visit('http://localhost:5173/project2/favorites');
 
     // Check if favorites page is empty and explore button is present
     cy.contains('Explore cars').should('exist');

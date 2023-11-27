@@ -1,6 +1,6 @@
 describe('Homepage tests', () => {
   it('homepage loads correct brands and cars', () => {
-    cy.visit('http://http://it2810-25.idi.ntnu.no/project2');
+    cy.visit('http://localhost:5173/project2');
 
     // Check if all brands are present on first page
     cy.contains('Ferrari').should('exist');
@@ -41,10 +41,10 @@ describe('Homepage tests', () => {
   });
 
   it('arrows for scrolling and click car', () => {
-    cy.visit('http://http://it2810-25.idi.ntnu.no/project2');
+    cy.visit('http://localhost:5173/project2');
 
     // Check if arrows work
-    cy.get('.right').click({ multiple: true });
+    cy.get('.right').click({ multiple: true }).click({ multiple: true }).click({ multiple: true });
 
     // Check if carpage is loaded when click from scrollingmenu
     cy.get('[alt="Ferrari-Portofino M"]').click();
