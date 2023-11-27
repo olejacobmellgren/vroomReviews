@@ -22,7 +22,7 @@ Man kan kjøre applikasjonen lokalt ved å kjøre `npm run dev` i både **backen
 
 Testene for prosjektet kjøres ved `npm run test` i mappen **frontend**. Da vil alle testene for hver test-fil kjøres og resultatet av testene vises i terminalen.
 
-For å kjøre end-to-end testene må man åpne en ny terminal og kjøre `npx cypress open` i **frontend**. Da åpnes en "launchpad" for cypress. Her velger du "E2E Testing" and deretter "Start E2E testing in Chrome". Et nettleser vindu vil åpnes der du kan trykke inn på de forskjellige E2E testene og se disse kjøre i et mindre vindu på siden.
+For å kjøre end-to-end testene må man åpne en ny terminal og kjøre `npx cypress open` i **frontend**. Da åpnes en "launchpad" for cypress. Her velger du "E2E Testing" and deretter "Start E2E testing in Chrome". Et nettleser vindu vil åpnes der du kan trykke inn på de forskjellige E2E testene og se disse kjøre i et mindre vindu på siden. Husk på at du fortsatt må beholde de to andre terminalene der **frontend** og **backend** kjører.
 
 ## Løsninger til krav for prosjekt
 
@@ -38,7 +38,7 @@ Prosjektet ble satt opp med Vite som tilbyr en enkel måte å sette opp et prosj
 
 I vårt prosjekt implementerte vi state management ved hjelp av Redux, et verktøy som hjelper med å organisere og kontrollere delte data i applikasjonen vår. Redux forenkler prosessen med å håndtere og oppdatere den globale tilstanden, og gir en klar struktur som forbedrer vedlikeholdbarheten. Ved hjelp av Redux kunne vi opprette en sentralisert lagringsplass for tilstanden til applikasjonen vår, noe som gjorde det enklere å administrere og sikre konsistens på tvers av ulike komponenter.
 
-I Redux-lageret lagret vi en boolean som fungerte som en bryter. Denne bestemte om bilnavnene skulle vises eller skjules i hele applikasjonen. Når brukere samhandlet med ShowNameCheckbox-komponenten, ble det sendt en "Redux action" for å bytte denne booleanske verdien, noe som utløste en global tilstandoppdatering. Som et resultat reagerte alle tilkoblede komponenter på endringen, og sikret en konsistent visning av bilnavn basert på den sentraliserte tilstanden. Denne tilnærmingen forenklet håndteringen av visningspreferanser, fremmet vedlikeholdbarhet og en skalerbar utviklingsprosess. 
+I Redux-lageret lagret vi en boolean som fungerte som en bryter. Denne bestemte om bilnavnene skulle vises eller skjules i hele applikasjonen. Når brukere samhandlet med ShowNameCheckbox-komponenten, ble det sendt en "Redux action" for å bytte denne booleanske verdien, noe som utløste en global tilstandoppdatering. Som et resultat reagerte alle tilkoblede komponenter på endringen, og sikret en konsistent visning av bilnavn basert på den sentraliserte tilstanden. Denne tilnærmingen forenklet håndteringen av visningspreferanser, fremmet vedlikeholdbarhet og en skalerbar utviklingsprosess.
 
 #### Egendefinert GraphQL backend
 
