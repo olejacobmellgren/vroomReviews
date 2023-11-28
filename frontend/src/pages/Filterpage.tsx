@@ -421,10 +421,17 @@ const Filterpage = () => {
               <h1> Try changing your filters</h1>
             </div>
           ) : (
-            <div>
-              <h1>No cars found!</h1>
-              <h1>Try changing your searchterm</h1>
-            </div>
+            searchTerm !== '' && (selectedFilters.Brand !== 'All' || selectedFilters.Body !== 'All' || JSON.stringify(priceRange) !== JSON.stringify([0, 100000]) || JSON.stringify(yearRange) !== JSON.stringify([1943, 2023])) ? (
+              <div>
+                <h1>No cars found!</h1>
+                <h1>Try changing your filters</h1>
+              </div>
+            ) : (
+              <div>
+                <h1>No cars found!</h1>
+                <h1>Try changing your searchterm</h1>
+              </div>
+            )
           )}
         </div>
       )}
