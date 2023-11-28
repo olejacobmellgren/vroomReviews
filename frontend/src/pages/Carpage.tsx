@@ -143,30 +143,32 @@ const Carpage = () => {
             <div className="info-line"></div>
             <div className="info">
               <table>
-                <tr>
-                  <td>Price</td>
-                  <td>{formattedPrice}</td>
-                </tr>
-                <tr>
-                  <td>Drivetrain</td>
-                  <td>{carDrivetrain}</td>
-                </tr>
-                <tr>
-                  <td>Type</td>
-                  <td>{carBody}</td>
-                </tr>
-                <tr>
-                  <td>Horsepower</td>
-                  <td>{carHorsepower}</td>
-                </tr>
-                <tr>
-                  <td>Number of doors</td>
-                  <td>{carNumOfDoors}</td>
-                </tr>
-                <tr>
-                  <td>Type of engine</td>
-                  <td>{carEngineType}</td>
-                </tr>
+                <tbody>
+                  <tr>
+                    <td>Price</td>
+                    <td>{formattedPrice}</td>
+                  </tr>
+                  <tr>
+                    <td>Drivetrain</td>
+                    <td>{carDrivetrain}</td>
+                  </tr>
+                  <tr>
+                    <td>Type</td>
+                    <td>{carBody}</td>
+                  </tr>
+                  <tr>
+                    <td>Horsepower</td>
+                    <td>{carHorsepower}</td>
+                  </tr>
+                  <tr>
+                    <td>Number of doors</td>
+                    <td>{carNumOfDoors}</td>
+                  </tr>
+                  <tr>
+                    <td>Type of engine</td>
+                    <td>{carEngineType}</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>
