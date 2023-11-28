@@ -33,13 +33,14 @@
   gap: 0.25vh;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 .dropdown-button-inside-wrapper {
   display: flex;
   align-items: center;
   min-width: min-content;
-  width: calc(50% - 0.25vh);
+  width: calc(50% - 0.125vh);
 }
 
 .dropdown-button-inside {
