@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
 import { GET_CARS } from '../graphQL/queries';
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { CarCard } from '../types/CarCard';
 import Slider from '@mui/material/Slider';
 import ShowNameCheckbox from '../components/ShowNameCheckbox';
@@ -54,11 +54,6 @@ const Filterpage = () => {
 
   const [shownCars, setShownCars] = useState<CarCard['car'][]>([]);
 
-  // Get cars using lazy query to dynamically fetch cars
-  const [loadMoreCars, { data }] = useLazyQuery(GET_CARS);
-
-  // Get search term from sessionStorage, if there is one
-  // Makes sure that the search term is not lost when navigating back to the filter page
   const [searchTerm, setSearchTerm] = useState(
     sessionStorage.getItem('searchTerm') || '',
   );
@@ -79,48 +74,37 @@ const Filterpage = () => {
 
   const showCarname = useSelector((state: RootState) => state.showName.value);
 
-  // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
-  useEffect(() => {
-    loadMoreCars({
-      variables: {
-        filters: {
-          company:
-            selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
-          carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
-        },
-        offset: visibleCars - 12,
-        orderBy: {
-          year: !selectedFilters.SortBy.includes('Years')
-            ? null
-            : selectedFilters.SortBy.includes('asc')
-            ? 'asc'
-            : 'desc',
-          price: !selectedFilters.SortBy.includes('Price')
-            ? null
-            : selectedFilters.SortBy.includes('asc')
-            ? 'asc'
-            : 'desc',
-          rating: !selectedFilters.SortBy.includes('Rating')
-            ? null
-            : selectedFilters.SortBy.includes('asc')
-            ? 'asc'
-            : 'desc',
-        },
-        searchTerm: searchTerm,
-        limit: limit,
-        priceRange: priceRange,
-        yearRange: yearRange,
+  const { error, data } = useQuery(GET_CARS, {
+    variables: {
+      filters: {
+        company:
+          selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
+        carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
       },
-    });
-  }, [
-    loadMoreCars,
-    visibleCars,
-    selectedFilters,
-    searchTerm,
-    limit,
-    priceRange,
-    yearRange,
-  ]);
+      offset: visibleCars - 12,
+      orderBy: {
+        year: !selectedFilters.SortBy.includes('Years')
+          ? null
+          : selectedFilters.SortBy.includes('asc')
+          ? 'asc'
+          : 'desc',
+        price: !selectedFilters.SortBy.includes('Price')
+          ? null
+          : selectedFilters.SortBy.includes('asc')
+          ? 'asc'
+          : 'desc',
+        rating: !selectedFilters.SortBy.includes('Rating')
+          ? null
+          : selectedFilters.SortBy.includes('asc')
+          ? 'asc'
+          : 'desc',
+      },
+      searchTerm: searchTerm,
+      limit: limit,
+      priceRange: priceRange,
+      yearRange: yearRange,
+    },
+  })
 
   // Add cars to shownCars when data is fetched
   useEffect(() => {
@@ -328,6 +312,8 @@ const Filterpage = () => {
     sessionStorage.setItem('visibleCars', newVisibleCars.toString());
     setLimit(12);
   };
+
+  if (error) console.log(error);
 
   return (
     <>
