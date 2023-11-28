@@ -23,7 +23,7 @@ function infoDropdown({
     <div className="info-section">
       <div
         className="info-wrapper"
-        style={showInfo ? { height: '18rem' } : { height: '0' }}
+        style={showInfo ? { height: '25rem' } : { height: '0' }}
       >
         <div className="info-line"></div>
         <div className="info">
