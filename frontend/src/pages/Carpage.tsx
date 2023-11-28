@@ -11,10 +11,13 @@ import {
   GET_CAR_REVIEWS,
   GET_COMPANY_BY_NAME,
 } from '../graphQL/queries';
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../redux/configureStore';
+import { toggleShowInfo } from '../redux/showInfoSlice';
 
 const Carpage = () => {
-  const [showInfo, setShowInfo] = useState(false);
+  const dispatch = useDispatch();
+  const showCarInfo = useSelector((state: RootState) => state.showInfo.value);
 
   const { id } = useParams();
   const car = typeof id === 'string' ? id : '';
@@ -131,7 +134,7 @@ const Carpage = () => {
       <div className="info-section">
         <div
           className="info-wrapper"
-          style={showInfo ? { height: '18rem' } : { height: '0' }}
+          style={showCarInfo ? { height: '18rem' } : { height: '0' }}
         >
           <div className="info-line"></div>
           <div className="info">
@@ -166,12 +169,12 @@ const Carpage = () => {
         <div className="info-line">
           <button
             className="info-button"
-            onClick={() => setShowInfo(!showInfo)}
+            onClick={() => dispatch(toggleShowInfo())}
             aria-label="show more info"
           >
             <i
               className={
-                showInfo ? 'arrow-info-button open' : 'arrow-info-button closed'
+                showCarInfo ? 'arrow-info-button open' : 'arrow-info-button closed'
               }
             />
           </button>
