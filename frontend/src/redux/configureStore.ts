@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import showNameReducer from './showNameSlice';
+import showInfoReducer from './showInfoSlice';
 
 export const store = configureStore({
   reducer: {
     showName: showNameReducer,
+    showInfo: showInfoReducer,
   },
 });
 
