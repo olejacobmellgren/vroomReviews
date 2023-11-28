@@ -174,7 +174,9 @@ const Carpage = () => {
           >
             <i
               className={
-                showCarInfo ? 'arrow-info-button open' : 'arrow-info-button closed'
+                showCarInfo
+                  ? 'arrow-info-button open'
+                  : 'arrow-info-button closed'
               }
             />
           </button>
