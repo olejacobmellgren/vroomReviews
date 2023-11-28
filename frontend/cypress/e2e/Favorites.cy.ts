@@ -1,6 +1,6 @@
 describe('Favorites', () => {
   it('add and remove favorites', () => {
-    cy.visit('http://http://it2810-25.idi.ntnu.no/project2/');
+    cy.visit('http://localhost:5173/project2');
 
     // Add Ferrari-812 Superfast to favorites
     cy.get('[alt="Ferrari-812 Superfast"]').click();
@@ -10,10 +10,10 @@ describe('Favorites', () => {
     // Check alert popup shows when adding to favorites
     cy.contains('Successfully added to favorites!').should('exist');
 
-    // Add Ferrari-Portofino M to favorites
-    cy.visit('http://http://it2810-25.idi.ntnu.no/project2/');
-    cy.get('[alt="Ferrari-Portofino M"]').click();
-    cy.url().should('include', 'carpage/Ferrari-Portofino%20M');
+    // Add Roma to favorites
+    cy.visit('http://localhost:5173/project2');
+    cy.get('[alt="Ferrari-Roma"]').click();
+    cy.url().should('include', 'carpage/Ferrari-Roma');
     cy.get('.heart').click();
 
     // Check alert popup shows when adding to favorites
@@ -23,7 +23,7 @@ describe('Favorites', () => {
     cy.contains('My Favorites').click();
     cy.url().should('include', 'favorites');
     cy.get('[alt="Ferrari-812 Superfast"]').should('exist');
-    cy.get('[alt="Ferrari-Portofino M"]').should('exist');
+    cy.get('[alt="Ferrari-Roma"]').should('exist');
 
     // Remove Ferrari-812 Superfast from favorites from carpage
     cy.get('[alt="Ferrari-812 Superfast"]').click();
@@ -36,16 +36,16 @@ describe('Favorites', () => {
     // Check if Ferrari-812 Superfast is removed from favorites
     cy.contains('My Favorites').click();
     cy.url().should('include', 'favorites');
-    cy.get('[alt="Ferrari-Portofino M"]').should('exist');
+    cy.get('[alt="Ferrari-Roma"]').should('exist');
     cy.get('[alt="Ferrari-812 Superfast"]').should('not.exist');
 
-    // Remove Ferrari-Portofino M from favorites from favorites page
+    // Remove Roma from favorites from favorites page
     cy.get('.heart').click();
-    cy.get('[alt="Ferrari-Portofino M"]').should('not.exist');
+    cy.get('[alt="Ferrari-Roma"]').should('not.exist');
   });
 
   it('explore cars button when no favorites', () => {
-    cy.visit('http://http://it2810-25.idi.ntnu.no/project2/favorites');
+    cy.visit('http://localhost:5173/project2/favorites');
 
     // Check if favorites page is empty and explore button is present
     cy.contains('Explore cars').should('exist');

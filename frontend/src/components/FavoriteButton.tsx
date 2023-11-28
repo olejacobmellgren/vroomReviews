@@ -81,7 +81,7 @@ const FavoriteButton = ({ car }: { car: string }) => {
     return <CircularProgress color="warning" />;
 
   return (
-    <figure className="heart-info-container">
+    <figure className="heart-info-container" aria-label="favorite-button">
       <Heart
         width={100}
         className="heart"

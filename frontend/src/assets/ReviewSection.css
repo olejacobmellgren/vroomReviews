@@ -8,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
 }
 
 .popup-inner {
@@ -35,6 +36,7 @@
 
 .text-area {
   background-color: #202020;
+  color: silver;
   padding: 0.75rem;
   margin-top: 1rem;
   border-radius: 0.5rem;
@@ -74,9 +76,15 @@
 
 .delete-review {
   font-size: medium;
-  color: #bd1b12;
+  color: red;
   cursor: pointer;
   margin-top: 1rem;
+  border: none;
+}
+
+.delete-review:hover {
+  background-color: #202020;
+  color: #bd1b12;
 }
 
 .reviewer {
