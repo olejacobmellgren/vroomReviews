@@ -1,6 +1,6 @@
 type InfoDropdownProps = {
   showInfo: boolean;
-  setShowInfo: (showInfo: boolean) => void;
+  toogleShowInfo: () => void;
   formattedPrice: string;
   carDrivetrain: string;
   carBody: string;
@@ -11,7 +11,7 @@ type InfoDropdownProps = {
 
 function infoDropdown({
   showInfo,
-  setShowInfo,
+  toogleShowInfo,
   formattedPrice,
   carDrivetrain,
   carBody,
@@ -60,7 +60,7 @@ function infoDropdown({
       <div className="info-line">
         <button
           className="info-button"
-          onClick={() => setShowInfo(!showInfo)}
+          onClick={() => toogleShowInfo()}
           aria-label="show more info"
         >
           <i
