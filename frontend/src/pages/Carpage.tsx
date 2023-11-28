@@ -12,6 +12,7 @@ import {
   GET_COMPANY_BY_NAME,
 } from '../graphQL/queries';
 import { useState } from 'react';
+import Arrow_left from '../assets/images/arrow-left.png'
 
 const Carpage = () => {
   const [showInfo, setShowInfo] = useState(false);
@@ -90,94 +91,101 @@ const Carpage = () => {
 
   const companyLogo: string = companyData?.company.logo;
 
+  const handlePageBack = () => {
+    window.history.back();
+  }
+
   if (carLoading || reviewsLoading || userReviewLoading || companyLoading)
     return <CircularProgress color="warning" />;
   if (carError || reviewsError || userReviewError || companyError)
     console.log(carError, reviewsError, userReviewError, companyError);
 
   return (
-    <div className="carpage-container">
-      <div className="first-section">
-        <div className="img-wrapper">
-          <img className="carpage-image" src={carImg} alt={carName} />
-        </div>
-        <div className="overview-wrapper">
-          <div className="title-wrapper">
-            <img className="logo-img" src={companyLogo} alt={carCompany} />
-            <h1 className="title"> {carCompany} </h1>
-            <p className="title"> {carName} </p>
-            <p className="year"> {carYear} </p>
+    <>
+      <button className="back-button" onClick={handlePageBack}><img src={Arrow_left} className="back-button-arrow"></img>Go back</button>
+      <div className="carpage-container">
+        <div className="first-section">
+          <div className="img-wrapper">
+            <img className="carpage-image" src={carImg} alt={carName} />
           </div>
-          <div className="rating">
-            <StarRating readOnly={true} initialRating={carRating} />
-            <div className="amount-rating">
-              <p>{Math.round(carData?.car?.rating * 10) / 10} / 5 </p> <p>|</p>
-              <p> {reviewsData.carReviews.length} ratings</p>
+          <div className="overview-wrapper">
+            <div className="title-wrapper">
+              <img className="logo-img" src={companyLogo} alt={carCompany} />
+              <h1 className="title"> {carCompany} </h1>
+              <p className="title"> {carName} </p>
+              <p className="year"> {carYear} </p>
+            </div>
+            <div className="rating">
+              <StarRating readOnly={true} initialRating={carRating} />
+              <div className="amount-rating">
+                <p>{Math.round(carData?.car?.rating * 10) / 10} / 5 </p> <p>|</p>
+                <p> {reviewsData.carReviews.length} ratings</p>
+              </div>
+            </div>
+            <div>
+              <FavoriteButton car={carID} />
             </div>
           </div>
-          <div>
-            <FavoriteButton car={carID} />
-          </div>
         </div>
-      </div>
-      <div className="info-section">
-        <div
-          className="info-wrapper"
-          style={showInfo ? { height: '18rem' } : { height: '0' }}
-        >
-          <div className="info-line"></div>
-          <div className="info">
-            <table>
-              <tr>
-                <td>Price</td>
-                <td>{formattedPrice}</td>
-              </tr>
-              <tr>
-                <td>Drivetrain</td>
-                <td>{carDrivetrain}</td>
-              </tr>
-              <tr>
-                <td>Type</td>
-                <td>{carBody}</td>
-              </tr>
-              <tr>
-                <td>Horsepower</td>
-                <td>{carHorsepower}</td>
-              </tr>
-              <tr>
-                <td>Number of doors</td>
-                <td>{carNumOfDoors}</td>
-              </tr>
-              <tr>
-                <td>Type of engine</td>
-                <td>{carEngineType}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div className="info-line">
-          <button
-            className="info-button"
-            onClick={() => setShowInfo(!showInfo)}
-            aria-label="show more info"
+        <div className="info-section">
+          <div
+            className="info-wrapper"
+            style={showInfo ? { height: '18rem' } : { height: '0' }}
           >
-            <i
-              className={
-                showInfo ? 'arrow-info-button open' : 'arrow-info-button closed'
-              }
-            />
-          </button>
+            <div className="info-line"></div>
+            <div className="info">
+              <table>
+                <tr>
+                  <td>Price</td>
+                  <td>{formattedPrice}</td>
+                </tr>
+                <tr>
+                  <td>Drivetrain</td>
+                  <td>{carDrivetrain}</td>
+                </tr>
+                <tr>
+                  <td>Type</td>
+                  <td>{carBody}</td>
+                </tr>
+                <tr>
+                  <td>Horsepower</td>
+                  <td>{carHorsepower}</td>
+                </tr>
+                <tr>
+                  <td>Number of doors</td>
+                  <td>{carNumOfDoors}</td>
+                </tr>
+                <tr>
+                  <td>Type of engine</td>
+                  <td>{carEngineType}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div className="info-line">
+            <button
+              className="info-button"
+              onClick={() => setShowInfo(!showInfo)}
+              aria-label="show more info"
+            >
+              <i
+                className={
+                  showInfo ? 'arrow-info-button open' : 'arrow-info-button closed'
+                }
+              />
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <ReviewSection
+            userReview={userReviewData.userReviewForCar}
+            reviews={reviewsData.carReviews}
+            carID={carID}
+          />
         </div>
       </div>
-
-      <div>
-        <ReviewSection
-          userReview={userReviewData.userReviewForCar}
-          reviews={reviewsData.carReviews}
-          carID={carID}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 
