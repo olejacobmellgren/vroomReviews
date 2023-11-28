@@ -12,11 +12,14 @@ import {
   GET_CAR_REVIEWS,
   GET_COMPANY_BY_NAME,
 } from '../graphQL/queries';
-import { useState } from 'react';
 import Arrow_left from '../assets/images/arrow-left.png'
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../redux/configureStore';
+import { toggleShowInfo } from '../redux/showInfoSlice';
 
 const Carpage = () => {
-  const [showInfo, setShowInfo] = useState(false);
+  const dispatch = useDispatch();
+  const showCarInfo = useSelector((state: RootState) => state.showInfo.value);
 
   const { id } = useParams();
   const car = typeof id === 'string' ? id : '';
@@ -137,8 +140,8 @@ const Carpage = () => {
           </div>
         </div>
         <InfoDropdown
-          showInfo={showInfo}
-          setShowInfo={setShowInfo}
+          showInfo={showCarInfo}
+          toogleShowInfo={() => dispatch(toggleShowInfo())}
           formattedPrice={formattedPrice}
           carDrivetrain={carDrivetrain}
           carBody={carBody}
