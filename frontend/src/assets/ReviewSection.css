@@ -1,3 +1,7 @@
+.review-button {
+  display: flex;
+}
+
 .popup {
   position: fixed;
   top: 0;

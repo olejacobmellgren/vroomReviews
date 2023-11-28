@@ -6,6 +6,7 @@ import { ADD_REVIEW } from '../graphQL/mutations';
 import { REMOVE_REVIEW } from '../graphQL/mutations';
 import { CircularProgress, Rating } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import AlertPopup from './AlertPopup';
 import {
   GET_CAR_REVIEWS,
@@ -113,8 +114,9 @@ const ReviewSection = ({
   return (
     <>
       {!userReview && !reviewAdded ? (
-        <button className="button" onClick={() => setReviewCarPopup(true)}>
+        <button className="button review-button" onClick={() => setReviewCarPopup(true)}>
           Review this car
+          <RateReviewIcon  style={{marginLeft: "15px", color: "white"}}/>
         </button>
       ) : null}
       {reviewCarPopup ? (
