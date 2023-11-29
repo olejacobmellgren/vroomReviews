@@ -116,7 +116,12 @@ const ReviewSection = ({
     setAlertVisible(true);
   }
 
-  if (addLoading || removeLoading) return <CircularProgress color="warning" />;
+  if (addLoading || removeLoading)
+    return (
+      <div className="circular-progress-wrapper">
+        <CircularProgress color="warning" />
+      </div>
+    );
   if (addError || removeError) setAlertMessage('Something went wrong!');
 
   return (
@@ -147,7 +152,7 @@ const ReviewSection = ({
               emptyIcon={
                 <StarIcon style={{ color: 'grey', fontSize: '3rem' }} />
               }
-              style={{ fontSize: '3.5rem' }}
+              style={{ fontSize: '3rem' }}
             />
             <textarea
               className="text-area"
@@ -215,7 +220,7 @@ const ReviewSection = ({
               <Rating
                 value={rating}
                 emptyIcon={
-                  <StarIcon style={{ color: 'grey', fontSize: '2rem' }} />
+                  <StarIcon style={{ color: 'grey', fontSize: '1.85rem' }} />
                 }
                 size="large"
                 readOnly
@@ -237,7 +242,7 @@ const ReviewSection = ({
                 <Rating
                   value={review.rating}
                   emptyIcon={
-                    <StarIcon style={{ color: 'grey', fontSize: '2rem' }} />
+                    <StarIcon style={{ color: 'grey', fontSize: '1.85rem' }} />
                   }
                   size="large"
                   readOnly

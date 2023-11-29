@@ -23,15 +23,19 @@
 
 .car-name {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  max-width: 18rem;
+  overflow: hidden;
 }
 
 .car-title-wrapper {
   display: flex;
   gap: 1rem;
+  flex-wrap: nowrap;
 }
 
 .car-title {
   margin: 0.5rem 0;
   font-size: 1.75rem;
+  width: max-content;
 }

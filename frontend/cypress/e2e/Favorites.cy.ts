@@ -2,18 +2,19 @@ describe('Favorites', () => {
   it('add and remove favorites', () => {
     cy.visit('http://localhost:5173/project2');
 
-    // Add Ferrari-812 Superfast to favorites
-    cy.get('[alt="Ferrari-812 Superfast"]').click();
-    cy.url().should('include', 'carpage/Ferrari-812%20Superfast');
+    // Add Volvo XC40 to favorites
+    cy.get('[data-testid="NavigateNextIcon"]').click();
+    cy.get('[alt="Volvo-XC40"]').click();
+    cy.url().should('include', 'carpage/Volvo-XC40');
     cy.get('.heart').click();
 
     // Check alert popup shows when adding to favorites
     cy.contains('Successfully added to favorites!').should('exist');
 
-    // Add Roma to favorites
+    // Add Volvo XC60 to favorites
     cy.visit('http://localhost:5173/project2');
-    cy.get('[alt="Ferrari-Roma"]').click();
-    cy.url().should('include', 'carpage/Ferrari-Roma');
+    cy.get('[alt="Volvo-XC60"]').click();
+    cy.url().should('include', 'carpage/Volvo-XC60');
     cy.get('.heart').click();
 
     // Check alert popup shows when adding to favorites
@@ -22,26 +23,26 @@ describe('Favorites', () => {
     // Check if both cars are in favorites
     cy.contains('My Favorites').click();
     cy.url().should('include', 'favorites');
-    cy.get('[alt="Ferrari-812 Superfast"]').should('exist');
-    cy.get('[alt="Ferrari-Roma"]').should('exist');
+    cy.get('[alt="Volvo-XC40"]').should('exist');
+    cy.get('[alt="Volvo-XC60"]').should('exist');
 
-    // Remove Ferrari-812 Superfast from favorites from carpage
-    cy.get('[alt="Ferrari-812 Superfast"]').click();
-    cy.url().should('include', 'carpage/Ferrari-812%20Superfast');
+    // Remove Volvo XC40 from favorites from carpage
+    cy.get('[alt="Volvo-XC40"]').click();
+    cy.url().should('include', 'carpage/Volvo-XC40');
     cy.get('.heart').click();
 
     // Check alert popup shows when removing from favorites
     cy.contains('Successfully removed from favorites!').should('exist');
 
-    // Check if Ferrari-812 Superfast is removed from favorites
+    // Check if Volvo XC40 is removed from favorites
     cy.contains('My Favorites').click();
     cy.url().should('include', 'favorites');
-    cy.get('[alt="Ferrari-Roma"]').should('exist');
-    cy.get('[alt="Ferrari-812 Superfast"]').should('not.exist');
+    cy.get('[alt="Volvo-XC60"]').should('exist');
+    cy.get('[alt="Volvo-XC40"]').should('not.exist');
 
-    // Remove Roma from favorites from favorites page
+    // Remove Volvo XC60 from favorites from favorites page
     cy.get('.heart').click();
-    cy.get('[alt="Ferrari-Roma"]').should('not.exist');
+    cy.get('[alt="Volvo-XC60"]').should('not.exist');
   });
 
   it('explore cars button when no favorites', () => {

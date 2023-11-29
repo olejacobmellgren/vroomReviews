@@ -3,20 +3,62 @@ import '../assets/Homepage.css';
 import CardForCar from './CardForCar';
 import { LeftArrow, RightArrow } from './Arrows';
 import { useQuery } from '@apollo/client';
-import { GET_CARS_BY_COMPANY } from '../graphQL/queries';
-import { CircularProgress } from '@mui/material';
+import { GET_CARS_BY_COMPANY, GET_CARS } from '../graphQL/queries';
+import { CircularProgress, Rating } from '@mui/material';
 import { Car } from '../types/Car';
+import StarIcon from '@mui/icons-material/Star';
 
 interface props {
   brand: string;
 }
 
 const ScrollingMenu: React.FC<props> = ({ brand }) => {
-  const { loading, error, data } = useQuery(GET_CARS_BY_COMPANY, {
+  const {
+    loading: ratedCarsLoading,
+    error: ratedCarsError,
+    data: ratedCarsData,
+  } = useQuery(GET_CARS, {
+    variables: {
+      filters: {
+        company: null,
+        carBody: null,
+      },
+      offset: 0,
+      orderBy: {
+        year: null,
+        price: null,
+        rating: 'desc',
+      },
+      searchTerm: '',
+      limit: 10,
+      priceRange: [0, 100000],
+      yearRange: [1943, 2023],
+    },
+  });
+
+  const {
+    loading: carsLoading,
+    error: carsError,
+    data: carsData,
+  } = useQuery(GET_CARS_BY_COMPANY, {
     variables: { company: brand },
   });
-  if (loading) return <CircularProgress color="warning" />;
-  if (error) console.log(error);
+
+  if (carsLoading)
+    return (
+      <div className="circular-progress-wrapper">
+        <CircularProgress color="warning" />
+      </div>
+    );
+  if (carsError) console.log(carsError);
+
+  if (ratedCarsLoading)
+    return (
+      <div className="circular-progress-wrapper">
+        <CircularProgress color="warning" />
+      </div>
+    );
+  if (ratedCarsError) console.log(ratedCarsError);
 
   return (
     <ScrollMenu
@@ -26,16 +68,38 @@ const ScrollingMenu: React.FC<props> = ({ brand }) => {
       transitionBehavior={'smooth'}
       transitionEase={(t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t)}
     >
-      {data.carsByCompany.map((data: Car) => (
-        <figure className="car scroll-menu-car" key={data?.id}>
-          <CardForCar
-            brand={data.company}
-            model={data.model}
-            carIMG={data.image}
-            showInfo={false}
-          />
-        </figure>
-      ))}
+      {brand === 'TopRatedCar'
+        ? ratedCarsData.cars.cars.map((car: Car) => (
+            <figure className="car scroll-menu-car" key={car?.id}>
+              <CardForCar
+                brand={car.company}
+                model={car.model}
+                carIMG={car.image}
+                showInfo={false}
+              />
+              <div className="review-container">
+                <Rating
+                  value={car.rating}
+                  emptyIcon={
+                    <StarIcon style={{ color: 'grey', fontSize: '1.5rem' }} />
+                  }
+                  size="medium"
+                  readOnly
+                  disabled
+                />
+              </div>
+            </figure>
+          ))
+        : carsData.carsByCompany.map((car: Car) => (
+            <figure className="car scroll-menu-car" key={car?.id}>
+              <CardForCar
+                brand={car.company}
+                model={car.model}
+                carIMG={car.image}
+                showInfo={false}
+              />
+            </figure>
+          ))}
     </ScrollMenu>
   );
 };

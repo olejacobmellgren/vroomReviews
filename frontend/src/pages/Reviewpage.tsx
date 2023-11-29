@@ -21,7 +21,12 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
     },
   });
 
-  if (loading) return <CircularProgress color="warning" />;
+  if (loading)
+    return (
+      <div className="circular-progress-wrapper">
+        <CircularProgress color="warning" />
+      </div>
+    );
   if (error) console.log(error);
 
   // Update sessionStorage so header shows the correct page
@@ -51,7 +56,7 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
                 <Rating
                   value={data.rating}
                   emptyIcon={
-                    <StarIcon style={{ color: 'grey', fontSize: '2rem' }} />
+                    <StarIcon style={{ color: 'grey', fontSize: '1.85rem' }} />
                   }
                   size="large"
                   readOnly

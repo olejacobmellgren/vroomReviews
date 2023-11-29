@@ -253,7 +253,6 @@ const Filterpage = () => {
       } else {
         if (yearRange[0] != 1943) {
           const clamped = Math.max(newValue[1], minDistance);
-          console.log(clamped);
           setYearRange([clamped - minDistance, clamped]);
         }
       }

@@ -43,17 +43,18 @@ describe('Homepage tests', () => {
   it('arrows for scrolling and click car', () => {
     cy.visit('http://localhost:5173/project2');
 
+    cy.get('[data-testid="NavigateNextIcon"]').click();
     // Check if arrows work
     cy.get('.right').click({ multiple: true });
 
     // Check if carpage is loaded when click from scrollingmenu
-    cy.get('[alt="Ferrari-Roma"]').click();
-    cy.url().should('include', 'carpage/Ferrari-Roma');
+    cy.get('[alt="Volvo-XC40"]').click();
+    cy.url().should('include', 'carpage/Volvo-XC40');
 
     // Go back to homepage and check if Ferrari-812 Superfast is present
     cy.go('back');
-    cy.get('[alt="Ferrari-812 Superfast"]').should('exist');
-    cy.get('[alt="Ferrari-812 Superfast"]').click();
-    cy.url().should('include', 'carpage/Ferrari-812%20Superfast');
+    cy.get('[alt="Volvo-XC40"]').should('exist');
+    cy.get('[alt="Volvo-XC40"]').click();
+    cy.url().should('include', 'carpage/Volvo-XC40');
   });
 });

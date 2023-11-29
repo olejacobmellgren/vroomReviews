@@ -100,14 +100,19 @@ const Carpage = () => {
   };
 
   if (carLoading || reviewsLoading || userReviewLoading || companyLoading)
-    return <CircularProgress color="warning" />;
+    return (
+      <div className="circular-progress-wrapper">
+        <CircularProgress color="warning" />
+      </div>
+    );
   if (carError || reviewsError || userReviewError || companyError)
     console.log(carError, reviewsError, userReviewError, companyError);
 
   return (
     <>
       <button className="back-button" onClick={handlePageBack}>
-        <img src={Arrow_left} className="back-button-arrow"></img>Go back
+        <img src={Arrow_left} className="back-button-arrow" alt="Go back"></img>
+        <p>Go back</p>
       </button>
       <div className="carpage-container">
         <div className="first-section">
@@ -126,7 +131,7 @@ const Carpage = () => {
                 precision={0.5}
                 value={carRating}
                 emptyIcon={
-                  <StarIcon style={{ color: 'white', fontSize: '30px' }} />
+                  <StarIcon style={{ color: 'white', fontSize: '1.85rem' }} />
                 }
                 size="large"
                 readOnly
