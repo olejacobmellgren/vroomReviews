@@ -6,6 +6,7 @@ import { ADD_REVIEW } from '../graphQL/mutations';
 import { REMOVE_REVIEW } from '../graphQL/mutations';
 import { CircularProgress, Rating } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import AlertPopup from './AlertPopup';
 import {
@@ -225,7 +226,7 @@ const ReviewSection = ({
               className="delete-review"
               onClick={() => setVisibleDeletePopup(true)}
             >
-              <u>delete</u>
+              <DeleteForeverIcon />
             </button>
           </section>
         ) : null}
