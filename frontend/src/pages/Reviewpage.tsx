@@ -1,14 +1,14 @@
 import CardForCar from '../components/CardForCar';
 import '../assets/Reviewpage.css';
-import { StarRating } from 'star-rating-react-ts';
 import { GET_USER_REVIEWS } from '../graphQL/queries';
 import { useQuery } from '@apollo/client';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Rating } from '@mui/material';
 import { CarCard } from '../types/CarCard';
 import { NavLink } from 'react-router-dom';
 import ShowNameCheckbox from '../components/ShowNameCheckbox';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/configureStore';
+import StarIcon from '@mui/icons-material/Star';
 
 const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
   const showCarname = useSelector((state: RootState) => state.showName.value);
@@ -48,10 +48,13 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
                 showInfo={showCarname}
               />
               <div className="review-container">
-                <StarRating
-                  theme={{ size: 30 }}
-                  readOnly={true}
-                  initialRating={data.rating}
+                <Rating
+                  value={data.rating}
+                  emptyIcon={
+                    <StarIcon style={{ color: 'grey', fontSize: '2rem' }} />
+                  }
+                  size="large"
+                  readOnly
                 />
                 <p>- {data.review}</p>
               </div>

@@ -1,0 +1,123 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ReviewSection Component > matches snapshot 1`] = `
+<DocumentFragment>
+  <section
+    class="reviews"
+  >
+    <h2>
+      There are no reviews yet for this car
+    </h2>
+    <section
+      class="current-user-review"
+    >
+      <p>
+         Your review: 
+      </p>
+      <div>
+        <span
+          aria-label="5 Stars"
+          class="MuiRating-root MuiRating-sizeLarge Mui-readOnly MuiRating-readOnly css-1x1lh1c-MuiRating-root"
+          role="img"
+        >
+          <span>
+            <span
+              class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                data-testid="StarIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                />
+              </svg>
+            </span>
+          </span>
+          <span>
+            <span
+              class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                data-testid="StarIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                />
+              </svg>
+            </span>
+          </span>
+          <span>
+            <span
+              class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                data-testid="StarIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                />
+              </svg>
+            </span>
+          </span>
+          <span>
+            <span
+              class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                data-testid="StarIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                />
+              </svg>
+            </span>
+          </span>
+          <span>
+            <span
+              class="MuiRating-icon MuiRating-iconFilled css-7qmtgc-MuiRating-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                data-testid="StarIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                />
+              </svg>
+            </span>
+          </span>
+        </span>
+        <p>
+          Test review
+        </p>
+      </div>
+      <button
+        class="delete-review"
+      >
+        <u>
+          delete
+        </u>
+      </button>
+    </section>
+  </section>
+</DocumentFragment>
+`;

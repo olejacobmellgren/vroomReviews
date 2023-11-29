@@ -6,6 +6,7 @@ import { ADD_REVIEW } from '../graphQL/mutations';
 import { REMOVE_REVIEW } from '../graphQL/mutations';
 import { CircularProgress, Rating } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import AlertPopup from './AlertPopup';
 import {
   GET_CAR_REVIEWS,
@@ -121,7 +122,7 @@ const ReviewSection = ({
     <>
       {!userReview && !reviewAdded ? (
         <button
-          className="button"
+          className="button review-button"
           onClick={() => {
             setReviewCarPopup(true);
             setReviewText('');
@@ -129,6 +130,7 @@ const ReviewSection = ({
           }}
         >
           Review this car
+          <RateReviewIcon style={{ marginLeft: '1.2rem', color: 'grey' }} />
         </button>
       ) : null}
       {reviewCarPopup ? (
@@ -142,16 +144,16 @@ const ReviewSection = ({
                 }
               }}
               emptyIcon={
-                <StarIcon style={{ color: 'white', fontSize: '40px' }} />
+                <StarIcon style={{ color: 'grey', fontSize: '3rem' }} />
               }
-              style={{ fontSize: '40px' }}
+              style={{ fontSize: '3.5rem' }}
             />
             <textarea
               className="text-area"
               onChange={handleReviewTextChange}
               placeholder="Add a review to your rating"
               cols={28}
-              style={{ height: 'auto', minHeight: '100px' }}
+              style={{ height: 'auto', minHeight: '8rem' }}
             />
             <input
               className="text-area"
@@ -162,7 +164,7 @@ const ReviewSection = ({
               }}
             />
             <section className="review-buttons">
-              <button onClick={handleReviewSubmit} className="button">
+              <button onClick={handleReviewSubmit} className="button green">
                 <p>Submit review</p>
               </button>
               <button
@@ -170,7 +172,7 @@ const ReviewSection = ({
                   setReviewCarPopup(false);
                   setShowError(false);
                 }}
-                className="button"
+                className="button red"
               >
                 <p>Cancel</p>
               </button>
@@ -212,7 +214,7 @@ const ReviewSection = ({
               <Rating
                 value={rating}
                 emptyIcon={
-                  <StarIcon style={{ color: 'white', fontSize: '30px' }} />
+                  <StarIcon style={{ color: 'grey', fontSize: '2rem' }} />
                 }
                 size="large"
                 readOnly
@@ -234,7 +236,7 @@ const ReviewSection = ({
                 <Rating
                   value={review.rating}
                   emptyIcon={
-                    <StarIcon style={{ color: 'white', fontSize: '30px' }} />
+                    <StarIcon style={{ color: 'grey', fontSize: '2rem' }} />
                   }
                   size="large"
                   readOnly
