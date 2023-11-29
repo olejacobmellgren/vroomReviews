@@ -1,7 +1,7 @@
 describe('Review cars', () => {
   it('Review cars carpage and delete', () => {
     // Review Ferrari-812 Superfast
-    cy.visit('http://localhost:5173/project2');
+    cy.visit('http://localhost:5173/project2/filtercars');
     cy.get('[alt="Ferrari-812 Superfast"]').click();
     cy.url().should('include', 'carpage/Ferrari-812%20Superfast');
     cy.get('button').contains('Review').click();
@@ -21,7 +21,7 @@ describe('Review cars', () => {
     );
 
     // Review Ferrari-Roma
-    cy.visit('http://localhost:5173/project2');
+    cy.visit('http://localhost:5173/project2/filtercars');
     cy.get('[alt="Ferrari-Roma"]').click();
     cy.url().should('include', 'carpage/Ferrari-Roma');
     cy.get('button').contains('Review').click();
@@ -49,7 +49,7 @@ describe('Review cars', () => {
     // Delete review for Ferrari-812 Superfast and confirm
     cy.get('[alt="Ferrari-812 Superfast"]').click();
     cy.url().should('include', 'carpage/Ferrari-812%20Superfast');
-    cy.get('u').contains('delete').click();
+    cy.get('.delete-review').click();
     cy.get('button').contains('Confirm').click();
 
     // Check alert popup shows when deleting review
@@ -72,7 +72,7 @@ describe('Review cars', () => {
     // Cancel delete review for Ferrari-Roma
     cy.get('[alt="Ferrari-Roma"]').click();
     cy.url().should('include', 'carpage/Ferrari-Roma');
-    cy.get('u').contains('delete').click();
+    cy.get('.delete-review').click();
     cy.get('button').contains('Cancel').click();
 
     // Check if review is still present
@@ -80,7 +80,7 @@ describe('Review cars', () => {
     cy.contains('This is a successful test review for Roma').should('exist');
 
     // Delete review for Ferrari-Roma and confirm
-    cy.get('u').contains('delete').click();
+    cy.get('.delete-review').click();
     cy.get('button').contains('Confirm').click();
 
     // Check alert popup shows when deleting review
