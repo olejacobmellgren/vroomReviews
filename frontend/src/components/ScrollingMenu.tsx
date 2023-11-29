@@ -44,10 +44,20 @@ const ScrollingMenu: React.FC<props> = ({ brand }) => {
     variables: { company: brand },
   });
 
-  if (carsLoading) return <CircularProgress color="warning" />;
+  if (carsLoading)
+    return (
+      <div className="circular-progress-wrapper">
+        <CircularProgress color="warning" />
+      </div>
+    );
   if (carsError) console.log(carsError);
 
-  if (ratedCarsLoading) return <CircularProgress color="warning" />;
+  if (ratedCarsLoading)
+    return (
+      <div className="circular-progress-wrapper">
+        <CircularProgress color="warning" />
+      </div>
+    );
   if (ratedCarsError) console.log(ratedCarsError);
 
   return (

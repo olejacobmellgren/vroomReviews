@@ -100,7 +100,11 @@ const Carpage = () => {
   };
 
   if (carLoading || reviewsLoading || userReviewLoading || companyLoading)
-    return <CircularProgress color="warning" />;
+    return (
+      <div className="circular-progress-wrapper">
+        <CircularProgress color="warning" />
+      </div>
+    );
   if (carError || reviewsError || userReviewError || companyError)
     console.log(carError, reviewsError, userReviewError, companyError);
 

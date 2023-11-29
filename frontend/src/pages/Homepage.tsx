@@ -47,7 +47,12 @@ const Homepage = () => {
     });
   };
 
-  if (loading) return <CircularProgress color="warning" />;
+  if (loading)
+    return (
+      <div className="circular-progress-wrapper">
+        <CircularProgress color="warning" />
+      </div>
+    );
   if (error) console.log(error);
 
   return (
