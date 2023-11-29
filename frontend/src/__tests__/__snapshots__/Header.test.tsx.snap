@@ -3,7 +3,7 @@
 exports[`Go to different pages 1`] = `
 <DocumentFragment>
   <header
-    class="header-container "
+    class="header-container"
   >
     <input
       class="check"
@@ -11,14 +11,13 @@ exports[`Go to different pages 1`] = `
       type="checkbox"
     />
     <label
-      class="checkbtn "
+      class="checkbtn"
       for="check"
     >
       <img
         alt="burger-menu"
         class="burger-menu"
         src="https://www.pngkit.com/png/full/239-2394744_icon-open-nav-icon-white.png"
-        style="height: 2.5rem;"
       />
     </label>
     <a
@@ -28,7 +27,7 @@ exports[`Go to different pages 1`] = `
     >
       <img
         alt="site-logo"
-        class="header-logo "
+        class="header-logo"
         src="/project2/src/assets/images/logo.png"
       />
     </a>
@@ -53,7 +52,7 @@ exports[`Go to different pages 1`] = `
         </h1>
       </a>
       <a
-        class="bottom-link normal grey-text"
+        class="normal grey-text"
         href="/project2/reviewedcars"
       >
         <h1>
@@ -68,7 +67,7 @@ exports[`Go to different pages 1`] = `
 exports[`Go to different pages 2`] = `
 <DocumentFragment>
   <header
-    class="header-container "
+    class="header-container"
   >
     <input
       class="check"
@@ -76,14 +75,13 @@ exports[`Go to different pages 2`] = `
       type="checkbox"
     />
     <label
-      class="checkbtn "
+      class="checkbtn"
       for="check"
     >
       <img
         alt="burger-menu"
         class="burger-menu"
         src="https://www.pngkit.com/png/full/239-2394744_icon-open-nav-icon-white.png"
-        style="height: 2.5rem;"
       />
     </label>
     <a
@@ -93,7 +91,7 @@ exports[`Go to different pages 2`] = `
     >
       <img
         alt="site-logo"
-        class="header-logo "
+        class="header-logo"
         src="/project2/src/assets/images/logo.png"
       />
     </a>
@@ -118,7 +116,7 @@ exports[`Go to different pages 2`] = `
         </h1>
       </a>
       <a
-        class="bottom-link normal grey-text"
+        class="normal grey-text"
         href="/project2/reviewedcars"
       >
         <h1>
@@ -133,7 +131,7 @@ exports[`Go to different pages 2`] = `
 exports[`Go to different pages 3`] = `
 <DocumentFragment>
   <header
-    class="header-container "
+    class="header-container"
   >
     <input
       class="check"
@@ -141,14 +139,13 @@ exports[`Go to different pages 3`] = `
       type="checkbox"
     />
     <label
-      class="checkbtn "
+      class="checkbtn"
       for="check"
     >
       <img
         alt="burger-menu"
         class="burger-menu"
         src="https://www.pngkit.com/png/full/239-2394744_icon-open-nav-icon-white.png"
-        style="height: 2.5rem;"
       />
     </label>
     <a
@@ -158,7 +155,7 @@ exports[`Go to different pages 3`] = `
     >
       <img
         alt="site-logo"
-        class="header-logo "
+        class="header-logo"
         src="/project2/src/assets/images/logo.png"
       />
     </a>
@@ -183,7 +180,7 @@ exports[`Go to different pages 3`] = `
       </a>
       <a
         aria-current="page"
-        class="bottom-link normal grey-text active"
+        class="normal grey-text active"
         href="/project2/reviewedcars"
       >
         <h1>
