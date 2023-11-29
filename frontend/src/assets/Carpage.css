@@ -8,6 +8,10 @@
   padding: 0;
 }
 
+.favorite-button-wrapper .heart-info-container {
+  margin: 0;
+}
+
 .back-button:hover {
   background-color: transparent;
 }
@@ -220,10 +224,7 @@ tr:nth-child(odd) {
 
   .overview-wrapper {
     width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: column;
   }
 
   .carpage-image {
@@ -242,9 +243,5 @@ tr:nth-child(odd) {
 
   .back-button-arrow {
     margin-right: 0;
-  }
-
-  .rating {
-    align-items: flex-start;
   }
 }

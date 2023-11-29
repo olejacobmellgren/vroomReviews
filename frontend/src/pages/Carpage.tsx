@@ -142,9 +142,9 @@ const Carpage = () => {
                 <p> {reviewsData.carReviews.length} ratings</p>
               </div>
             </div>
-            <div>
+            <section className="favorite-button-wrapper">
               <FavoriteButton car={carID} />
-            </div>
+            </section>
           </div>
         </div>
         <InfoDropdown
