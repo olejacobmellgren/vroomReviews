@@ -1,0 +1,193 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Go to different pages 1`] = `
+<DocumentFragment>
+  <header
+    class="header-container"
+  >
+    <input
+      class="check"
+      id="check"
+      type="checkbox"
+    />
+    <label
+      class="checkbtn"
+      for="check"
+    >
+      <img
+        alt="burger-menu"
+        class="burger-menu"
+        src="https://www.pngkit.com/png/full/239-2394744_icon-open-nav-icon-white.png"
+      />
+    </label>
+    <a
+      aria-current="page"
+      class="active"
+      href="/project2"
+    >
+      <img
+        alt="site-logo"
+        class="header-logo"
+        src="/project2/src/assets/images/logo.png"
+      />
+    </a>
+    <nav
+      class="pages-menu"
+    >
+      <a
+        aria-current="page"
+        class="normal grey-text active"
+        href="/project2/filtercars"
+      >
+        <h1>
+          Search
+        </h1>
+      </a>
+      <a
+        class="normal grey-text"
+        href="/project2/favorites"
+      >
+        <h1>
+          My Favorites
+        </h1>
+      </a>
+      <a
+        class="normal grey-text"
+        href="/project2/reviewedcars"
+      >
+        <h1>
+          My Reviews
+        </h1>
+      </a>
+    </nav>
+  </header>
+</DocumentFragment>
+`;
+
+exports[`Go to different pages 2`] = `
+<DocumentFragment>
+  <header
+    class="header-container"
+  >
+    <input
+      class="check"
+      id="check"
+      type="checkbox"
+    />
+    <label
+      class="checkbtn"
+      for="check"
+    >
+      <img
+        alt="burger-menu"
+        class="burger-menu"
+        src="https://www.pngkit.com/png/full/239-2394744_icon-open-nav-icon-white.png"
+      />
+    </label>
+    <a
+      aria-current="page"
+      class="active"
+      href="/project2"
+    >
+      <img
+        alt="site-logo"
+        class="header-logo"
+        src="/project2/src/assets/images/logo.png"
+      />
+    </a>
+    <nav
+      class="pages-menu"
+    >
+      <a
+        class="normal grey-text"
+        href="/project2/filtercars"
+      >
+        <h1>
+          Search
+        </h1>
+      </a>
+      <a
+        aria-current="page"
+        class="normal grey-text active"
+        href="/project2/favorites"
+      >
+        <h1>
+          My Favorites
+        </h1>
+      </a>
+      <a
+        class="normal grey-text"
+        href="/project2/reviewedcars"
+      >
+        <h1>
+          My Reviews
+        </h1>
+      </a>
+    </nav>
+  </header>
+</DocumentFragment>
+`;
+
+exports[`Go to different pages 3`] = `
+<DocumentFragment>
+  <header
+    class="header-container"
+  >
+    <input
+      class="check"
+      id="check"
+      type="checkbox"
+    />
+    <label
+      class="checkbtn"
+      for="check"
+    >
+      <img
+        alt="burger-menu"
+        class="burger-menu"
+        src="https://www.pngkit.com/png/full/239-2394744_icon-open-nav-icon-white.png"
+      />
+    </label>
+    <a
+      aria-current="page"
+      class="active"
+      href="/project2"
+    >
+      <img
+        alt="site-logo"
+        class="header-logo"
+        src="/project2/src/assets/images/logo.png"
+      />
+    </a>
+    <nav
+      class="pages-menu"
+    >
+      <a
+        class="normal grey-text"
+        href="/project2/filtercars"
+      >
+        <h1>
+          Search
+        </h1>
+      </a>
+      <a
+        class="normal grey-text"
+        href="/project2/favorites"
+      >
+        <h1>
+          My Favorites
+        </h1>
+      </a>
+      <a
+        aria-current="page"
+        class="normal grey-text active"
+        href="/project2/reviewedcars"
+      >
+        <h1>
+          My Reviews
+        </h1>
+      </a>
+    </nav>
+  </header>
+</DocumentFragment>
+`;

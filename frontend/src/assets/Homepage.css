@@ -8,6 +8,11 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
+.scroll-menu-car .car-image {
+  object-fit: contain;
+  width: auto;
+}
+
 .pagination button {
   border: 0.1rem solid rgba(255, 255, 255, 0.4);
   font-size: 1.2rem;
