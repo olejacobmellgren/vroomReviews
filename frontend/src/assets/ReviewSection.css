@@ -92,6 +92,10 @@
   margin-left: 1rem;
 }
 
+.review-error {
+  color: red;
+}
+
 @media (orientation: portrait) {
   .review-buttons {
     flex-direction: column;
