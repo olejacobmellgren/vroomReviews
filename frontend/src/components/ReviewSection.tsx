@@ -120,7 +120,11 @@ const ReviewSection = ({
   return (
     <>
       {!userReview && !reviewAdded ? (
-        <button className="button" onClick={() => setReviewCarPopup(true)}>
+        <button className="button" onClick={() => {
+          setReviewCarPopup(true);
+          setReviewText("");
+          setUsername("");
+        }}>
           Review this car
         </button>
       ) : null}
@@ -159,7 +163,10 @@ const ReviewSection = ({
                 <p>Submit review</p>
               </button>
               <button
-                onClick={() => setReviewCarPopup(false)}
+                onClick={() => {
+                  setReviewCarPopup(false);
+                  setShowError(false)
+                }}
                 className="button"
               >
                 <p>Cancel</p>
