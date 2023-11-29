@@ -116,7 +116,7 @@ const ReviewSection = ({
       {!userReview && !reviewAdded ? (
         <button className="button review-button" onClick={() => setReviewCarPopup(true)}>
           Review this car
-          <RateReviewIcon  style={{marginLeft: "15px", color: "white"}}/>
+          <RateReviewIcon  style={{marginLeft: "1.2rem", color: "grey"}}/>
         </button>
       ) : null}
       {reviewCarPopup ? (
@@ -130,16 +130,16 @@ const ReviewSection = ({
                 }
               }}
               emptyIcon={
-                <StarIcon style={{ color: 'white', fontSize: '40px' }} />
+                <StarIcon style={{ color: 'grey', fontSize: '3rem' }} />
               }
-              style={{ fontSize: '40px' }}
+              style={{ fontSize: '3.5rem' }}
             />
             <textarea
               className="text-area"
               onChange={handleReviewTextChange}
               placeholder="Add a review to your rating"
               cols={28}
-              style={{ height: 'auto', minHeight: '100px' }}
+              style={{ height: 'auto', minHeight: '8rem' }}
             />
             <input
               className="text-area"
@@ -188,7 +188,7 @@ const ReviewSection = ({
               <Rating
                 value={rating}
                 emptyIcon={
-                  <StarIcon style={{ color: 'white', fontSize: '30px' }} />
+                  <StarIcon style={{ color: 'grey', fontSize: '2rem' }} />
                 }
                 size="large"
                 readOnly
@@ -210,7 +210,7 @@ const ReviewSection = ({
                 <Rating
                   value={review.rating}
                   emptyIcon={
-                    <StarIcon style={{ color: 'white', fontSize: '30px' }} />
+                    <StarIcon style={{ color: 'grey', fontSize: '2rem' }} />
                   }
                   size="large"
                   readOnly

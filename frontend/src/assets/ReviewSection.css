@@ -40,20 +40,19 @@
 
 .text-area {
   background-color: #202020;
-  color: silver;
+  color: white;
   padding: 0.75rem;
   margin-top: 1rem;
   border-radius: 0.5rem;
-  border: 1px solid silver;
+  border: 1px solid grey;
   font-size: 1.125rem;
   line-height: 1.75rem;
-  color: silver;
 }
 
 .text {
   font-size: 1.125rem;
   line-height: 1.75rem;
-  color: silver;
+  color: white;
 }
 
 .review-buttons {
@@ -72,10 +71,20 @@
   padding-top: 1rem;
 }
 
+.current-user-review p {
+  font-size: large;
+  color: silver;
+}
+
 .user-review {
   margin-top: 1rem;
   border-top: 0.2rem solid grey;
   padding-top: 1rem;
+}
+
+.user-review p {
+  font-size: large;
+  color: white;
 }
 
 .delete-review {
@@ -93,7 +102,7 @@
 
 .reviewer {
   font-size: large;
-  color: rgb(109, 109, 109);
+  color: silver !important;
   margin-left: 1rem;
 }
 
