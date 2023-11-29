@@ -107,7 +107,8 @@ const Carpage = () => {
   return (
     <>
       <button className="back-button" onClick={handlePageBack}>
-        <img src={Arrow_left} className="back-button-arrow"></img>Go back
+        <img src={Arrow_left} className="back-button-arrow" alt="Go back"></img>
+        <p>Go back</p>
       </button>
       <div className="carpage-container">
         <div className="first-section">

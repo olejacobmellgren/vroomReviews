@@ -147,6 +147,7 @@ const ReviewSection = ({
               emptyIcon={
                 <StarIcon style={{ color: 'grey', fontSize: '3rem' }} />
               }
+              style={{ fontSize: '3rem' }}
             />
             <textarea
               className="text-area"
