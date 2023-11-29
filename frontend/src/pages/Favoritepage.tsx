@@ -36,13 +36,13 @@ const Favoritepage = ({ setPage }: { setPage: (page: string) => void }) => {
 
   return (
     <main>
-      // if user has favorites, show checkbox to show car name
+      {/* if user has favorites, show checkbox to show car name */}
       {data.favoriteCars.length > 0 && (
         <div className="checkbox-container" style={{ marginTop: '80px' }}>
           <ShowNameCheckbox />
         </div>
       )}
-      // if user has favorites, show user favorites, else show text and link to explore
+      {/* if user has favorites, show user favorites, else show text and link to explore */}
       {data.favoriteCars.length > 0 ? (
         <section className="car-list">
           {data.favoriteCars.map((data: CarCard) => (

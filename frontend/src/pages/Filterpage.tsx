@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/configureStore';
 
 const Filterpage = () => {
-  // Initialize filters 
+  // Initialize filters
   const [filters, setFilters] = useState([
     {
       name: 'Brand',
@@ -333,7 +333,7 @@ const Filterpage = () => {
         </div>
       </div>
       <div className="filter-menu">
-        // for each filter, show a dropdownMenu
+        {/* for each filter, show a dropdownMenu */}
         {filters.map((filter, index) => (
           <div className="dropdown-flex" key={index}>
             <DropdownMenu
@@ -353,7 +353,7 @@ const Filterpage = () => {
           </div>
         ))}
       </div>
-      // show sliders for price and year range
+      {/* show sliders for price and year range */}
       <div className="slider-menu">
         <div className="slider-wrapper">
           <div className="slider">
@@ -387,7 +387,7 @@ const Filterpage = () => {
           <p>Year range</p>
         </div>
       </div>
-      // show amount of cars found
+      {/* show amount of cars found */}
       {totalCount !== 0 &&
         (searchTerm !== '' ||
           selectedFilters.Brand !== 'All' ||
@@ -398,11 +398,11 @@ const Filterpage = () => {
             <p>Found {totalCount} cars</p>
           </div>
         )}
-      //show checkbox to show car name
+      {/* show checkbox to show car name */}
       <div className="checkbox-container">
         <ShowNameCheckbox />
       </div>
-      // show cars if there are not any cars, else show text
+      {/* show cars if there are not any cars, else show text */}
       {totalCount !== 0 ? (
         <div className="car-list">
           {shownCars.map((car) => (

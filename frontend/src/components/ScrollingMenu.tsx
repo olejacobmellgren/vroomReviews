@@ -70,7 +70,7 @@ const ScrollingMenu: React.FC<props> = ({ brand }) => {
       transitionBehavior={'smooth'}
       transitionEase={(t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t)}
     >
-      // if brand is TopRatedCar, show top rated cars, else show cars for brand
+      {/* if brand is TopRatedCar, show top rated cars, else show cars for brand */}
       {brand === 'TopRatedCar'
         ? ratedCarsData.cars.cars.map((car: Car) => (
             <figure className="car scroll-menu-car" key={car?.id}>

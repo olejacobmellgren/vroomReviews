@@ -19,8 +19,8 @@ function infoDropdown({
   carNumOfDoors,
   carEngineType,
 }: InfoDropdownProps) {
+  // info section to show more info about car
   return (
-    // info section to show more info about car
     <div className="info-section">
       <div
         className="info-wrapper"
