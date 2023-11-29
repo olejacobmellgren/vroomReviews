@@ -1,3 +1,4 @@
+// Type: Interface for CarCard
 export type CarCard = {
   car: {
     id: string;

@@ -16,9 +16,7 @@ function App() {
   const { loading, error, data } = useQuery(GET_USER_COUNT);
   const [addUser] = useMutation(ADD_USER);
   const currentPage = sessionStorage.getItem('currentPage');
-
   const [page, setPage] = useState(currentPage ? currentPage : 'home');
-
   const userID = localStorage.getItem('userID');
 
   if (loading) return <Spinner color="red.500" size="xl" />;
@@ -41,7 +39,7 @@ function App() {
   }
 
   return (
-    <>
+    <main>
       <div className="App">
         <Header page={page} setPage={setPage} />
         <Routes>
@@ -58,7 +56,7 @@ function App() {
           />
         </Routes>
       </div>
-    </>
+    </main>
   );
 }
 

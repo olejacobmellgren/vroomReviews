@@ -125,7 +125,7 @@ const ReviewSection = ({
   if (addError || removeError) setAlertMessage('Something went wrong!');
 
   return (
-    <>
+    <section>
       {!userReview && !reviewAdded ? (
         <button
           className="button review-button"
@@ -255,7 +255,7 @@ const ReviewSection = ({
         ))}
         <AlertPopup visible={alertVisible} message={alertMessage} />
       </section>
-    </>
+    </section>
   );
 };
 

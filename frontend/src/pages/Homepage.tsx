@@ -20,7 +20,9 @@ interface company {
 }
 
 const Homepage = () => {
+  //How many brands to show on each page
   const increment = 3;
+  // Keep track of what brands are visible
   const [visibleBrands, setVisibleBrands] = useState(
     parseInt(sessionStorage.getItem('visibleBrands') || '0'),
   );
@@ -32,6 +34,7 @@ const Homepage = () => {
     },
   });
 
+  // Change what brands are visible when user changes page
   const handlePageChange = (
     _event: React.ChangeEvent<unknown>,
     value: number,
@@ -47,6 +50,7 @@ const Homepage = () => {
     });
   };
 
+  // return circular progress if loading, consolelog error if error
   if (loading)
     return (
       <div className="circular-progress-wrapper">
@@ -57,6 +61,7 @@ const Homepage = () => {
 
   return (
     <main>
+      {/*on the first page, show top rated cars scrollmenu*/}
       {visibleBrands == 0 && (
         <section className="scroll-menu">
           <div className="scrolling-menu-header">
@@ -69,6 +74,7 @@ const Homepage = () => {
           <ScrollingMenu brand="TopRatedCar" />
         </section>
       )}
+      {/* for each company, show a scrollmenu with their cars */}
       {data.companies.companies.map((data: company, index: number) => (
         <section className="scroll-menu" key={index}>
           <div className="scrolling-menu-header">
@@ -81,6 +87,7 @@ const Homepage = () => {
           <ScrollingMenu brand={data.name} />
         </section>
       ))}
+      {/* pagination to change what brands are visible */}
       <ThemeProvider theme={theme}>
         <Pagination
           className="pagination"
