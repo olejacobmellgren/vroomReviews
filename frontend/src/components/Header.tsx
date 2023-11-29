@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../assets/Header.css';
 import logo from '../assets/images/logo.png';
-import CloseHamburgerIcon from '../assets/images/Close_Hamburger_icon.png'
+import CloseHamburgerIcon from '../assets/images/Close_Hamburger_icon.png';
 
 const Header = ({
   page,
@@ -13,8 +13,8 @@ const Header = ({
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const imageUrl = isChecked
-  ? CloseHamburgerIcon
-  : 'https://www.pngkit.com/png/full/239-2394744_icon-open-nav-icon-white.png';
+    ? CloseHamburgerIcon
+    : 'https://www.pngkit.com/png/full/239-2394744_icon-open-nav-icon-white.png';
 
   // Set page to the page that was selected, and store it in sessionStorage to be able to access it when reloading the page
   function handlePage(page: string) {
@@ -76,7 +76,11 @@ const Header = ({
         </NavLink>
         <NavLink
           to="/project2/reviewedcars"
-          className={page === 'reviews' ? 'bottom-link normal' : 'bottom-link normal grey-text'}
+          className={
+            page === 'reviews'
+              ? 'bottom-link normal'
+              : 'bottom-link normal grey-text'
+          }
           onClick={() => handlePage('reviews')}
         >
           <h1>My Reviews</h1>

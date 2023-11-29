@@ -12,7 +12,7 @@ import {
   GET_CAR_REVIEWS,
   GET_COMPANY_BY_NAME,
 } from '../graphQL/queries';
-import Arrow_left from '../assets/images/arrow-left.png'
+import Arrow_left from '../assets/images/arrow-left.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/configureStore';
 import { toggleShowInfo } from '../redux/showInfoSlice';
@@ -97,7 +97,7 @@ const Carpage = () => {
 
   const handlePageBack = () => {
     window.history.back();
-  }
+  };
 
   if (carLoading || reviewsLoading || userReviewLoading || companyLoading)
     return <CircularProgress color="warning" />;
@@ -106,7 +106,9 @@ const Carpage = () => {
 
   return (
     <>
-      <button className="back-button" onClick={handlePageBack}><img src={Arrow_left} className="back-button-arrow"></img>Go back</button>
+      <button className="back-button" onClick={handlePageBack}>
+        <img src={Arrow_left} className="back-button-arrow"></img>Go back
+      </button>
       <div className="carpage-container">
         <div className="first-section">
           <div className="img-wrapper">
@@ -130,7 +132,8 @@ const Carpage = () => {
                 readOnly
               />
               <div className="amount-rating">
-                <p>{Math.round(carData?.car?.rating * 10) / 10} / 5 </p> <p>|</p>
+                <p>{Math.round(carData?.car?.rating * 10) / 10} / 5 </p>{' '}
+                <p>|</p>
                 <p> {reviewsData.carReviews.length} ratings</p>
               </div>
             </div>

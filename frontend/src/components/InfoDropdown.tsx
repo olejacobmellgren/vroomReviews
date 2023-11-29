@@ -18,7 +18,7 @@ function infoDropdown({
   carHorsepower,
   carNumOfDoors,
   carEngineType,
-  }: InfoDropdownProps) {
+}: InfoDropdownProps) {
   return (
     <div className="info-section">
       <div
@@ -71,7 +71,7 @@ function infoDropdown({
         </button>
       </div>
     </div>
-  )
+  );
 }
 
 export default infoDropdown;

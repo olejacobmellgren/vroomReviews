@@ -114,9 +114,12 @@ const ReviewSection = ({
   return (
     <>
       {!userReview && !reviewAdded ? (
-        <button className="button review-button" onClick={() => setReviewCarPopup(true)}>
+        <button
+          className="button review-button"
+          onClick={() => setReviewCarPopup(true)}
+        >
           Review this car
-          <RateReviewIcon  style={{marginLeft: "1.2rem", color: "grey"}}/>
+          <RateReviewIcon style={{ marginLeft: '1.2rem', color: 'grey' }} />
         </button>
       ) : null}
       {reviewCarPopup ? (
