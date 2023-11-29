@@ -21,6 +21,7 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
     },
   });
 
+  // return circular progress if loading, consolelog error if error
   if (loading)
     return (
       <div className="circular-progress-wrapper">
@@ -37,11 +38,13 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
 
   return (
     <main>
+      // if user has reviews, show checkbox to show car name
       {data.userReviews.length > 0 && (
         <div className="checkbox-container" style={{ marginTop: '80px' }}>
           <ShowNameCheckbox />
         </div>
       )}
+      // if user has reviews, show user reviews, else show text and link to explore
       {data.userReviews.length > 0 ? (
         <section className="car-list">
           {data.userReviews.map((data: CarCard, index: number) => (

@@ -1,3 +1,4 @@
+// Type: Interface for Car
 export type Car = {
   id: string;
   company: string;

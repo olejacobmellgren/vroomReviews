@@ -25,6 +25,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
+// HTTP link to GraphQL server
 const httpLink = new HttpLink({
   uri: 'http://localhost:4000/',
 });
