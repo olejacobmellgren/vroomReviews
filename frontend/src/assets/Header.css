@@ -61,7 +61,6 @@ h1 {
   margin-right: 0.5rem;
 }
 
-
 @media (orientation: portrait) {
   .header-logo {
     height: 4rem;
