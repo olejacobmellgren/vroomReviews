@@ -94,6 +94,7 @@
 
 .review-error {
   color: red;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 @media (orientation: portrait) {

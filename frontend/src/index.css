@@ -52,7 +52,3 @@ button:hover {
 button:active {
   border-color: red;
 }
-
-p {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
