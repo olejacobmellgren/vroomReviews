@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import ReviewSection from '../components/ReviewSection';
 import FavoriteButton from '../components/FavoriteButton';
+import InfoDropdown from '../components/InfoDropdown';
 import '../assets/Carpage.css';
 import { CircularProgress, Rating } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
@@ -11,6 +12,7 @@ import {
   GET_CAR_REVIEWS,
   GET_COMPANY_BY_NAME,
 } from '../graphQL/queries';
+import Arrow_left from '../assets/images/arrow-left.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/configureStore';
 import { toggleShowInfo } from '../redux/showInfoSlice';
@@ -93,104 +95,72 @@ const Carpage = () => {
 
   const companyLogo: string = companyData?.company.logo;
 
+  const handlePageBack = () => {
+    window.history.back();
+  };
+
   if (carLoading || reviewsLoading || userReviewLoading || companyLoading)
     return <CircularProgress color="warning" />;
   if (carError || reviewsError || userReviewError || companyError)
     console.log(carError, reviewsError, userReviewError, companyError);
 
   return (
-    <div className="carpage-container">
-      <div className="first-section">
-        <div className="img-wrapper">
-          <img className="carpage-image" src={carImg} alt={carName} />
-        </div>
-        <div className="overview-wrapper">
-          <div className="title-wrapper">
-            <img className="logo-img" src={companyLogo} alt={carCompany} />
-            <h1 className="title"> {carCompany} </h1>
-            <p className="title"> {carName} </p>
-            <p className="year"> {carYear} </p>
+    <>
+      <button className="back-button" onClick={handlePageBack}>
+        <img src={Arrow_left} className="back-button-arrow"></img>Go back
+      </button>
+      <div className="carpage-container">
+        <div className="first-section">
+          <div className="img-wrapper">
+            <img className="carpage-image" src={carImg} alt={carName} />
           </div>
-          <div className="rating">
-            <Rating
-              precision={0.5}
-              value={carRating}
-              emptyIcon={
-                <StarIcon style={{ color: 'white', fontSize: '30px' }} />
-              }
-              size="large"
-              readOnly
-            />
-            <div className="amount-rating">
-              <p>{Math.round(carData?.car?.rating * 10) / 10} / 5 </p> <p>|</p>
-              <p> {reviewsData.carReviews.length} ratings</p>
+          <div className="overview-wrapper">
+            <div className="title-wrapper">
+              <img className="logo-img" src={companyLogo} alt={carCompany} />
+              <h1 className="title"> {carCompany} </h1>
+              <p className="title"> {carName} </p>
+              <p className="year"> {carYear} </p>
+            </div>
+            <div className="rating">
+              <Rating
+                precision={0.5}
+                value={carRating}
+                emptyIcon={
+                  <StarIcon style={{ color: 'white', fontSize: '30px' }} />
+                }
+                size="large"
+                readOnly
+              />
+              <div className="amount-rating">
+                <p>{Math.round(carData?.car?.rating * 10) / 10} / 5 </p>{' '}
+                <p>|</p>
+                <p> {reviewsData.carReviews.length} ratings</p>
+              </div>
+            </div>
+            <div>
+              <FavoriteButton car={carID} />
             </div>
           </div>
-          <div>
-            <FavoriteButton car={carID} />
-          </div>
         </div>
-      </div>
-      <div className="info-section">
-        <div
-          className="info-wrapper"
-          style={showCarInfo ? { height: '18rem' } : { height: '0' }}
-        >
-          <div className="info-line"></div>
-          <div className="info">
-            <table>
-              <tr>
-                <td>Price</td>
-                <td>{formattedPrice}</td>
-              </tr>
-              <tr>
-                <td>Drivetrain</td>
-                <td>{carDrivetrain}</td>
-              </tr>
-              <tr>
-                <td>Type</td>
-                <td>{carBody}</td>
-              </tr>
-              <tr>
-                <td>Horsepower</td>
-                <td>{carHorsepower}</td>
-              </tr>
-              <tr>
-                <td>Number of doors</td>
-                <td>{carNumOfDoors}</td>
-              </tr>
-              <tr>
-                <td>Type of engine</td>
-                <td>{carEngineType}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div className="info-line">
-          <button
-            className="info-button"
-            onClick={() => dispatch(toggleShowInfo())}
-            aria-label="show more info"
-          >
-            <i
-              className={
-                showCarInfo
-                  ? 'arrow-info-button open'
-                  : 'arrow-info-button closed'
-              }
-            />
-          </button>
-        </div>
-      </div>
-
-      <div>
-        <ReviewSection
-          userReview={userReviewData.userReviewForCar}
-          reviews={reviewsData.carReviews}
-          carID={carID}
+        <InfoDropdown
+          showInfo={showCarInfo}
+          toogleShowInfo={() => dispatch(toggleShowInfo())}
+          formattedPrice={formattedPrice}
+          carDrivetrain={carDrivetrain}
+          carBody={carBody}
+          carHorsepower={carHorsepower}
+          carNumOfDoors={carNumOfDoors}
+          carEngineType={carEngineType}
         />
+        <div>
+          <ReviewSection
+            userReview={userReviewData.userReviewForCar}
+            reviews={reviewsData.carReviews}
+            carID={carID}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
