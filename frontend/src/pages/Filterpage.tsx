@@ -77,8 +77,7 @@ const Filterpage = () => {
   const { error, data } = useQuery(GET_CARS, {
     variables: {
       filters: {
-        company:
-          selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
+        company: selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
         carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
       },
       offset: visibleCars - 12,
@@ -104,7 +103,7 @@ const Filterpage = () => {
       priceRange: priceRange,
       yearRange: yearRange,
     },
-  })
+  });
 
   // Add cars to shownCars when data is fetched
   useEffect(() => {
@@ -125,7 +124,7 @@ const Filterpage = () => {
             : filter,
         ),
       );
-      setUpdateOptionsCounter({Brand: false, Body: false, SortBy: false})
+      setUpdateOptionsCounter({ Brand: false, Body: false, SortBy: false });
     }
   }, [data]);
 
@@ -150,7 +149,11 @@ const Filterpage = () => {
       [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
     }));
     if (!initialLoad) {
-      setUpdateOptionsCounter({Brand: filterName !== 'Brand', Body: filterName !== 'Body', SortBy: false})
+      setUpdateOptionsCounter({
+        Brand: filterName !== 'Brand',
+        Body: filterName !== 'Body',
+        SortBy: false,
+      });
       setShownCars([]);
       setVisibleCars(12);
       setLimit(12);
@@ -176,7 +179,7 @@ const Filterpage = () => {
     }
 
     if (JSON.stringify(priceRange) == JSON.stringify([0, 5000])) {
-      if (activeThumb === 1 && newValue[1] > 5000 ) {
+      if (activeThumb === 1 && newValue[1] > 5000) {
         // do nothing
       } else {
         return;
@@ -184,7 +187,7 @@ const Filterpage = () => {
     }
 
     if (JSON.stringify(priceRange) == JSON.stringify([95000, 100000])) {
-      if (activeThumb === 0 && newValue[0] < 95000 ) {
+      if (activeThumb === 0 && newValue[0] < 95000) {
         // do nothing
       } else {
         return;
@@ -195,9 +198,9 @@ const Filterpage = () => {
     setVisibleCars(12);
     setLimit(12);
     sessionStorage.setItem('visibleCars', '12');
-    
+
     const minDistance = 5000;
-    
+
     if (newValue[1] - newValue[0] < minDistance) {
       if (activeThumb === 0) {
         const clamped = Math.min(newValue[0], 100000 - minDistance);
@@ -221,7 +224,7 @@ const Filterpage = () => {
     }
 
     if (JSON.stringify(yearRange) == JSON.stringify([1943, 1948])) {
-      if (activeThumb === 1 && newValue[1] > 1948 ) {
+      if (activeThumb === 1 && newValue[1] > 1948) {
         // do nothing
       } else {
         return;
@@ -229,7 +232,7 @@ const Filterpage = () => {
     }
 
     if (JSON.stringify(yearRange) == JSON.stringify([2018, 2023])) {
-      if (activeThumb === 0 && newValue[0] < 2018 ) {
+      if (activeThumb === 0 && newValue[0] < 2018) {
         // do nothing
       } else {
         return;
@@ -250,7 +253,7 @@ const Filterpage = () => {
       } else {
         if (yearRange[0] != 1943) {
           const clamped = Math.max(newValue[1], minDistance);
-          console.log(clamped)
+          console.log(clamped);
           setYearRange([clamped - minDistance, clamped]);
         }
       }
@@ -282,7 +285,7 @@ const Filterpage = () => {
       setVisibleCars(12);
       setLimit(12);
       sessionStorage.setItem('visibleCars', '12');
-      setUpdateOptionsCounter({Brand: true, Body: true, SortBy: false})
+      setUpdateOptionsCounter({ Brand: true, Body: true, SortBy: false });
       setSearchTerm(value);
     }, 250);
   };
@@ -409,18 +412,20 @@ const Filterpage = () => {
               <h1>No cars found!</h1>
               <h1> Try changing your filters</h1>
             </div>
+          ) : searchTerm !== '' &&
+            (selectedFilters.Brand !== 'All' ||
+              selectedFilters.Body !== 'All' ||
+              JSON.stringify(priceRange) !== JSON.stringify([0, 100000]) ||
+              JSON.stringify(yearRange) !== JSON.stringify([1943, 2023])) ? (
+            <div>
+              <h1>No cars found!</h1>
+              <h1>Try changing your filters</h1>
+            </div>
           ) : (
-            searchTerm !== '' && (selectedFilters.Brand !== 'All' || selectedFilters.Body !== 'All' || JSON.stringify(priceRange) !== JSON.stringify([0, 100000]) || JSON.stringify(yearRange) !== JSON.stringify([1943, 2023])) ? (
-              <div>
-                <h1>No cars found!</h1>
-                <h1>Try changing your filters</h1>
-              </div>
-            ) : (
-              <div>
-                <h1>No cars found!</h1>
-                <h1>Try changing your searchterm</h1>
-              </div>
-            )
+            <div>
+              <h1>No cars found!</h1>
+              <h1>Try changing your searchterm</h1>
+            </div>
           )}
         </div>
       )}
