@@ -1,28 +1,25 @@
 .back-button {
   position: relative;
-  margin: 35px 0px 0px 2vw;
+  margin: 1.5rem 0px 0px 2vw;
   display: flex;
   align-items: center;
+  color: white;
+  border: none;
+  padding: 0;
+}
+
+.back-button:hover {
+  background-color: transparent;
 }
 
 .back-button-arrow {
-  width: 35px;
-  margin-right: 10px;
+  width: 2rem;
+  margin-right: 0.8rem;
   transition: transform 0.3s ease-out;
 }
 
 .back-button:hover .back-button-arrow {
   transform: translateX(-5px);
-}
-
-@media (max-width: 500px) {
-  .back-button {
-    font-size: 0;
-  }
-
-  .back-button-arrow {
-    margin-right: 0;
-  }
 }
 
 .carpage-container {
@@ -236,5 +233,13 @@ tr:nth-child(odd) {
 
   td {
     padding: 0.8rem 1rem 0.8rem 1rem;
+  }
+
+  .back-button {
+    font-size: 0;
+  }
+
+  .back-button-arrow {
+    margin-right: 0;
   }
 }
