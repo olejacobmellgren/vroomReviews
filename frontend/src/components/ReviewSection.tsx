@@ -6,6 +6,7 @@ import { ADD_REVIEW } from '../graphQL/mutations';
 import { REMOVE_REVIEW } from '../graphQL/mutations';
 import { CircularProgress, Rating } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import AlertPopup from './AlertPopup';
 import {
@@ -34,6 +35,7 @@ const ReviewSection = ({
   const [rating, setRating] = useState(userReview?.rating || 0);
   const [reviewText, setReviewText] = useState(userReview?.review || '');
   const [alertVisible, setAlertVisible] = useState(false);
+  const [showError, setShowError] = useState(false);
   const amountOfReviews = reviews.length;
 
   // Add or remove review from database, refetch queries to update cache with reviews
@@ -85,17 +87,23 @@ const ReviewSection = ({
     event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     setReviewText(event.target.value);
+    setShowError(false);
     event.target.style.height = 'auto';
     event.target.style.height = event.target.scrollHeight + 'px';
   };
 
   // Add review to database
   function handleReviewSubmit() {
-    addReview();
-    setReviewAdded(true);
-    setReviewCarPopup(false);
-    setAlertMessage('Successfully added review!');
-    setAlertVisible(true);
+    if (reviewText.length !== 0 && username.length !== 0) {
+      setShowError(false);
+      addReview();
+      setReviewAdded(true);
+      setReviewCarPopup(false);
+      setAlertMessage('Successfully added review!');
+      setAlertVisible(true);
+    } else {
+      setShowError(true);
+    }
   }
 
   // Delete review from database
@@ -116,7 +124,11 @@ const ReviewSection = ({
       {!userReview && !reviewAdded ? (
         <button
           className="button review-button"
-          onClick={() => setReviewCarPopup(true)}
+          onClick={() => {
+            setReviewCarPopup(true);
+            setReviewText('');
+            setUsername('');
+          }}
         >
           Review this car
           <RateReviewIcon style={{ marginLeft: '1.2rem', color: 'grey' }} />
@@ -147,19 +159,31 @@ const ReviewSection = ({
             <input
               className="text-area"
               placeholder="Name"
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                setShowError(false);
+              }}
             />
             <section className="review-buttons">
               <button onClick={handleReviewSubmit} className="button green">
                 <p>Submit review</p>
               </button>
               <button
-                onClick={() => setReviewCarPopup(false)}
+                onClick={() => {
+                  setReviewCarPopup(false);
+                  setShowError(false);
+                }}
                 className="button red"
               >
                 <p>Cancel</p>
               </button>
             </section>
+            {showError &&
+              (reviewText.length == 0 ? (
+                <p className="review-error">Review can't be empty</p>
+              ) : (
+                <p className="review-error">Username can't be empty</p>
+              ))}
           </section>
         </div>
       ) : null}
@@ -202,7 +226,7 @@ const ReviewSection = ({
               className="delete-review"
               onClick={() => setVisibleDeletePopup(true)}
             >
-              <u>delete</u>
+              <DeleteForeverIcon />
             </button>
           </section>
         ) : null}
