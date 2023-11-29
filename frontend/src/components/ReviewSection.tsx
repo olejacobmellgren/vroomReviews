@@ -33,7 +33,7 @@ const ReviewSection = ({
   const [rating, setRating] = useState(userReview?.rating || 0);
   const [reviewText, setReviewText] = useState(userReview?.review || '');
   const [alertVisible, setAlertVisible] = useState(false);
-  const [showError, setShowError] = useState(false)
+  const [showError, setShowError] = useState(false);
   const amountOfReviews = reviews.length;
 
   // Add or remove review from database, refetch queries to update cache with reviews
@@ -85,7 +85,7 @@ const ReviewSection = ({
     event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     setReviewText(event.target.value);
-    setShowError(false)
+    setShowError(false);
     event.target.style.height = 'auto';
     event.target.style.height = event.target.scrollHeight + 'px';
   };
@@ -93,14 +93,14 @@ const ReviewSection = ({
   // Add review to database
   function handleReviewSubmit() {
     if (reviewText.length !== 0 && username.length !== 0) {
-      setShowError(false)
+      setShowError(false);
       addReview();
       setReviewAdded(true);
       setReviewCarPopup(false);
       setAlertMessage('Successfully added review!');
       setAlertVisible(true);
     } else {
-      setShowError(true)
+      setShowError(true);
     }
   }
 
@@ -120,11 +120,14 @@ const ReviewSection = ({
   return (
     <>
       {!userReview && !reviewAdded ? (
-        <button className="button" onClick={() => {
-          setReviewCarPopup(true);
-          setReviewText("");
-          setUsername("");
-        }}>
+        <button
+          className="button"
+          onClick={() => {
+            setReviewCarPopup(true);
+            setReviewText('');
+            setUsername('');
+          }}
+        >
           Review this car
         </button>
       ) : null}
@@ -155,7 +158,7 @@ const ReviewSection = ({
               placeholder="Name"
               onChange={(e) => {
                 setUsername(e.target.value);
-                setShowError(false)
+                setShowError(false);
               }}
             />
             <section className="review-buttons">
@@ -165,19 +168,19 @@ const ReviewSection = ({
               <button
                 onClick={() => {
                   setReviewCarPopup(false);
-                  setShowError(false)
+                  setShowError(false);
                 }}
                 className="button"
               >
                 <p>Cancel</p>
               </button>
             </section>
-            {showError && (
-              (reviewText.length == 0) ? 
-                <p className="review-error">Review can't be empty</p> :
+            {showError &&
+              (reviewText.length == 0 ? (
+                <p className="review-error">Review can't be empty</p>
+              ) : (
                 <p className="review-error">Username can't be empty</p>
-              )
-            }
+              ))}
           </section>
         </div>
       ) : null}
