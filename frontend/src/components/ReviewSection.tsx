@@ -147,7 +147,6 @@ const ReviewSection = ({
               emptyIcon={
                 <StarIcon style={{ color: 'grey', fontSize: '3rem' }} />
               }
-              style={{ fontSize: '3.5rem' }}
             />
             <textarea
               className="text-area"
@@ -215,7 +214,7 @@ const ReviewSection = ({
               <Rating
                 value={rating}
                 emptyIcon={
-                  <StarIcon style={{ color: 'grey', fontSize: '2rem' }} />
+                  <StarIcon style={{ color: 'grey', fontSize: '1.85rem' }} />
                 }
                 size="large"
                 readOnly
@@ -237,7 +236,7 @@ const ReviewSection = ({
                 <Rating
                   value={review.rating}
                   emptyIcon={
-                    <StarIcon style={{ color: 'grey', fontSize: '2rem' }} />
+                    <StarIcon style={{ color: 'grey', fontSize: '1.85rem' }} />
                   }
                   size="large"
                   readOnly

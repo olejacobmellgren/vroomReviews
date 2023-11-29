@@ -54,9 +54,11 @@ export const GET_CARS = gql`
       yearRange: $yearRange
     ) {
       cars {
+        id
         company
         model
         image
+        rating
       }
       totalCount
       carBodies

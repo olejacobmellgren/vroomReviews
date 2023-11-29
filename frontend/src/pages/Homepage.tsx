@@ -6,6 +6,7 @@ import Pagination from '@mui/material/Pagination';
 import { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
+import StarIcon from '@mui/icons-material/Star';
 
 const theme = createTheme({
   palette: {
@@ -51,10 +52,22 @@ const Homepage = () => {
 
   return (
     <main>
+      {visibleBrands == 0 && (
+        <section className="scroll-menu">
+          <div className="scrolling-menu-header">
+            <div className="element" />
+            <h1>Top Rated Cars</h1>
+            <figure className="brand-logo-wrapper">
+              <StarIcon style={{ color: '#FBAF23', fontSize: '4rem' }} />
+            </figure>
+          </div>
+          <ScrollingMenu brand="TopRatedCar" />
+        </section>
+      )}
       {data.companies.companies.map((data: company, index: number) => (
         <section className="scroll-menu" key={index}>
           <div className="scrolling-menu-header">
-            <div className="element"></div>
+            <div className="element" />
             <h1>{data.name}</h1>
             <figure className="brand-logo-wrapper">
               <img className="brand-logo" src={data.logo} alt={data.name} />

@@ -126,7 +126,7 @@ const Carpage = () => {
                 precision={0.5}
                 value={carRating}
                 emptyIcon={
-                  <StarIcon style={{ color: 'white', fontSize: '30px' }} />
+                  <StarIcon style={{ color: 'white', fontSize: '1.85rem' }} />
                 }
                 size="large"
                 readOnly

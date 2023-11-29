@@ -51,7 +51,7 @@ const Reviewpage = ({ setPage }: { setPage: (page: string) => void }) => {
                 <Rating
                   value={data.rating}
                   emptyIcon={
-                    <StarIcon style={{ color: 'grey', fontSize: '2rem' }} />
+                    <StarIcon style={{ color: 'grey', fontSize: '1.85rem' }} />
                   }
                   size="large"
                   readOnly
