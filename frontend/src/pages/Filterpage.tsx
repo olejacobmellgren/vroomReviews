@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/configureStore';
 
 const Filterpage = () => {
+  // Initialize filters 
   const [filters, setFilters] = useState([
     {
       name: 'Brand',
@@ -33,6 +34,7 @@ const Filterpage = () => {
     },
   ]);
 
+  // Get selected filters from sessionStorage or set to default
   const [selectedFilters, setSelectedFilters] = useState({
     Brand: sessionStorage.getItem('Brand') || 'All',
     Body: sessionStorage.getItem('Body') || 'All',
@@ -50,30 +52,36 @@ const Filterpage = () => {
     SortBy: false,
   });
 
+  // Initialize amount of visible cars to 12
   const [visibleCars, setVisibleCars] = useState(12);
 
   const [shownCars, setShownCars] = useState<CarCard['car'][]>([]);
 
+  // Get search term from sessionStorage or set to empty string
   const [searchTerm, setSearchTerm] = useState(
     sessionStorage.getItem('searchTerm') || '',
   );
 
+  // Get amount of visible cars from sessionStorage or set to 12
   const [limit, setLimit] = useState(
     parseInt(sessionStorage.getItem('visibleCars') || '12'),
   );
 
   const [totalCount, setTotalCount] = useState(0);
 
+  // Get price range from sessionStorage or set to default
   const [priceRange, setPriceRange] = useState<number[]>(
     JSON.parse(sessionStorage.getItem('priceRange') || '[0, 100000]'),
   );
 
+  // Get year range from sessionStorage or set to default
   const [yearRange, setYearRange] = useState<number[]>(
     JSON.parse(sessionStorage.getItem('yearRange') || '[1943, 2023]'),
   );
 
   const showCarname = useSelector((state: RootState) => state.showName.value);
 
+  // Get cars from backend
   const { error, data } = useQuery(GET_CARS, {
     variables: {
       filters: {
@@ -169,6 +177,7 @@ const Filterpage = () => {
     );
   };
 
+  // Set price range when user changes slider
   const handlePriceChange = (
     _event: Event,
     newValue: number | number[],
@@ -214,6 +223,7 @@ const Filterpage = () => {
     }
   };
 
+  // Set year range when user changes slider
   const handleYearChange = (
     _event: Event,
     newValue: number | number[],
@@ -323,6 +333,7 @@ const Filterpage = () => {
         </div>
       </div>
       <div className="filter-menu">
+        // for each filter, show a dropdownMenu
         {filters.map((filter, index) => (
           <div className="dropdown-flex" key={index}>
             <DropdownMenu
@@ -342,6 +353,7 @@ const Filterpage = () => {
           </div>
         ))}
       </div>
+      // show sliders for price and year range
       <div className="slider-menu">
         <div className="slider-wrapper">
           <div className="slider">
@@ -375,6 +387,7 @@ const Filterpage = () => {
           <p>Year range</p>
         </div>
       </div>
+      // show amount of cars found
       {totalCount !== 0 &&
         (searchTerm !== '' ||
           selectedFilters.Brand !== 'All' ||
@@ -385,9 +398,11 @@ const Filterpage = () => {
             <p>Found {totalCount} cars</p>
           </div>
         )}
+      //show checkbox to show car name
       <div className="checkbox-container">
         <ShowNameCheckbox />
       </div>
+      // show cars if there are not any cars, else show text
       {totalCount !== 0 ? (
         <div className="car-list">
           {shownCars.map((car) => (

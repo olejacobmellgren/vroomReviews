@@ -93,12 +93,14 @@ const Carpage = () => {
     },
   });
 
+  // Get company logo
   const companyLogo: string = companyData?.company.logo;
 
   const handlePageBack = () => {
     window.history.back();
   };
 
+  // return circular progress if loading, consolelog error if error
   if (carLoading || reviewsLoading || userReviewLoading || companyLoading)
     return (
       <div className="circular-progress-wrapper">
@@ -109,7 +111,7 @@ const Carpage = () => {
     console.log(carError, reviewsError, userReviewError, companyError);
 
   return (
-    <>
+    <section>
       <button className="back-button" onClick={handlePageBack}>
         <img src={Arrow_left} className="back-button-arrow" alt="Go back"></img>
         <p>Go back</p>
@@ -165,7 +167,7 @@ const Carpage = () => {
           />
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

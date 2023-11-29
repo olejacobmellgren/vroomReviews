@@ -13,7 +13,7 @@ function CardForCar({
   showInfo: boolean;
 }) {
   return (
-    <>
+    <section>
       <figure className="card">
         <Link to={`/project2/carpage/${brand}-${model}`}>
           <img src={carIMG} className="car-image" alt={`${brand}-${model}`} />
@@ -27,7 +27,7 @@ function CardForCar({
           </div>
         </div>
       ) : null}
-    </>
+    </section>
   );
 }
 export default CardForCar;

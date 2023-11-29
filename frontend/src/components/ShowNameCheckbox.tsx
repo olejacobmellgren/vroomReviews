@@ -23,6 +23,7 @@ const theme = createTheme({
   },
 });
 
+// Checkbox to show car name
 const ShowNameCheckbox = () => {
   const dispatch = useDispatch();
   const showName = useSelector((state: RootState) => state.showName.value);
