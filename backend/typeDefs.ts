@@ -48,7 +48,6 @@ export const typeDefs = buildSchema(`
 
   input carsFilters {
     company: String
-    year: Int
     carBody: String
   }
 

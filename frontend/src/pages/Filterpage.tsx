@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import '../assets/FilterPage.css';
 import CardForCar from '../components/CardForCar';
 import { GET_CARS } from '../graphQL/queries';
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { CarCard } from '../types/CarCard';
 import Slider from '@mui/material/Slider';
 import ShowNameCheckbox from '../components/ShowNameCheckbox';
@@ -54,11 +54,6 @@ const Filterpage = () => {
 
   const [shownCars, setShownCars] = useState<CarCard['car'][]>([]);
 
-  // Get cars using lazy query to dynamically fetch cars
-  const [loadMoreCars, { data }] = useLazyQuery(GET_CARS);
-
-  // Get search term from sessionStorage, if there is one
-  // Makes sure that the search term is not lost when navigating back to the filter page
   const [searchTerm, setSearchTerm] = useState(
     sessionStorage.getItem('searchTerm') || '',
   );
@@ -79,49 +74,36 @@ const Filterpage = () => {
 
   const showCarname = useSelector((state: RootState) => state.showName.value);
 
-  // Load more cars when the user scrolls to the bottom of the page and clicks "View more"
-  useEffect(() => {
-    loadMoreCars({
-      variables: {
-        filters: {
-          company:
-            selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
-          year: 4 /* Skriv noe her! */,
-          carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
-        },
-        offset: visibleCars - 12,
-        orderBy: {
-          year: !selectedFilters.SortBy.includes('Years')
-            ? null
-            : selectedFilters.SortBy.includes('asc')
-            ? 'asc'
-            : 'desc',
-          price: !selectedFilters.SortBy.includes('Price')
-            ? null
-            : selectedFilters.SortBy.includes('asc')
-            ? 'asc'
-            : 'desc',
-          rating: !selectedFilters.SortBy.includes('Rating')
-            ? null
-            : selectedFilters.SortBy.includes('asc')
-            ? 'asc'
-            : 'desc',
-        },
-        searchTerm: searchTerm,
-        limit: limit,
-        priceRange: priceRange,
-        yearRange: yearRange,
+  const { error, data } = useQuery(GET_CARS, {
+    variables: {
+      filters: {
+        company: selectedFilters.Brand !== 'All' ? selectedFilters.Brand : null,
+        carBody: selectedFilters.Body !== 'All' ? selectedFilters.Body : null,
       },
-    });
-  }, [
-    loadMoreCars,
-    visibleCars,
-    selectedFilters,
-    searchTerm,
-    limit,
-    priceRange,
-    yearRange,
-  ]);
+      offset: visibleCars - 12,
+      orderBy: {
+        year: !selectedFilters.SortBy.includes('Years')
+          ? null
+          : selectedFilters.SortBy.includes('asc')
+          ? 'asc'
+          : 'desc',
+        price: !selectedFilters.SortBy.includes('Price')
+          ? null
+          : selectedFilters.SortBy.includes('asc')
+          ? 'asc'
+          : 'desc',
+        rating: !selectedFilters.SortBy.includes('Rating')
+          ? null
+          : selectedFilters.SortBy.includes('asc')
+          ? 'asc'
+          : 'desc',
+      },
+      searchTerm: searchTerm,
+      limit: limit,
+      priceRange: priceRange,
+      yearRange: yearRange,
+    },
+  });
 
   // Add cars to shownCars when data is fetched
   useEffect(() => {
@@ -142,6 +124,7 @@ const Filterpage = () => {
             : filter,
         ),
       );
+      setUpdateOptionsCounter({ Brand: false, Body: false, SortBy: false });
     }
   }, [data]);
 
@@ -166,20 +149,11 @@ const Filterpage = () => {
       [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
     }));
     if (!initialLoad) {
-      // Create an object to map filter names to update flags
-      const updateFlags: Record<string, boolean> = {
-        Body: filterName !== 'Body',
+      setUpdateOptionsCounter({
         Brand: filterName !== 'Brand',
-      };
-
-      // Set update flags for specified filters
-      setUpdateOptionsCounter((prevSelectedFilters) => ({
-        ...prevSelectedFilters,
-        ...Object.keys(updateFlags).reduce(
-          (acc, key) => ({ ...acc, [key]: updateFlags[key] }),
-          {},
-        ),
-      }));
+        Body: filterName !== 'Body',
+        SortBy: false,
+      });
       setShownCars([]);
       setVisibleCars(12);
       setLimit(12);
@@ -204,11 +178,26 @@ const Filterpage = () => {
       return;
     }
 
+    if (JSON.stringify(priceRange) == JSON.stringify([0, 5000])) {
+      if (activeThumb === 1 && newValue[1] > 5000) {
+        // do nothing
+      } else {
+        return;
+      }
+    }
+
+    if (JSON.stringify(priceRange) == JSON.stringify([95000, 100000])) {
+      if (activeThumb === 0 && newValue[0] < 95000) {
+        // do nothing
+      } else {
+        return;
+      }
+    }
+
     setShownCars([]);
     setVisibleCars(12);
     setLimit(12);
     sessionStorage.setItem('visibleCars', '12');
-    sessionStorage.setItem('priceRange', JSON.stringify(priceRange));
 
     const minDistance = 5000;
 
@@ -234,6 +223,22 @@ const Filterpage = () => {
       return;
     }
 
+    if (JSON.stringify(yearRange) == JSON.stringify([1943, 1948])) {
+      if (activeThumb === 1 && newValue[1] > 1948) {
+        // do nothing
+      } else {
+        return;
+      }
+    }
+
+    if (JSON.stringify(yearRange) == JSON.stringify([2018, 2023])) {
+      if (activeThumb === 0 && newValue[0] < 2018) {
+        // do nothing
+      } else {
+        return;
+      }
+    }
+
     setShownCars([]);
     setVisibleCars(12);
     setLimit(12);
@@ -246,8 +251,11 @@ const Filterpage = () => {
         const clamped = Math.min(newValue[0], 2023 - minDistance);
         setYearRange([clamped, clamped + minDistance]);
       } else {
-        const clamped = Math.max(newValue[1], minDistance);
-        setYearRange([clamped - minDistance, clamped]);
+        if (yearRange[0] != 1943) {
+          const clamped = Math.max(newValue[1], minDistance);
+          console.log(clamped);
+          setYearRange([clamped - minDistance, clamped]);
+        }
       }
     } else {
       setYearRange(newValue as number[]);
@@ -277,6 +285,7 @@ const Filterpage = () => {
       setVisibleCars(12);
       setLimit(12);
       sessionStorage.setItem('visibleCars', '12');
+      setUpdateOptionsCounter({ Brand: true, Body: true, SortBy: false });
       setSearchTerm(value);
     }, 250);
   };
@@ -295,6 +304,8 @@ const Filterpage = () => {
     sessionStorage.setItem('visibleCars', newVisibleCars.toString());
     setLimit(12);
   };
+
+  if (error) console.log(error);
 
   return (
     <>
@@ -353,7 +364,7 @@ const Filterpage = () => {
           <div className="slider">
             <Slider
               color="error"
-              getAriaLabel={() => 'Price range'}
+              getAriaLabel={() => 'Year range'}
               value={yearRange}
               min={1943}
               max={2023}
@@ -400,6 +411,15 @@ const Filterpage = () => {
             <div>
               <h1>No cars found!</h1>
               <h1> Try changing your filters</h1>
+            </div>
+          ) : searchTerm !== '' &&
+            (selectedFilters.Brand !== 'All' ||
+              selectedFilters.Body !== 'All' ||
+              JSON.stringify(priceRange) !== JSON.stringify([0, 100000]) ||
+              JSON.stringify(yearRange) !== JSON.stringify([1943, 2023])) ? (
+            <div>
+              <h1>No cars found!</h1>
+              <h1>Try changing your filters</h1>
             </div>
           ) : (
             <div>
