@@ -125,6 +125,7 @@ const Filterpage = () => {
             : filter,
         ),
       );
+      setUpdateOptionsCounter({Brand: false, Body: false, SortBy: false})
     }
   }, [data]);
 
@@ -149,20 +150,7 @@ const Filterpage = () => {
       [filterName === 'Sort by' ? 'SortBy' : filterName]: selectedValue,
     }));
     if (!initialLoad) {
-      // Create an object to map filter names to update flags
-      const updateFlags: Record<string, boolean> = {
-        Body: filterName !== 'Body',
-        Brand: filterName !== 'Brand',
-      };
-
-      // Set update flags for specified filters
-      setUpdateOptionsCounter((prevSelectedFilters) => ({
-        ...prevSelectedFilters,
-        ...Object.keys(updateFlags).reduce(
-          (acc, key) => ({ ...acc, [key]: updateFlags[key] }),
-          {},
-        ),
-      }));
+      setUpdateOptionsCounter({Brand: filterName !== 'Brand', Body: filterName !== 'Body', SortBy: false})
       setShownCars([]);
       setVisibleCars(12);
       setLimit(12);
@@ -294,6 +282,7 @@ const Filterpage = () => {
       setVisibleCars(12);
       setLimit(12);
       sessionStorage.setItem('visibleCars', '12');
+      setUpdateOptionsCounter({Brand: true, Body: true, SortBy: false})
       setSearchTerm(value);
     }, 250);
   };
