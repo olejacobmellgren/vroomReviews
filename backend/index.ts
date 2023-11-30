@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 
 // Connection link to the MongoDB database
 const MONGODB =
-  'mongodb://admin:gruppe25@it2810-25.idi.ntnu.no:27017/carDatabase?authSource=admin';
+// TODO: Add your MongoDB connection link here
 
 async function startApolloServer() {
   const server = new ApolloServer({
